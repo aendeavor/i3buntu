@@ -5,9 +5,6 @@
 # ? Preconfig
 ##############################################################################################
 
-logFile=.install_log
-writeToLog=( tee -a "${logFile}" )
-
 ece=( sudo echo -e )
 
 installFlags=(--yes --assume-yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages)
@@ -15,22 +12,24 @@ apti=( sudo apt-get install ${installFlags[@]})
 
 ##############################################################################################
 
-${ece[@]} "Going on by installing packages..." | ${writeToLog[@]}
+${ece[@]} "Going on by installing packages..."
 
-${ece[@]} "\nUbuntu critical packages\n" | ${writeToLog[@]}
-${apti[@]} ubuntu-drivers-common | ${writeToLog[@]}
-${ece[@]} "\n" | ${writeToLog[@]}
+${ece[@]} "\nUbuntu critical packages\n"
+${apti[@]} ubuntu-drivers-common
+${ece[@]} "\n"
 
-${ece[@]} "\nVIM\n" | ${writeToLog[@]}
-${apti[@]} vim | ${writeToLog[@]}
-${ece[@]} "\n" | ${writeToLog[@]}
+${ece[@]} "\nVIM\n"
+${apti[@]} vim
+${ece[@]} "\n"
 
-${ece[@]} "\nLightDM\n" | ${writeToLog[@]}
-${apti[@]} lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings | ${writeToLog[@]}
-${ece[@]} "\n" | ${writeToLog[@]}
+${ece[@]} "\nLightDM\n"
+${apti[@]} lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings
+${ece[@]} "\n"
 
-${ece[@]} "\nLightDM\n" | ${writeToLog[@]}
-${apti[@]} i3 wicd | ${writeToLog[@]}
-${ece[@]} "\n" | ${writeToLog[@]}
+${ece[@]} "\nLightDM\n"
+${apti[@]} i3 wicd
+${ece[@]} "\n"
 
-mesa-utils mesa-utils-extra
+${ece[@]} "\nMesa\n"
+${apti[@]} mesa-utils mesa-utils-extra
+${ece[@]} "\n"

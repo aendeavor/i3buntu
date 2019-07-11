@@ -23,3 +23,4 @@ then
 fi
 
 ./removePackages.sh | ${writeToLog[@]}
+./installPackages.sh | ${writeToLog[@]}
