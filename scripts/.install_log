@@ -1,0 +1,28 @@
+
+Installation has begun!
+Start by installing packages...
+
+VIM
+
+Paketlisten werden gelesen...
+Abhängigkeitsbaum wird aufgebaut....
+Statusinformationen werden eingelesen....
+vim ist schon die neueste Version (2:8.0.1453-1ubuntu1.1).
+0 aktualisiert, 0 neu installiert, 0 zu entfernen und 0 nicht aktualisiert.
+
+LightDM
+
+Paketlisten werden gelesen...
+Abhängigkeitsbaum wird aufgebaut....
+Statusinformationen werden eingelesen....
+Die folgenden zusätzlichen Pakete werden installiert:
+  gnome-themes-standard
+Vorgeschlagene Pakete:
+  bindfs desktop-base
+Die folgenden NEUEN Pakete werden installiert:
+  gnome-themes-standard lightdm lightdm-gtk-greeter
+  lightdm-gtk-greeter-settings
+0 aktualisiert, 4 neu installiert, 0 zu entfernen und 0 nicht aktualisiert.
+Es müssen 330 kB an Archiven heruntergeladen werden.
+Nach dieser Operation werden 2.236 kB Plattenplatz zusätzlich benutzt.
+Möchten Sie fortfahren? [J/n] Abbruch.
