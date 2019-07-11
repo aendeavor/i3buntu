@@ -1,0 +1,1173 @@
+# Diese viminfo-Datei wurde von Vim 8.0 generiert.
+# Sie können sie verändern, wenn Sie vorsichtig vorgehen!
+
+# Viminfo version
+|1,4
+
+# Wert von 'encoding', als diese Datei geschrieben wurde
+*encoding=utf-8
+
+
+# hlsearch on (H) or off (h):
+~H
+# Letztes Suchmuster:
+~MSle0~/upgr
+
+# Letztes ErsetzeSuchmuster:
+~MSle0&$
+
+# Letzte ersetzte Zeichenkette:
+$$
+
+# Befehlszeile Geschichte (neueste bis älteste):
+:q
+|2,0,1558718033,,"q"
+:w
+|2,0,1558717368,,"w"
+:vi .bashrc
+|2,0,1558717360,,"vi .bashrc"
+:wq
+|2,0,1558533986,,"wq"
+:q!
+|2,0,1557955572,,"q!"
+:'<,'>q
+|2,0,1557955569,,"'<,'>q"
+:.!s
+|2,0,1555844179,,".!s"
+:wqq
+|2,0,1555766959,,"wqq"
+:Q!
+|2,0,1555766016,,"Q!"
+:Q
+|2,0,1555766014,,"Q"
+:y
+|2,0,1555703771,,"y"
+:s
+|2,0,1555703666,,"s"
+:W
+|2,0,1555703653,,"W"
+:'<,'>wq
+|2,0,1555241292,,"'<,'>wq"
+:%s
+|2,0,1554671687,,"%s"
+:!ls
+|2,0,1554671667,,"!ls"
+:ls
+|2,0,1554671660,,"ls"
+:%s/$/~$/gc
+|2,0,1554671625,,"%s/$/~$/gc"
+:w!
+|2,0,1554292296,,"w!"
+:!vi style.css
+|2,0,1551189167,,"!vi style.css"
+:!cd skeleton.css
+|2,0,1551189161,,"!cd skeleton.css"
+
+# Suchausdruck Geschichte (neueste bis älteste):
+?/upgr
+|2,1,1558533866,47,"upgr"
+?/*
+|2,1,1558368273,47,"*"
+?/[
+|2,1,1558367868,47,"["
+?/error
+|2,1,1557513495,47,"error"
+?/PS1
+|2,1,1556555535,47,"PS1"
+?/lockD
+|2,1,1555862748,47,"lockD"
+?/panel
+|2,1,1555850501,47,"panel"
+?/dash
+|2,1,1555850348,47,"dash"
+?/backgrou
+|2,1,1555850205,47,"backgrou"
+?/lockDi
+|2,1,1555848848,47,"lockDi"
+?/draw-us
+|2,1,1555847979,47,"draw-us"
+?/us
+|2,1,1555847950,47,"us"
+?/background
+|2,1,1555847884,47,"background"
+?/background-colo
+|2,1,1555846780,47,"background-colo"
+?/back
+|2,1,1555846600,47,"back"
+?/backgr
+|2,1,1555846595,47,"backgr"
+?/task
+|2,1,1555846584,47,"task"
+?/das
+|2,1,1555846301,47,"das"
+?/DAS
+|2,1,1555845973,47,"DAS"
+? \<drfb\>
+|2,1,1555844093,,"\\<drfb\\>"
+? \<STACK\>
+|2,1,1555703761,,"\\<STACK\\>"
+?/text64
+|2,1,1555704038,47,"text64"
+? \<checked\>
+|2,1,1555703718,,"\\<checked\\>"
+? \<Checked\>
+|2,1,1555703718,,"\\<Checked\\>"
+? $
+|2,1,1554671625,,"$"
+?/e
+|2,1,1554668366,47,"e"
+?/Anfa
+|2,1,1554668306,47,"Anfa"
+?/anfa
+|2,1,1554668303,47,"anfa"
+?/Zeilenan
+|2,1,1554668300,47,"Zeilenan"
+?/\$
+|2,1,1554668271,47,"\\$"
+?/$
+|2,1,1554668254,47,"$"
+?/modu
+|2,1,1549969123,47,"modu"
+
+# Ausdruck Geschichte (neueste bis älteste):
+
+# Eingabe-Zeile Geschichte (neueste bis älteste):
+
+# Debug-Zeile Geschichte (neueste bis älteste):
+
+# Register:
+"0	CHAR	0
+	--yes --force-yes 
+|3,0,0,0,1,0,1558533961,"--yes --force-yes "
+"1	LINE	0
+	## Colors
+	RED='\e[31m'
+	GREEN='\e[32m'
+	BLUE='\e[34m'
+	YELLOW='\e[33m'
+	NC='\e[39m'
+	
+|3,0,1,1,7,0,1558717366,"## Colors","RED='\\e[31m'","GREEN='\\e[32m'","BLUE='\\e[34m'","YELLOW='\\e[33m'","NC='\\e[39m'",""
+"2	LINE	0
+	        lst[0] = new LinkedList<String>{"Test"};
+|3,0,2,1,1,0,1557955060,"        lst[0] = new LinkedList<String>{\"Test\"};"
+"3	LINE	0
+	        private Node<K, V>[] lst = new Node<>[10];
+|3,0,3,1,1,0,1557954908,"        private Node<K, V>[] lst = new Node<>[10];"
+"4	CHAR	0
+	 private Node<K, V>[] lst = new Node<>[10];
+	
+|3,0,4,0,2,0,1557954900," private Node<K, V>[] lst = new Node<>[10];",""
+"5	LINE	0
+	
+|3,0,5,1,1,0,1557952646,""
+"6	LINE	0
+	package main;
+|3,0,6,1,1,0,1557952645,"package main;"
+"7	LINE	0
+	package main;
+|3,0,7,1,1,0,1557952639,"package main;"
+"8	LINE	0
+	package main;
+|3,0,8,1,1,0,1557952639,"package main;"
+"9	LINE	0
+	
+|3,0,9,1,1,0,1557952630,""
+""-	CHAR	0
+	 
+|3,1,36,0,1,0,1558533982," "
+
+# Datei-Marken:
+'0  76  16  ~/.vimrc
+|4,48,76,16,1558718033,"~/.vimrc"
+'1  12  0  ~/.bash_aliases
+|4,49,12,0,1558717472,"~/.bash_aliases"
+'2  1  0  ~/.profile
+|4,50,1,0,1558717375,"~/.profile"
+'3  83  0  ~/.bashrc
+|4,51,83,0,1558717370,"~/.bashrc"
+'4  1  0  ~/.bash_logout
+|4,52,1,0,1558716805,"~/.bash_logout"
+'5  1  0  ~/.bash_l
+|4,53,1,0,1558716785,"~/.bash_l"
+'6  47  34  ~/.bash_aliases
+|4,54,47,34,1558533986,"~/.bash_aliases"
+'7  47  34  ~/.bash_aliases
+|4,55,47,34,1558533986,"~/.bash_aliases"
+'8  47  34  ~/.bash_aliases
+|4,56,47,34,1558533986,"~/.bash_aliases"
+'9  47  34  ~/.bash_aliases
+|4,57,47,34,1558533986,"~/.bash_aliases"
+
+# Geschichte (neueste zuerst):
+-'  76  16  ~/.vimrc
+|4,39,76,16,1558718033,"~/.vimrc"
+-'  12  0  ~/.bash_aliases
+|4,39,12,0,1558717472,"~/.bash_aliases"
+-'  12  0  ~/.bash_aliases
+|4,39,12,0,1558717472,"~/.bash_aliases"
+-'  1  0  ~/.bash_aliases
+|4,39,1,0,1558717446,"~/.bash_aliases"
+-'  1  0  ~/.bash_aliases
+|4,39,1,0,1558717446,"~/.bash_aliases"
+-'  1  0  ~/.profile
+|4,39,1,0,1558717375,"~/.profile"
+-'  1  0  ~/.profile
+|4,39,1,0,1558717375,"~/.profile"
+-'  1  0  ~/.profile
+|4,39,1,0,1558717375,"~/.profile"
+-'  1  0  ~/.profile
+|4,39,1,0,1558717375,"~/.profile"
+-'  83  0  ~/.bashrc
+|4,39,83,0,1558717370,"~/.bashrc"
+-'  83  0  ~/.bashrc
+|4,39,83,0,1558717370,"~/.bashrc"
+-'  83  0  ~/.bashrc
+|4,39,83,0,1558717370,"~/.bashrc"
+-'  83  0  ~/.bashrc
+|4,39,83,0,1558717370,"~/.bashrc"
+-'  84  0  ~/.bashrc
+|4,39,84,0,1558717366,"~/.bashrc"
+-'  84  0  ~/.bashrc
+|4,39,84,0,1558717366,"~/.bashrc"
+-'  84  0  ~/.bashrc
+|4,39,84,0,1558717366,"~/.bashrc"
+-'  84  0  ~/.bashrc
+|4,39,84,0,1558717366,"~/.bashrc"
+-'  72  0  ~/.bash_aliases
+|4,39,72,0,1558717360,"~/.bash_aliases"
+-'  72  0  ~/.bash_aliases
+|4,39,72,0,1558717360,"~/.bash_aliases"
+-'  72  0  ~/.bash_aliases
+|4,39,72,0,1558717360,"~/.bash_aliases"
+-'  72  0  ~/.bash_aliases
+|4,39,72,0,1558717360,"~/.bash_aliases"
+-'  1  0  ~/.bash_aliases
+|4,39,1,0,1558717312,"~/.bash_aliases"
+-'  1  0  ~/.bash_aliases
+|4,39,1,0,1558717312,"~/.bash_aliases"
+-'  1  0  ~/.bash_logout
+|4,39,1,0,1558716805,"~/.bash_logout"
+-'  1  0  ~/.bash_logout
+|4,39,1,0,1558716805,"~/.bash_logout"
+-'  1  0  ~/.bash_logout
+|4,39,1,0,1558716805,"~/.bash_logout"
+-'  1  0  ~/.bash_logout
+|4,39,1,0,1558716805,"~/.bash_logout"
+-'  1  0  ~/.bash_logout
+|4,39,1,0,1558716805,"~/.bash_logout"
+-'  1  0  ~/.bash_logout
+|4,39,1,0,1558716805,"~/.bash_logout"
+-'  1  0  ~/.bash_logout
+|4,39,1,0,1558716805,"~/.bash_logout"
+-'  1  0  ~/.bash_logout
+|4,39,1,0,1558716805,"~/.bash_logout"
+-'  1  0  ~/.bash_logout
+|4,39,1,0,1558716805,"~/.bash_logout"
+-'  1  0  ~/.bash_logout
+|4,39,1,0,1558716805,"~/.bash_logout"
+-'  1  0  ~/.bash_logout
+|4,39,1,0,1558716805,"~/.bash_logout"
+-'  1  0  ~/.bash_logout
+|4,39,1,0,1558716805,"~/.bash_logout"
+-'  1  0  ~/.bash_l
+|4,39,1,0,1558716785,"~/.bash_l"
+-'  1  0  ~/.bash_l
+|4,39,1,0,1558716785,"~/.bash_l"
+-'  1  0  ~/.bash_l
+|4,39,1,0,1558716785,"~/.bash_l"
+-'  1  0  ~/.bash_l
+|4,39,1,0,1558716785,"~/.bash_l"
+-'  1  0  ~/.bash_l
+|4,39,1,0,1558716785,"~/.bash_l"
+-'  1  0  ~/.bash_l
+|4,39,1,0,1558716785,"~/.bash_l"
+-'  1  0  ~/.bash_l
+|4,39,1,0,1558716785,"~/.bash_l"
+-'  1  0  ~/.bash_l
+|4,39,1,0,1558716785,"~/.bash_l"
+-'  1  0  ~/.bash_l
+|4,39,1,0,1558716785,"~/.bash_l"
+-'  1  0  ~/.bash_l
+|4,39,1,0,1558716785,"~/.bash_l"
+-'  1  0  ~/.bash_l
+|4,39,1,0,1558716785,"~/.bash_l"
+-'  1  0  ~/.bash_l
+|4,39,1,0,1558716785,"~/.bash_l"
+-'  1  0  ~/.bash_l
+|4,39,1,0,1558716785,"~/.bash_l"
+-'  1  0  ~/.bash_l
+|4,39,1,0,1558716785,"~/.bash_l"
+-'  1  0  ~/.bash_l
+|4,39,1,0,1558716785,"~/.bash_l"
+-'  1  0  ~/.bash_l
+|4,39,1,0,1558716785,"~/.bash_l"
+-'  1  0  ~/.bash_l
+|4,39,1,0,1558716785,"~/.bash_l"
+-'  1  0  ~/.bash_l
+|4,39,1,0,1558716785,"~/.bash_l"
+-'  1  0  ~/.bash_l
+|4,39,1,0,1558716785,"~/.bash_l"
+-'  1  0  ~/.bash_l
+|4,39,1,0,1558716785,"~/.bash_l"
+-'  1  0  ~/.bash_l
+|4,39,1,0,1558716785,"~/.bash_l"
+-'  1  0  ~/.bash_l
+|4,39,1,0,1558716785,"~/.bash_l"
+-'  1  0  ~/.bash_l
+|4,39,1,0,1558716785,"~/.bash_l"
+-'  1  0  ~/.bash_l
+|4,39,1,0,1558716785,"~/.bash_l"
+-'  47  34  ~/.bash_aliases
+|4,39,47,34,1558533986,"~/.bash_aliases"
+-'  47  34  ~/.bash_aliases
+|4,39,47,34,1558533986,"~/.bash_aliases"
+-'  47  34  ~/.bash_aliases
+|4,39,47,34,1558533986,"~/.bash_aliases"
+-'  47  34  ~/.bash_aliases
+|4,39,47,34,1558533986,"~/.bash_aliases"
+-'  47  34  ~/.bash_aliases
+|4,39,47,34,1558533986,"~/.bash_aliases"
+-'  47  34  ~/.bash_aliases
+|4,39,47,34,1558533986,"~/.bash_aliases"
+-'  47  34  ~/.bash_aliases
+|4,39,47,34,1558533986,"~/.bash_aliases"
+-'  47  34  ~/.bash_aliases
+|4,39,47,34,1558533986,"~/.bash_aliases"
+-'  47  34  ~/.bash_aliases
+|4,39,47,34,1558533986,"~/.bash_aliases"
+-'  47  34  ~/.bash_aliases
+|4,39,47,34,1558533986,"~/.bash_aliases"
+-'  47  34  ~/.bash_aliases
+|4,39,47,34,1558533986,"~/.bash_aliases"
+-'  47  34  ~/.bash_aliases
+|4,39,47,34,1558533986,"~/.bash_aliases"
+-'  47  34  ~/.bash_aliases
+|4,39,47,34,1558533986,"~/.bash_aliases"
+-'  47  34  ~/.bash_aliases
+|4,39,47,34,1558533986,"~/.bash_aliases"
+-'  47  34  ~/.bash_aliases
+|4,39,47,34,1558533986,"~/.bash_aliases"
+-'  47  34  ~/.bash_aliases
+|4,39,47,34,1558533986,"~/.bash_aliases"
+-'  47  34  ~/.bash_aliases
+|4,39,47,34,1558533986,"~/.bash_aliases"
+-'  47  34  ~/.bash_aliases
+|4,39,47,34,1558533986,"~/.bash_aliases"
+-'  47  34  ~/.bash_aliases
+|4,39,47,34,1558533986,"~/.bash_aliases"
+-'  47  34  ~/.bash_aliases
+|4,39,47,34,1558533986,"~/.bash_aliases"
+-'  1  0  ~/.bash_aliases
+|4,39,1,0,1558533955,"~/.bash_aliases"
+-'  1  0  ~/.bash_aliases
+|4,39,1,0,1558533955,"~/.bash_aliases"
+-'  1  0  ~/.bash_aliases
+|4,39,1,0,1558533955,"~/.bash_aliases"
+-'  1  0  ~/.bash_aliases
+|4,39,1,0,1558533955,"~/.bash_aliases"
+-'  1  0  ~/.bash_aliases
+|4,39,1,0,1558533955,"~/.bash_aliases"
+-'  1  0  ~/.bash_aliases
+|4,39,1,0,1558533955,"~/.bash_aliases"
+-'  1  0  ~/.bash_aliases
+|4,39,1,0,1558533955,"~/.bash_aliases"
+-'  1  0  ~/.bash_aliases
+|4,39,1,0,1558533955,"~/.bash_aliases"
+-'  1  0  ~/.bash_aliases
+|4,39,1,0,1558533955,"~/.bash_aliases"
+-'  1  0  ~/.bash_aliases
+|4,39,1,0,1558533955,"~/.bash_aliases"
+-'  1  0  ~/.bash_aliases
+|4,39,1,0,1558533955,"~/.bash_aliases"
+-'  1  0  ~/.bash_aliases
+|4,39,1,0,1558533955,"~/.bash_aliases"
+-'  1  0  ~/.bash_aliases
+|4,39,1,0,1558533955,"~/.bash_aliases"
+-'  1  0  ~/.bash_aliases
+|4,39,1,0,1558533955,"~/.bash_aliases"
+-'  1  0  ~/.bash_aliases
+|4,39,1,0,1558533955,"~/.bash_aliases"
+-'  1  0  ~/.bash_aliases
+|4,39,1,0,1558533955,"~/.bash_aliases"
+-'  41  42  ~/.bash_aliases
+|4,39,41,42,1558533878,"~/.bash_aliases"
+-'  41  42  ~/.bash_aliases
+|4,39,41,42,1558533878,"~/.bash_aliases"
+-'  41  42  ~/.bash_aliases
+|4,39,41,42,1558533878,"~/.bash_aliases"
+-'  41  42  ~/.bash_aliases
+|4,39,41,42,1558533878,"~/.bash_aliases"
+-'  41  42  ~/.bash_aliases
+|4,39,41,42,1558533878,"~/.bash_aliases"
+
+# Geschichte der Markierungen innerhalb von Dateien (neueste zuerst):
+
+> ~/.vimrc
+	*	1558718032	0
+	"	76	16
+	^	76	17
+	.	76	16
+	+	1	37
+	+	1	12
+	+	1	0
+	+	1	15
+	+	1	9
+	+	1	37
+	+	1	0
+	+	1	16
+	+	1	10
+	+	1	135
+	+	1	0
+	+	1	9
+	+	1	0
+	+	2	0
+	+	76	16
+
+> ~/.bash_aliases
+	*	1558717448	0
+	"	12	0
+	^	47	17
+	.	47	34
+	+	41	42
+	+	44	34
+	+	47	34
+
+> ~/.bashrc
+	*	1558717368	0
+	"	83	0
+	^	61	20
+	.	84	0
+	+	61	19
+	+	84	0
+
+> ~/.profile
+	*	1558716827	0
+	"	1	0
+
+> ~/.bash_logout
+	*	1558716787	0
+	"	1	0
+
+> ~/.bash_l
+	*	1558716782	0
+	"	1	0
+
+> ~/winHDD/ownCloud/Studium/Inhalt/2. FS SoSe19/INF-B-310 SWT/Z/Java Annotations & JavaDoc.md
+	*	1558368358	0
+	"	28	52
+	^	28	50
+	.	28	49
+	+	1	585
+	+	4	0
+	+	2	0
+	+	1	17
+	+	3	580
+	+	3	127
+	+	3	499
+	+	26	115
+	+	5	2
+	+	9	3
+	+	15	3
+	+	22	3
+	+	11	3
+	+	29	0
+	+	34	330
+	+	32	34
+	+	34	25
+	+	32	323
+	+	105	13
+	+	36	2
+	+	37	3
+	+	48	3
+	+	40	0
+	+	39	168
+	+	50	83
+	+	54	3
+	+	58	1
+	+	65	3
+	+	76	1
+	+	83	3
+	+	85	1
+	+	90	1
+	+	92	1
+	+	97	3
+	+	98	1
+	+	99	1
+	+	102	3
+	+	103	1
+	+	104	1
+	+	39	83
+	+	107	51
+	+	28	49
+
+> ~/winHDD/ownCloud/Studium/Zusatz/Lexikon/Reflection.md
+	*	1558368048	0
+	"	3	145
+	^	3	146
+	.	3	145
+	+	3	145
+
+> ~/.update_log
+	*	1558367749	0
+	"	117	0
+
+> ~/winHDD/ownCloud/Studium/Inhalt/2. FS SoSe19/INF-B-310 SWT/INLOOP/Lesson/Collections II (Library with Sets)/src/main/Library.java
+	*	1557955586	0
+	"	47	22
+	.	47	22
+	+	47	22
+
+> ~/Dokumente/Test.java
+	*	1557955570	0
+	"	9	0
+	^	4	30
+	.	4	29
+	+	6	0
+	+	9	0
+	+	8	0
+	+	4	4
+	+	5	0
+	+	8	16
+	+	4	12
+	+	9	0
+	+	4	23
+	+	1	18
+	+	4	47
+	+	8	0
+	+	7	0
+	+	4	53
+	+	3	41
+	+	4	29
+
+> ~/Dokumente/TextFileIterator.java
+	*	1557952646	0
+	"	1	0
+	.	1	0
+	+	1	0
+
+> ~/Dokumente/ResourceType.java
+	*	1557952639	0
+	"	1	0
+	.	1	0
+	+	1	0
+
+> ~/Dokumente/Resource.java
+	*	1557952630	0
+	"	1	0
+	.	1	0
+	+	1	0
+
+> ~/Dokumente/PlainTextCollector.java
+	*	1557952622	0
+	"	1	0
+	.	1	0
+	+	1	0
+
+> ~/Dokumente/KeywordCollector.java
+	*	1557952615	0
+	"	1	0
+	.	1	0
+	+	1	0
+
+> ~/Dokumente/Index.java
+	*	1557952609	0
+	"	1	0
+	.	1	0
+	+	1	0
+
+> ~/Dokumente/DesktopSearch.java
+	*	1557952604	0
+	"	1	0
+	.	1	0
+	+	1	0
+
+> ~/Dokumente/DefaultCollector.java
+	*	1557952597	0
+	"	1	0
+	.	1	0
+	+	1	0
+
+> ~/Dokumente/Checker.java
+	*	1557952586	0
+	"	1	0
+	.	1	0
+	+	1	0
+
+> ~/winHDD/ownCloud/Studium/Inhalt/2. FS SoSe19/INF-B-310 SWT/INLOOP/Lesson/Collections I (Library with Lists)/src/main/Library.java
+	*	1557942735	0
+	"	9	0
+
+> ~/winHDD/ownCloud/Studium/Zusatz/bash/bash_aliases
+	*	1557759498	0
+	"	50	9
+	^	50	10
+	.	50	9
+	+	32	22
+	+	50	9
+
+> ~/winHDD/ownCloud/Studium/Zusatz/bash/bash
+	*	1557759438	0
+	"	1	0
+
+> /tmp/bash-fc.UBDcgK
+	*	1557685546	0
+	"	1	3
+	^	1	4
+	.	1	3
+	+	1	3
+
+> /etc/environment
+	*	1557684796	0
+	"	1	0
+	.	2	0
+	+	2	37
+	+	2	33
+	+	2	0
+	+	2	41
+	+	2	33
+	+	2	41
+	+	2	36
+	+	2	38
+	+	2	0
+
+> ~/Dokumente/test.sh
+	*	1557576606	0
+	"	16	30
+	^	16	31
+	.	16	30
+	+	16	30
+
+> ~/.local/share/recently-used.xbel
+	*	1557575630	0
+	"	1	0
+
+> /home/user/.local/share/recently-used.xbel
+	*	1557575598	0
+	"	1	0
+
+> /tmp/vmware-georg/vmware-vmplayer-7563.log
+	*	1557574560	0
+	"	241	110
+
+> /tmp/vmware-georg/vmware-vmplayer-6170.log
+	*	1557574056	0
+	"	102	80
+
+> /tmp/vmware-georg/vmware-vmplayer-4177.log
+	*	1557513768	0
+	"	280	68
+
+> /media/georg/ACRONIS UR/Ü01/include/node.hpp
+	*	1556136278	0
+	"	1	0
+
+> /media/georg/ACRONIS UR/Ü01/src/node.cpp
+	*	1556136216	0
+	"	1	0
+
+> /media/georg/ACRONIS UR/Ü01/src/main.cpp
+	*	1556136210	0
+	"	27	0
+
+> ~/Dokumente/Library.java
+	*	1556012038	0
+	"	1	0
+	.	1	0
+	+	1	0
+
+> ~/Dokumente/Book.java
+	*	1556012032	0
+	"	1	0
+	.	1	0
+	+	1	0
+
+> ~/Dokumente/Bottle.java
+	*	1556007870	0
+	"	12	27
+	^	17	30
+	.	12	26
+	+	1	0
+	+	10	30
+	+	17	29
+	+	12	26
+
+> ~/Dokumente/Wine.java
+	*	1556007646	0
+	"	1	0
+	.	1	0
+	+	1	0
+
+> ~/Dokumente/WhiteWine.java
+	*	1556007639	0
+	"	1	0
+	.	1	0
+	+	1	0
+
+> ~/Dokumente/RedWine.java
+	*	1556007634	0
+	"	1	0
+	.	1	0
+	+	1	0
+
+> ~/Dokumente/Drink.java
+	*	1556007628	0
+	"	1	0
+	.	1	0
+	+	1	0
+
+> ~/Dokumente/Beer.java
+	*	1556007612	0
+	"	1	0
+	.	1	0
+	+	1	0
+
+> /usr/share/gnome-shell/theme/ubuntu.css
+	*	1555862749	0
+	"	1814	1
+	^	1818	28
+	.	1818	27
+	+	1815	71
+	+	1816	30
+	+	1821	30
+	+	1816	1
+	+	1819	1
+	+	1821	1
+	+	1816	31
+	+	1819	2
+	+	1815	70
+	+	1816	26
+	+	1819	0
+	+	1820	0
+	+	1819	2
+	+	1815	70
+	+	1815	54
+	+	1816	0
+	+	1815	67
+	+	1816	22
+	+	1818	29
+	+	1815	30
+	+	1817	25
+	+	1818	29
+	+	1817	23
+	+	1818	27
+
+> /usr/share/themes/macOS Space-Grey Shell/gnome-shell/gnome-shell.css
+	*	1555850761	0
+	"	776	34
+	^	766	35
+	.	766	34
+	+	1287	34
+	+	1315	35
+	+	1326	35
+	+	1333	35
+	+	1314	24
+	+	1363	24
+	+	722	36
+	+	723	46
+	+	761	34
+	+	766	34
+
+> /usr/share/glib-2.0/schemas/10_unity_greeter_background.gschema.override
+	*	1555848322	0
+	"	3	30
+	^	3	31
+	.	3	30
+	+	3	30
+
+> /usr/share/glib-2.0/schemas/com.canonical.unity-greeter.gschema.xml
+	*	1555848221	0
+	"	5	45
+	^	17	20
+	.	5	48
+	+	5	39
+	+	47	0
+	+	9	54
+	+	13	19
+	+	17	19
+	+	9	0
+	+	5	54
+	+	9	22
+	+	13	19
+	+	17	19
+	+	5	48
+
+> /usr/share/themes/macOS Light Shell/gnome-shell/gnome-shell.css
+	*	1555846805	0
+	"	1259	35
+	^	1259	35
+	.	1259	35
+	+	830	43
+	+	1213	35
+	+	1214	34
+	+	1241	36
+	+	1252	30
+	+	1259	19
+	+	1259	38
+	+	1241	36
+	+	1252	36
+	+	1259	35
+
+> ~/test.md
+	*	1555844282	0
+	"	1	7
+	^	8	7
+	.	8	6
+	+	1	8
+	+	3	24
+	+	4	0
+	+	5	2
+	+	6	0
+	+	7	0
+	+	8	6
+
+> ~/winHDD/ownCloud/Studium/Zusatz/Anderes/UbuntuSetUp.md
+	*	1555768319	0
+	"	22	15
+	^	22	16
+	.	22	15
+	+	1	23
+	+	1	0
+	+	2	27
+	+	2	0
+	+	4	36
+	+	4	47
+	+	6	27
+	+	8	19
+	+	7	10
+	+	9	23
+	+	6	27
+	+	6	41
+	+	7	40
+	+	7	47
+	+	8	28
+	+	8	52
+	+	9	48
+	+	10	10
+	+	6	20
+	+	7	19
+	+	8	19
+	+	9	21
+	+	10	21
+	+	9	29
+	+	10	28
+	+	10	47
+	+	12	4
+	+	3	38
+	+	3	68
+	+	4	2
+	+	5	2
+	+	12	0
+	+	14	0
+	+	3	0
+	+	4	0
+	+	5	0
+	+	6	0
+	+	7	0
+	+	8	0
+	+	9	0
+	+	10	0
+	+	14	2
+	+	11	30
+	+	11	41
+	+	11	64
+	+	14	30
+	+	15	37
+	+	15	45
+	+	16	31
+	+	17	20
+	+	15	36
+	+	18	31
+	+	18	43
+	+	19	0
+	+	18	31
+	+	20	28
+	+	20	79
+	+	20	28
+	+	20	58
+	+	21	0
+	+	19	10
+	+	20	8
+	+	21	33
+	+	22	15
+
+> ~/winHDD/ownCloud/Studium/Zusatz/Java/exceptions.md
+	*	1555704610	0
+	"	17	253
+	^	15	6
+	.	17	253
+	+	4	209
+	+	2	0
+	+	3	0
+	+	4	0
+	+	5	0
+	+	1	11
+	+	7	54
+	+	8	85
+	+	8	281
+	+	8	599
+	+	8	602
+	+	8	683
+	+	9	1
+	+	10	93
+	+	12	242
+	+	12	308
+	+	15	160
+	+	17	280
+	+	12	0
+	+	12	278
+	+	12	237
+	+	12	280
+	+	13	5
+	+	14	5
+	+	15	5
+	+	17	253
+
+> ~/winHDD/ownCloud/Studium/Inhalt/2. FS SoSe19/INF-B-310 SWT/Ü/3 - Java III - Tests mit JUnit & Javadoc/README.md
+	*	1555516094	0
+	"	3	2
+	^	3	3
+	.	3	2
+	+	2	146
+	+	2	141
+	+	2	1
+	+	2	142
+	+	2	78
+	+	3	0
+	+	2	2
+	+	3	2
+
+> ~/winHDD/ownCloud/Studium/Inhalt/2. FS SoSe19/INF-B-310 SWT/Ü/3 - Java III - Tests mit JUnit & Javadoc/R
+	*	1555515949	0
+	"	1	0
+
+> /tmp/.fr-2ls9HM/junit/framework/Test.class
+	*	1555509928	0
+	"	1	0
+
+> /etc/fstab
+	*	1555346226	0
+	"	11	0
+
+> /tmp/mozilla_georg0/Defines.cc
+	*	1555269845	0
+	"	19	70
+
+> ~/winHDD/ownCloud/Studium/Inhalt/1. FS WiSe18-19/INF-B-210 AuD/Ü/Üp/baumcreator.c
+	*	1555268457	0
+	"	5	119
+	^	5	120
+	.	5	119
+	+	5	119
+
+> ~/winHDD/ownCloud/Studium/Inhalt/1. FS WiSe18-19/INF-B-210 AuD/Ü/Üp/nichtBinäreBäume.c
+	*	1555268383	0
+	"	6	0
+
+> /tmp/mozilla_georg0/main-2.cc
+	*	1555262517	0
+	"	16	0
+
+> /tmp/mozilla_georg0/exercise.cc
+	*	1555261505	0
+	"	1	0
+
+> /tmp/mozilla_georg0/main-1.cc
+	*	1555261442	0
+	"	22	47
+
+> /tmp/mozilla_georg0/main.cc
+	*	1555259855	0
+	"	18	0
+
+> ~/winHDD/ownCloud/Studium/Zusatz/Java/modifier.md
+	*	1555250886	0
+	"	10	0
+	^	40	207
+	.	57	204
+	+	57	204
+
+> ~/winHDD/ownCloud/Studium/Zusatz/Java/test/Go3.java
+	*	1555250726	0
+	"	19	0
+	^	20	1
+	.	19	0
+	+	20	0
+	+	19	0
+
+> ~/winHDD/ownCloud/Studium/Zusatz/Java/test/Audi.java
+	*	1555250701	0
+	"	23	0
+	^	23	1
+	.	23	0
+	+	23	0
+
+> ~/winHDD/ownCloud/Studium/Zusatz/Java/test/Tesla.java
+	*	1555250689	0
+	"	23	0
+	^	23	1
+	.	23	0
+	+	23	0
+
+> ~/winHDD/ownCloud/Studium/Zusatz/Java/test/Cars.java
+	*	1555250675	0
+	"	4	0
+	^	4	1
+	.	4	0
+	+	4	0
+
+> ~/winHDD/ownCloud/toKuendigen.md
+	*	1555241290	0
+	"	1	34
+	^	1	18
+	.	1	17
+	+	1	17
+
+> ~/winHDD/ownCloud/Studium/Inhalt/2. FS SoSe19/INF-B-310 SWT/VL/scripts/1 - Objektorientierung und Java/todo.md
+	*	1554750537	0
+	"	8	1
+	.	9	0
+	+	9	0
+
+> ~/winHDD/ownCloud/Studium/Zusatz/Anderes/shell.md
+	*	1554672067	0
+	"	75	7
+	^	75	1
+	.	75	0
+	+	3	225
+	+	3	3
+	+	5	0
+	+	4	3
+	+	12	8
+	+	13	4
+	+	16	7
+	+	14	57
+	+	15	0
+	+	7	0
+	+	33	2
+	+	44	0
+	+	36	4
+	+	40	6
+	+	45	5
+	+	48	11
+	+	52	7
+	+	37	6
+	+	19	0
+	+	55	0
+	+	20	9
+	+	56	6
+	+	2	1
+	+	1	0
+	+	2	0
+	+	3	0
+	+	4	0
+	+	5	0
+	+	6	0
+	+	7	0
+	+	8	0
+	+	12	0
+	+	1	0
+	+	2	0
+	+	1	0
+	+	23	0
+	+	22	4
+	+	58	7
+	+	60	0
+	+	63	9
+	+	64	7
+	+	66	2
+	+	71	0
+	+	72	5
+	+	10	0
+	+	8	16
+	+	74	9
+	+	75	0
+
+> /tmp/tutorM5flDG
+	*	1554671456	0
+	"	351	0
+
+> /tmp/tutorNqaNXp
+	*	1554668394	0
+	"	259	0
+
+> ~/winHDD/ownCloud/Studium/Inhalt/2. FS SoSe19/INF-B-420 ECG/Z/passwds.txt
+	*	1554395205	0
+	"	1	0
+	^	7	24
+	.	7	23
+	+	5	1
+	+	6	12
+	+	7	23
+
+> ~/winHDD/ownCloud/Studium/Zusatz/Anderes/Java Installation.md
+	*	1554286856	0
+	"	58	38
+	^	58	39
+	.	58	38
+	+	58	38
+
+> ~/winHDD/ownCloud/Studium/Inhalt/2. FS SoSe19/INF-B-310 SWT/Ü/8 - CRC- & R-CRC-maps-method/README.md
+	*	1554055709	0
+	"	1	108
+	^	1	109
+	.	1	108
+	+	1	108
+
+> ~/winHDD/ownCloud/Studium/Unterlagen/Fakultät/Wichtige Adressen.md
+	*	1552475130	0
+	"	2	70
+	^	2	71
+	.	2	70
+	+	2	70
+
+> ~/ownCloud/Studium/Zusatz/Python/FlaskProject/static/css/skeleton.css
+	*	1551189175	0
+	"	47	1
+
+> ~/ownCloud/Studium/Zusatz/Python/FlaskProject/static/css/style.css
+	*	1551189171	0
+	"	4	0
+
+> /mnt/ddBackupHelp/README.md
+	*	1550828911	0
+	"	1	68
+	^	1	69
+	.	1	68
+	+	1	68
+
+> /etc/sysfs.conf
+	*	1549970275	0
+	"	23	1
+	^	23	2
+	.	23	1
+	+	23	1
+
+> /tmp/tutorAna1qW
+	*	1549905075	0
+	"	774	57
+	^	757	68
+	.	757	35
+	+	757	35
+
+> /usr/share/themes/Adapta/README.md
+	*	1549804269	0
+	"	155	0
+
+> /tmp/tutort4u4u6
+	*	1549723018	0
+	"	400	54
+	^	135	44
+	.	336	0
+	+	85	32
+	+	110	36
+	+	133	37
+	+	135	43
+	+	205	35
+	+	223	53
+	+	227	0
+	+	293	35
+	+	313	0
+	+	315	0
+	+	314	0
+	+	336	0
