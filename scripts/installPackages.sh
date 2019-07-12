@@ -12,11 +12,13 @@ apti=( sudo apt-get install ${installFlags[@]})
 
 ##############################################################################################
 
-${ece[@]} "Going on by installing packages..."
+${ece[@]} "Now installing packages..."
 
 ${ece[@]} "\nUbuntu critical packages\n"
-${apti[@]} ubuntu-drivers-common
+${apti[@]} ubuntu-drivers-common htop intel-microcode
 ${ece[@]} "\n"
+
+rxvt-unicode
 
 ${ece[@]} "\nVIM\n"
 ${apti[@]} vim
@@ -27,9 +29,13 @@ ${apti[@]} lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings
 ${ece[@]} "\n"
 
 ${ece[@]} "\nLightDM\n"
-${apti[@]} i3 wicd
+${apti[@]} i3 wicd compton
 ${ece[@]} "\n"
 
 ${ece[@]} "\nMesa\n"
 ${apti[@]} mesa-utils mesa-utils-extra
 ${ece[@]} "\n"
+
+xorg xserver-xorg
+
+${ece[@]} "Finished installing packages..."

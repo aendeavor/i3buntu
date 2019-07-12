@@ -24,3 +24,5 @@ fi
 
 ./removePackages.sh | ${writeToLog[@]}
 ./installPackages.sh | ${writeToLog[@]}
+
+${ece[@]} "\nEditing GRUB has begun!" | ${writeToLog[@]}
