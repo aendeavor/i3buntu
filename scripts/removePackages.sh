@@ -13,5 +13,5 @@ apti=( sudo apt-get install ${iFlags[@]})
 ##############################################################################################
 
 ${ece[@]} "Start by removing packages..."
-sudo apt-get remove ${iFlags[@]}) plymouth
+sudo apt-get remove ${iFlags[@]} plymouth
 ${ece[@]} "\n"
