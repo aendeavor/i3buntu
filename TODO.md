@@ -2,6 +2,8 @@
 
 ## Miscellaneous
 
+* installation rsync gets wrong when scripts are not executed from the scripts directory
+
 ## README
 
 ## Scripts
