@@ -6,13 +6,9 @@
 
 ## Scripts
 
-* wrong paths
-* `install.sh` still constains content that belongs to `installCfg.sh`
+* dmenu needs removal and rofi installation
 
 ## VIM
-
-* installation overrides .vimrc* this file needs a backup
-* same with the .vim folder
 
 ## Color Scheme
 
