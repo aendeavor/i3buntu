@@ -24,7 +24,8 @@ vimFiles=( ~/.vim ~/.vimrc )
 XFiles=( ~/.Xresources )
 i3Files=( "" )
 
-deploymentFiles=( "$(pwd)/../resources/bash/.bashrc" "$(pwd)/../resources/bash/.bash_aliases" "$(pwd)/../resources/vim/.vim" "$(pwd)/../resources/vim/.vimrc" "$(pwd)/../resources/vim/.viminfo" )
+# TODO .Xresources and i3-config still missing
+deploymentFiles=( "$(pwd)/../resources/bash/.bashrc" "$(pwd)/../resources/bash/.bash_aliases" "$(pwd)/../resources/vim/.vim" "$(pwd)/../resources/vim/.vimrc" "$(pwd)/../resources/vim/.viminfo" "$(pwd)/../resources/X/.Xresources" )
 
 
 # ? Init of log
@@ -96,6 +97,8 @@ for sourceFile in "${deploymentFiles[@]}"; do
         sudo rsync ${optionsRS[@]} ${sourceFile} ~ >> /dev/null
     )
 done
+
+xrdb ~/.Xresources
 
 # ? User's choices
 

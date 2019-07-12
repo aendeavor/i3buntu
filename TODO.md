@@ -27,3 +27,7 @@
 ## fonts
 
 * lookup some (San Francisco ala Apple)
+
+# LightDM
+
+* still ugly af
