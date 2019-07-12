@@ -12,14 +12,14 @@ apti=( sudo apt-get install ${installFlags[@]})
 
 ##############################################################################################
 
-${ece[@]} "Now installing packages..."
+${ece[@]} "Start by installing packages..."
 
 ${ece[@]} "\nUbuntu critical packages\n"
 ${apti[@]} ubuntu-drivers-common htop intel-microcode wicd
 ${ece[@]} "\n"
 
-${ece[@]} "\nUbuntu critical packages\n"
-${apti[@]} file-roller p7zip-full
+${ece[@]} "\nUbuntu miscellaneous packages\n"
+${apti[@]} file-roller p7zip-full nomacs gparted filezilla
 ${ece[@]} "\n" 
 
 ${ece[@]} "\nURXVT terminal emulator\n"
@@ -44,6 +44,15 @@ ${ece[@]} "\n"
 
 ${ece[@]} "\ni3\n"
 ${apti[@]} i3-gaps compton
+${ece[@]} "\n"
+
+${ece[@]} "\nFirefox\n"
+sudo add-apt-repository ppa:ubuntu-mozilla-security/ppa
+${apti[@]} --no-install-recommends firefox
+${ece[@]} "\n"
+
+${ece[@]} "\nFirefox\n"
+${apti[@]} thunderbird
 ${ece[@]} "\n"
 
 ${ece[@]} "\nSnap\n"
