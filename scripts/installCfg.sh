@@ -20,9 +20,11 @@ optionsRS=( -avhz --delete )
 # ? Files
 
 bashFiles=( ~/.bash_aliases ~/.bashrc )
-vimFiles=( ~/.vimrc )
-XFiles=( .Xresources )
+vimFiles=( ~/.vim ~/.vimrc )
+XFiles=( ~/.Xresources )
 i3Files=( "" )
+
+deploymentFiles=( "$(pwd)/../resources/bash/.bashrc" "$(pwd)/../resources/bash/.bash_aliases" "$(pwd)/../resources/vim/.vim" "$(pwd)/../resources/vim/.vimrc" "$(pwd)/../resources/vim/.viminfo" )
 
 
 # ? Init of log
@@ -40,7 +42,7 @@ if [ ! -d "${backupDir}" ]; then
 fi
 
 
-${ece[@]} "\nDeployment of configuration files has begun! \nChecking for existing files...\n" | ${writeToLog[@]}
+${ece[@]} "\nDeployment of configuration files has begun!\n\nChecking for existing files...\n" | ${writeToLog[@]}
 
 # ? Backup
 
@@ -49,16 +51,16 @@ for file in ${bashFiles[@]}; do
     (
         if [ -f ${file} ]; then
             backupFile=${backupDir}"${file#~}.bak"
-            ${ece[@]} "   -> Found ${file}!\n         Backing up to ${backupFile}" | ${writeToLog[@]}
+            ${ece[@]} "   -> Found ${file}!\n         Backing up to ${backupFile}\n" | ${writeToLog[@]}
             sudo rsync ${optionsRS[@]} "${file}" "$(pwd)/${backupFile}" >> /dev/null
         fi
     )
 done
 
 # vim files
-if [ -d ~/.vim ]
+if [ -d $HOME/.vim ]
 then
-    ${ece[@]} "   -> Found ~/.vim directory!\n         Backing up to ../backups/.vim" | ${writeToLog[@]}
+    ${ece[@]} "   -> Found $HOME/.vim directory!\n         Backing up to ${backupFile}\n" | ${writeToLog[@]}
     sudo rsync ${optionsRS[@]} ~/.vim ${backupDir} >> /dev/null 
     # ! sudo rm -rf ~/.vim
 fi
@@ -66,7 +68,7 @@ for file in ${vimFiles[@]}; do
     (
         if [ -f ${file} ]; then
             backupFile=${backupDir}"${file#~}.bak"
-            ${ece[@]} "   -> Found ${file}!\n         Backing up to ${backupFile}" | ${writeToLog[@]}
+            ${ece[@]} "   -> Found ${file}!\n         Backing up to ${backupFile}\n" | ${writeToLog[@]}
             sudo rsync ${optionsRS[@]} "${file}" "$(pwd)/${backupFile}" >> /dev/null
         fi
     )
@@ -77,54 +79,42 @@ for file in ${XFiles[@]}; do
     (
         if [ -f ${file} ]; then
             backupFile=${backupDir}"${file#~}.bak"
-            ${ece[@]} "   -> Found ${file}!\n         Backing up to ${backupFile}" | ${writeToLog[@]}
+            ${ece[@]} "   -> Found ${file}!\n         Backing up to ${backupFile}\n" | ${writeToLog[@]}
             sudo rsync ${optionsRS[@]} "${file}" "$(pwd)/${backupFile}" >> /dev/null
         fi
     )
 done
 
+
 # ? Deployment
 
-#
-## ? rsync for copying all needed files
-#echo -e "\nProceeding to rsync bash files..." | ${writeToLog[@]}
-#for sourceFile in "${bashFiles[@]}"; do
-#    (
-#        sudo rsync ${optionsRS[@]} ${cwd}/bash/${sourceFile} ~ >> ${logFile}
-#    )
-#done
-#echo -e "Rsyncing bash files finished!" | ${writeToLog[@]}
-#
-## ? VI
-#echo -e "\nProceeding to VIM..." | ${writeToLog[@]}
-#read -p "Would you like to download vim? [Y/n]" -r responseOne
-#if [[ $responseOne =~ ^(yes|y|Y| ) ]] || [[ -z $responseOne ]];
-#then
-#    sudo apt-get ${optionVI[@]} install vim > /dev/null
-#    
-#    if [ ! -d ~/.vim ];
-#    then
-#        sudo mkdir ~/.vim
-#    fi
-#    
-#    sudo rsync ${optionsRS[@]} ${cwd}vim/ ~/.vim/ >> ${logFile}
-#    sudo rsync ${optionsRS[@]} ${cwd}vim/.vimrc ~ >> ${logFile}
-#
-#    read -p "Would you like to download vim and set it as your default editor? [Y/n]" -r responseTwo
-#    responseTwo=${responseTwo,,} # tolower
-#    if [[ $responseTwo =~ ^(yes|y|Y| ) ]] || [[ -z $responseTwo ]];
-#    then
-#        echo "export VISUAL=vim" >> ~/.bashrc
-#        echo 'export EDITOR="$VISUAL"' >> ~/.bashrc
-#    fi
-#fi
-#echo -e "\nVIM finished!\n" | ${writeToLog[@]}
-#
-#echo -e "Ended at: $(date)" >> ${logFile}
-#echo -e "Installation finished!" | ${writeToLog[@]}
-#echo -e "Please open a new shell for changes to take effect!"
-#
-#
-#${ece[@]} "\nEditing GRUB has begun!" | ${writeToLog[@]}
-#sudo rm -f /etc/default/grub
-#sudo cp grub /etc/default/
+echo -e "Proceeding to rsync bash files..." | ${writeToLog[@]}
+
+for sourceFile in "${deploymentFiles[@]}"; do
+    (
+        ${ece[@]} "   -> Syncing $(basename -- "${sourceFile}")"
+        sudo rsync ${optionsRS[@]} ${sourceFile} ~ >> /dev/null
+    )
+done
+
+# ? User's choices
+
+# vim
+${ece[@]} ""
+read -p "Would you like to set vim as your default editor? [Y/n]" -r responseOne
+if [[ $responseOne =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $responseOne ]]; then
+    echo "export VISUAL=vim" >> ~/.bashrc
+    echo 'export EDITOR="$VISUAL"' >> ~/.bashrc
+    ${ece[@]} "   -> Success!"
+else
+    ${ece[@]} ""
+fi
+
+read -p "Would you like me to edit /etc/default/grub? [Y/n]" -r responseTwo
+if [[ $responseTwo =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $responseTwo ]]; then
+    sudo rm -f /etc/default/grub
+    sudo cp grub /etc/default/
+    ${ece[@]} "SHOULD NOT HAVE HAPPENED!if no was choses"
+fi
+
+${ece[@]} "\nDeployment of configuration files has ended. Installation finished! Please open a new shell for changes to take effect." | ${writeToLog[@]}
