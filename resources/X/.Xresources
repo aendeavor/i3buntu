@@ -1,4 +1,4 @@
-# .Xresorces
+### ~/.Xresorces
 
 ############################################ XFT
 
@@ -60,10 +60,10 @@ URxvt.lineSpace:            0
 URxvt.letterspace:          -1
 URxvt.cursorBlink:          0
 
-# transparency - true or false (default)
+### transparency - true or false (default)
 URxvt*transparent: true
 
-# shading - 0 to 99 darkens, 101 to 200 lightens
+### shading - 0 to 99 darkens, 101 to 200 lightens
 URxvt*shading: 15
 
 URxvt*saveLines: 12000
@@ -71,17 +71,17 @@ URxvt*saveLines: 12000
 URxvt*foreground: #e5e8e7
 URxvt*background: #1b202a
 
-# OpenSans Linux font
+### OpenSans Linux font
 URxvt*font: xft:OpenSans:pixelsize=14
 URxvt*boldFont: xft:OpenSans:bold:pixelsize=14
 
-# scrolling
+### scrolling
 URxvt*scrollBar: false
 URxvt*scrollBar_right: false
 URxvt*scrollstyle: plain
 URxvt.scrollWithBuffer:     true
 
-# Extensions & Copy
+### Extensions & Copy
 URxvt.perl-ext-common: default,clipboard
 URxvt.clipboard.autocopy: true
 URxvt.keysym.C-c: perl:clipboard:copy
