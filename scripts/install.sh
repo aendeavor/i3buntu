@@ -19,25 +19,14 @@ apti=( sudo apt-get install ${installFlags[@]})
 ##############################################################################################
 
 ${ece[@]} "\nInstallation has begun!" | ${writeToLog[@]}
+${ece[@]} "Started at: $(date)" | ${writeToLog[@]}
 
-# ? Init of log and backup directory
+# ? Init of log
 
 if [ ! -f "${logFile}" ]; then
     touch "${logFile}"
 fi
 
-if [ ! -d "../backups/" ]; then
-    mkdir ../backups/
-fi
-
-if [ ! -d "${backupFile}" ]; then
-    mkdir "${backupFile}"
-fi
-
 # ? Start of actual installation
-./removePackages.sh | ${writeToLog[@]}
 ./installPackages.sh | ${writeToLog[@]}
-
-${ece[@]} "\nEditing GRUB has begun!" | ${writeToLog[@]}
-sudo rm -f /etc/default/grub
-sudo cp grub /etc/default/
+./removePackages.sh | ${writeToLog[@]}

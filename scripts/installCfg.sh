@@ -1,88 +1,130 @@
 #!/bin/bash
 
-# ! HANDLES INSTALLATION
+# ! HANDLES INSERTION OF RESORUCE FILES
 
-# ? important directories and commands
-############################################################################
-cwd=$(pwd)/
-backupDir="${cwd}backups"
+# ? Preconfig
 
 logFile=.install_log
 writeToLog=( tee -a "${logFile}" )
-currentTime=$(date +%Y-%m-%d-%H-%M-%S)
 
-# * rsync setup
-optionsRS=(-avhz --delete)
-bashFiles=(".bash_aliases" ".bashrc")
+backupDir=../backups/$(date '+%d-%m-%Y--%H:%M')
 
-# * VIM setup
-optionVI=(--yes --assume-yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages)
-############################################################################
+ece=( sudo echo -e )
 
-sudo echo -e "\nInstallation started!" | tee "${logFile}"
-echo -e "Started at: $(date)" >> ${logFile}
+installFlags=( --yes --assume-yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages )
+apti=( sudo apt-get install ${installFlags[@]} )
 
-# ? check and backup existing config files (opens subshell)
-echo -e "\nChecking for existing files...\n" | ${writeToLog[@]}
-existingBashFiles=(~/.bashrc ~/.bash_aliases ~/.vim ~/.vimrc)
+optionsRS=( -avhz --delete )
 
-if [ ! -d "${backupDir}" ]
-then
-    sudo mkdir "${backupDir}"
+
+# ? Files
+
+bashFiles=( ~/.bash_aliases ~/.bashrc )
+vimFiles=( ~/.vimrc )
+XFiles=( .Xresources )
+i3Files=( "" )
+
+
+# ? Init of log
+
+if [ ! -f "${logFile}" ]; then
+    touch "${logFile}"
 fi
 
-for file in "${existingBashFiles[@]}"; do
+if [ ! -d "../backups/" ]; then
+    mkdir ../backups/
+fi
+
+if [ ! -d "${backupDir}" ]; then
+    mkdir "${backupDir}"
+fi
+
+
+${ece[@]} "\nDeployment of configuration files has begun! \nChecking for existing files...\n" | ${writeToLog[@]}
+
+# ? Backup
+
+# bash files
+for file in ${bashFiles[@]}; do
     (
-        if [ -f "${file}" ]
-        then
-            backupFile=${backupDir}${file#~}-${currentTime}.bak
-            echo -e "   -> Found ${file}! Backing up to ${backupFile}" | ${writeToLog[@]}
-            sudo rsync ${optionsRS[@]} ${file} "${backupFile}" > /dev/null
-        fi        
+        if [ -f ${file} ]; then
+            backupFile=${backupDir}"${file#~}.bak"
+            ${ece[@]} "   -> Found ${file}!\n         Backing up to ${backupFile}" | ${writeToLog[@]}
+            sudo rsync ${optionsRS[@]} "${file}" "$(pwd)/${backupFile}" >> /dev/null
+        fi
     )
 done
 
+# vim files
 if [ -d ~/.vim ]
 then
-    echo "   -> Found ~/.vim directory! Backing up to ${cwd}backups/.vim"
-    sudo rsync ${optionsRS[@]} ~/.vim ${backupDir} > /dev/null 
-    sudo rm -rf ~/.vim
+    ${ece[@]} "   -> Found ~/.vim directory!\n         Backing up to ../backups/.vim" | ${writeToLog[@]}
+    sudo rsync ${optionsRS[@]} ~/.vim ${backupDir} >> /dev/null 
+    # ! sudo rm -rf ~/.vim
 fi
-
-# ? rsync for copying all needed files
-echo -e "\nProceeding to rsync bash files..." | ${writeToLog[@]}
-for sourceFile in "${bashFiles[@]}"; do
+for file in ${vimFiles[@]}; do
     (
-        sudo rsync ${optionsRS[@]} ${cwd}/bash/${sourceFile} ~ >> ${logFile}
+        if [ -f ${file} ]; then
+            backupFile=${backupDir}"${file#~}.bak"
+            ${ece[@]} "   -> Found ${file}!\n         Backing up to ${backupFile}" | ${writeToLog[@]}
+            sudo rsync ${optionsRS[@]} "${file}" "$(pwd)/${backupFile}" >> /dev/null
+        fi
     )
 done
-echo -e "Rsyncing bash files finished!" | ${writeToLog[@]}
 
-# ? VI
-echo -e "\nProceeding to VIM..." | ${writeToLog[@]}
-read -p "Would you like to download vim? [Y/n]" -r responseOne
-if [[ $responseOne =~ ^(yes|y|Y| ) ]] || [[ -z $responseOne ]];
-then
-    sudo apt-get ${optionVI[@]} install vim > /dev/null
-    
-    if [ ! -d ~/.vim ];
-    then
-        sudo mkdir ~/.vim
-    fi
-    
-    sudo rsync ${optionsRS[@]} ${cwd}vim/ ~/.vim/ >> ${logFile}
-    sudo rsync ${optionsRS[@]} ${cwd}vim/.vimrc ~ >> ${logFile}
+# Xresources
+for file in ${XFiles[@]}; do
+    (
+        if [ -f ${file} ]; then
+            backupFile=${backupDir}"${file#~}.bak"
+            ${ece[@]} "   -> Found ${file}!\n         Backing up to ${backupFile}" | ${writeToLog[@]}
+            sudo rsync ${optionsRS[@]} "${file}" "$(pwd)/${backupFile}" >> /dev/null
+        fi
+    )
+done
 
-    read -p "Would you like to download vim and set it as your default editor? [Y/n]" -r responseTwo
-    responseTwo=${responseTwo,,} # tolower
-    if [[ $responseTwo =~ ^(yes|y|Y| ) ]] || [[ -z $responseTwo ]];
-    then
-        echo "export VISUAL=vim" >> ~/.bashrc
-        echo 'export EDITOR="$VISUAL"' >> ~/.bashrc
-    fi
-fi
-echo -e "\nVIM finished!\n" | ${writeToLog[@]}
+# ? Deployment
 
-echo -e "Ended at: $(date)" >> ${logFile}
-echo -e "Installation finished!" | ${writeToLog[@]}
-echo -e "Please open a new shell for changes to take effect!"
+#
+## ? rsync for copying all needed files
+#echo -e "\nProceeding to rsync bash files..." | ${writeToLog[@]}
+#for sourceFile in "${bashFiles[@]}"; do
+#    (
+#        sudo rsync ${optionsRS[@]} ${cwd}/bash/${sourceFile} ~ >> ${logFile}
+#    )
+#done
+#echo -e "Rsyncing bash files finished!" | ${writeToLog[@]}
+#
+## ? VI
+#echo -e "\nProceeding to VIM..." | ${writeToLog[@]}
+#read -p "Would you like to download vim? [Y/n]" -r responseOne
+#if [[ $responseOne =~ ^(yes|y|Y| ) ]] || [[ -z $responseOne ]];
+#then
+#    sudo apt-get ${optionVI[@]} install vim > /dev/null
+#    
+#    if [ ! -d ~/.vim ];
+#    then
+#        sudo mkdir ~/.vim
+#    fi
+#    
+#    sudo rsync ${optionsRS[@]} ${cwd}vim/ ~/.vim/ >> ${logFile}
+#    sudo rsync ${optionsRS[@]} ${cwd}vim/.vimrc ~ >> ${logFile}
+#
+#    read -p "Would you like to download vim and set it as your default editor? [Y/n]" -r responseTwo
+#    responseTwo=${responseTwo,,} # tolower
+#    if [[ $responseTwo =~ ^(yes|y|Y| ) ]] || [[ -z $responseTwo ]];
+#    then
+#        echo "export VISUAL=vim" >> ~/.bashrc
+#        echo 'export EDITOR="$VISUAL"' >> ~/.bashrc
+#    fi
+#fi
+#echo -e "\nVIM finished!\n" | ${writeToLog[@]}
+#
+#echo -e "Ended at: $(date)" >> ${logFile}
+#echo -e "Installation finished!" | ${writeToLog[@]}
+#echo -e "Please open a new shell for changes to take effect!"
+#
+#
+#${ece[@]} "\nEditing GRUB has begun!" | ${writeToLog[@]}
+#sudo rm -f /etc/default/grub
+#sudo cp grub /etc/default/

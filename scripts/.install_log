@@ -1,28 +1,196 @@
 
-Installation has begun!
-Start by installing packages...
+Deployment of configuration files has begun!
 
-VIM
+Checking for existing files...
 
-Paketlisten werden gelesen...
-Abhängigkeitsbaum wird aufgebaut....
-Statusinformationen werden eingelesen....
-vim ist schon die neueste Version (2:8.0.1453-1ubuntu1.1).
-0 aktualisiert, 0 neu installiert, 0 zu entfernen und 0 nicht aktualisiert.
 
-LightDM
+Deployment of configuration files has begun!
 
-Paketlisten werden gelesen...
-Abhängigkeitsbaum wird aufgebaut....
-Statusinformationen werden eingelesen....
-Die folgenden zusätzlichen Pakete werden installiert:
-  gnome-themes-standard
-Vorgeschlagene Pakete:
-  bindfs desktop-base
-Die folgenden NEUEN Pakete werden installiert:
-  gnome-themes-standard lightdm lightdm-gtk-greeter
-  lightdm-gtk-greeter-settings
-0 aktualisiert, 4 neu installiert, 0 zu entfernen und 0 nicht aktualisiert.
-Es müssen 330 kB an Archiven heruntergeladen werden.
-Nach dieser Operation werden 2.236 kB Plattenplatz zusätzlich benutzt.
-Möchten Sie fortfahren? [J/n] Abbruch.
+Checking for existing files...
+
+
+Deployment of configuration files has begun!
+
+Checking for existing files...
+
+
+Deployment of configuration files has begun!
+
+Checking for existing files...
+
+
+Deployment of configuration files has begun!
+
+Checking for existing files...
+
+
+Deployment of configuration files has begun!
+
+Checking for existing files...
+
+   -> Found .bash_aliases! Backing up to ../backups/Fr 12. Jul 19:53:14 CEST 2019.bash_aliases.bak
+   -> Found .bashrc! Backing up to ../backups/Fr 12. Jul 19:53:14 CEST 2019.bashrc.bak
+
+Deployment of configuration files has begun! 
+Checking for existing files...
+
+Deployment of configuration files has begun! 
+Checking for existing files...
+
+Deployment of configuration files has begun! 
+Checking for existing files...
+
+Deployment of configuration files has begun! 
+Checking for existing files...
+   -> Found .bash_aliases! Backing up to ../backups/Fr 12. Jul 20:00:20 CEST 2019/.bash_aliases.bak
+   -> Found .bashrc! Backing up to ../backups/Fr 12. Jul 20:00:20 CEST 2019/.bashrc.bak
+
+Deployment of configuration files has begun! 
+Checking for existing files...
+   -> Found .bash_aliases! Backing up to ../backups/12.07.2019-20:03/.bash_aliases.bak
+   -> Found .bashrc! Backing up to ../backups/12.07.2019-20:03/.bashrc.bak
+
+Deployment of configuration files has begun! 
+Checking for existing files...
+   -> Found .bash_aliases! Backing up to ../backups/12.07.2019-20:04/.bash_aliases.bak
+   -> Found .bashrc! Backing up to ../backups/12.07.2019-20:04/.bashrc.bak
+
+Deployment of configuration files has begun! 
+Checking for existing files...
+   -> Found .bash_aliases! Backing up to /home/georg/i3buntu/scripts/../backups/12.07.2019-20:06/.bash_aliases.bak
+   -> Found .bashrc! Backing up to /home/georg/i3buntu/scripts/../backups/12.07.2019-20:06/.bashrc.bak
+
+Deployment of configuration files has begun! 
+Checking for existing files...
+   -> Found .bash_aliases! Backing up to /home/georg/i3buntu/scripts/../backups/12.07.2019-20:07/.bash_aliases.bak
+   -> Found .bashrc! Backing up to /home/georg/i3buntu/scripts/../backups/12.07.2019-20:07/.bashrc.bak
+
+Deployment of configuration files has begun! 
+Checking for existing files...
+   -> Found .bash_aliases!		 Backing up to /home/georg/i3buntu/scripts/../backups/12.07.2019-20:07/.bash_aliases.bak
+   -> Found .bashrc!		 Backing up to /home/georg/i3buntu/scripts/../backups/12.07.2019-20:07/.bashrc.bak
+
+Deployment of configuration files has begun! 
+Checking for existing files...
+   -> Found .bash_aliases!
+            Backing up to /home/georg/i3buntu/scripts/../backups/12.07.2019-20:08/.bash_aliases.bak
+   -> Found .bashrc!
+            Backing up to /home/georg/i3buntu/scripts/../backups/12.07.2019-20:08/.bashrc.bak
+
+Deployment of configuration files has begun! 
+Checking for existing files...
+   -> Found /home/georg/.bash_aliases!
+            Backing up to ../backups/12.07.2019-20:10//.bash_aliases.bak
+   -> Found /home/georg/.bashrc!
+            Backing up to ../backups/12.07.2019-20:10//.bashrc.bak
+
+Deployment of configuration files has begun! 
+Checking for existing files...
+   -> Found /home/georg/.bash_aliases!
+            Backing up to ../backups/12.07.2019-20:11/.bash_aliases.bak
+   -> Found /home/georg/.bashrc!
+            Backing up to ../backups/12.07.2019-20:11/.bashrc.bak
+
+Deployment of configuration files has begun! 
+Checking for existing files...
+   -> Found /home/georg/.bash_aliases!
+            Backing up to ../backups/12-07-2019--20:11/.bash_aliases.bak
+   -> Found /home/georg/.bashrc!
+            Backing up to ../backups/12-07-2019--20:11/.bashrc.bak
+
+Deployment of configuration files has begun! 
+Checking for existing files...
+   -> Found /home/georg/.bash_aliases!
+            Backing up to ../backups/12-07-2019--20:11/.bash_aliases.bak /home/georg/.bash_aliases
+   -> Found /home/georg/.bashrc!
+            Backing up to ../backups/12-07-2019--20:11/.bashrc.bak /home/georg/.bashrc
+
+Deployment of configuration files has begun! 
+Checking for existing files...
+   -> Found /home/georg/.bash_aliases!
+            Backing up to ../backups/12-07-2019--20:13/.bash_aliases.bak /home/georg/i3buntu/scripts/../../backups/12-07-2019--20:13/.bash_aliases.bak
+   -> Found /home/georg/.bashrc!
+            Backing up to ../backups/12-07-2019--20:13/.bashrc.bak /home/georg/i3buntu/scripts/../../backups/12-07-2019--20:13/.bashrc.bak
+
+Deployment of configuration files has begun! 
+Checking for existing files...
+   -> Found /home/georg/.bash_aliases!
+            Backing up to ../backups/12-07-2019--20:13/.bash_aliases.bak /home/georg/i3buntu/scripts/../../backups/12-07-2019--20:13/.bash_aliases.bak
+   -> Found /home/georg/.bashrc!
+            Backing up to ../backups/12-07-2019--20:13/.bashrc.bak /home/georg/i3buntu/scripts/../../backups/12-07-2019--20:13/.bashrc.bak
+
+Deployment of configuration files has begun! 
+Checking for existing files...
+   -> Found /home/georg/.bash_aliases!
+            Backing up to ../backups/12-07-2019--20:14/.bash_aliases.bak /home/georg/i3buntu/scripts/../backups/12-07-2019--20:14/.bash_aliases.bak
+   -> Found /home/georg/.bashrc!
+            Backing up to ../backups/12-07-2019--20:14/.bashrc.bak /home/georg/i3buntu/scripts/../backups/12-07-2019--20:14/.bashrc.bak
+
+Deployment of configuration files has begun! 
+Checking for existing files...
+   -> Found /home/georg/.bash_aliases!
+            Backing up to ../backups/12-07-2019--20:14/.bash_aliases.bak /home/georg/i3buntu/scripts/../backups/12-07-2019--20:14/.bash_aliases.bak
+   -> Found /home/georg/.bashrc!
+            Backing up to ../backups/12-07-2019--20:14/.bashrc.bak /home/georg/i3buntu/scripts/../backups/12-07-2019--20:14/.bashrc.bak
+
+Deployment of configuration files has begun! 
+Checking for existing files...
+   -> Found /home/georg/.bash_aliases!
+            Backing up to ../backups/12-07-2019--20:15/.bash_aliases.bak
+   -> Found /home/georg/.bashrc!
+            Backing up to ../backups/12-07-2019--20:15/.bashrc.bak
+
+Deployment of configuration files has begun! 
+Checking for existing files...
+
+   -> Found /home/georg/.bash_aliases!
+            Backing up to ../backups/12-07-2019--20:16/.bash_aliases.bak
+   -> Found /home/georg/.bashrc!
+            Backing up to ../backups/12-07-2019--20:16/.bashrc.bak
+
+Deployment of configuration files has begun! 
+Checking for existing files...
+
+   -> Found /home/georg/.bash_aliases!
+            Backing up to ../backups/12-07-2019--20:17/.bash_aliases.bak
+   -> Found /home/georg/.bashrc!
+            Backing up to ../backups/12-07-2019--20:17/.bashrc.bak
+
+Deployment of configuration files has begun! 
+Checking for existing files...
+
+   -> Found /home/georg/.bash_aliases!
+            Backing up to ../backups/12-07-2019--20:18/.bash_aliases.bak
+   -> Found /home/georg/.bashrc!
+            Backing up to ../backups/12-07-2019--20:18/.bashrc.bak
+   -> Found ~/.vim directory!\n            Backing up to ../backups/.vim
+
+Deployment of configuration files has begun! 
+Checking for existing files...
+
+   -> Found /home/georg/.bash_aliases!
+            Backing up to ../backups/12-07-2019--20:18/.bash_aliases.bak
+   -> Found /home/georg/.bashrc!
+            Backing up to ../backups/12-07-2019--20:18/.bashrc.bak
+   -> Found ~/.vim directory!
+            Backing up to ../backups/.vim
+
+Deployment of configuration files has begun! 
+Checking for existing files...
+
+   -> Found /home/georg/.bash_aliases!
+         Backing up to ../backups/12-07-2019--20:18/.bash_aliases.bak
+   -> Found /home/georg/.bashrc!
+         Backing up to ../backups/12-07-2019--20:18/.bashrc.bak
+   -> Found ~/.vim directory!
+         Backing up to ../backups/.vim
+
+Deployment of configuration files has begun! 
+Checking for existing files...
+
+   -> Found /home/georg/.bash_aliases!
+         Backing up to ../backups/12-07-2019--20:20/.bash_aliases.bak
+   -> Found /home/georg/.bashrc!
+         Backing up to ../backups/12-07-2019--20:20/.bashrc.bak
+   -> Found ~/.vim directory!
+         Backing up to ../backups/.vim
