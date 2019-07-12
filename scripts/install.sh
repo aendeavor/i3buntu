@@ -29,4 +29,7 @@ fi
 
 # ? Start of actual installation
 ./installPackages.sh | ${writeToLog[@]}
-./removePackages.sh | ${writeToLog[@]}
+# ./removePackages.sh | ${writeToLog[@]}
+
+sudo apt-get update
+sudo apt-get upgrade

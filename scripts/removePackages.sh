@@ -8,10 +8,10 @@
 ece=( sudo echo -e )
 
 iFlags=(--yes --assume-yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages)
-apti=( sudo apt-get install ${iFlags[@]})
+aptr=( sudo apt-get remove ${iFlags[@]})
 
 ##############################################################################################
 
 ${ece[@]} "Now removing unneccessary packages..."
-sudo apt-get remove ${iFlags[@]} plymouth
+${aptr[@]} ${iFlags[@]} plymouth
 ${ece[@]} "\n"

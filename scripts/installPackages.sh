@@ -47,7 +47,6 @@ ${apti[@]} i3-gaps compton
 ${ece[@]} "\n"
 
 ${ece[@]} "\nFirefox\n"
-sudo add-apt-repository ppa:ubuntu-mozilla-security/ppa
 ${apti[@]} --no-install-recommends firefox
 ${ece[@]} "\n"
 
