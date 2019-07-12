@@ -3,194 +3,396 @@ Deployment of configuration files has begun!
 
 Checking for existing files...
 
+   -> Found /home/georg/.bash_aliases!
+         Backing up to ../backups/12-07-2019--20:33/.bash_aliases.bak
+
+   -> Found /home/georg/.bashrc!
+         Backing up to ../backups/12-07-2019--20:33/.bashrc.bak
+
+   -> Found /home/georg/.vim directory!
+         Backing up to 
+
+   -> Found /home/georg/.vimrc!
+         Backing up to ../backups/12-07-2019--20:33/.vimrc.bak
+
+Proceeding to rsync bash files...
+sending incremental file list
+
+sent 20 bytes  received 12 bytes  64.00 bytes/sec
+total size is 0  speedup is 0.00
+sending incremental file list
+
+sent 20 bytes  received 12 bytes  64.00 bytes/sec
+total size is 0  speedup is 0.00
 
 Deployment of configuration files has begun!
 
 Checking for existing files...
 
+   -> Found /home/georg/.bash_aliases!
+         Backing up to ../backups/12-07-2019--20:33/.bash_aliases.bak
+
+   -> Found /home/georg/.bashrc!
+         Backing up to ../backups/12-07-2019--20:33/.bashrc.bak
+
+   -> Found /home/georg/.vim directory!
+         Backing up to 
+
+   -> Found /home/georg/.vimrc!
+         Backing up to ../backups/12-07-2019--20:33/.vimrc.bak
+
+Proceeding to rsync bash files...
+sending incremental file list
+.bashrc
+
+sent 1.14K bytes  received 35 bytes  2.35K bytes/sec
+total size is 2.20K  speedup is 1.87
+sending incremental file list
+
+sent 20 bytes  received 12 bytes  64.00 bytes/sec
+total size is 0  speedup is 0.00
 
 Deployment of configuration files has begun!
 
 Checking for existing files...
 
+   -> Found /home/georg/.bash_aliases!
+         Backing up to ../backups/12-07-2019--20:35/.bash_aliases.bak
+
+   -> Found /home/georg/.bashrc!
+         Backing up to ../backups/12-07-2019--20:35/.bashrc.bak
+
+   -> Found /home/georg/.vim directory!
+         Backing up to 
+
+   -> Found /home/georg/.vimrc!
+         Backing up to ../backups/12-07-2019--20:35/.vimrc.bak
+
+Proceeding to rsync bash files...
+sending incremental file list
+
+sent 60 bytes  received 12 bytes  144.00 bytes/sec
+total size is 2.20K  speedup is 30.54
+sending incremental file list
+
+sent 20 bytes  received 12 bytes  64.00 bytes/sec
+total size is 0  speedup is 0.00
 
 Deployment of configuration files has begun!
 
 Checking for existing files...
 
+   -> Found /home/georg/.bash_aliases!
+         Backing up to ../backups/12-07-2019--20:35/.bash_aliases.bak
+
+   -> Found /home/georg/.bashrc!
+         Backing up to ../backups/12-07-2019--20:35/.bashrc.bak
+
+   -> Found /home/georg/.vim directory!
+         Backing up to 
+
+   -> Found /home/georg/.vimrc!
+         Backing up to ../backups/12-07-2019--20:35/.vimrc.bak
+
+Proceeding to rsync bash files...
+sending incremental file list
+
+sent 60 bytes  received 12 bytes  144.00 bytes/sec
+total size is 2.20K  speedup is 30.54
+sending incremental file list
+
+sent 66 bytes  received 12 bytes  156.00 bytes/sec
+total size is 2.03K  speedup is 26.04
 
 Deployment of configuration files has begun!
 
 Checking for existing files...
 
+   -> Found /home/georg/.bash_aliases!
+         Backing up to ../backups/12-07-2019--20:36/.bash_aliases.bak
+
+   -> Found /home/georg/.bashrc!
+         Backing up to ../backups/12-07-2019--20:36/.bashrc.bak
+
+   -> Found /home/georg/.vim directory!
+         Backing up to 
+
+   -> Found /home/georg/.vimrc!
+         Backing up to ../backups/12-07-2019--20:36/.vimrc.bak
+
+Proceeding to rsync bash files...
 
 Deployment of configuration files has begun!
 
 Checking for existing files...
 
-   -> Found .bash_aliases! Backing up to ../backups/Fr 12. Jul 19:53:14 CEST 2019.bash_aliases.bak
-   -> Found .bashrc! Backing up to ../backups/Fr 12. Jul 19:53:14 CEST 2019.bashrc.bak
-
-Deployment of configuration files has begun! 
-Checking for existing files...
-
-Deployment of configuration files has begun! 
-Checking for existing files...
-
-Deployment of configuration files has begun! 
-Checking for existing files...
-
-Deployment of configuration files has begun! 
-Checking for existing files...
-   -> Found .bash_aliases! Backing up to ../backups/Fr 12. Jul 20:00:20 CEST 2019/.bash_aliases.bak
-   -> Found .bashrc! Backing up to ../backups/Fr 12. Jul 20:00:20 CEST 2019/.bashrc.bak
-
-Deployment of configuration files has begun! 
-Checking for existing files...
-   -> Found .bash_aliases! Backing up to ../backups/12.07.2019-20:03/.bash_aliases.bak
-   -> Found .bashrc! Backing up to ../backups/12.07.2019-20:03/.bashrc.bak
-
-Deployment of configuration files has begun! 
-Checking for existing files...
-   -> Found .bash_aliases! Backing up to ../backups/12.07.2019-20:04/.bash_aliases.bak
-   -> Found .bashrc! Backing up to ../backups/12.07.2019-20:04/.bashrc.bak
-
-Deployment of configuration files has begun! 
-Checking for existing files...
-   -> Found .bash_aliases! Backing up to /home/georg/i3buntu/scripts/../backups/12.07.2019-20:06/.bash_aliases.bak
-   -> Found .bashrc! Backing up to /home/georg/i3buntu/scripts/../backups/12.07.2019-20:06/.bashrc.bak
-
-Deployment of configuration files has begun! 
-Checking for existing files...
-   -> Found .bash_aliases! Backing up to /home/georg/i3buntu/scripts/../backups/12.07.2019-20:07/.bash_aliases.bak
-   -> Found .bashrc! Backing up to /home/georg/i3buntu/scripts/../backups/12.07.2019-20:07/.bashrc.bak
-
-Deployment of configuration files has begun! 
-Checking for existing files...
-   -> Found .bash_aliases!		 Backing up to /home/georg/i3buntu/scripts/../backups/12.07.2019-20:07/.bash_aliases.bak
-   -> Found .bashrc!		 Backing up to /home/georg/i3buntu/scripts/../backups/12.07.2019-20:07/.bashrc.bak
-
-Deployment of configuration files has begun! 
-Checking for existing files...
-   -> Found .bash_aliases!
-            Backing up to /home/georg/i3buntu/scripts/../backups/12.07.2019-20:08/.bash_aliases.bak
-   -> Found .bashrc!
-            Backing up to /home/georg/i3buntu/scripts/../backups/12.07.2019-20:08/.bashrc.bak
-
-Deployment of configuration files has begun! 
-Checking for existing files...
    -> Found /home/georg/.bash_aliases!
-            Backing up to ../backups/12.07.2019-20:10//.bash_aliases.bak
-   -> Found /home/georg/.bashrc!
-            Backing up to ../backups/12.07.2019-20:10//.bashrc.bak
+         Backing up to ../backups/12-07-2019--20:36/.bash_aliases.bak
 
-Deployment of configuration files has begun! 
-Checking for existing files...
-   -> Found /home/georg/.bash_aliases!
-            Backing up to ../backups/12.07.2019-20:11/.bash_aliases.bak
    -> Found /home/georg/.bashrc!
-            Backing up to ../backups/12.07.2019-20:11/.bashrc.bak
+         Backing up to ../backups/12-07-2019--20:36/.bashrc.bak
 
-Deployment of configuration files has begun! 
-Checking for existing files...
-   -> Found /home/georg/.bash_aliases!
-            Backing up to ../backups/12-07-2019--20:11/.bash_aliases.bak
-   -> Found /home/georg/.bashrc!
-            Backing up to ../backups/12-07-2019--20:11/.bashrc.bak
+   -> Found /home/georg/.vim directory!
+         Backing up to 
 
-Deployment of configuration files has begun! 
-Checking for existing files...
-   -> Found /home/georg/.bash_aliases!
-            Backing up to ../backups/12-07-2019--20:11/.bash_aliases.bak /home/georg/.bash_aliases
-   -> Found /home/georg/.bashrc!
-            Backing up to ../backups/12-07-2019--20:11/.bashrc.bak /home/georg/.bashrc
+   -> Found /home/georg/.vimrc!
+         Backing up to ../backups/12-07-2019--20:36/.vimrc.bak
 
-Deployment of configuration files has begun! 
-Checking for existing files...
-   -> Found /home/georg/.bash_aliases!
-            Backing up to ../backups/12-07-2019--20:13/.bash_aliases.bak /home/georg/i3buntu/scripts/../../backups/12-07-2019--20:13/.bash_aliases.bak
-   -> Found /home/georg/.bashrc!
-            Backing up to ../backups/12-07-2019--20:13/.bashrc.bak /home/georg/i3buntu/scripts/../../backups/12-07-2019--20:13/.bashrc.bak
+Proceeding to rsync bash files...
 
-Deployment of configuration files has begun! 
-Checking for existing files...
-   -> Found /home/georg/.bash_aliases!
-            Backing up to ../backups/12-07-2019--20:13/.bash_aliases.bak /home/georg/i3buntu/scripts/../../backups/12-07-2019--20:13/.bash_aliases.bak
-   -> Found /home/georg/.bashrc!
-            Backing up to ../backups/12-07-2019--20:13/.bashrc.bak /home/georg/i3buntu/scripts/../../backups/12-07-2019--20:13/.bashrc.bak
+Deployment of configuration files has begun!
 
-Deployment of configuration files has begun! 
-Checking for existing files...
-   -> Found /home/georg/.bash_aliases!
-            Backing up to ../backups/12-07-2019--20:14/.bash_aliases.bak /home/georg/i3buntu/scripts/../backups/12-07-2019--20:14/.bash_aliases.bak
-   -> Found /home/georg/.bashrc!
-            Backing up to ../backups/12-07-2019--20:14/.bashrc.bak /home/georg/i3buntu/scripts/../backups/12-07-2019--20:14/.bashrc.bak
-
-Deployment of configuration files has begun! 
-Checking for existing files...
-   -> Found /home/georg/.bash_aliases!
-            Backing up to ../backups/12-07-2019--20:14/.bash_aliases.bak /home/georg/i3buntu/scripts/../backups/12-07-2019--20:14/.bash_aliases.bak
-   -> Found /home/georg/.bashrc!
-            Backing up to ../backups/12-07-2019--20:14/.bashrc.bak /home/georg/i3buntu/scripts/../backups/12-07-2019--20:14/.bashrc.bak
-
-Deployment of configuration files has begun! 
-Checking for existing files...
-   -> Found /home/georg/.bash_aliases!
-            Backing up to ../backups/12-07-2019--20:15/.bash_aliases.bak
-   -> Found /home/georg/.bashrc!
-            Backing up to ../backups/12-07-2019--20:15/.bashrc.bak
-
-Deployment of configuration files has begun! 
 Checking for existing files...
 
    -> Found /home/georg/.bash_aliases!
-            Backing up to ../backups/12-07-2019--20:16/.bash_aliases.bak
-   -> Found /home/georg/.bashrc!
-            Backing up to ../backups/12-07-2019--20:16/.bashrc.bak
+         Backing up to ../backups/12-07-2019--20:37/.bash_aliases.bak
 
-Deployment of configuration files has begun! 
+   -> Found /home/georg/.bashrc!
+         Backing up to ../backups/12-07-2019--20:37/.bashrc.bak
+
+   -> Found /home/georg/.vim directory!
+         Backing up to 
+
+   -> Found /home/georg/.vimrc!
+         Backing up to ../backups/12-07-2019--20:37/.vimrc.bak
+
+Proceeding to rsync bash files...
+
+Deployment of configuration files has begun!
+
 Checking for existing files...
 
    -> Found /home/georg/.bash_aliases!
-            Backing up to ../backups/12-07-2019--20:17/.bash_aliases.bak
-   -> Found /home/georg/.bashrc!
-            Backing up to ../backups/12-07-2019--20:17/.bashrc.bak
+         Backing up to ../backups/12-07-2019--20:38/.bash_aliases.bak
 
-Deployment of configuration files has begun! 
+   -> Found /home/georg/.bashrc!
+         Backing up to ../backups/12-07-2019--20:38/.bashrc.bak
+
+   -> Found /home/georg/.vim directory!
+         Backing up to 
+
+   -> Found /home/georg/.vimrc!
+         Backing up to ../backups/12-07-2019--20:38/.vimrc.bak
+
+Proceeding to rsync bash files...
+
+Deployment of configuration files has begun!
+
 Checking for existing files...
 
    -> Found /home/georg/.bash_aliases!
-            Backing up to ../backups/12-07-2019--20:18/.bash_aliases.bak
-   -> Found /home/georg/.bashrc!
-            Backing up to ../backups/12-07-2019--20:18/.bashrc.bak
-   -> Found ~/.vim directory!\n            Backing up to ../backups/.vim
+         Backing up to ../backups/12-07-2019--20:38/.bash_aliases.bak
 
-Deployment of configuration files has begun! 
+   -> Found /home/georg/.bashrc!
+         Backing up to ../backups/12-07-2019--20:38/.bashrc.bak
+
+   -> Found /home/georg/.vim directory!
+         Backing up to 
+
+   -> Found /home/georg/.vimrc!
+         Backing up to ../backups/12-07-2019--20:38/.vimrc.bak
+
+Proceeding to rsync bash files...
+
+Deployment of configuration files has begun!
+
 Checking for existing files...
 
    -> Found /home/georg/.bash_aliases!
-            Backing up to ../backups/12-07-2019--20:18/.bash_aliases.bak
-   -> Found /home/georg/.bashrc!
-            Backing up to ../backups/12-07-2019--20:18/.bashrc.bak
-   -> Found ~/.vim directory!
-            Backing up to ../backups/.vim
+         Backing up to ../backups/12-07-2019--20:38/.bash_aliases.bak
 
-Deployment of configuration files has begun! 
+   -> Found /home/georg/.bashrc!
+         Backing up to ../backups/12-07-2019--20:38/.bashrc.bak
+
+   -> Found /home/georg/.vim directory!
+         Backing up to 
+
+   -> Found /home/georg/.vimrc!
+         Backing up to ../backups/12-07-2019--20:38/.vimrc.bak
+
+Proceeding to rsync bash files...
+
+Deployment of configuration files has begun!
+
 Checking for existing files...
 
    -> Found /home/georg/.bash_aliases!
-         Backing up to ../backups/12-07-2019--20:18/.bash_aliases.bak
-   -> Found /home/georg/.bashrc!
-         Backing up to ../backups/12-07-2019--20:18/.bashrc.bak
-   -> Found ~/.vim directory!
-         Backing up to ../backups/.vim
+         Backing up to ../backups/12-07-2019--20:39/.bash_aliases.bak
 
-Deployment of configuration files has begun! 
+   -> Found /home/georg/.bashrc!
+         Backing up to ../backups/12-07-2019--20:39/.bashrc.bak
+
+   -> Found /home/georg/.vim directory!
+         Backing up to 
+
+   -> Found /home/georg/.vimrc!
+         Backing up to ../backups/12-07-2019--20:39/.vimrc.bak
+
+Proceeding to rsync bash files...
+
+Deployment of configuration files has begun!
+
 Checking for existing files...
 
    -> Found /home/georg/.bash_aliases!
-         Backing up to ../backups/12-07-2019--20:20/.bash_aliases.bak
+         Backing up to ../backups/12-07-2019--20:40/.bash_aliases.bak
+
    -> Found /home/georg/.bashrc!
-         Backing up to ../backups/12-07-2019--20:20/.bashrc.bak
-   -> Found ~/.vim directory!
-         Backing up to ../backups/.vim
+         Backing up to ../backups/12-07-2019--20:40/.bashrc.bak
+
+   -> Found /home/georg/.vim directory!
+         Backing up to 
+
+   -> Found /home/georg/.vimrc!
+         Backing up to ../backups/12-07-2019--20:40/.vimrc.bak
+
+Proceeding to rsync bash files...
+
+Deployment of configuration files has begun!
+
+Checking for existing files...
+
+   -> Found /home/georg/.bash_aliases!
+         Backing up to ../backups/12-07-2019--20:43/.bash_aliases.bak
+
+   -> Found /home/georg/.bashrc!
+         Backing up to ../backups/12-07-2019--20:43/.bashrc.bak
+
+   -> Found /home/georg/.vim directory!
+         Backing up to 
+
+   -> Found /home/georg/.vimrc!
+         Backing up to ../backups/12-07-2019--20:43/.vimrc.bak
+
+Proceeding to rsync bash files...
+
+Deployment of configuration files has begun!
+
+Checking for existing files...
+
+   -> Found /home/georg/.bash_aliases!
+         Backing up to ../backups/12-07-2019--20:47/.bash_aliases.bak
+
+   -> Found /home/georg/.bashrc!
+         Backing up to ../backups/12-07-2019--20:47/.bashrc.bak
+
+   -> Found /home/georg/.vim directory!
+         Backing up to 
+
+   -> Found /home/georg/.vimrc!
+         Backing up to ../backups/12-07-2019--20:47/.vimrc.bak
+
+Proceeding to rsync bash files...
+
+Deployment of configuration files has begun!
+
+Checking for existing files...
+
+   -> Found /home/georg/.bash_aliases!
+         Backing up to ../backups/12-07-2019--20:48/.bash_aliases.bak
+
+   -> Found /home/georg/.bashrc!
+         Backing up to ../backups/12-07-2019--20:48/.bashrc.bak
+
+   -> Found /home/georg/.vim directory!
+         Backing up to 
+
+Proceeding to rsync bash files...
+
+Deployment of configuration files has begun!
+
+Checking for existing files...
+
+   -> Found /home/georg/.bash_aliases!
+         Backing up to ../backups/12-07-2019--20:54/.bash_aliases.bak
+
+   -> Found /home/georg/.bashrc!
+         Backing up to ../backups/12-07-2019--20:54/.bashrc.bak
+
+   -> Found /home/georg/.vim directory!
+         Backing up to 
+
+   -> Found /home/georg/.vimrc!
+         Backing up to ../backups/12-07-2019--20:54/.vimrc.bak
+
+Proceeding to rsync bash files...
+
+Deployment of configuration files has ended. Installation finished! Please open a new shell for changes to take effect.
+
+Deployment of configuration files has begun!
+
+Checking for existing files...
+
+   -> Found /home/georg/.bash_aliases!
+         Backing up to ../backups/12-07-2019--20:56/.bash_aliases.bak
+
+   -> Found /home/georg/.bashrc!
+         Backing up to ../backups/12-07-2019--20:56/.bashrc.bak
+
+   -> Found /home/georg/.vim directory!
+         Backing up to 
+
+   -> Found /home/georg/.vimrc!
+         Backing up to ../backups/12-07-2019--20:56/.vimrc.bak
+
+Proceeding to rsync bash files...
+
+Deployment of configuration files has begun!
+
+Checking for existing files...
+
+   -> Found /home/georg/.bash_aliases!
+         Backing up to ../backups/12-07-2019--20:56/.bash_aliases.bak
+
+   -> Found /home/georg/.bashrc!
+         Backing up to ../backups/12-07-2019--20:56/.bashrc.bak
+
+   -> Found /home/georg/.vim directory!
+         Backing up to 
+
+   -> Found /home/georg/.vimrc!
+         Backing up to ../backups/12-07-2019--20:56/.vimrc.bak
+
+Proceeding to rsync bash files...
+
+Deployment of configuration files has ended. Installation finished! Please open a new shell for changes to take effect.
+
+Deployment of configuration files has begun!
+
+Checking for existing files...
+
+   -> Found /home/georg/.bash_aliases!
+         Backing up to ../backups/12-07-2019--20:57/.bash_aliases.bak
+
+   -> Found /home/georg/.bashrc!
+         Backing up to ../backups/12-07-2019--20:57/.bashrc.bak
+
+   -> Found /home/georg/.vim directory!
+         Backing up to 
+
+   -> Found /home/georg/.vimrc!
+         Backing up to ../backups/12-07-2019--20:57/.vimrc.bak
+
+Proceeding to rsync bash files...
+
+Deployment of configuration files has ended. Installation finished! Please open a new shell for changes to take effect.
+
+Deployment of configuration files has begun!
+
+Checking for existing files...
+
+   -> Found /home/georg/.bash_aliases!
+         Backing up to ../backups/12-07-2019--20:58/.bash_aliases.bak
+
+   -> Found /home/georg/.bashrc!
+         Backing up to ../backups/12-07-2019--20:58/.bashrc.bak
+
+   -> Found /home/georg/.vim directory!
+         Backing up to 
+
+   -> Found /home/georg/.vimrc!
+         Backing up to ../backups/12-07-2019--20:58/.vimrc.bak
+
+Proceeding to rsync bash files...
+
+Deployment of configuration files has ended. Installation finished! Please open a new shell for changes to take effect.
