@@ -19,7 +19,7 @@ ${apti[@]} ubuntu-drivers-common htop intel-microcode wicd
 ${ece[@]} "\n"
 
 ${ece[@]} "\nUbuntu miscellaneous packages\n"
-${apti[@]} file-roller p7zip-full nomacs gparted fontconfig filezilla
+${apti[@]} file-roller p7zip-full nomacs gparted fontconfig filezilla xsel lxappearance
 ${ece[@]} "\n" 
 
 ${ece[@]} "\nURXVT terminal emulator\n"
