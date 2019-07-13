@@ -1,30 +1,24 @@
 # TODO
 
-## Miscellaneous
-
-* installation rsync gets wrong when scripts are not executed from the scripts directory
-
-## README
-
-## Bash
-
-## Scripts
-
-* dmenu needs removal and rofi installation
-
-## VIM
-
-## Color Scheme
-
-## URXVT
-
-## i3 Setup
+## ! i3 Setup
 
 1. i3 config file missing
 2. needs to be added to install script
 3. last line needs to be `new_window 1pixel`
+4. i3lock configuration for RICE
 
-## fonts
+## Miscellaneous
+
+* installation rsync gets wrong when scripts are not executed from the scripts directory
+
+## Scripts
+
+* dmenu needs removal and rofi installation & setup
+
+## VIM
+
+* broken af in URXVT
+* palenight theme still appropriate?
 
 ## LightDM
 
@@ -33,5 +27,8 @@
 ## GTK
 
 * setup GTK theme via LXappearance
+* customzite greeter & LightDM
 
-## INSTALL
+## URXVT
+
+* needs extensions for drag-n-drop / copy
