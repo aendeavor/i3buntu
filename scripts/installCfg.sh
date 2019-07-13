@@ -24,8 +24,9 @@ vimFiles=( ~/.vim ~/.vimrc )
 XFiles=( ~/.Xresources )
 i3Files=( "" )
 
-# TODO .Xresources and i3-config still missing
+# TODO i3-config still missing
 deploymentFiles=( "$(pwd)/../resources/bash/.bashrc" "$(pwd)/../resources/bash/.bash_aliases" "$(pwd)/../resources/vim/.vim" "$(pwd)/../resources/vim/.vimrc" "$(pwd)/../resources/vim/.viminfo" "$(pwd)/../resources/X/.Xresources" )
+fonts=( "$(pwd)/../resources/fonts/Iosevka Nerd" "$(pwd)/../resources/fonts/Open Sans" "$(pwd)/../resources/fonts/Roboto" "$(pwd)/../resources/fonts/Roboto Mono Nerd" )
 
 
 # ? Init of log
@@ -98,7 +99,20 @@ for sourceFile in "${deploymentFiles[@]}"; do
     )
 done
 
+if [ ! -d ~/.fonts ]; then
+    sudo mkdir ~/.fonts
+fi
+
+for sourceFile in "${fonts[@]}"; do
+    (
+        ${ece[@]} "   -> Syncing $(basename -- "${sourceFile}")"
+        sudo rsync -avhz "${sourceFile}" ~/.fonts/ >> /dev/null
+    )
+done
+
 xrdb ~/.Xresources
+
+
 
 # ? User's choices
 
@@ -116,8 +130,7 @@ fi
 read -p "Would you like me to edit /etc/default/grub? [Y/n]" -r responseTwo
 if [[ $responseTwo =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $responseTwo ]]; then
     sudo rm -f /etc/default/grub
-    sudo cp grub /etc/default/
-    ${ece[@]} "SHOULD NOT HAVE HAPPENED!if no was choses"
+    sudo cp ../resources/others/grub /etc/default/
 fi
 
 ${ece[@]} "\nDeployment of configuration files has ended. Installation finished! Please open a new shell for changes to take effect." | ${writeToLog[@]}
