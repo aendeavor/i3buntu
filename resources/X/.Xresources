@@ -1,6 +1,6 @@
-### ~/.Xresorces
+!! ~/.Xresorces
 
-############################################ XFT
+!################################### XFT
 
 Xft.dpi:                    96
 Xft.antialias:              true
@@ -8,80 +8,80 @@ Xft.rgba:                   rgb
 Xft.hinting:                true
 Xft.hintstyle:              hintslight
 
-############################################ Color settings
+!################################### Colors
 
-*background: #002b36
-*foreground: #657b83
-!!*fading: 40
-*fadeColor: #002b36
-*cursorColor: #93a1a1
-*pointerColorBackground: #586e75
-*pointerColorForeground: #93a1a1
+! Dark Gunmetal
+*background: #2A363B
+*pointerColorBackground: #2A363B
 
-!! black dark/light
-*color0: #073642
-*color8: #002b36
+! Platinum
+*foreground: #e5e8e7
+*cursorColor: #e5e8e7
+*pointerColorForeground: #e5e8e7
 
-!! red dark/light
-*color1: #dc322f
-*color9: #cb4b16
+! Paradise Pink
+*color0: #E84A5F
+*color8: #E84A5F
 
-!! green dark/light
-*color2: #859900
-*color10: #586e75
+*color1: #E84A5F
+*color9: #E84A5F
 
-!! yellow dark/light
-*color3: #b58900
-*color11: #657b83
+! Tea Rose
+*color2: #FF847C
+*color10: #FF847C
 
-!! blue dark/light
-*color4: #268bd2
-*color12: #839496
+*color3: #FF847C
+*color11: #FF847C
 
-!! magenta dark/light
-*color5: #d33682
-*color13: #6c71c4
+! Apricot
+*color4: #FECEAB
+*color12: #FECEAB
 
-!! cyan dark/light
-*color6: #2aa198
-*color14: #93a1a1
+*color5: #FECEAB
+*color13: #FECEAB
 
-!! white dark/light
-*color7: #eee8d5
-*color15: #fdf6e3
+!! Laurel Green
+*color6: #9ab29a
+*color14: #9ab29a
+
+*color7: #9ab29a
+*color15: #9ab29a
 
 ############################################ URXVT
 
 URxvt.depth:                32
 URxvt.geometry:             90x30
 URxvt.loginShell:           true
-URxvt.internalBorder:       7
+URxvt.internalBorder:       3
 URxvt.lineSpace:            0
 URxvt.letterspace:          -1
 URxvt.cursorBlink:          0
 
-### transparency - true or false (default)
-URxvt*transparent: true
-
-### shading - 0 to 99 darkens, 101 to 200 lightens
-URxvt*shading: 15
-
 URxvt*saveLines: 12000
 
-URxvt*foreground: #e5e8e7
-URxvt*background: #1b202a
-
-### OpenSans Linux font
-URxvt*font: xft:OpenSans:pixelsize=14
-URxvt*boldFont: xft:OpenSans:bold:pixelsize=14
-
-### scrolling
-URxvt*scrollBar: false
-URxvt*scrollBar_right: false
-URxvt*scrollstyle: plain
+! scrolling
+URxvt*scrollBar:            false
+URxvt*scrollBar_right:      false
+URxvt*scrollstyle:          plain
 URxvt.scrollWithBuffer:     true
 
-### Extensions & Copy
+! Dark Gunmetal
+URxvt*background: #1b202a
+
+! Platinum
+URxvt*foreground: #e5e8e7
+
+! transparency - true or false (default)
+URxvt*transparent: true
+
+! shading - 0 to 99 darkens, 101 to 200 lightens
+URxvt*shading: 25
+
+! Roboto Mono Nerd Font
+URxvt*font: xft:RobotoMono NF:style=Regular:pixelsize=14
+URxvt*boldFont: xft:RobotoMono NF:style=Bold:pixelsize=14
+
+! Extensions & Copy
 URxvt.perl-ext-common: default,clipboard
 URxvt.clipboard.autocopy: true
 URxvt.keysym.C-c: perl:clipboard:copy

@@ -19,11 +19,11 @@ ${apti[@]} ubuntu-drivers-common htop intel-microcode wicd
 ${ece[@]} "\n"
 
 ${ece[@]} "\nUbuntu miscellaneous packages\n"
-${apti[@]} file-roller p7zip-full nomacs gparted fontconfig filezilla xsel lxappearance
+${apti[@]} file-roller p7zip-full nomacs gparted fontconfig filezilla xsel lxappearance evince
 ${ece[@]} "\n" 
 
-${ece[@]} "\nURXVT terminal emulator\n"
-${apti[@]} rxvt-unicode
+${ece[@]} "\nURXVT\n"
+${apti[@]} rxvt-unicode neofetch
 ${ece[@]} "\n"
 
 ${ece[@]} "\nVIM\n"
@@ -50,7 +50,7 @@ ${ece[@]} "\nFirefox\n"
 ${apti[@]} --no-install-recommends firefox
 ${ece[@]} "\n"
 
-${ece[@]} "\nFirefox\n"
+${ece[@]} "\Thunderbird\n"
 ${apti[@]} thunderbird
 ${ece[@]} "\n"
 

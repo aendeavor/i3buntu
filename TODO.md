@@ -6,11 +6,21 @@
 
 ## README
 
+## Bash
+
+* .bashrc needs remodeling
+* .bash_alias needs remodeling
+
+### GTK
+
+* Theme missing
+
 ## Scripts
 
 * dmenu needs removal and rofi installation
 * neofetch & powerline (with pip)
 * PDF viewer is not being installed
+* maybe merge install and removal
 
 ## VIM
 
@@ -29,20 +39,21 @@
 
 1. i3 config file missing
 2. needs to be added to install script
+3. new_window 1pixel
 
 ## fonts
 
 * lookup some (San Francisco ala Apple)
 * Nerd fonts
 
-# LightDM
+## LightDM
 
 * still ugly af
 
-# GTK
+## GTK
 
 * setup GTK theme via LXappearance
 
-# Installation.md
+## Installation.md
 
 * include possibility for additional PPA's (GIT and Mozilla's)
