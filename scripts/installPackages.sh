@@ -16,31 +16,23 @@ ${ece[@]} "Start by installing packages..."
 
 ${ece[@]} "\nUbuntu critical packages\n"
 ${apti[@]} ubuntu-drivers-common htop intel-microcode wicd
-${ece[@]} "\n"
 
 ${ece[@]} "\nUbuntu miscellaneous packages\n"
-${apti[@]} file-roller p7zip-full nomacs gparted fontconfig filezilla xsel lxappearance evince
-${ece[@]} "\n" 
+${apti[@]} file-roller p7zip-full nomacs gparted fontconfig filezilla xsel lxappearance evince gedit
 
 ${ece[@]} "\nURXVT\n"
 ${apti[@]} rxvt-unicode neofetch
-${ece[@]} "\n"
 
 ${ece[@]} "\nVIM\n"
 ${apti[@]} vim
-${ece[@]} "\n"
 
 ${ece[@]} "\nXorg\n"
 ${apti[@]} xorg xserver-xorg
-${ece[@]} "\n"
 
-${ece[@]} "\nLightDM\n"
 ${apti[@]} lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings
-${ece[@]} "\n"
 
 ${ece[@]} "\nMesa\n"
 ${apti[@]} mesa-utils mesa-utils-extra
-${ece[@]} "\n"
 
 ${ece[@]} "\ni3\n"
 ${apti[@]} i3-gaps compton
@@ -50,12 +42,10 @@ ${ece[@]} "\nFirefox\n"
 ${apti[@]} --no-install-recommends firefox
 ${ece[@]} "\n"
 
-${ece[@]} "\Thunderbird\n"
+${ece[@]} "\nThunderbird\n"
 ${apti[@]} thunderbird
-${ece[@]} "\n"
 
 ${ece[@]} "\nSnap\n"
 ${apti[@]} snapd
-${ece[@]} "\n"
 
 ${ece[@]} "Finished installing packages..."

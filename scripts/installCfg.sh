@@ -26,6 +26,7 @@ i3Files=( "" )
 
 # TODO i3-config still missing
 deploymentFiles=( "$(pwd)/../resources/bash/.bashrc" "$(pwd)/../resources/bash/.bash_aliases" "$(pwd)/../resources/vim/.vim" "$(pwd)/../resources/vim/.vimrc" "$(pwd)/../resources/vim/.viminfo" "$(pwd)/../resources/X/.Xresources" )
+
 fonts=( "$(pwd)/../resources/fonts/Iosevka Nerd" "$(pwd)/../resources/fonts/Open Sans" "$(pwd)/../resources/fonts/Roboto" "$(pwd)/../resources/fonts/Roboto Mono Nerd" )
 
 
