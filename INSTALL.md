@@ -22,24 +22,23 @@ sudo apt-get -qq -y install git
 
 Afterwards, you can clone this repository to your new machine.
 
-``` bash
+``` sh
 mkdir minimalUbuntuInstall
-ch minimalUbuntuInstall
+cd minimalUbuntuInstall
 git clone -- https://github.com/Andevour/i3ubuntu.git .
 ```
 
-Then execute the `install.sh` script. It will ask you a few questions, which are fairly self-explanatory.
+Then execute the `install.sh` script. It will ask you a few questions, which are fairly self-explanatory. If you would like to use Mozilla's official repository, now is the time to add the PPA. if not, just do not execute the first command that now follows.
 
 ``` sh
-chmod scripts
-sudo chmod +x install.sh
+sudo add-apt-repository ppa:ubuntu-mozilla-security/ppa
+cd scripts
 ./install.sh
 ```
 
 The script will install all needed packages and dependencies. Reboot afterwards. If everything went fine, you should be greeted on runlevel 5 by a very ugly LightDM, prompting you to login, as opposed to a command line login. After login, i3 will ask you whether you would like to create an i3 config file. You should answer with yes. Thereafter, i3 will ask you again what *mod* key you would like to use. Choose between *Alt* and *Win* for now - you will be able to change this key later. If you're new to tiling window managers, now would be the time to read a [wiki](https://wiki.archlinux.org/index.php/I3). Open the terminal by pressing *mod+enter*, navigate to this repository and execute the `installCfg.sh`. This script, as opposed to `install.sh`, will configure all config files, from `.Xresources`, over `.bashrc` to `.vimrc`.
 
 ``` sh
-sudo chmod +x install.sh
 ./installCfg.sh
 ```
 

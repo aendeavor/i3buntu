@@ -111,8 +111,7 @@ for sourceFile in "${fonts[@]}"; do
 done
 
 xrdb ~/.Xresources
-
-
+fc-cache
 
 # ? User's choices
 
