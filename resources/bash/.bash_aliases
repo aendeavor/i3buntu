@@ -1,7 +1,7 @@
 # ! BASH ALIASES - ADDITIONAL CONFIG FILE EXTENDING ~/.bashrc
 # ! ~/.bash_aliases - executed in ~/.bash
 
-# * Check color support
+# check color support
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto -lh'
@@ -12,7 +12,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias ls='ls -lh'
 fi
 
-# * Normal aliases
 alias lsa='ls -lha'
 alias datetime='date && cal'
 alias df='df -h'
@@ -24,7 +23,6 @@ alias ....='cd ../../..'
 alias rm='rm -r'
 alias echo='echo -e'
 
-# * Extended aliases - functions
 a () {
     sudo apt-get "$1" "$2"
     return
@@ -44,7 +42,7 @@ update () {
     sudo printf "\n\n\nNew update started at: " >> $DIR
     date >> $DIR
 
-    printf "\n${primary}Update process started!${clear}\n\n"
+    printf "\n\[\e[38;5;203m\]Update process started!\e[39m\n\n"
 
     echo -e "Checking for updates..." | tee -a $DIR
     sudo apt-get update 2>&1 >> $DIR
@@ -61,13 +59,12 @@ update () {
     echo -e "Getting snap updates done..."
     sudo snap refresh 2>&1 >> /dev/null 
 
-    printf "\n${secondary}Completed task!${clear}\n\n"
+    printf "\n\[\e[38;5;194m\]Completed task!\e[39m\n\n"
     printf "Completed task!\n\n\n" >> $DIR
     return
 }
 export -f update
 
-# ** search for
 sf () {
     ls -lha | grep $1
     return
@@ -79,9 +76,3 @@ open () {
     return
 }
 export -f open
-
-# * ANSI escape codes for coloring
-primary='\e[38;5;221m'
-secondary='\e[38;5;78m'
-ternary='\e[38;5;75m'
-clear='\e[39m'
