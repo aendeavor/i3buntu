@@ -234,3 +234,5 @@ bindsym $mod+shift+x exec i3lock
 
 # wallpaper
 exec_always feh --bg-scale $HOME/pictures/wallpapers/womanInDarkness.jpg
+
+new_window 1pixel

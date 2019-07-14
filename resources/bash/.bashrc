@@ -18,6 +18,10 @@ shopt -s autocd
 
 stty -ixon
 
+# VIM as standard editor
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
 # more friendly less for non-text input files
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 

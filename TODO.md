@@ -4,12 +4,7 @@
 
 1. i3 config file missing
 2. needs to be added to install script
-3. last line needs to be `new_window 1pixel`
-4. i3lock configuration for RICE
-
-## Miscellaneous
-
-* installation rsync gets wrong when scripts are not executed from the scripts directory
+3. i3lock configuration for RICE
 
 ## Scripts
 
