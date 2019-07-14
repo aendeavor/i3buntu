@@ -3,10 +3,9 @@
 ## ! i3 Setup
 
 1. i3lock configuration for RICE
-2. test brightness and volume control
+2. test brightness and volume control (dont work yet), touchpad doesn't work too
 3. rofi needs setup
-4. i3lock needs setup
-5. i3bar needs setup (i3blocks)
+4. i3bar needs proper configuration (i3blocks) - color somehow messed up
 
 ## Scripts
 
@@ -30,3 +29,7 @@
 ## URXVT
 
 * needs extensions for drag-n-drop / copy
+
+## Colors
+
+* color themes lacks light and dark versions - fix or no fix?
