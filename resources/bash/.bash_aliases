@@ -42,7 +42,7 @@ update () {
     sudo printf "\n\n\nNew update started at: " >> $DIR
     date >> $DIR
 
-    printf "\n\[\e[38;5;203m\]Update process started!\e[39m\n\n"
+    printf "\n\e[38;5;203mUpdate process started!\e[39m\n\n"
 
     echo -e "Checking for updates..." | tee -a $DIR
     sudo apt-get update 2>&1 >> $DIR
@@ -59,7 +59,7 @@ update () {
     echo -e "Getting snap updates done..."
     sudo snap refresh 2>&1 >> /dev/null 
 
-    printf "\n\[\e[38;5;194m\]Completed task!\e[39m\n\n"
+    printf "\n\e[38;5;194mCompleted task!\e[39m\n\n\[\e[0m\]"
     printf "Completed task!\n\n\n" >> $DIR
     return
 }
