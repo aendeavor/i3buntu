@@ -2,14 +2,14 @@
 
 ## ! i3 Setup
 
-1. i3 config file missing
-2. needs to be added to install script
-3. i3lock configuration for RICE
-4. test brightness and volume control
+1. i3lock configuration for RICE
+2. test brightness and volume control
+3. rofi needs setup
+4. i3lock needs setup
+5. i3bar needs setup (i3blocks)
 
 ## Scripts
 
-* dmenu needs removal and rofi installation & setup
 * authentication agent missing
 
 ## VIM
@@ -25,6 +25,7 @@
 
 * setup GTK theme via LXappearance
 * customzite greeter & LightDM
+* icon theme missing
 
 ## URXVT
 

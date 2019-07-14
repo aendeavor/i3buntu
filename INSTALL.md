@@ -64,4 +64,4 @@ As all functionality has been setup. Now is the time to rice your desktop - a.k.
 
 (v0.1)
 
-Open LXappearance 
+Open LXappearance. By pressing `$mod+d`, rofi will open and let you choose an application. Just type in lxa... and it should be there. Hit return to open it.
