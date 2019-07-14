@@ -25,7 +25,8 @@ WTL=( tee -a "${LOG}" )
 # ? Preconfig finished
 # ? Actual script begins
 
-echo -e "Started at: $(date)" | ${writeToLog[@]}
+echo -e "Started at: $(date)" | ${WTL[@]}
 
 # ! Actual installing script
-${DIR}/installPackages.sh | ${writeToLog[@]}
+${DIR}/installPackages.sh | ${WTL[@]}
+
