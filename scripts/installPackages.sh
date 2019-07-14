@@ -15,7 +15,7 @@ apti=( sudo apt-get install ${installFlags[@]})
 ${ece[@]} "Start by installing packages..."
 
 ${ece[@]} "\nUbuntu critical packages\n"
-${apti[@]} ubuntu-drivers-common htop intel-microcode wicd
+${apti[@]} ubuntu-drivers-common htop intel-microcode
 
 ${ece[@]} "\nUbuntu miscellaneous packages\n"
 ${apti[@]} file-roller p7zip-full nomacs gparted fontconfig filezilla xsel lxappearance evince gedit
@@ -35,7 +35,7 @@ ${ece[@]} "\nMesa\n"
 ${apti[@]} mesa-utils mesa-utils-extra
 
 ${ece[@]} "\ni3\n"
-${apti[@]} i3-gaps compton
+${apti[@]} i3-gaps compton pactl xbacklight feh
 ${ece[@]} "\n"
 
 ${ece[@]} "\nFirefox\n"

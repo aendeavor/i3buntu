@@ -1,0 +1,236 @@
+# i3 config file (v4) under /$HOME/.config/i3/
+#
+# See http://i3wm.org/docs/userguide.html for a complete reference
+#
+# Should you change your keyboard layout some time, delete this file
+# and re-run i3-config-wizard(1).
+
+set $mod Mod1
+
+# font
+# font pango:DejaVu Sans Mono 10
+xft:RobotoMono NF:style=Regular:pixelsize=14
+
+# use Mouse+Mod4 to drag floating windows to their wanted position
+floating_modifier Mod4
+
+
+## Signal used to update the status line (used with -u, requires -t)
+##   i3blocks uses SIGRTMIN+10 by default
+##   i3status uses SIGUSR1 by default
+set $statussig SIGUSR1
+set $statuscmd i3status
+
+bindsym Mod4+shift+Return exec "urxvt"
+
+bindsym Mod4+Return exec "st -f 'Liberation Mono-12'"
+bindsym --release Mod4+Shift+m exec "xdotool type --clearmodifiers --window $(xdotool getwindowfocus) '¯\_(ツ)_/¯'"
+bindsym Mod4+Shift+x exec "systemctl poweroff"
+bindsym Mod4+n exec "nautilus"
+bindsym Mod4+g exec "evince"
+bindsym Mod4+y exec "feh -F ~/Pictures/neo.png"
+exec --no-startup-id nm-applet
+exec --no-startup-id "redshift-gtk"
+exec --no-startup-id "xinput set-prop 'SynPS/2 Synaptics TouchPad' 'Device Enabled' 0"
+exec --no-startup-id i3-msg 'workspace 1:www; exec /usr/bin/firefox'
+exec --no-startup-id i3-msg 'workspace 1:www; exec enpass'
+exec --no-startup-id "setxkbmap -option caps:escape"
+exec "dunst"
+for_window [class="^.*"] border pixel 1
+# kill focused window
+bindsym Mod4+Shift+q kill
+
+# start dmenu (a program launcher)
+bindsym Mod4+d exec dmenu_run -fn "Liberation Mono-13" -nb '#141414' -sb '#141414' -nf '#148DFF' -sf '#77DFFF'
+bindsym Mod4+c exec passmenu -fn "Liberation Mono-13" -nb '#141414' -sb '#141414' -nf '#148DFF' -sf '#77DFFF'
+# There also is the (new) i3-dmenu-desktop which only displays applications
+# shipping a .desktop file. It is a wrapper around dmenu, so you need that
+# installed.
+bindsym Mod4+Shift+y exec "i3lock -n -i ~/Pictures/wp.png"
+
+# change focus
+bindsym Mod4+$left focus left
+bindsym Mod4+$down focus down
+bindsym Mod4+$up focus up
+bindsym Mod4+$right focus right
+
+# alternatively, you can use the cursor keys:
+# but you should not do it
+#bindsym Mod4+Left focus left
+#bindsym Mod4+Down focus down
+#bindsym Mod4+Up focus up
+#bindsym Mod4+Right focus right
+
+# move focused window
+bindsym Mod4+Shift+$left move left
+bindsym Mod4+Shift+$down move down
+bindsym Mod4+Shift+$up move up
+bindsym Mod4+Shift+$right move right
+
+
+
+
+# alternatively, you can use the cursor keys:
+# but you should not do it
+#bindsym Mod4+Shift+Left move left
+#bindsym Mod4+Shift+Down move down
+#bindsym Mod4+Shift+Up move up
+#bindsym Mod4+Shift+Right move right
+
+# split in horizontal orientation
+bindsym Mod4+h split h
+
+# split in vertical orientation
+bindsym Mod4+v split v
+
+# enter fullscreen mode for the focused container
+bindsym Mod4+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym Mod4+s layout stacking
+bindsym Mod4+w layout tabbed
+bindsym Mod4+e layout toggle split
+
+# toggle tiling / floating
+bindsym Mod4+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym Mod4+space focus mode_toggle
+
+# focus the parent container
+bindsym Mod4+a focus parent
+
+# focus the child container
+#bindsym Mod4+d focus child
+
+# move the currently focused window to the scratchpad
+bindsym Mod4+Shift+minus move scratchpad
+
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym Mod4+minus scratchpad show
+
+# switch to workspace
+bindsym Mod4+1 workspace 1:www
+bindsym Mod4+2 workspace 2:com
+bindsym Mod4+3 workspace 3
+bindsym Mod4+4 workspace 4
+bindsym Mod4+5 workspace 5
+bindsym Mod4+6 workspace 6
+bindsym Mod4+7 workspace 7
+bindsym Mod4+8 workspace 8
+bindsym Mod4+9 workspace 9
+bindsym Mod4+0 workspace 10:media
+
+# move focused container to workspace
+bindsym Mod4+Shift+1 move container to workspace 1:www
+bindsym Mod4+Shift+2 move container to workspace 2:com
+bindsym Mod4+Shift+3 move container to workspace 3
+bindsym Mod4+Shift+4 move container to workspace 4
+bindsym Mod4+Shift+5 move container to workspace 5
+bindsym Mod4+Shift+6 move container to workspace 6
+bindsym Mod4+Shift+7 move container to workspace 7
+bindsym Mod4+Shift+8 move container to workspace 8
+bindsym Mod4+Shift+9 move container to workspace 9
+bindsym Mod4+Shift+0 move container to workspace 10:media
+# reload the configuration file
+bindsym Mod4+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym Mod4+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym Mod4+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym $left       resize shrink width 10 px or 10 ppt
+        bindsym $down       resize grow height 10 px or 10 ppt
+        bindsym $up         resize shrink height 10 px or 10 ppt
+        bindsym $right      resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left        resize shrink width 10 px or 10 ppt
+        bindsym Down        resize grow height 10 px or 10 ppt
+        bindsym Up          resize shrink height 10 px or 10 ppt
+        bindsym Right       resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym Mod4+r mode "resize"
+
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+
+set $based3    #111111
+set $based2    #444444
+set $based1    #586e75
+set $based0    #657b83
+set $base0     #839496
+set $base1     #93a1a1
+set $base2     #eee8d5
+set $base3     #fdf6e3
+set $yellow    #b58900
+set $orange    #cb4b16
+set $red       #dc322f
+set $magenta   #d33682
+set $violet    #6c71c4
+set $blue      #268bd2
+set $cyan      #2aa198
+set $green     #859900
+
+#exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+
+
+bar {
+  position    top
+  status_command /home/jakob/.i3/i3status.sh
+  #status_command i3status -c /home/jakob/.i3/i3status
+  colors {
+    background #000000
+    #statusline #ffffff
+    statusline #00A5FF #that neon blue
+    separator #66666
+
+    focused_workspace  $based3 $based2 #ffffff
+    active_workspace   #002b36 #073642 #586e75
+    inactive_workspace #333333 #222222 #888888
+    urgent_workspace   #2f343a #900000 #ffffff
+  }
+}
+client.focused            $based3   $based2   $base3   $based3  $based2
+client.focused_inactive   $based3   $based3   $base0   $based3  $based3
+client.unfocused          $based3   $based3   $base0   $based3  $based3
+client.urgent             $based3   $magenta  $base3   $based3  $magenta
+
+
+
+#########################################################################################
+
+# Pulse Audio controls
+##  increase volume
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
+##  decrease volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
+##  mute
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
+
+# Sreen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
+
+# Touchpad controls
+bindsym XF86TouchpadToggle exec toggletouchpad.sh # toggle touchpad
+
+bindsym $mod+shift+x exec i3lock
+
+# wallpaper
+exec_always feh --bg-scale $HOME/pictures/wallpapers/womanInDarkness.jpg

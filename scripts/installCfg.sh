@@ -14,7 +14,7 @@ ece=( sudo echo -e )
 installFlags=( --yes --assume-yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages )
 apti=( sudo apt-get install ${installFlags[@]} )
 
-optionsRS=( -avhz --delete )
+optionsRS=( -az --delete )
 
 
 # ? Files
@@ -26,9 +26,7 @@ i3Files=( "" )
 
 # TODO i3-config still missing
 deploymentFiles=( "$(pwd)/../resources/bash/.bashrc" "$(pwd)/../resources/bash/.bash_aliases" "$(pwd)/../resources/vim/.vim" "$(pwd)/../resources/vim/.vimrc" "$(pwd)/../resources/vim/.viminfo" "$(pwd)/../resources/X/.Xresources" )
-
 fonts=( "$(pwd)/../resources/fonts/Iosevka Nerd" "$(pwd)/../resources/fonts/Open Sans" "$(pwd)/../resources/fonts/Roboto" "$(pwd)/../resources/fonts/Roboto Mono Nerd" )
-
 
 # ? Init of log
 
@@ -91,7 +89,7 @@ done
 
 # ? Deployment
 
-echo -e "Proceeding to rsync bash files..." | ${writeToLog[@]}
+echo -e "Proceeding to rsync config files..." | ${writeToLog[@]}
 
 for sourceFile in "${deploymentFiles[@]}"; do
     (
@@ -99,20 +97,23 @@ for sourceFile in "${deploymentFiles[@]}"; do
         sudo rsync ${optionsRS[@]} ${sourceFile} ~ >> /dev/null
     )
 done
+sudo rsync -a "$(pwd)/../resources/X/i3config/" ~/.config/i3 >> /dev/null
 
+## fonts
 if [ ! -d ~/.fonts ]; then
     sudo mkdir ~/.fonts
 fi
+sudo rsync -a "$(pwd)/../resources/fonts/" ~/.fonts >> /dev/null
 
-for sourceFile in "${fonts[@]}"; do
-    (
-        ${ece[@]} "   -> Syncing $(basename -- "${sourceFile}")"
-        sudo rsync -avhz "${sourceFile}" ~/.fonts/ >> /dev/null
-    )
-done
+## wallpapers
+if [ ! -d ~/pictures ]; then
+    mkdir ~/pictures
+fi
+sudo rsync ${optionsRS[@]} "$(pwd)/../resources/wallpapers" ~/pictures
 
-xrdb ~/.Xresources
+# load fonts and source .Xresources file
 fc-cache
+xrdb ~/.Xresources
 
 # ? User's choices
 

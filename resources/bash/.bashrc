@@ -48,12 +48,12 @@ if [ "$color_prompt" = yes ]; then
     PS1+='\[\e[38;5;194m\]'
     PS1+='[\u@\h]'
 
-    PS1+='\e[0m : '
+    PS1+='\[\e[0m\] : '
 
     PS1+='\[\e[38;5;194m\]'
     PS1+='[ \w ]'
 
-    PS1+='\e[0m \$ '
+    PS1+='\[\e[0m\] \$ '
 
     PROMPT_DIRTRIM=4
 else
