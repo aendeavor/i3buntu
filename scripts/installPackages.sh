@@ -37,7 +37,7 @@ echo -e "\nMesa\n"
 ${AI[@]} mesa-utils mesa-utils-extra
 
 echo -e "\ni3\n"
-${AI[@]} i3 compton pactl xbacklight feh
+${AI[@]} i3 compton pactl xbacklight feh rofi
 
 echo -e "\nFirefox\n"
 ${AI[@]} --no-install-recommends firefox
@@ -48,7 +48,12 @@ ${AI[@]} thunderbird
 echo -e "\nSnap\n"
 ${AI[@]} snapd
 
-echo -e "Finished installing packages! Proceeding to updating and upgrading via APT..."
+echo -e "Finished installing packages! Proceeding to removing dmenu..."
+
+echo - "\nDmenu\n"
+sudo apt-get remove dmenu
+
+echo -e "Finished reoving packages! Proceeding to updating and upgrading via APT..."
 
 sudo apt-get update
 sudo apt-get upgrade ${IF}
