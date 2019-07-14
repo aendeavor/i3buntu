@@ -76,15 +76,15 @@ done
 
 ##  i3
 mkdir -p ~/.config/i3
-${RS[@]} "${RES}/X/i3config/" ~/.config/i3
+${RS[@]} "${RES}/X/i3config/" ~/.config/i3 >> $LOG
 
 ##  fonts
 mkdir -p ~/.fonts
-rsync -a "$(pwd)/../resources/fonts/" ~/.fonts >> /dev/null
+rsync -a "$(pwd)/../resources/fonts/" ~/.fonts >> $LOG
 
 ##  wallpapers
 mkdir -p ~/pictures
-${RS[@]} "${RES}/wallpapers" ~/pictures
+${RS[@]} "${RES}/wallpapers" ~/pictures >> $LOG
 
 # ? Reload of services and caches
 
@@ -102,5 +102,5 @@ fi
 
 # ? Actual script finished
  
-echo -e "\nDeployment of configuration files has ended. Installation finished! Please open a new shell for changes to take effect." | ${WTL[@]}
+echo -e "\nDeployment of configuration files has ended. Installation finished!\nPlease open a new shell for changes to take effect." | ${WTL[@]}
  

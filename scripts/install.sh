@@ -28,4 +28,4 @@ WTL=( tee -a "${LOG}" )
 echo -e "Started at: $(date)" | ${writeToLog[@]}
 
 # ! Actual installing script
-./installPackages.sh | ${writeToLog[@]}
+.${DIR}/installPackages.sh | ${writeToLog[@]}
