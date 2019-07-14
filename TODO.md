@@ -10,6 +10,7 @@
 
 * dmenu needs removal and rofi installation & setup
 * install.sh needs revamp
+* picture viewer not installing
 
 ## VIM
 

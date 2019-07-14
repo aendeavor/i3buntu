@@ -15,8 +15,11 @@ echo -e "Start by installing packages..."
 echo -e "\nUbuntu critical packages\n"
 ${AI[@]} ubuntu-drivers-common htop intel-microcode
 
+echo -e "\nPulse audio\n"
+${AI[@]} gstreamer1.0-pulseaudio pulseaudio-module-gconf pulseaudio-module-x11 pulseaudio-module-bluetooth
+
 echo -e "\nUbuntu miscellaneous packages\n"
-${AI[@]} file-roller p7zip-full nomacs gparted fontconfig filezilla xsel lxappearance evince gedit
+${AI[@]} file-roller p7zip-full gparted fontconfig filezilla xsel lxappearance evince gedit nomacs
 
 echo -e "\nURXVT\n"
 ${AI[@]} rxvt-unicode neofetch
@@ -34,7 +37,7 @@ echo -e "\nMesa\n"
 ${AI[@]} mesa-utils mesa-utils-extra
 
 echo -e "\ni3\n"
-${AI[@]} i3-gaps compton pactl xbacklight feh
+${AI[@]} i3 compton pactl xbacklight feh
 
 echo -e "\nFirefox\n"
 ${AI[@]} --no-install-recommends firefox
