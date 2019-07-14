@@ -15,7 +15,6 @@ That being said, the start can also be the most difficult. As there is no native
 The installation process is pretty much straightforward - there are more than enough tutorials in case you need help. If you chose the desktop version, you can struck down certain packages (e.g. *gnome-desktop*), but beware, you will probably end up on the command line. From hereon, if you didn't use the `ks.cfg` to script your installation, the first thing to do would be installing git:
 
 ``` sh
-sudo add-apt-repository -y ppa:git-core/ppa
 sudo apt-get -qq -y update
 sudo apt-get -qq -y install git
 ```
@@ -31,7 +30,6 @@ git clone -- https://github.com/Andevour/i3ubuntu.git .
 Then execute the `install.sh` script. It will ask you a few questions, which are fairly self-explanatory. If you would like to use Mozilla's official repository, now is the time to add the PPA. if not, just do not execute the first command that now follows.
 
 ``` sh
-sudo add-apt-repository ppa:ubuntu-mozilla-security/ppa
 cd scripts
 ./install.sh
 ```
@@ -43,3 +41,7 @@ The script will install all needed packages and dependencies. Reboot afterwards.
 ```
 
 The installCfg-script **will automatically replace** files it is supposed to deploy. It also performs a backup, which can be found in the location you cloned this repository to, under `backups` as `.bak`-files. Log-out and log-in for changes to take effect. i3 can be exited by pressing *mod+shift+e*.
+
+
+% sudo add-apt-repository -y ppa:git-core/ppa
+% sudo add-apt-repository ppa:ubuntu-mozilla-security/ppa

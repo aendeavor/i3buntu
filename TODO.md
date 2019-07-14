@@ -9,6 +9,7 @@
 ## Scripts
 
 * dmenu needs removal and rofi installation & setup
+* authentication agent missing
 
 ## VIM
 
