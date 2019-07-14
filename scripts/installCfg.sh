@@ -98,6 +98,7 @@ read -p "Would you like me to edit /etc/default/grub? [Y/n]" -r responseTwo
 if [[ $responseTwo =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $responseTwo ]]; then
     sudo rm -f /etc/default/grub
     sudo cp ${RES}/others/grub /etc/default/
+    sudo update-grub
 fi
 
 # ? Actual script finished
