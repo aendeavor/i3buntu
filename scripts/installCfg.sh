@@ -1,137 +1,113 @@
 #!/bin/bash
 
-# ! HANDLES INSERTION OF RESORUCE FILES
+# ! HANDLES INSERTION OF RESOURCE FILES
 
 # ? Preconfig
 
-logFile=.install_log
-writeToLog=( tee -a "${logFile}" )
+##  directories (absolute & normalized) and files
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )" # dir of this file
+RES="$( readlink -m "${DIR}/../resources" )"                            # dir of resource folder
+BACK="$(readlink -m "${DIR}/../backups/$(date '+%d-%m-%Y--%H-%M-%S')")" # dir of backup folder
+LOG="${DIR}/.install_log"                                               # logfiles
 
-backupDir=../backups/$(date '+%d-%m-%Y--%H:%M')
+backupInHome=( ~/.bash_aliases ~/.bashrc ~/.vimrc ~/.Xresources )
+deployInHome=( bash/.bashrc bash/.bash_aliases vim/.vim vim/.vimrc vim/.viminfo X/.Xresources )
+fonts=( 'fonts/Iosevka Nerd' 'fonts/Open Sans' 'fonts/Roboto' 'fonts/Roboto Mono Nerd' )
 
-ece=( sudo echo -e )
+##  init of log
+if [ ! -f "$LOG" ]; then
+    sudo touch "${LOG}"
+fi
+WTL=( tee -a "${LOG}" )
 
-installFlags=( --yes --assume-yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages )
-apti=( sudo apt-get install ${installFlags[@]} )
-
-optionsRS=( -az --delete )
-
-
-# ? Files
-
-bashFiles=( ~/.bash_aliases ~/.bashrc )
-vimFiles=( ~/.vim ~/.vimrc )
-XFiles=( ~/.Xresources )
-i3Files=( "" )
-
-# TODO i3-config still missing
-deploymentFiles=( "$(pwd)/../resources/bash/.bashrc" "$(pwd)/../resources/bash/.bash_aliases" "$(pwd)/../resources/vim/.vim" "$(pwd)/../resources/vim/.vimrc" "$(pwd)/../resources/vim/.viminfo" "$(pwd)/../resources/X/.Xresources" )
-fonts=( "$(pwd)/../resources/fonts/Iosevka Nerd" "$(pwd)/../resources/fonts/Open Sans" "$(pwd)/../resources/fonts/Roboto" "$(pwd)/../resources/fonts/Roboto Mono Nerd" )
-
-# ? Init of log
-
-if [ ! -f "${logFile}" ]; then
-    touch "${logFile}"
+##  init of backup-directory
+if [ ! -d "$BACK" ]; then
+    mkdir -p "$BACK"
 fi
 
-if [ ! -d "../backups/" ]; then
-    mkdir ../backups/
-fi
+##  rsync options
+RSoptions=( -az --delete )
 
-if [ ! -d "${backupDir}" ]; then
-    mkdir "${backupDir}"
-fi
+# ? Preconfig finished
+# ? Actual script begins
 
-
-${ece[@]} "\nDeployment of configuration files has begun!\n\nChecking for existing files...\n" | ${writeToLog[@]}
+echo -e "\nThe script has begun!\n\nChecking for existing files...\n" | ${WTL[@]}
 
 # ? Backup
 
-# bash files
-for file in ${bashFiles[@]}; do
+##  files that could be backed up
+for file in ${backupInHome[@]}; do
     (
-        if [ -f ${file} ]; then
-            backupFile=${backupDir}"${file#~}.bak"
-            ${ece[@]} "   -> Found ${file}!\n         Backing up to ${backupFile}\n" | ${writeToLog[@]}
-            sudo rsync ${optionsRS[@]} "${file}" "$(pwd)/${backupFile}" >> /dev/null
+        if [ -f "$file" ]; then
+            backupFile="${BACK}${file#~}.bak"
+            echo -e "   -> Found ${file}!\n         Backing up to ${backupFile}\n" | ${WTL[@]}
+            rsync ${RSoptions[@]} "$file" "$backupFile" #>> /dev/null
         fi
     )
 done
 
-# vim files
-if [ -d $HOME/.vim ]
-then
-    ${ece[@]} "   -> Found $HOME/.vim directory!\n         Backing up to ${backupFile}\n" | ${writeToLog[@]}
-    sudo rsync ${optionsRS[@]} ~/.vim ${backupDir} >> /dev/null 
+##  .vim directory files
+if [ -d ~/.vim ]; then
+    echo -e "   -> Found ~/.vim directory!\n         Backing up to ${BACK}/.vim\n" | ${WTL[@]}
+    rsync ${RSoptions[@]} ~/.vim ${BACK} >> /dev/null 
     # ! sudo rm -rf ~/.vim
 fi
-for file in ${vimFiles[@]}; do
-    (
-        if [ -f ${file} ]; then
-            backupFile=${backupDir}"${file#~}.bak"
-            ${ece[@]} "   -> Found ${file}!\n         Backing up to ${backupFile}\n" | ${writeToLog[@]}
-            sudo rsync ${optionsRS[@]} "${file}" "$(pwd)/${backupFile}" >> /dev/null
-        fi
-    )
-done
 
-# Xresources
-for file in ${XFiles[@]}; do
-    (
-        if [ -f ${file} ]; then
-            backupFile=${backupDir}"${file#~}.bak"
-            ${ece[@]} "   -> Found ${file}!\n         Backing up to ${backupFile}\n" | ${writeToLog[@]}
-            sudo rsync ${optionsRS[@]} "${file}" "$(pwd)/${backupFile}" >> /dev/null
-        fi
-    )
-done
+# TODO i3 needs backup aswell
 
+##  i3 config files
+if [ -d ~/.config/i3 ]; then
+    echo -e "   -> Found ~/.config/i3 directory\n         Backing up to ${BACK}/i3\n" | ${WTL[@]}
+    mkdir "${BACK}/i3"
+    rsync ${RSoptions[@]} ~/.config/i3/ "${BACK}/i3"
+fi
 
 # ? Deployment
-
-echo -e "Proceeding to rsync config files..." | ${writeToLog[@]}
-
-for sourceFile in "${deploymentFiles[@]}"; do
-    (
-        ${ece[@]} "   -> Syncing $(basename -- "${sourceFile}")"
-        sudo rsync ${optionsRS[@]} ${sourceFile} ~ >> /dev/null
-    )
-done
-sudo rsync -a "$(pwd)/../resources/X/i3config/" ~/.config/i3 >> /dev/null
-
-## fonts
-if [ ! -d ~/.fonts ]; then
-    sudo mkdir ~/.fonts
-fi
-sudo rsync -a "$(pwd)/../resources/fonts/" ~/.fonts >> /dev/null
-
-## wallpapers
-if [ ! -d ~/pictures ]; then
-    mkdir ~/pictures
-fi
-sudo rsync ${optionsRS[@]} "$(pwd)/../resources/wallpapers" ~/pictures
-
-# load fonts and source .Xresources file
-fc-cache
-xrdb ~/.Xresources
-
-# ? User's choices
-
-# vim
-${ece[@]} ""
-read -p "Would you like to set vim as your default editor? [Y/n]" -r responseOne
-if [[ $responseOne =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $responseOne ]]; then
-    echo "export VISUAL=vim" >> ~/.bashrc
-    echo 'export EDITOR="$VISUAL"' >> ~/.bashrc
-    ${ece[@]} "   -> Success!"
-else
-    ${ece[@]} ""
-fi
-
-read -p "Would you like me to edit /etc/default/grub? [Y/n]" -r responseTwo
-if [[ $responseTwo =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $responseTwo ]]; then
-    sudo rm -f /etc/default/grub
-    sudo cp ../resources/others/grub /etc/default/
-fi
-
-${ece[@]} "\nDeployment of configuration files has ended. Installation finished! Please open a new shell for changes to take effect." | ${writeToLog[@]}
+# 
+# echo -e "Proceeding to rsync config files..." | ${WTL[@]}
+# 
+# for sourceFile in "${deployInHome[@]}"; do
+#     (
+#         echo -e "   -> Syncing $(basename -- "${sourceFile}")"
+#         sudo rsync ${RSoptions[@]} "${RES}/${sourceFile}" ~ >> /dev/null
+#     )
+# done
+# sudo rsync -a "$(pwd)/../resources/X/i3config/" ~/.config/i3 >> /dev/null
+# 
+# ## fonts
+# if [ ! -d ~/.fonts ]; then
+#     sudo mkdir ~/.fonts
+# fi
+# sudo rsync -a "$(pwd)/../resources/fonts/" ~/.fonts >> /dev/null
+# 
+# ## wallpapers
+# if [ ! -d ~/pictures ]; then
+#     mkdir ~/pictures
+# fi
+# sudo rsync ${RSoptions[@]} "$(pwd)/../resources/wallpapers" ~/pictures
+# 
+# # load fonts and source .Xresources file
+# fc-cache
+# xrdb ~/.Xresources
+# 
+# # ? User's choices
+# 
+# # vim
+# echo -e ""
+# read -p "Would you like to set vim as your default editor? [Y/n]" -r responseOne
+# if [[ $responseOne =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $responseOne ]]; then
+#     echo "export VISUAL=vim" >> ~/.bashrc
+#     echo 'export EDITOR="$VISUAL"' >> ~/.bashrc
+#     echo -e "   -> Success!"
+# else
+#     echo -e ""
+# fi
+# 
+# read -p "Would you like me to edit /etc/default/grub? [Y/n]" -r responseTwo
+# if [[ $responseTwo =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $responseTwo ]]; then
+#     sudo rm -f /etc/default/grub
+#     sudo cp ../resources/others/grub /etc/default/
+# fi
+# 
+# echo -e "\nDeployment of configuration files has ended. Installation finished! Please open a new shell for changes to take effect." | ${WTL[@]}
+# 
