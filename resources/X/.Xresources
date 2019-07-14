@@ -15,9 +15,9 @@ Xft.hintstyle:              hintslight
 *pointerColorBackground: #2A363B
 
 ! Platinum
-*foreground: #e5e8e7
-*cursorColor: #e5e8e7
-*pointerColorForeground: #e5e8e7
+*foreground: #E5E8E7
+*cursorColor: #E5E8E7
+*pointerColorForeground: #E5E8E7
 
 ! Paradise Pink
 *color0: #E84A5F
@@ -41,11 +41,11 @@ Xft.hintstyle:              hintslight
 *color13: #FECEAB
 
 !! Laurel Green
-*color6: #9ab29a
-*color14: #9ab29a
+*color6: #9AB29A
+*color14: #9AB29A
 
-*color7: #9ab29a
-*color15: #9ab29a
+*color7: #9AB29A
+*color15: #9AB29A
 
 ############################################ URXVT
 
