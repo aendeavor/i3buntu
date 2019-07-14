@@ -89,7 +89,7 @@ ${RS[@]} "${RES}/wallpapers" ~/pictures >> $LOG
 # ? Reload of services and caches
 
 fc-cache ## fonts
-xrdb ~/.Xresources
+xrdb ~/.Xresources >> $LOG
 
 # ? User's choices
 
@@ -98,7 +98,7 @@ read -p "Would you like me to edit /etc/default/grub? [Y/n]" -r responseTwo
 if [[ $responseTwo =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $responseTwo ]]; then
     sudo rm -f /etc/default/grub
     sudo cp ${RES}/others/grub /etc/default/
-    sudo update-grub >> $LOG
+    sudo update-grub 2>&1 >> $LOG
 fi
 
 # ? Actual script finished
