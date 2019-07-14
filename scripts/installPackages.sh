@@ -16,7 +16,7 @@ echo -e "\nUbuntu critical packages\n"
 ${AI[@]} ubuntu-drivers-common htop intel-microcode software-properties-common
 
 echo -e "\nPulse audio\n"
-${AI[@]} pulseaudio gstreamer1.0-pulseaudio pulseaudio-module-gconf pulseaudio-module-raop pulseaudio-module-bluetooth
+${AI[@]} pulseaudio gstreamer1.0-pulseaudio pulseaudio-module-raop pulseaudio-module-bluetooth
 
 echo -e "\nUbuntu miscellaneous packages\n"
 ${AI[@]} file-roller p7zip-full gparted fontconfig filezilla xsel lxappearance evince gedit nomacs
@@ -51,7 +51,7 @@ ${AI[@]} snapd
 echo -e "Finished installing packages! Proceeding to removing dmenu..."
 
 echo -e "\nDmenu\n"
-sudo apt-get remove suckless-tools
+sudo apt-get remove "${IF[@]}" suckless-tools
 
 echo -e "Finished reoving packages! Proceeding to updating and upgrading via APT..."
 
