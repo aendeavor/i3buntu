@@ -61,3 +61,7 @@ These are the GIT-Core and Mozilla official repositories for Git, Firefox and Th
 ## Runlevel ∞
 
 As all functionality has been setup. Now is the time to rice your desktop - a.k.a. make it beautiful. As detailed description will follow here...
+
+(v0.1)
+
+Open LXappearance 

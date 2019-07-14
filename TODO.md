@@ -5,6 +5,7 @@
 1. i3 config file missing
 2. needs to be added to install script
 3. i3lock configuration for RICE
+4. test brightness and volume control
 
 ## Scripts
 
