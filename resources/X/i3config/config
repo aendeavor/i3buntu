@@ -9,10 +9,46 @@ set $mod Mod1
 
 # font
 # font pango:DejaVu Sans Mono 10
-xft:RobotoMono NF:style=Regular:pixelsize=14
+font xft:RobotoMono NF:style=Regular:pixelsize=14
 
 # use Mouse+Mod4 to drag floating windows to their wanted position
-floating_modifier Mod4
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec "urxvt"
+
+# kill focused window
+bindsym $mod+q kill
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## Signal used to update the status line (used with -u, requires -t)

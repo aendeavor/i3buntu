@@ -1,34 +1,31 @@
 #!/bin/bash
 
-# ! 1 HANDLES INITIAL INSTALLATION
+# ! WRAPPER SCRIPT FOR INITIAL PACKAGE INSTALLATION
+
+sudo echo -e "\nThe script has begun!"
 
 # ? Preconfig
-##############################################################################################
 
-logFile=.install_log
-writeToLog=( tee -a "${logFile}" )
+##  directories (absolute & normalized) and files
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"                     # dir of this file
+BACK="$(readlink -m "${DIR}/../backups/packageInstallation/$(date '+%d-%m-%Y--%H-%M-%S')")" # dir of backup folder
+LOG="${BACK}/.install_log"
 
-backupFile=../backups/$(date)
-writeToBackup=(cp -rf "${backupFile}")
-
-ece=( sudo echo -e )
-
-installFlags=(--yes --assume-yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages)
-apti=( sudo apt-get install ${installFlags[@]})
-
-##############################################################################################
-
-${ece[@]} "\nInstallation has begun!" | ${writeToLog[@]}
-${ece[@]} "Started at: $(date)" | ${writeToLog[@]}
-
-# ? Init of log
-
-if [ ! -f "${logFile}" ]; then
-    touch "${logFile}"
+##  init of backup-directory
+if [ ! -d "$BACK" ]; then
+    mkdir -p "$BACK"
 fi
 
-# ? Start of actual installation
-./installPackages.sh | ${writeToLog[@]}
+##  init of log
+if [ ! -f "$LOG" ]; then
+    touch "$LOG"
+fi
+WTL=( tee -a "${LOG}" )
 
-sudo apt-get update
-sudo apt-get upgrade ${installFlags}
+# ? Preconfig finished
+# ? Actual script begins
+
+echo -e "Started at: $(date)" | ${writeToLog[@]}
+
+# ! Actual installing script
+./installPackages.sh | ${writeToLog[@]}

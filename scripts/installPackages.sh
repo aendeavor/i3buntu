@@ -1,51 +1,51 @@
 #!/bin/bash
 
-# ! 1.2 HANDLES INSTALLATION OF PACKAGES
+# ! HANDLES INSTALLATION OF PACKAGES
 
 # ? Preconfig
-##############################################################################################
 
-ece=( sudo echo -e )
+IF=(--yes --assume-yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages)
+AI=( sudo apt-get install ${IF[@]})
 
-installFlags=(--yes --assume-yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages)
-apti=( sudo apt-get install ${installFlags[@]})
+# ? Preconfig finished
+# ? Actual script begins
 
-##############################################################################################
+echo -e "Start by installing packages..."
 
-${ece[@]} "Start by installing packages..."
+echo -e "\nUbuntu critical packages\n"
+${AI[@]} ubuntu-drivers-common htop intel-microcode
 
-${ece[@]} "\nUbuntu critical packages\n"
-${apti[@]} ubuntu-drivers-common htop intel-microcode
+echo -e "\nUbuntu miscellaneous packages\n"
+${AI[@]} file-roller p7zip-full nomacs gparted fontconfig filezilla xsel lxappearance evince gedit
 
-${ece[@]} "\nUbuntu miscellaneous packages\n"
-${apti[@]} file-roller p7zip-full nomacs gparted fontconfig filezilla xsel lxappearance evince gedit
+echo -e "\nURXVT\n"
+${AI[@]} rxvt-unicode neofetch
 
-${ece[@]} "\nURXVT\n"
-${apti[@]} rxvt-unicode neofetch
+echo -e "\nVIM\n"
+${AI[@]} vim
 
-${ece[@]} "\nVIM\n"
-${apti[@]} vim
+echo -e "\nXorg\n"
+${AI[@]} xorg xserver-xorg
 
-${ece[@]} "\nXorg\n"
-${apti[@]} xorg xserver-xorg
+echo -e "\nLightDM\n"
+${AI[@]} lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings
 
-${apti[@]} lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings
+echo -e "\nMesa\n"
+${AI[@]} mesa-utils mesa-utils-extra
 
-${ece[@]} "\nMesa\n"
-${apti[@]} mesa-utils mesa-utils-extra
+echo -e "\ni3\n"
+${AI[@]} i3-gaps compton pactl xbacklight feh
 
-${ece[@]} "\ni3\n"
-${apti[@]} i3-gaps compton pactl xbacklight feh
-${ece[@]} "\n"
+echo -e "\nFirefox\n"
+${AI[@]} --no-install-recommends firefox
 
-${ece[@]} "\nFirefox\n"
-${apti[@]} --no-install-recommends firefox
-${ece[@]} "\n"
+echo -e "\nThunderbird\n"
+${AI[@]} thunderbird
 
-${ece[@]} "\nThunderbird\n"
-${apti[@]} thunderbird
+echo -e "\nSnap\n"
+${AI[@]} snapd
 
-${ece[@]} "\nSnap\n"
-${apti[@]} snapd
+echo -e "Finished installing packages! Proceeding to updating and upgrading via APT..."
 
-${ece[@]} "Finished installing packages..."
+sudo apt-get update
+sudo apt-get upgrade ${IF}
