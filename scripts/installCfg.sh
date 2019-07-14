@@ -80,7 +80,7 @@ ${RS[@]} "${RES}/X/i3config/" ~/.config/i3 >> $LOG
 
 ##  fonts
 mkdir -p ~/.fonts
-rsync -a "$(pwd)/../resources/fonts/" ~/.fonts >> $LOG
+rsync -a "${RES}/resources/fonts/" ~/.fonts >> $LOG
 
 ##  wallpapers
 mkdir -p ~/pictures
