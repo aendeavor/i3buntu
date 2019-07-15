@@ -1,18 +1,6 @@
 " BASICS
-filetype indent plugin on
 set encoding=utf-8
 set nocompatible
-
-" PLUGIN MANAGER
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
-call plug#begin('~/.vim/plugged')
-Plug 'drewtempelmeyer/palenight.vim'
-call plug#end()
 
 " TABS & WRAPPING
 set wrap
@@ -64,13 +52,4 @@ set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ [BUFFE
 set viminfo='100,<9999,s100
 
 " AUTOMATICALLY SAVE AND LOAD FOLDS
-autocmd BufWinLeave *.* mklet g:palenight_terminal_italics=1view
 autocmd BufWinEnter *.* silent loadview"
-
-" COLOR SCHEME
-syntax on
-let g:palenight_terminal_italics=1
-let g:palenight_terminal_italics=1
-set background=dark
-colorscheme palenight
-set termguicolors
