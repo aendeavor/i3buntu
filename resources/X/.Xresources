@@ -17,16 +17,16 @@ Xft.lcdfilter:              lcdfilter
 *pointerColorBackground: #2A363B
 
 ! Platinum
-*foreground: #e5e8e7
-*cursorColor: #e5e8e7
-*pointerColorForeground: #e5e8e7
+*foreground: #E5E8E7
+*cursorColor: #E5E8E7
+*pointerColorForeground: #E5E8E7
 
 ! Paradise Pink
 *color0: #E84A5F
-*color8: #EE7B8A
+*color8: #2A363B
 
 *color1: #E84A5F
-*color9: #EE7B8A
+*color9: #E5E8E7
 
 ! Tea Rose
 *color2: #FF847C
