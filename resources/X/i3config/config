@@ -89,9 +89,6 @@ bindsym $mod+d exec rofi -show run -lines 5 -eh 2 -width 100 -padding 800 -opaci
 # kill focused window
 bindsym $mod+q kill
 
-# Own key-bindings
-bindsym $mod+shift+x exec i3lock
-
 # change focus
 bindsym $mod+j focus left
 bindsym $mod+k focus down
