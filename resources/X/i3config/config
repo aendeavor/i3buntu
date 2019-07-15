@@ -221,5 +221,6 @@ bindsym $mod+r mode "resize"
 
 ############################################################################### Miscellaneous
 
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 exec urxvtd -q -o -f
 exec compton -f
