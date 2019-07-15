@@ -46,6 +46,7 @@ set $TEXT                   #E5E8E7
 set $INACTIVE-TEXT          #A7A9A9
 set $URGENT                 #E84A5F
 set $GREEN                  #9AB29A
+set $BAR                    #000000
 
 # window colours          border              background          text              indicator       ?
 client.focused            $BG                 $BG                 $TEXT             $GREEN          $GREEN
@@ -58,6 +59,11 @@ hide_edge_borders both
 bar {
   status_command        i3blocks -c ~/.config/i3/i3blocks.conf
   position              bottom
+  mode                  hide
+  hidden_state          hide
+
+  tray_padding          0
+
   colors {
     background          $BG
     statusline          $GREEN
