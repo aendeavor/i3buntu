@@ -13,7 +13,7 @@ AI=( sudo apt-get install ${IF[@]})
 echo -e "Start by installing packages..."
 
 echo -e "\nUbuntu critical packages\n"
-${AI[@]} ubuntu-drivers-common htop intel-microcode software-properties-common
+${AI[@]} ubuntu-drivers-common htop intel-microcode software-properties-common net-tools
 
 echo -e "\nPulse audio\n"
 ${AI[@]} pulseaudio gstreamer1.0-pulseaudio pulseaudio-module-raop pulseaudio-module-bluetooth
