@@ -23,10 +23,10 @@ Xft.lcdfilter:              lcdfilter
 
 ! Paradise Pink
 *color0: #E84A5F
-*color8: #2A363B
+*color8: #E5E8E7
 
 *color1: #E84A5F
-*color9: #E5E8E7
+*color9: #FFFFFF
 
 ! Tea Rose
 *color2: #FF847C
