@@ -47,9 +47,9 @@ set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
 map Y y$
 nnoremap <C-L> :nohl<CR><C-L>
 
-" STATUSLINE
-" set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ [BUFFER=%n]
-set viminfo='100,<9999,s100
+" STATUSLINE a.k.a. disabled
+set laststatus=0
+set cmdheight=1
 
 " AUTOMATICALLY SAVE AND LOAD FOLDS
 autocmd BufWinEnter *.* silent loadview"
