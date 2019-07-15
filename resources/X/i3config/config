@@ -37,7 +37,7 @@ exec_always feh --bg-scale $HOME/pictures/wallpapers/womanInDarkness.jpg
 
 # Font
 # font pango:DejaVu Sans Mono 10
-font pango:RobotoMono NF:style=Regular:pixelsize=13
+font xft:RobotoMono NF:style=Regular:pixelsize=13
 
 # Colours
 set $BG                     #2A363B
@@ -59,9 +59,11 @@ hide_edge_borders both
 bar {
   status_command        i3blocks -c ~/.config/i3/i3blocks.conf
   position              bottom
-  mode                  show
+  mode                  dock
 
   tray_padding          0
+
+  font xft:RobotoMono NF:style=Regular:pixelsize=13
 
   colors {
     background          $BAR
