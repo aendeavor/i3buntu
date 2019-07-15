@@ -10,6 +10,7 @@ set $mod Mod1
 ############################################################################### Miscellaneous
 
 exec compton -f
+exec urxvtd
 
 ############################################################################### Laptop exclusive
 
@@ -78,7 +79,7 @@ bar {
 ############################################################################### Keybindings
 
 # start a terminal
-bindsym $mod+Return exec "urxvt"
+bindsym $mod+Return exec "urxvtcd"
 
 # lock the screen
 bindsym $mod+Shift+x exec "i3lock -n -i ~/pictures/wallpapers/womanInDarkness.png"

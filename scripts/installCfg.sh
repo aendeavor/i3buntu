@@ -17,9 +17,7 @@ deployInHome=( bash/.bashrc bash/.bash_aliases vim/.vim vim/.vimrc vim/.viminfo 
 fonts=( 'fonts/Iosevka Nerd' 'fonts/Open Sans' 'fonts/Roboto' 'fonts/Roboto Mono Nerd' 'fonts/FontAwesome' )
 
 ##  init of backup-directory
-if [ ! -d "$BACK" ]; then
-    mkdir -p "$BACK"
-fi
+mkdir -p "$BACK"
 
 ##  init of log
 if [ ! -f "$LOG" ]; then
@@ -77,6 +75,10 @@ done
 ##  i3
 mkdir -p ~/.config/i3
 ${RS[@]} "${RES}/X/i3config/" ~/.config/i3 >> $LOG
+
+##  urxvt extensions
+mkdir -p ~/.urxvt/extensions
+${RS[@]} "${RES}/X/URXVT/" ~/.urxvt/ext >> $LOG
 
 ##  fonts
 mkdir -p ~/.fonts
