@@ -4,9 +4,11 @@
 
 Xft.dpi:                    96
 Xft.antialias:              true
-Xft.rgba:                   rgb
 Xft.hinting:                true
+Xft.rgba:                   rgb
+Xft.autohint:               true
 Xft.hintstyle:              hintslight
+Xft.lcdfilter:              lcdfilter
 
 !################################### Colors
 
@@ -49,6 +51,9 @@ Xft.hintstyle:              hintslight
 
 ############################################ URXVT
 
+URxvt*imLocale:             de_DE.UTF-8
+URxvt*termName:             RXVT-UNICODE
+
 URxvt.depth:                32
 URxvt.geometry:             90x30
 URxvt.loginShell:           true
@@ -78,8 +83,10 @@ URxvt*transparent: true
 URxvt*shading: 25
 
 ! Roboto Mono Nerd Font
-URxvt*font: xft:RobotoMono NF:style=Regular:pixelsize=14
-URxvt*boldFont: xft:RobotoMono NF:style=Bold:pixelsize=14
+URxvt*font: xft:RobotoMono NF:style=Regular:pixelsize=14, \
+            xft:Iosevka Nerd Font Mono:style=Regular:pixelsize=14
+URxvt*boldFont: xft:RobotoMono NF:style=Bold:pixelsize=14, \
+                xft:Iosevka Nerd Font Mono:style=Bold:pixelsize=14
 
 ! Extensions
 URxvt.perl-ext-common: default,selection-to-clipboard,resize-font,matcher

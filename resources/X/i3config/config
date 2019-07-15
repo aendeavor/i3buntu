@@ -61,7 +61,7 @@ client.urgent             $URGENT             $URGENT             $TEXT         
 hide_edge_borders both
 
 bar {
-  status_command        i3blocks -c ~/.conf/i3/i3blocks.conf
+  status_command        i3blocks -c ~/.config/i3/i3blocks.conf
   position              bottom
   colors {
     background          $BG
