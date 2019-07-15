@@ -21,6 +21,9 @@ ${AI[@]} pulseaudio gstreamer1.0-pulseaudio pulseaudio-module-raop pulseaudio-mo
 echo -e "\nUbuntu miscellaneous packages\n"
 ${AI[@]} file-roller p7zip-full gparted fontconfig filezilla xsel lxappearance evince gedit nomacs
 
+echo -e "\nAuthentication\n"
+${AI[@]} policykit-desktop-privileges policykit-1-gnome
+
 echo -e "\nURXVT\n"
 ${AI[@]} rxvt-unicode neofetch
 
