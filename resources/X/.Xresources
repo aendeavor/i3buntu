@@ -52,7 +52,6 @@ Xft.lcdfilter:              lcdfilter
 ############################################ URXVT
 
 URxvt*imLocale:             de_DE.UTF-8
-URxvt*termName:             RXVT-UNICODE
 
 URxvt.depth:                32
 URxvt.geometry:             90x30
