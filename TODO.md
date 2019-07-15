@@ -16,3 +16,7 @@
 * setup GTK theme via LXappearance
 * customzite greeter & LightDM
 * icon theme missing
+
+## VIM
+
+* statusline color is white, i mean wtf

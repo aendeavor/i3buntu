@@ -47,6 +47,7 @@ set $INACTIVE-TEXT          #A7A9A9
 set $URGENT                 #E84A5F
 set $GREEN                  #9AB29A
 set $BAR                    #000000
+set $BARTEXT                #FEEDE0
 
 # window colours          border              background          text              indicator       ?
 client.focused            $BG                 $BG                 $TEXT             $GREEN          $GREEN
@@ -63,16 +64,16 @@ bar {
 
   tray_padding          0
 
-  font xft:RobotoMono NF 12
+  font xft:RobotoMono NF 10
 
   colors {
     background          $BAR
-    statusline          $GREEN
+    statusline          $BARTEXT
 
     #                   border          background        text
-    focused_workspace   $BAR            $BAR              $TEXT
-    active_workspace    $BAR            $BAR              $TEXT
-    inactive_workspace  $BAR            $BAR              $INACTIVE-TEXT
+    focused_workspace   $BAR            $BAR              $BARTEXT
+    active_workspace    $BAR            $BAR              $BARTEXT
+    inactive_workspace  $BAR            $BAR              #CCBEB3
     urgent_workspace    $URGENT         $URGENT           $TEXT
   }
 }

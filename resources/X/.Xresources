@@ -23,31 +23,31 @@ Xft.lcdfilter:              lcdfilter
 
 ! Paradise Pink
 *color0: #E84A5F
-*color8: #E84A5F
+*color8: #EE7B8A
 
 *color1: #E84A5F
-*color9: #E84A5F
+*color9: #EE7B8A
 
 ! Tea Rose
 *color2: #FF847C
-*color10: #FF847C
+*color10: #FFBBB7
 
 *color3: #FF847C
-*color11: #FF847C
+*color11: #FFBBB7
 
 ! Apricot
 *color4: #FECEAB
-*color12: #FECEAB
+*color12: #FEEDE0
 
 *color5: #FECEAB
-*color13: #FECEAB
+*color13: #FEEDE0
 
 !! Laurel Green
 *color6: #9ab29a
-*color14: #9ab29a
+*color14: #BECEBE
 
 *color7: #9ab29a
-*color15: #9ab29a
+*color15: #BECEBE
 
 ############################################ URXVT
 
