@@ -11,11 +11,6 @@
 
 * authentication agent missing
 
-## VIM
-
-* broken af in URXVT
-* palenight theme still appropriate?
-
 ## LightDM
 
 * still ugly af

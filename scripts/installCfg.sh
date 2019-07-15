@@ -13,7 +13,7 @@ BACK="$(readlink -m "${DIR}/../backups/$(date '+%d-%m-%Y--%H-%M-%S')")" # dir of
 LOG="${BACK}/.install_log"                                              # logfiles
 
 backupInHome=( ~/.bash_aliases ~/.bashrc ~/.vimrc ~/.Xresources )
-deployInHome=( bash/.bashrc bash/.bash_aliases vim/.vim vim/.vimrc vim/.viminfo X/.Xresources )
+deployInHome=( bash/.bashrc bash/.bash_aliases vim/.vimrc vim/.viminfo X/.Xresources )
 fonts=( 'fonts/Iosevka Nerd' 'fonts/Open Sans' 'fonts/Roboto' 'fonts/Roboto Mono Nerd' 'fonts/FontAwesome' )
 
 ##  init of backup-directory
