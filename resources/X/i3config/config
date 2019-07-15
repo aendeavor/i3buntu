@@ -37,7 +37,7 @@ exec_always feh --bg-scale $HOME/pictures/wallpapers/womanInDarkness.jpg
 
 # Font
 # font pango:DejaVu Sans Mono 10
-font xft:RobotoMono NF:style=Regular:pixelsize=17
+font xft:RobotoMono NF:style=Regular:pixelsize=13
 
 # Colours
 set $BG                     #2A363B
@@ -60,7 +60,7 @@ bar {
   status_command        i3blocks -c ~/.config/i3/i3blocks.conf
   position              bottom
   mode                  hide
-  hidden_state          hide
+  hidden_state          show
 
   tray_padding          0
 
