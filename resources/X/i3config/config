@@ -7,11 +7,6 @@
 
 set $mod Mod1
 
-############################################################################### Miscellaneous
-
-exec compton -f
-exec urxvtd
-
 ############################################################################### Laptop exclusive
 
 # use Mouse+Mod4 to drag floating windows to their wanted position
@@ -223,3 +218,8 @@ mode "resize" {
         bindsym $mod+r mode "default"
 }
 bindsym $mod+r mode "resize"
+
+############################################################################### Miscellaneous
+
+exec urxvtd -q -o -f
+exec compton -f
