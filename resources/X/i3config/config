@@ -48,11 +48,11 @@ set $URGENT                 #E84A5F
 set $GREEN                  #9AB29A
 set $BAR                    #000000
 
-# window colours          border              background          text              indicator       ?
-client.focused            $BG                 $BG                 $TEXT             $GREEN          $GREEN
-client.focused_inactive   $INACTIVE-BG        $INACTIVE-BG        $INACTIVE-TEXT    $GREEN          $GREEN
-client.unfocused          $INACTIVE-BG        $INACTIVE-BG        $INACTIVE-TEXT    $GREEN          $GREEN
-client.urgent             $URGENT             $URGENT             $TEXT             $GREEN          $GREEN
+# window colours          border                background          text              indicator      ?
+client.focused            $BAR                  $BAR                $TEXT             $TEXT          $GREEN
+client.focused_inactive   $BAR                  $BAR                $INACTIVE-TEXT    $TEXT          $GREEN
+client.unfocused          $BAR                  $BAR                $INACTIVE-TEXT    $TEXT          $GREEN
+client.urgent             $URGENT               $URGENT             $TEXT             $TEXT          $GREEN
 
 hide_edge_borders both
 
@@ -63,7 +63,7 @@ bar {
 
   tray_padding          0
 
-  font xft:RobotoMono NF:style=Regular:pixelsize=13
+  font xft:RobotoMono NF 13
 
   colors {
     background          $BAR
