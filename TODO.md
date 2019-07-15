@@ -25,11 +25,3 @@
 * setup GTK theme via LXappearance
 * customzite greeter & LightDM
 * icon theme missing
-
-## URXVT
-
-* needs extensions for drag-n-drop / copy
-
-## Colors
-
-* color themes lacks light and dark versions - fix or no fix?
