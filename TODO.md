@@ -4,7 +4,6 @@
 
 1. i3lock configuration for RICE
 2. test brightness and (dont work yet), touchpad doesn't work too
-3. rofi needs setup
 
 ## LightDM
 

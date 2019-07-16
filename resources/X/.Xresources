@@ -49,6 +49,34 @@ Xft.lcdfilter:              lcdfilter
 *color7: #9AB29A
 *color15: #BECEBE
 
+############################################ ROFI
+
+rofi.fullscreen:        true
+rofi.color-enabled:     true
+
+rofi.color-window:      argb:e8101416,argb:00000000,#FECEAB
+rofi.color-normal:      argb:02000000,#E5E8E7,argb:02000000,argb:02000000,#FECEAB
+rofi.color-active:      argb:02000000,#E5E8E7,argb:02000000,argb:02000000,#FECEAB
+rofi.color-urgent:      argb:02000000,#E5E8E7,argb:02000000,argb:02000000,#FECEAB
+
+rofi.font:              RobotoMono NF 14
+rofi.eh:                2
+rofi.line-padding:      20
+! rofi.line-margin:       20
+rofi.separator-style:   none
+rofi.hide-scrollbar:    true
+rofi.lines:             5
+rofi.width:             100
+rofi.padding:           200
+rofi.bw:                0
+rofi.show-icons:        true
+
+rofi.threads:           0
+rofi.terminal:          "urxvt"
+rofi.no-plugins:        true
+rofi.auto-select:       true
+rofi.show-match:        true
+
 ############################################ URXVT
 
 URxvt*imLocale:             de_DE.UTF-8
