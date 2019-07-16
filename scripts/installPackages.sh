@@ -54,6 +54,9 @@ ${AI[@]} thunderbird
 echo -e "\nSnap\n"
 ${AI[@]} snapd
 
+echo -e "\nTheming\n"
+${AI[@]} gtk2-engines-pixbuf gtk2-engines-murrine
+
 echo -e "Finished installing packages! Proceeding to removing dmenu..."
 
 echo -e "\nDmenu\n"

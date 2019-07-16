@@ -49,11 +49,11 @@ set $GREEN                  #9AB29A
 set $BAR                    #000000
 set $BARTEXT                #FEEDE0
 
-# window colours          border              background          text              indicator       ?
-client.focused            $BG                 $BG                 $TEXT             $GREEN          $GREEN
-client.focused_inactive   $INACTIVE-BG        $INACTIVE-BG        $INACTIVE-TEXT    $GREEN          $GREEN
-client.unfocused          $INACTIVE-BG        $INACTIVE-BG        $INACTIVE-TEXT    $GREEN          $GREEN
-client.urgent             $URGENT             $URGENT             $TEXT             $GREEN          $GREEN
+# window colours          border              background          text              indicator           ?
+client.focused            $BG                 $BG                 $TEXT             $TEXT               $GREEN
+client.focused_inactive   $INACTIVE-BG        $INACTIVE-BG        $INACTIVE-TEXT    $TEXT               $GREEN
+client.unfocused          $INACTIVE-BG        $INACTIVE-BG        $INACTIVE-TEXT    $TEXT               $GREEN
+client.urgent             $URGENT             $URGENT             $TEXT             $TEXT               $GREEN
 
 hide_edge_borders both
 
@@ -84,7 +84,7 @@ bar {
 bindsym $mod+Return exec "urxvtcd"
 
 # lock the screen
-bindsym $mod+Shift+x exec "i3lock -n -i ~/pictures/wallpapers/womanInDarkness.png"
+bindsym $mod+Shift+x exec i3lock-fancy -g -- scrot -z -q 25
 
 bindsym $mod+d exec rofi -show run
 
