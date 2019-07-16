@@ -56,12 +56,8 @@ sudo add-apt-repository -y ppa:git-core/ppa
 sudo add-apt-repository ppa:ubuntu-mozilla-security/ppa
 ```
 
-These are the GIT-Core and Mozilla official repositories for Git, Firefox and Thunderbird.
+These are the GIT-Core and Mozilla official repositories for Git, Firefox and Thunderbird. The only thing that't left would be installing a font. Navigate to this repository, and in `resources/others/IconTheme/` and execute the install script `./install.sh -a`.
 
 ## Runlevel ∞
 
-As all functionality has been setup. Now is the time to rice your desktop - a.k.a. make it beautiful. As detailed description will follow here...
-
-(v0.1)
-
-Open LXappearance. By pressing `$mod+d`, rofi will open and let you choose an application. Just type in lxa... and it should be there. Hit return to open it.
+As all functionality has been setup. Now is the time to rice your desktop - a.k.a. make it beautiful. Open LXappearance. By pressing `$mod+d`, rofi will open and let you choose an application. Just type in lxa... and it should be there. Hit return to open it. The rest if pretty straightforward. Chosse you *Adapta* theme, and the *Tela* icon theme. Setup the font of your deepest desire, voilà.
