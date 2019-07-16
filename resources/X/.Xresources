@@ -54,7 +54,7 @@ Xft.lcdfilter:              lcdfilter
 rofi.fullscreen:        true
 rofi.color-enabled:     true
 
-rofi.color-window:      argb:e8101416,argb:00000000,#FECEAB
+rofi.color-window:      argb:e8080A0A,argb:00000000,#FECEAB
 rofi.color-normal:      argb:02000000,#E5E8E7,argb:02000000,argb:02000000,#FECEAB
 rofi.color-active:      argb:02000000,#E5E8E7,argb:02000000,argb:02000000,#FECEAB
 rofi.color-urgent:      argb:02000000,#E5E8E7,argb:02000000,argb:02000000,#FECEAB

@@ -231,4 +231,4 @@ bindsym $mod+r mode "resize"
 # Startup of authentication agent, urxvt-deamon and compton compositor
 exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 exec urxvtd -q -o -f &
-exec compton -f
+exec compton -f -C -G -b
