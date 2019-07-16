@@ -88,6 +88,9 @@ rsync -a "${RES}/fonts/" ~/.fonts >> $LOG
 mkdir -p ~/pictures
 ${RS[@]} "${RES}/wallpapers" ~/pictures >> $LOG
 
+## Adapta GTK Colorthemes
+sudo dpkg --install "${RES}/others/AdaptaGTKcolorpack3-94-0-149.deb"
+
 # ? Reload of services and caches
 
 fc-cache -v -f >> $LOG ## fonts
@@ -106,4 +109,3 @@ fi
 # ? Actual script finished
  
 echo -e "\nDeployment of configuration files has ended. Installation finished!\nPlease open a new shell for changes to take effect." | ${WTL[@]}
- 
