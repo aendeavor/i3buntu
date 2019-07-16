@@ -89,7 +89,10 @@ mkdir -p ~/pictures
 ${RS[@]} "${RES}/wallpapers" ~/pictures >> $LOG
 
 ## Adapta GTK Colorthemes
-sudo dpkg --install "${RES}/others/AdaptaGTKcolorpack3-94-0-149.deb"
+pkgs='adapta-gtk-theme-colorpack'
+if ! dpkg -s $pkgs >/dev/null 2>&1; then
+    sudo dpkg --install "${RES}/others/AdaptaGTKcolorpack3-94-0-149.deb"
+fi
 
 # ? Reload of services and caches
 
