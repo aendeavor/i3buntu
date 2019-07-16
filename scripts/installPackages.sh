@@ -19,7 +19,7 @@ echo -e "\nPulse audio\n"
 ${AI[@]} pulseaudio gstreamer1.0-pulseaudio pulseaudio-module-raop pulseaudio-module-bluetooth
 
 echo -e "\nUbuntu miscellaneous packages\n"
-${AI[@]} file-roller p7zip-full gparted fontconfig filezilla xsel lxappearance evince gedit nomacs
+${AI[@]} file-roller p7zip-full gparted fontconfig filezilla xsel lxappearance evince gedit nomacs nautilus
 
 echo -e "\nAuthentication\n"
 ${AI[@]} policykit-desktop-privileges policykit-1-gnome

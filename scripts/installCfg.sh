@@ -90,7 +90,7 @@ ${RS[@]} "${RES}/wallpapers" ~/pictures >> $LOG
 
 # ? Reload of services and caches
 
-fc-cache ## fonts
+fc-cache -v -f >> $LOG ## fonts
 xrdb ~/.Xresources >> $LOG
 
 # ? User's choices

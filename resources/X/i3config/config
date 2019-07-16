@@ -86,7 +86,7 @@ bindsym $mod+Return exec "urxvtcd"
 # lock the screen
 bindsym $mod+Shift+x exec "i3lock -n -i ~/pictures/wallpapers/womanInDarkness.png"
 
-bindsym $mod+d exec rofi -show run -lines 5 -eh 2 -width 100 -padding 800 -opacity "85" -bw 0 -bc "$BG" -bg "$BG" -fg "$TEXT" -hlbg "$BG" -hlfg "#FECEAB" -font "RobotoMono NF 14"
+bindsym $mod+d exec rofi -show run
 
 # kill focused window
 bindsym $mod+q kill
