@@ -7,4 +7,3 @@
 ## GTK
 
 * customize greeter & LightDM
-* icon theme missing
