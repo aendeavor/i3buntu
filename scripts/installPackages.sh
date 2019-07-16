@@ -4,7 +4,7 @@
 
 # ? Preconfig
 
-IF=(--yes --assume-yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages)
+IF=( --yes --assume-yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages )
 AI=( sudo apt-get install ${IF[@]})
 
 # ? Preconfig finished
@@ -57,9 +57,9 @@ ${AI[@]} snapd
 echo -e "Finished installing packages! Proceeding to removing dmenu..."
 
 echo -e "\nDmenu\n"
-sudo apt-get remove "${IF[@]}" suckless-tools
+sudo apt-get remove ${IF[@]} suckless-tools
 
 echo -e "Finished reoving packages! Proceeding to updating and upgrading via APT..."
 
 sudo apt-get update
-sudo apt-get upgrade ${IF}
+sudo apt-get upgrade ${IF[@]}
