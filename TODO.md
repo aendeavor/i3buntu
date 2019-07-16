@@ -2,7 +2,7 @@
 
 ## ! i3 Setup
 
-1. test brightness and (dont work yet), touchpad doesn't work too
+1. test brightness and (dont work yet), touchpad too doesn't work
 
 ## LightDM
 
