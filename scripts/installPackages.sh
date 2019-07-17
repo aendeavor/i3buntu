@@ -13,13 +13,16 @@ AI=( sudo apt-get install ${IF[@]} )
 echo -e "Start by installing packages..."
 
 echo -e "\nUbuntu critical packages\n"
-${AI[@]} ubuntu-drivers-common htop intel-microcode software-properties-common net-tools
+${AI[@]} ubuntu-drivers-common htop intel-microcode software-properties-common
+
+echo -e "\nUbuntu critical packages\n"
+${AI[@]} net-tools network-manager network-manager-gnome
 
 echo -e "\nPulse audio\n"
 ${AI[@]} pulseaudio gstreamer1.0-pulseaudio pulseaudio-module-raop pulseaudio-module-bluetooth
 
 echo -e "\nUbuntu miscellaneous packages\n"
-${AI[@]} file-roller p7zip-full gparted fontconfig filezilla xsel lxappearance evince gedit nomacs nemo
+${AI[@]} file-roller p7zip-full gparted fontconfig filezilla xsel lxappearance evince gedit nomacs nemo wicd
 
 echo -e "\nAuthentication\n"
 ${AI[@]} policykit-desktop-privileges policykit-1-gnome
@@ -34,7 +37,8 @@ echo -e "\nXorg\n"
 ${AI[@]} xorg xserver-xorg
 
 echo -e "\nLightDM\n"
-${AI[@]} lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings
+${AI[@]} lightdm lightdm-gtk-greeter
+##  lightdm-gtk-greeter-settings
 
 echo -e "\nMesa\n"
 ${AI[@]} mesa-utils mesa-utils-extra
