@@ -29,6 +29,12 @@ a () {
 }
 export -f a
 
+sv () {
+    sudo vi "$1"
+    return
+}
+export -f sv
+
 areinstall () {
     sudo apt-get install --reinstall "$1"
     return

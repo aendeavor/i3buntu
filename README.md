@@ -56,12 +56,12 @@ The most important files are currently found in the following versions:
 |:--------------------------:|:--------------------------:|:----------------------:|
 | i3                         | 0.0.0                      | no                     |
 | URXVT                      | 0.0.0                      | no                     |
-| bashrc                     | 0.3.0                      | no                     |
+| bashrc                     | 0.3.0                      | yes                    |
 | bash_aliases               | 0.4.0                      | no                     |
 | Xresources                 | 0.0.0                      | no                     |
-| VIM                        | 0.3.8                      | no                     |
-| installCfg                 | 0.0.0                      | no                     |
-| install                    | 0.3.8                      | no                     |
+| VIM                        | 0.3.8                      | yes                    |
+| installCfg                 | 0.0.0                      | yes                    |
+| install                    | 0.3.8                      | yes                    |
 | README                     | 0.8.0                      | rock-solid             |
 | INSTALL                    | 0.3.4                      | adamantine             |
 
