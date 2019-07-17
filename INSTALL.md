@@ -56,7 +56,7 @@ sudo add-apt-repository -y ppa:git-core/ppa
 sudo add-apt-repository ppa:ubuntu-mozilla-security/ppa
 ```
 
-These are the GIT-Core and Mozilla official repositories for Git, Firefox and Thunderbird. The only thing that't left would be installing a font. Navigate to this repository, and in `resources/others/IconTheme/` and execute the install script `./install.sh -a`.
+These are the GIT-Core and Mozilla official repositories for Git, Firefox and Thunderbird. The only things that are left would be installing a icon theme and if you ran into trouble with touchpad activation on tap, activate this property. For the icon theme, navigate to this repository, and in `resources/others/IconTheme/` and execute the install script `./install.sh -a`. To activate the touchpad by tapping, execute `xinput-list`, find the one that looks like a touchpad, execute `xinput list-props <device id>` which should tell you what properties you can change for the input device. You should find one called something like Tapping Enabled and a number in parens after it (e.g. 276). Finally, run `xinput set-prop <device id> <property id> 1`, and tapping should work.
 
 ## Runlevel ∞
 

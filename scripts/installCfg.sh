@@ -76,6 +76,13 @@ done
 mkdir -p ~/.config/i3
 ${RS[@]} "${RES}/X/i3config/" ~/.config/i3 >> $LOG
 
+##  brightness controlls
+sudo ${RS[@]} "${RES}/X/xorg.conf" /etc/X11 >> $LOG
+
+##  lightdm
+sudo mkdir -p /etc/lightdm
+sudo ${RS[@]} "${RES}/others/lightdm-gtk-greeter.conf" /etc/lightdm >> $LOG
+
 ##  urxvt extensions
 mkdir -p ~/.urxvt/extensions
 ${RS[@]} "${RES}/X/URXVT/" ~/.urxvt/ext >> $LOG
