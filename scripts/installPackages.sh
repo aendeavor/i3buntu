@@ -16,7 +16,7 @@ echo -e "\nUbuntu critical packages\n"
 ${AI[@]} ubuntu-drivers-common htop intel-microcode software-properties-common
 
 echo -e "\nNetworking\n"
-${AI[@]} net-tools network-manager network-manager-gnome indicator-application network-manager-openvpn-gnome
+${AI[@]} --install-recommends net-tools network-manager*
 
 echo -e "\nPulse audio\n"
 ${AI[@]} pulseaudio gstreamer1.0-pulseaudio pulseaudio-module-raop pulseaudio-module-bluetooth

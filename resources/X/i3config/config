@@ -40,7 +40,7 @@ font xft:Roboto:style=Regular:pixelsize=13
 
 # Colours
 set $BG                     #2A363B
-set $INACTIVE-BG            #1b2326
+set $INACTIVE-BG            #1B2326
 set $TEXT                   #E5E8E7
 set $INACTIVE-TEXT          #A7A9A9
 set $URGENT                 #E84A5F
@@ -63,7 +63,7 @@ bar {
 
   tray_padding          0
 
-  font xft:Roboto 12
+  font xft:Roboto 11
 
   colors {
     background          $BAR
