@@ -16,13 +16,13 @@ echo -e "\nUbuntu critical packages\n"
 ${AI[@]} ubuntu-drivers-common htop intel-microcode software-properties-common
 
 echo -e "\nNetworking\n"
-${AI[@]} net-tools network-manager network-manager-applet
+${AI[@]} net-tools network-manager network-manager-gnome indicator-application network-manager-openvpn-gnome
 
 echo -e "\nPulse audio\n"
 ${AI[@]} pulseaudio gstreamer1.0-pulseaudio pulseaudio-module-raop pulseaudio-module-bluetooth
 
 echo -e "\nUbuntu miscellaneous packages\n"
-${AI[@]} file-roller p7zip-full gparted fontconfig filezilla xsel lxappearance evince gedit nomacs nemo wicd
+${AI[@]} file-roller p7zip-full gparted fontconfig filezilla xsel lxappearance evince gedit nomacs nemo
 
 echo -e "\nAuthentication\n"
 ${AI[@]} policykit-desktop-privileges policykit-1-gnome
