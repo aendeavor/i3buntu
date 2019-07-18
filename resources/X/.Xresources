@@ -7,7 +7,7 @@ Xft.antialias:              true
 Xft.hinting:                true
 Xft.rgba:                   rgb
 Xft.autohint:               true
-Xft.hintstyle:              hintslight
+Xft.hintstyle:              hintfull
 Xft.lcdfilter:              lcdfilter
 
 !################################### Colors
@@ -23,31 +23,31 @@ Xft.lcdfilter:              lcdfilter
 
 ! Paradise Pink
 *color0: #E84A5F
-*color8: #EE7B8A
+*color8: #E84A5F
 
 *color1: #E84A5F
-*color9: #EE7B8A
+*color9: #E84A5F
 
 ! Tea Rose
 *color2: #FF847C
-*color10: #FFBBB7
+*color10: #FF847C
 
 *color3: #FF847C
-*color11: #FFBBB7
+*color11: #FF847C
 
 ! Apricot
 *color4: #FECEAB
-*color12: #FEEDE0
+*color12: #FECEAB
 
 *color5: #FECEAB
-*color13: #FEEDE0
+*color13: #FECEAB
 
 !! Laurel Green
 *color6: #9AB29A
-*color14: #BECEBE
+*color14: #9AB29A
 
 *color7: #9AB29A
-*color15: #BECEBE
+*color15: #9AB29A
 
 ############################################ ROFI
 
