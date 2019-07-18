@@ -65,7 +65,7 @@ update () {
     echo -e "Getting snap updates done..."
     sudo snap refresh 2>&1 >> /dev/null 
 
-    printf "\n\e[38;5;194mCompleted task!\e[39m\n\n\[\e[0m\]"
+    printf "\n\e[38;5;194mCompleted task!\e[39m\n\n"
     printf "Completed task!\n\n\n" >> $DIR
     return
 }
@@ -78,7 +78,7 @@ sf () {
 export -f sf
 
 open () {
-    gio open "$1"
+    evince "$1"
     return
 }
 export -f open

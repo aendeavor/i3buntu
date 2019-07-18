@@ -1,9 +1,5 @@
 # TODO
 
-## BASH
-
-* .bash\_aliases ending of update function wrong display of escape characters
-
 ## Colorscheme
 
 * convert to light theme
@@ -16,4 +12,3 @@
 ## INSTALL
 
 * needs thourough explanation of natural scrolling and tapping
-
