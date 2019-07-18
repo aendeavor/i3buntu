@@ -36,7 +36,7 @@ new_window 1pixel
 exec_always feh --bg-scale $HOME/pictures/wallpapers/womanInDarkness.jpg
 
 # Font
-font xft:RobotoMono NF:style=Regular:pixelsize=13
+font xft:Roboto:style=Regular:pixelsize=13
 
 # Colours
 set $BG                     #2A363B
@@ -63,7 +63,7 @@ bar {
 
   tray_padding          0
 
-  font xft:RobotoMono NF 12
+  font xft:Roboto 12
 
   colors {
     background          $BAR

@@ -88,8 +88,10 @@ mkdir -p ~/.urxvt/extensions
 ${RS[@]} "${RES}/X/URXVT/" ~/.urxvt/ext >> $LOG
 
 ##  fonts
-mkdir -p ~/.fonts
-rsync -a "${RES}/fonts/" ~/.fonts >> $LOG
+if [ ! -d ~/.fonts ]; then
+    mkdir -p ~/.fonts
+    rsync -a "${RES}/fonts/" ~/.fonts >> $LOG
+fi
 
 ##  wallpapers
 mkdir -p ~/pictures
