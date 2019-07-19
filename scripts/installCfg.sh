@@ -9,7 +9,7 @@ sudo echo -e "\nThe script has begun!"
 ##  directories (absolute & normalized) and files
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )" # dir of this file
 RES="$( readlink -m "${DIR}/../resources" )"                            # dir of resource folder
-BACK="$(readlink -m "${DIR}/../backups/$(date '+%d-%m-%Y--%H-%M-%S')")" # dir of backup folder
+BACK="$( readlink -m "${DIR}/../backups/$( date '+%d-%m-%Y--%H-%M-%S' )" )" # dir of backup folder
 LOG="${BACK}/.install_log"                                              # logfiles
 
 backupInHome=( ~/.bash_aliases ~/.bashrc ~/.vimrc ~/.Xresources )
