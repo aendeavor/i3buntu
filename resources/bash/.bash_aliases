@@ -78,7 +78,7 @@ sf () {
 export -f sf
 
 open () {
-    evince "$1"
+    evince "$1" > /dev/null 2>&1 &
     return
 }
 export -f open
