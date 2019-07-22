@@ -12,7 +12,9 @@ This repository aims at providing you with a set of instructions to create your 
 
 ### Why bother
 
-[Bacause of this. Period.](https://www.reddit.com/r/unixporn/)
+![Desktop Theme](resources/others/desktopTheme.png)
+
+[And because of this.](https://www.reddit.com/r/unixporn/)
 
 ### Why Ubuntu
 
@@ -42,7 +44,7 @@ This guide relies on using the following sources:
 * [Xorg](https://wiki.archlinux.org/index.php/Xorg) (X) Display server
 * [LightDM](https://wiki.archlinux.org/index.php/LightDM) Display Manager
 * [Mesa](https://en.wikipedia.org/wiki/Mesa_%28computer_graphics%29) Graphics API
-* [Midnight Commander](https://wiki.archlinux.org/index.php/Midnight_Commander) / [Nemo](https://wiki.archlinux.org/index.php/Nemo) / [Nautilus](https://wiki.archlinux.org/index.php/GNOME/Files) File Manager(s)
+* [Nemo](https://wiki.archlinux.org/index.php/Nemo) File Manager
 
 ## Install instructions
 
@@ -54,16 +56,16 @@ The most important files are currently found in the following versions:
 
 | filename                   | version                    | stable                 |
 |:--------------------------:|:--------------------------:|:----------------------:|
-| i3                         | 0.0.0                      | no                     |
-| URXVT                      | 0.0.0                      | no                     |
-| bashrc                     | 0.3.0                      | yes                    |
-| bash_aliases               | 0.4.0                      | no                     |
-| Xresources                 | 0.0.0                      | no                     |
+| i3                         | 0.5.1                      | no                     |
+| URXVT                      | 0.4.6                      | no                     |
+| bashrc                     | 0.3.7                      | yes                    |
+| bash_aliases               | 0.4.1                      | no                     |
+| Xresources                 | 0.5.2                      | no                     |
 | VIM                        | 0.3.8                      | yes                    |
-| installCfg                 | 0.0.0                      | yes                    |
-| install                    | 0.3.8                      | yes                    |
-| README                     | 0.8.0                      | rock-solid             |
-| INSTALL                    | 0.3.4                      | adamantine             |
+| installCfg                 | 0.4.9                      | yes                    |
+| install                    | 0.4.4                      | yes                    |
+| README                     | 0.8.6                      | rock-solid             |
+| INSTALL                    | 0.3.5                      | adamantine             |
 
 ## Improvements
 
