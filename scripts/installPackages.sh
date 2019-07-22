@@ -44,7 +44,7 @@ echo -e "\nMesa\n"
 ${AI[@]} mesa-utils mesa-utils-extra
 
 echo -e "\ni3\n"
-${AI[@]} i3 compton xbacklight feh rofi i3blocks
+${AI[@]} i3 compton xbacklight feh rofi
 
 echo -e "\ni3lock-fancy\n"
 ${AI[@]} i3lock-fancy scrot
