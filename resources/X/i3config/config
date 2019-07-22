@@ -30,7 +30,7 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightne
 new_window 1pixel
 
 # Wallpaper
-exec_always feh --bg-scale $HOME/pictures/wallpapers/womanInDarkness.jpg
+exec_always feh --bg-scale $HOME/pictures/wallpapers/fantasy.jpg
 
 # Font
 font xft:Roboto:style=Regular:pixelsize=13
