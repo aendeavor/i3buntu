@@ -5,7 +5,7 @@
 # Should you change your keyboard layout some time, delete this file
 # and re-run i3-config-wizard(1).
 
-set $mod Mod1
+set $mod Mod4
 
 ############################################################################### Laptop exclusive
 
@@ -30,7 +30,7 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightne
 new_window 1pixel
 
 # Wallpaper
-exec_always feh --bg-scale $HOME/pictures/wallpapers/firewatch3.jpg
+exec_always feh --bg-scale $HOME/pictures/wallpapers/firewatch.jpg
 
 # Font
 font xft:Roboto:style=Regular:pixelsize=13
@@ -230,4 +230,4 @@ bindsym $mod+r mode "resize"
 exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 exec urxvtd -q -o -f &
 exec compton -f -C -G -b &
-exec nm-applet
+exec owncloud

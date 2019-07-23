@@ -101,7 +101,7 @@ URxvt.scrollWithBuffer:     true
 URxvt*background: rgba:0000/0000/0000/9999
 
 ! Platinum
-URxvt*foreground: #e5e8e7
+URxvt*foreground: #E5E8E7
 
 ! transparency - true or false (default)
 ! URxvt*transparent: true
