@@ -1,0 +1,44 @@
+general {
+	colors = true
+
+	color_good = "#827972"
+	color_bad = "#827972"
+	color_degraded = "#827972"
+    color_separator = "#FDDAC6"
+
+	interval = 5
+}
+
+order += "volume master"
+order += "battery 0"
+order += "wireless wlan0"
+order += "ethernet eth1"
+order += "tztime local"
+
+volume master {
+	device = "default"
+	mixer = "Master"
+	mixer_idx = 0
+	# termsyn font
+	format = " %volume "
+}
+
+wireless wlan0 {
+	format_up = " %quality at %essid"
+	format_down = ""
+}
+
+tztime local {
+    format = "%d.%m.%Y %H:%M"
+}
+
+battery 0 {
+    format = "%percentage"
+    format_down = ""
+    path = "/sys/class/power_suppl/BAT%d/uevent"
+}
+
+ethernet eth1 {
+	format_up =  ""
+	format_down = ""
+}

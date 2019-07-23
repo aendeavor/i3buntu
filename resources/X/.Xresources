@@ -98,13 +98,13 @@ URxvt*scrollstyle:          plain
 URxvt.scrollWithBuffer:     true
 
 ! Dark Gunmetal
-URxvt*background: #1b202a
+URxvt*background: rgba:0000/0000/0000/9999
 
 ! Platinum
 URxvt*foreground: #e5e8e7
 
 ! transparency - true or false (default)
-URxvt*transparent: true
+! URxvt*transparent: true
 
 ! shading - 0 to 99 darkens, 101 to 200 lightens
 URxvt*shading: 25
