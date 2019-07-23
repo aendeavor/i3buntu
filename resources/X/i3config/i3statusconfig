@@ -10,9 +10,7 @@ general {
 }
 
 order += "volume master"
-order += "battery 0"
-order += "wireless wlan0"
-order += "ethernet eth1"
+order += "battery all"
 order += "tztime local"
 
 volume master {
@@ -23,22 +21,11 @@ volume master {
 	format = " %volume "
 }
 
-wireless wlan0 {
-	format_up = " %quality at %essid"
-	format_down = ""
-}
-
 tztime local {
     format = "%d.%m.%Y %H:%M"
 }
 
-battery 0 {
-    format = "%percentage"
+battery all {
+    format = " %percentage"
     format_down = ""
-    path = "/sys/class/power_suppl/BAT%d/uevent"
-}
-
-ethernet eth1 {
-	format_up =  ""
-	format_down = ""
 }
