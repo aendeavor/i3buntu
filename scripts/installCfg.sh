@@ -111,6 +111,13 @@ xrdb ~/.Xresources >> $LOG
 # ? User's choices
 
 echo ""
+read -p "Would you like me to edit nemo accordingly to your system? [Y/n]" -r responseOne
+if [[ $responseOne =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $responseOne ]]; then
+    xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search
+    gsettings set org.gnome.desktop.background show-desktop-icons false
+    gsettings set org.cinnamon.desktop.default-applications.terminal exec gnome-shell
+fi
+
 read -p "Would you like me to edit /etc/default/grub? [Y/n]" -r responseTwo
 if [[ $responseTwo =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $responseTwo ]]; then
     sudo rm -f /etc/default/grub
