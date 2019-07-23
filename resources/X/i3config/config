@@ -30,7 +30,7 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightne
 new_window 1pixel
 
 # Wallpaper
-exec_always feh --bg-scale $HOME/pictures/wallpapers/fantasy.jpg
+exec_always feh --bg-scale $HOME/pictures/wallpapers/firewatch3.jpg
 
 # Font
 font xft:Roboto:style=Regular:pixelsize=13
@@ -42,35 +42,36 @@ set $TEXT                   #E5E8E7
 set $INACTIVE-TEXT          #A7A9A9
 set $URGENT                 #E84A5F
 set $GREEN                  #9AB29A
-set $BAR                    #000000
-set $BARTEXT                #FEEDE0
+set $BAR                    #FDDAC6
+set $BTA                    #2E112D
+set $BTIA                   #827972
 
 # window colours          border              background          text              indicator           ?
-client.focused            $BG                 $BG                 $TEXT             $TEXT               $GREEN
-client.focused_inactive   $INACTIVE-BG        $INACTIVE-BG        $INACTIVE-TEXT    $TEXT               $GREEN
-client.unfocused          $INACTIVE-BG        $INACTIVE-BG        $INACTIVE-TEXT    $TEXT               $GREEN
-client.urgent             $URGENT             $URGENT             $TEXT             $TEXT               $GREEN
+client.focused            $BG                 $BG                 $TEXT             $TEXT               $BAR
+client.focused_inactive   $INACTIVE-BG        $INACTIVE-BG        $INACTIVE-TEXT    $TEXT               $BAR
+client.unfocused          $INACTIVE-BG        $INACTIVE-BG        $INACTIVE-TEXT    $TEXT               $BAR
+client.urgent             $URGENT             $URGENT             $TEXT             $TEXT               $BAR
 
 hide_edge_borders both
 
 bar {
-  status_command        i3blocks -c ~/.config/i3/i3blocks.conf
-  position              bottom
+  status_command        i3status -c ~/.config/i3/i3statusconfig
+  position              top
   mode                  dock
 
   tray_padding          0
 
-  font xft:Roboto 11
+  font xft:Roboto 10
 
   colors {
     background          $BAR
-    statusline          $BARTEXT
+    statusline          $BTIA
 
     #                   border          background        text
-    focused_workspace   $BAR            $BAR              $BARTEXT
-    active_workspace    $BAR            $BAR              $BARTEXT
-    inactive_workspace  $BAR            $BAR              #827972
-    urgent_workspace    $URGENT         $URGENT           $TEXT
+    focused_workspace   $BAR            $BAR              $BTA
+    active_workspace    $BAR            $BAR              $BTA
+    inactive_workspace  $BAR            $BAR              $BTIA
+    urgent_workspace    $BAR            $BAR              $URGENT
   }
 }
 
@@ -80,7 +81,7 @@ bar {
 bindsym $mod+Return exec "urxvtcd"
 
 # lock the screen
-bindsym $mod+Shift+x exec i3lock-fancy -g -- scrot -z -q 25
+bindsym $mod+Shift+x exec i3lock-fancy -- scrot -z -q 25
 
 bindsym $mod+d exec rofi -show run
 
