@@ -46,11 +46,11 @@ set $BAR                    #FDDAC6
 set $BTA                    #2E112D
 set $BTIA                   #827972
 
-# window colours          border              background          text              indicator           ?
-client.focused            $BG                 $BG                 $TEXT             $TEXT               $BAR
-client.focused_inactive   $INACTIVE-BG        $INACTIVE-BG        $INACTIVE-TEXT    $TEXT               $BAR
-client.unfocused          $INACTIVE-BG        $INACTIVE-BG        $INACTIVE-TEXT    $TEXT               $BAR
-client.urgent             $URGENT             $URGENT             $TEXT             $TEXT               $BAR
+# window colours          border              background          text              indicator          ?
+client.focused            $BG                 $BG                 $TEXT             $BAR               $BAR
+client.focused_inactive   $INACTIVE-BG        $INACTIVE-BG        $INACTIVE-TEXT    $BAR               $BAR
+client.unfocused          $INACTIVE-BG        $INACTIVE-BG        $INACTIVE-TEXT    $BAR               $BAR
+client.urgent             $URGENT             $URGENT             $TEXT             $BAR               $BAR
 
 hide_edge_borders both
 
@@ -84,7 +84,14 @@ bindsym $mod+Return exec "urxvtcd"
 # lock the screen
 bindsym $mod+Shift+x exec i3lock-fancy -- scrot -z -q 25
 
+# application manager
 bindsym $mod+d exec rofi -show run
+
+# vs code
+bindsym $mod+c exec code
+
+# nemo
+bindsym $mod+n exec nemo
 
 # kill focused window
 bindsym $mod+q kill
@@ -155,7 +162,7 @@ set $ws5 "5 Media "
 set $ws6 "6 Media "
 set $ws7 "7 Misc "
 set $ws8 "8 Misc "
-set $ws9 "9 Misc "
+set $ws9 "9 IDE "
 set $ws10 "10 Music "
 
 # switch to workspace
@@ -186,6 +193,9 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 assign [class="Urxvt"] $ws1
 assign [class="Code"] $ws2
 assign [class="Firefox"] $ws3
+assign [class="jetbrains-idea"] $ws9
+assign [class="jetbrains-pycharm"] $ws9
+assign [class="jetbrains-clion"] $ws9
 assign [class="Spotify"] $ws10
 
 
