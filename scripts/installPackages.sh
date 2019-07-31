@@ -13,7 +13,7 @@ AI=( sudo apt-get install ${IF[@]} )
 echo -e "Start by installing packages..."
 
 echo -e "\nUbuntu critical packages\n"
-${AI[@]} ubuntu-drivers-common htop intel-microcode software-properties-common
+${AI[@]} ubuntu-drivers-common htop intel-microcode software-properties-common curl
 
 echo -e "\nNetworking\n"
 ${AI[@]} --install-recommends net-tools network-manager*

@@ -58,6 +58,8 @@ sudo add-apt-repository ppa:ubuntu-mozilla-security/ppa
 
 These are the GIT-Core and Mozilla official repositories for Git, Firefox and Thunderbird. The only thing that's left would be installing an icon theme. Navigate to this repository and forward into `resources/others/IconTheme/`. Execute the install script `./install.sh -a`.
 
+You may need to tweak Xorg to output your screens correctly, in case you have more than one monitor. The config file can be found under `/etc/X11/xorg.conf`. The sneaky little programm *arandr* will assist you with the setup of multiple monitors. The counterpart command in the i3config file is `xrandr`. Also, make sure to install a graphics driver, if none has been installed (unlikely).
+
 ## Runlevel ∞
 
 As all functionality has been setup. Now is the time to rice your desktop - a.k.a. make it beautiful. Open LXappearance. By pressing `$mod+d`, rofi will open and let you choose an application. Just type in lxa... and it should be there. Hit return to open it. The rest if pretty straightforward. Choose your *Adapta* theme, and the *Tela* icon pack (I chose the Adapta-Red-Eta theme  and Tela black dark icon pack). Setup the font of your deepest desire, voilà. In nemo, go to view and change the shown menus to what you like. I personally like to switch them all off - it just looks a bit nicer.

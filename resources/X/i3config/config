@@ -93,6 +93,9 @@ bindsym $mod+c exec code
 # nemo
 bindsym $mod+n exec nemo
 
+# firefox
+bindsym $mod+f exec firefox
+
 # kill focused window
 bindsym $mod+q kill
 
@@ -127,7 +130,7 @@ bindsym $mod+h split h
 bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
+bindsym $mod+p fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
@@ -148,7 +151,7 @@ bindsym $mod+a focus parent
 
 ############################################################################### Screen & Resolution
 
-exec xrandr --output DVI-D-0 --off --output HDMI-1-2 --off --output HDMI-1-1 --off --output VGA-1-1 --mode 1920x1080 --pos 1920x0 --rotate normal --output HDMI-0 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output DVI-I-1 --off --output DVI-I-0 --off --output DP-1 --off --output DP-0 --off
+exec_always xrandr --output DVI-D-0 --off --output HDMI-1-2 --off --output HDMI-1-1 --off --output VGA-1-1 --mode 1920x1080 --pos 1920x0 --rotate normal --output HDMI-0 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output DVI-I-1 --off --output DVI-I-0 --off --output DP-1 --off --output DP-0 --off
 
 ############################################################################### Workspaces
 
