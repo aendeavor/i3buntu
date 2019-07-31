@@ -9,13 +9,14 @@ AI=( sudo apt-get install ${IF[@]} )
 AA=( sudo add-apt-repository ${IF[@]} )
 SI=( sudo snap install )
 
+ubuntuVersion=$(lsb_release -r)
+
 # ? Preconfig finished
 # ? Actual script begins
 
 ##  APT repositories
 ${AA[@]} ppa:ubuntu-mozilla-security/ppa
 ${AA[@]} ppa:git-core/ppa
-# ${AA[@]} ppa:linuxuprising/java
 ${AA[@]} ppa:sebastian-stenzel/cryptomator
 
 echo "deb https://deb.etcher.io stable etcher" | sudo tee /etc/apt/sources.list.d/balena-etcher.list
@@ -27,11 +28,17 @@ sudo apt-get update
 ${AI[@]} texlive-full
 ${AI[@]} firefox thunderbird
 ${AI[@]} git
-# ${AI[@]} oracle-java12-installer oracle-java12-set-default
-${AI[@]} openjdk-12-jdk openjdk-12-demo openjdk-12-doc openjdk-12-jre-headless openjdk-12-source
-${AI[@]} owncloud
+${AI[@]} owncloud-client
 ${AI[@]} cryptomator
 ${AI[@]} balena-etcher-electron
+
+## Java
+
+if [[ $ubuntuVersion == *"18.04"* ]]; then
+    ${AI[@]} openjdk-11-jdk openjdk-11-demo openjdk-11-doc openjdk-11-jre-headless openjdk-11-source
+else
+    ${AI[@]} openjdk-12-jdk openjdk-12-demo openjdk-12-doc openjdk-12-jre-headless openjdk-12-source
+fi
 
 ## SNAP installations
 ${SI[@]} code --classic
@@ -43,7 +50,10 @@ ${SI[@]} clion --classic
 ${SI[@]} spotify
 ${SI[@]} vlc
 
+## Graphic driver
+sudo ubuntu-drivers autoinstall
+
 ##  Others
 curl https://sh.rustup.rs -sSf | sh
-rustup component add rustfmt
-rustup component add clippy
+# * rustup component add rustfmt
+# * rustup component add clippy
