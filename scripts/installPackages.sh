@@ -22,7 +22,8 @@ echo -e "\nPulse audio\n"
 ${AI[@]} pulseaudio gstreamer1.0-pulseaudio pulseaudio-module-raop pulseaudio-module-bluetooth
 
 echo -e "\nUbuntu miscellaneous packages\n"
-${AI[@]} file-roller p7zip-full gparted fontconfig filezilla xsel lxappearance evince gedit nomacs nemo
+${AI[@]} file-roller p7zip-full gparted fontconfig filezilla
+${AI[@]} xsel lxappearance evince gedit nomacs nemo python3-distutils
 
 echo -e "\nAuthentication\n"
 ${AI[@]} policykit-desktop-privileges policykit-1-gnome
@@ -57,6 +58,9 @@ ${AI[@]} thunderbird
 
 echo -e "\nSnap\n"
 ${AI[@]} snapd
+
+echo -e "\nGNOME Keyring\n"
+${AI[@]} gnome-keyring*
 
 echo -e "\nTheming\n"
 ${AI[@]} gtk2-engines-pixbuf gtk2-engines-murrine
