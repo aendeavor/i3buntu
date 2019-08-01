@@ -60,7 +60,7 @@ echo -e "\nSnap\n"
 ${AI[@]} snapd
 
 echo -e "\nGNOME Keyring\n"
-${AI[@]} gnome-keyring*
+${AI[@]} gnome-keyring* libgnome-keyring0
 
 echo -e "\nTheming\n"
 ${AI[@]} gtk2-engines-pixbuf gtk2-engines-murrine
