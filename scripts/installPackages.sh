@@ -74,3 +74,4 @@ echo -e "Finished reoving packages! Proceeding to updating and upgrading via APT
 
 sudo apt-get update
 sudo apt-get upgrade ${IF[@]}
+
