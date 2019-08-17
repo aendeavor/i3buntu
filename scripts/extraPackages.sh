@@ -32,6 +32,8 @@ ${AI[@]} owncloud-client
 ${AI[@]} cryptomator
 ${AI[@]} balena-etcher-electron
 ${AI[@]} arandr
+${AI[@]} build-essential cmake
+
 
 ## Graphic driver
 sudo ubuntu-drivers autoinstall
