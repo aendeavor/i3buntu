@@ -6,7 +6,7 @@
 
 IF=( --yes --assume-yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages )
 AI=( sudo apt-get install ${IF[@]} )
-AA=( sudo add-apt-repository ${IF[@]} )
+AA=( sudo add-apt-repository )
 SI=( sudo snap install )
 
 ubuntuVersion=$(lsb_release -r)
@@ -31,9 +31,12 @@ ${AI[@]} git
 ${AI[@]} owncloud-client
 ${AI[@]} cryptomator
 ${AI[@]} balena-etcher-electron
+${AI[@]} arandr
+
+## Graphic driver
+sudo ubuntu-drivers autoinstall
 
 ## Java
-
 if [[ $ubuntuVersion == *"18.04"* ]]; then
     ${AI[@]} openjdk-11-jdk openjdk-11-demo openjdk-11-doc openjdk-11-jre-headless openjdk-11-source
 else
@@ -50,12 +53,7 @@ ${SI[@]} clion --classic
 ${SI[@]} spotify
 ${SI[@]} vlc
 
-## Graphic driver
-sudo ubuntu-drivers autoinstall
-
 ##  Others
 curl https://sh.rustup.rs -sSf | sh
 # * rustup component add rustfmt
 # * rustup component add clippy
-${AI[@]} arandr
-
