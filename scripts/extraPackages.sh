@@ -14,6 +14,7 @@ ubuntuVersion=$(lsb_release -r)
 # ? Preconfig finished
 # ? Actual script begins
 
+
 ##  APT repositories
 ${AA[@]} ppa:ubuntu-mozilla-security/ppa
 ${AA[@]} ppa:git-core/ppa
@@ -24,6 +25,7 @@ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 379CE192D401AB61
 
 sudo apt-get update
 
+
 ##  APT installations
 ${AI[@]} texlive-full
 ${AI[@]} firefox thunderbird
@@ -31,14 +33,22 @@ ${AI[@]} git
 ${AI[@]} owncloud-client
 ${AI[@]} cryptomator
 ${AI[@]} balena-etcher-electron
+${AI[@]} arandr
+${AI[@]} build-essential cmake
+${AI[@]} arandr
+
+
+## Graphic driver
+sudo ubuntu-drivers autoinstall
+
 
 ## Java
-
 if [[ $ubuntuVersion == *"18.04"* ]]; then
     ${AI[@]} openjdk-11-jdk openjdk-11-demo openjdk-11-doc openjdk-11-jre-headless openjdk-11-source
 else
     ${AI[@]} openjdk-12-jdk openjdk-12-demo openjdk-12-doc openjdk-12-jre-headless openjdk-12-source
 fi
+
 
 ## SNAP installations
 ${SI[@]} code --classic
@@ -50,8 +60,6 @@ ${SI[@]} clion --classic
 ${SI[@]} spotify
 ${SI[@]} vlc
 
-## Graphic driver
-sudo ubuntu-drivers autoinstall
 
 ##  Others
 curl https://sh.rustup.rs -sSf | sh
@@ -59,5 +67,4 @@ curl https://sh.rustup.rs -sSf | sh
 # * rustup component add clippy
 # * rustup component add rls
 # * rustup component add clippy
-${AI[@]} arandr
 
