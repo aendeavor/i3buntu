@@ -103,6 +103,10 @@ if ! dpkg -s $pkgs >/dev/null 2>&1; then
     sudo dpkg --install "${RES}/others/AdaptaGTKcolorpack3-94-0-149.deb"
 fi
 
+# set terminal emulator for nemo file manager
+gsettings set org.cinnamon.desktop.default-applications.terminal exec 'urxvt'
+gsettings set org.cinnamon.desktop.default-applications.terminal exec-arg -e
+
 # ? Reload of services and caches
 
 fc-cache -v -f >> $LOG ## fonts

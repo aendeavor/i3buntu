@@ -6,7 +6,7 @@
 
 IF=( --yes --assume-yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages )
 AI=( sudo apt-get install ${IF[@]} )
-AA=( sudo add-apt-repository ${IF[@]} )
+AA=( sudo add-apt-repository )
 SI=( sudo snap install )
 
 ubuntuVersion=$(lsb_release -r)
@@ -56,6 +56,8 @@ sudo ubuntu-drivers autoinstall
 ##  Others
 curl https://sh.rustup.rs -sSf | sh
 # * rustup component add rustfmt
+# * rustup component add clippy
+# * rustup component add rls
 # * rustup component add clippy
 ${AI[@]} arandr
 
