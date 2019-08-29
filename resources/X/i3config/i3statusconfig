@@ -26,6 +26,6 @@ tztime local {
 }
 
 battery all {
-    format = " %percentage"
+    format = "%percentage"
     format_down = ""
 }
