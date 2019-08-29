@@ -22,6 +22,7 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias rm='rm -r'
 alias echo='echo -e'
+alias reboot='reboot now'
 
 a () {
     sudo apt-get "$1" "$2"
@@ -82,3 +83,10 @@ open () {
     return
 }
 export -f open
+
+shutn () {
+    shutdown now
+    return
+}
+export -f shutn
+
