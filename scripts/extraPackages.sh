@@ -59,6 +59,7 @@ ${SI[@]} pycharm-professional --classic
 ${SI[@]} clion --classic
 ${SI[@]} spotify
 ${SI[@]} vlc
+# ${SI[@]} github-desktop --beta --classic
 
 
 ##  Others
