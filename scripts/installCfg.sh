@@ -103,10 +103,6 @@ if ! dpkg -s $pkgs >/dev/null 2>&1; then
     sudo dpkg --install "${RES}/others/AdaptaGTKcolorpack3-94-0-149.deb"
 fi
 
-# set terminal emulator for nemo file manager
-gsettings set org.cinnamon.desktop.default-applications.terminal exec 'urxvt'
-gsettings set org.cinnamon.desktop.default-applications.terminal exec-arg -e
-
 # ? Reload of services and caches
 
 fc-cache -v -f >> $LOG ## fonts
@@ -118,8 +114,8 @@ echo ""
 read -p "Would you like me to edit nemo accordingly to your system? [Y/n]" -r responseOne
 if [[ $responseOne =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $responseOne ]]; then
     xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search
-    gsettings set org.gnome.desktop.background show-desktop-icons false
-    gsettings set org.cinnamon.desktop.default-applications.terminal exec gnome-shell
+    gsettings set org.cinnamon.desktop.default-applications.terminal exec 'urxvt'
+    gsettings set org.cinnamon.desktop.default-applications.terminal exec-arg -e
 fi
 
 read -p "Would you like me to edit /etc/default/grub? [Y/n]" -r responseTwo
