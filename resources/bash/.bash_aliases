@@ -22,6 +22,7 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias rm='rm -r'
 alias echo='echo -e'
+alias sizeof='du -sh'
 
 a () {
     sudo apt-get "$1" "$2"
