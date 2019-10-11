@@ -8,7 +8,7 @@ To start off, you will need a Ubuntu ISO image. There are three options really (
 * [Ubuntu 18.04 LTS Server](http://releases.ubuntu.com/18.04/ubuntu-18.04.2-live-server-amd64.iso)
 * [Ubuntu 18.04 LTS Minimal](https://help.ubuntu.com/community/Installation/MinimalCD)
 
-The first (and worst) of these three choices would also be the easiest. Nevertheless, the desktop version is also the most bloated one and really defeats the purpose of a *minimal* Ubuntu. The second choice, Ubuntu server is in many ways far superior to the desktop version, considering our goal is minimalism. If you want ease of use whilst maintaining a small build, choose the server edition.
+The first of these three choices would also be the easiest. Nevertheless, the desktop version is also the most bloated one and really defeats the purpose of a minimal Ubuntu. The second choice, Ubuntu server is in many ways far superior to the desktop version, considering our goal is minimalism. If you want ease of use whilst maintaining a small build, choose the server edition.
 
 The actual best one, and the edition this guide was made for, would be the last, namely the minimal edition. It's bare Ubuntu - or in other words - no bloatware but everything you need to bootstrap your desired system, based on Ubuntu.
 
