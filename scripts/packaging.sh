@@ -18,7 +18,7 @@ fi
 
 ##  init of log
 if [[ ! -f "$LOG" ]]; then
-    if [[ ! -w "$LOG"]]; then
+    if [[ ! -w "$LOG" ]]; then
         sudo rm $LOG
     fi
     touch "$LOG"

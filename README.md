@@ -4,7 +4,7 @@
 
 This repository aims at providing you with a set of instructions to create your own minimal Ubuntu installation with the i3 window manager. This will enable you to not only work more efficiently with your system, but also in a much more beautiful environment.
 
-[![Desktop Theme](resources/others/desktopTheme.png)](https://www.reddit.com/r/unixporn/)
+[![Desktop Theme](resources/design/desktop_theme.png)](https://www.reddit.com/r/unixporn/)
 
 ## Prerequisites
 
