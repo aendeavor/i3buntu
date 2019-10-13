@@ -11,7 +11,7 @@ sudo echo -e "\nThe configuration script has begun!"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 RES="$( readlink -m "${DIR}/../resources" )"
 BACK="$( readlink -m "${DIR}/../backups/$( date '+%d-%m-%Y--%H-%M-%S' )" )"
-LOG="${BACK}/.install_log"
+LOG="${BACK}/install_log"
 
 RS=( rsync -avhz --delete )
 
@@ -76,18 +76,10 @@ sudo ${RS[@]} "${RES}/others/lightdm-gtk-greeter.conf" /etc/lightdm >> $LOG
 mkdir -p ~/.urxvt/extensions
 ${RS[@]} "${RES}/X/URXVT/" ~/.urxvt/ext >> $LOG
 
-#! ###################### UNDER CONSTRUCTION ###################### START ######################
-
-# ##  fonts
-fonts=( 'fonts/Iosevka Nerd' 'fonts/Open Sans' 'fonts/Roboto' 'fonts/Roboto Mono Nerd' 'fonts/FontAwesome' )
-# if [ ! -d ~/.fonts ]; then
-#     mkdir -p ~/.fonts
-#     rsync -a "${RES}/fonts/" ~/.fonts >> $LOG
-# fi
-
-(cd ${DIR}/resources/icon_theme; ./install.sh -a) # ! not tested yet
-
-#! ###################### UNDER CONSTRUCTION ###################### END   ######################
+if [[ ! -d ~/.fonts ]]; then # ! needs testing
+    mkdir -p ~/.fonts
+    rsync -a "${RES}/fonts/" ~/.fonts >> $LOG
+fi
 
 mkdir -p ~/pictures
 ${RS[@]} "${RES}/pictures" ~/pictures >> $LOG
