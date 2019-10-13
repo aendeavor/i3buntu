@@ -14,3 +14,11 @@ BACK
 LOG
 # location of the logfile
 ```
+
+## Markdown
+
+Comments in markdown are achieved vie
+
+``` MARKDOWN
+[//]: # (This may be the most platform independent comment)
+```
