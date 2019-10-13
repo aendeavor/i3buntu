@@ -1,7 +1,7 @@
-# Ignore Visual Studio Code (temporary) files
+# ggnore Visual Studio Code (temporary) files
 
 .vscode/*
 
-# Backups directory
-
+# backups directory and files
 backups/*
+**/*.bak

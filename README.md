@@ -22,7 +22,7 @@ It is *highly recomended* to be familier with the linux environment and command 
 
 This guide relies on using the following sources.
 
-* [Ubuntu 18.04 LTS Minimal](https://help.ubuntu.com/community/Installation/MinimalCD)
+* [Ubuntu 18.04 LTS](http://releases.ubuntu.com/18.04/) Operating System
 * [URXVT](https://wiki.archlinux.org/index.php/Rxvt-unicode) Terminal Emulator
 * [Aptitude](https://wiki.debian.org/Aptitude) (APT) Packaging Manager
 * [Snap](https://wiki.archlinux.org/index.php/Snap) Package Management
@@ -54,6 +54,6 @@ This guide and these files come with absolutely **no warranty**! The knowledge i
 
 ## Installation instructions
 
-The installation script are currently under reconfiguration and do not work properly (13th Oct 2019).
+The installation scripts are currently under reconfiguration and do not work properly (*13th Oct. 2019*).
 
-Installation instructions are found [here](./INSTALL.md). For ease of use, the instructions are seperated from the README. You will need to get an ISO file first, install the base system, clone this repository, execute the first script, reboot, execute another script, reboot - and you are done.
+Installation instructions are found [here](./INSTALL.md). You will need to get an ISO file first, install the base system, clone this repository, execute the packaging script, reboot, execute the configuration script, reboot, manually tweak the desktop - and you are done.
