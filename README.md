@@ -54,4 +54,6 @@ This guide and these files come with absolutely **no warranty**! The knowledge i
 
 ## Installation instructions
 
+The installation script are currently under reconfiguration and do not work properly (13th Oct 2019).
+
 Installation instructions are found [here](./INSTALL.md). For ease of use, the instructions are seperated from the README. You will need to get an ISO file first, install the base system, clone this repository, execute the first script, reboot, execute another script, reboot - and you are done.
