@@ -10,7 +10,7 @@ This repository aims at providing you with a set of instructions to create your 
 
 ### Why Ubuntu
 
-The following instructions are made for [Ubuntu](https://wiki.archlinux.org/index.php/Arch_compared_to_other_distributions#Ubuntu) / [Debian](https://wiki.archlinux.org/index.php/Arch_compared_to_other_distributions#General) based systems and are not compatible with are operating systems. Ubuntu has been chosen to provide every person with ease of use and stability. Although [Arch Linux](https://wiki.archlinux.org/index.php/Arch_Linux) is just more powerful when it comes to customizability, it is also more difficult to setup, and far easier to accidentally destroy.
+The following instructions are made for [Ubuntu](https://wiki.archlinux.org/index.php/Arch_compared_to_other_distributions#Ubuntu) / [Debian](https://wiki.archlinux.org/index.php/Arch_compared_to_other_distributions#General) based systems and are not compatible with other operating systems. Ubuntu has been chosen to provide every person with ease of use and stability. Although [Arch Linux](https://wiki.archlinux.org/index.php/Arch_Linux) is just more powerful when it comes to customizability, it is also more difficult to setup, and far easier to accidentally destroy.
 
 **Systems not based on Ubuntu, including those using package-managers differing from APT or not supporting Snap, are not officially supported by this guide.**
 
@@ -29,7 +29,6 @@ This guide relies on using the following sources.
 * [i3](https://wiki.archlinux.org/index.php/I3) Tiling Window Manager
 * [Xorg](https://wiki.archlinux.org/index.php/Xorg) (X) Display server
 * [LightDM](https://wiki.archlinux.org/index.php/LightDM) Display Manager
-* [Mesa](https://en.wikipedia.org/wiki/Mesa_%28computer_graphics%29) Graphics API
 * [Nemo](https://wiki.archlinux.org/index.php/Nemo) File Manager
 
 ### Improvements

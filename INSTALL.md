@@ -33,7 +33,7 @@ sudo add-apt-repository -y ppa:ubuntu-mozilla-security/ppa
 sudo apt-get install git
 ```
 
-Afterwards, you can clone this repository to your new machine. Then execute the `packaging.sh` script. The script will install all needed packages and dependencies and reboot your computer after everything is finished.
+Afterwards, you can clone this repository to your new machine. Then execute the `packaging.sh` script. The script will install all needed packages and dependencies, it will let you make some choices and it will reboot your computer after everything is finished.
 
 ``` BASH
 # clone this repository into the folder i3buntu
@@ -53,7 +53,7 @@ Open the terminal by pressing *mod+enter* and execute the configuration script. 
 cd && ./scripts/configuration.sh
 ```
 
-## Runlevel ∞ - Manual tweaks
+## Runlevel ∞ - Tweaks
 
 You may need to tweak Xorg to output your screens correctly, in case you have more than one monitor. The config file can be found under `/etc/X11/xorg.conf`. The programm *arandr* will assist you with the setup of multiple monitors. Also, although unlikely, make sure to install a graphics driver, if none has been installed.
 

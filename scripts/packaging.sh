@@ -1,10 +1,8 @@
 #!/bin/bash
 
-# ! UNFINISHED
+# ! WRAPPER SCRIPT FOR INITIAL INSTALLATION / PACKAGING
 
-# ! WRAPPER SCRIPT FOR INITIAL INSTALLATION
-
-sudo echo -e "\nInitial installation has begun!"
+sudo echo -e "\nInstallation has begun!"
 
 # ? Preconfig
 
@@ -14,25 +12,42 @@ BACK="$(readlink -m "${DIR}/../backups/packageInstallation/$(date '+%d-%m-%Y--%H
 LOG="${BACK}/.install_log"
 
 ##  init of backup-directory
-if [ ! -d "$BACK" ]; then
+if [[ ! -d "$BACK" ]]; then
     mkdir -p "$BACK"
 fi
 
 ##  init of log
-if [ ! -f "$LOG" ]; then
+if [[ ! -f "$LOG" ]]; then
+    if [[ ! -w "$LOG"]]; then
+        sudo rm $LOG
+    fi
     touch "$LOG"
 fi
 WTL=( tee -a "$LOG" )
 
 sudo apt-get -qq -y update
+sudo apt-get -qq -y upgrade
 
+EXEC="${DIR}/../resources/scripts/packaging.sh"
+if [[ ! -x "$EXEC" ]]; then
+    sudo chmod +x $EXEC
+fi
 
 # ? Preconfig finished
 # ? Actual script begins
 
 echo -e "Started at: $(date)" | ${WTL[@]}
+$EXEC | ${WTL[@]}
 
-# ! Actual installing script
-${DIR}/installPackages.sh | ${WTL[@]}
+# ? Actual script finished
+# ? Postconfiguration and restart
 
-# ? Reboot after everything finished
+echo -e "The script has finished!\nEnded at: $(date)" | ${WTL[@]}
+
+echo -ne "Restart in..."
+for I in {5..1..-1}; do
+    echo -ne "\rRestart in "
+    echo -en "$I seconds!"
+    sleep 1
+done
+sudo shutdown -r now
