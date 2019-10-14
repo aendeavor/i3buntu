@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# ! HANDLES FILES INSERTIONS AND COPYING
-
 # ! DIRECTORIES HAVE CHANGED !
 
 sudo echo -e "\nThe configuration script has begun!"
@@ -10,6 +8,7 @@ sudo echo -e "\nThe configuration script has begun!"
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 RES="$( readlink -m "${DIR}/../resources" )"
+SYS="$( readlink -m "${RES}/sys")"
 BACK="$( readlink -m "${DIR}/../backups/$( date '+%d-%m-%Y--%H-%M-%S' )" )"
 LOG="${BACK}/install_log"
 
@@ -59,38 +58,33 @@ fi
 # deployment
 echo -e "Proceeding to deploying config files..." | ${WTL[@]}
 
-DEPLOY_IN_HOME=( bash/.bashrc bash/.bash_aliases vim/.vimrc vim/.viminfo X/.Xresources )
+DEPLOY_IN_HOME=( sh/.bashrc sh/.bash_aliases vi/.vimrc vi/.viminfo Xi3/.Xresources )
 for sourceFile in "${DEPLOY_IN_HOME[@]}"; do
     echo -e "   -> Syncing $(basename -- "${sourceFile}")"  | ${WTL[@]}
-    ${RS[@]} "${RES}/${sourceFile}" ~ >> $LOG
+    ${RS[@]} "${SYS}/${sourceFile}" ~ >> $LOG
 done
 
 mkdir -p ~/.config/i3
-${RS[@]} "${RES}/X/i3config/" ~/.config/i3 >> $LOG
+${RS[@]} "${SYS}/Xi3/config" ~/.config/i3 >> $LOG
+${RS[@]} "${SYS}/Xi3/i3statusconfig" ~/.config/i3 >> $LOG
 
-sudo ${RS[@]} "${RES}/X/xorg.conf" /etc/X11 >> $LOG # brightness control
+sudo ${RS[@]} "${SYS}/Xi3/xorg.conf" /etc/X11 >> $LOG # brightness control
 
 sudo mkdir -p /etc/lightdm
-sudo ${RS[@]} "${RES}/others/lightdm-gtk-greeter.conf" /etc/lightdm >> $LOG
+sudo ${RS[@]} "${SYS}/other_cfg/lightdm-gtk-greeter.conf" /etc/lightdm >> $LOG
 
 mkdir -p ~/.urxvt/extensions
-${RS[@]} "${RES}/X/URXVT/" ~/.urxvt/ext >> $LOG
-
-if [[ ! -d ~/.fonts ]]; then # ! needs testing
-    mkdir -p ~/.fonts
-    rsync -a "${RES}/fonts/" ~/.fonts >> $LOG
-fi
+${RS[@]} "${SYS}/sh/resize-font" ~/.urxvt/ext >> $LOG
 
 mkdir -p ~/pictures
 ${RS[@]} "${RES}/pictures" ~/pictures >> $LOG
 
-pkgs='adapta-gtk-theme-colorpack'
-if ! dpkg -s $pkgs >/dev/null 2>&1; then
-    sudo dpkg -i "${RES}/others/AdaptaGTKcolorpack3-94-0-149.deb"
+AGTKCT='adapta-gtk-theme-colorpack'
+if ! dpkg -s $AGTKCT >/dev/null 2>&1; then
+    sudo dpkg -i "${RES}/design/AdaptaGTK_colorpack.deb"
 fi
 
-# reload of fonts, services and caches
-fc-cache -v -f >> $LOG
+# reload of services and caches
 xrdb ~/.Xresources >> $LOG
 
 # ? Actual script finished
@@ -111,11 +105,20 @@ if [[ $R2 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R2 ]]; then
     sudo update-grub 2>&1 >> $LOG
 fi
 
+read -p "Would you like me to sync fonts?" - R3
+if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
+    if [[ ! -d ~/.fonts ]]; then
+        mkdir -p ~/.fonts
+    fi
+    rsync -a "${RES}/fonts/" ~/.fonts >> $LOG
+    fc-cache -v -f >> $LOG
+fi
+
 # ? Extra script finished
 # ? Postconfiguration and restart
 
 echo -e "\nDeployment of configuration files has ended. Installation finished!" | ${WTL[@]}
-read -p "It is recommended to restart now. Would you like me to restart?" -r R1
+read -p "It is recommended to restart now. Would you like me to restart?" -r R10
 if [[ $R10 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R10 ]]; then
     sudo shutdown -r now
 fi

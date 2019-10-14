@@ -168,7 +168,7 @@ if [[ $R9 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R9 ]]; then
     ${SI[@]} code --classic
 fi
 
-read -p "Would you like me to install the JetBrains IDE suit? [Y/n]" -r R10
+read -p "Would you like me to install the JetBrains IDE suite? [Y/n]" -r R10
 if [[ $R10 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R10 ]]; then
     ${SI[@]} intellij-idea-ultimate --classic
     ${SI[@]} kotlin --classic
@@ -185,10 +185,8 @@ sudo apt-get -qq -y upgrade
 
 echo -e "The script has finished!\nEnded at: $(date)" | ${WTL[@]}
 
-echo -ne "Restart in..."
 for I in {5..1..-1}; do
-    echo -ne "\rRestart in "
-    echo -en "$I seconds!"
+    echo -ne "\rRestart in $I seconds"
     sleep 1
 done
 sudo shutdown -r now
