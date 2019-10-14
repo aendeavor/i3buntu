@@ -45,7 +45,7 @@ On first sight, you will realize the prompt / PS1 has changed. It has become cle
 
 #### Performance and Efficiency
 
-i3 and X are much more lightweight compared to GNOME or KDE. As a result, everything is faster. Through the use of a tiling window manager working with your computer feels easier, as the is no drag-n-drop, pre-defined workspaces and less use of your mouse.
+i3 and X are much more lightweight compared to GNOME or KDE. As a result, everything is faster. Through the use of a tiling window manager working with your computer feels easier, as there is no drag-n-drop, pre-defined workspaces and less use of your mouse.
 
 ## Warranty
 
