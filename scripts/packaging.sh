@@ -97,7 +97,7 @@ echo -e "\nTheming\n"
 ${AI[@]} gtk2-engines-pixbuf gtk2-engines-murrine
 
 echo - "\nIcon Theme\n"
-(cd ${DIR}/../resources/icon_theme; ./install.sh -a) # ! not tested yet
+(cd ${DIR}/../resources/icon_theme && ./install.sh -a) # ! not tested yet
 
 echo -e "Finished installing packages! Proceeding to removing dmenu..."
 
@@ -120,7 +120,6 @@ if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
     sudo ubuntu-drivers autoinstall
 fi
 
-## Java
 read -p "Would you like me to install OpenJDK? [Y/n]" -r R2
 if [[ $R2 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R2 ]]; then
     if [[ $(lsb_release -r) == *"18.04"* ]]; then

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# ! DIRECTORIES HAVE CHANGED !
+# ! IN TESTING !
 
 sudo echo -e "\nThe configuration script has begun!"
 
@@ -77,7 +77,7 @@ mkdir -p ~/.urxvt/extensions
 ${RS[@]} "${SYS}/sh/resize-font" ~/.urxvt/ext >> $LOG
 
 mkdir -p ~/pictures
-${RS[@]} "${RES}/pictures" ~/pictures >> $LOG
+${RS[@]} "${RES}/images" ~/pictures >> $LOG
 
 AGTKCT='adapta-gtk-theme-colorpack'
 if ! dpkg -s $AGTKCT >/dev/null 2>&1; then
