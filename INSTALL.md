@@ -37,7 +37,7 @@ Afterwards, you can clone this repository to your new machine. Then execute the 
 
 ``` BASH
 # clone this repository into the folder i3buntu
-cd && git clone -- https://github.com/Andevour/i3ubuntu.git .
+cd && git clone -- https://github.com/Andevour/i3ubuntu.git
 
 # execute the primary packaging script
 ./i3buntu/scripts/packaging.sh
