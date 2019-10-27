@@ -96,6 +96,10 @@ if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
     xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search
     gsettings set org.cinnamon.desktop.default-applications.terminal exec 'urxvt'
     gsettings set org.cinnamon.desktop.default-applications.terminal exec-arg -e
+
+    gsettings set org.gnome.desktop.background show-desktop-icons false
+    gsettings set org.nemo.desktop show-desktop-icons true
+    sudo cp -f ${RES}/sys/other_cfg/vscode-current-dir.nemo_action "~/.local/share/nemo/actions/"
 fi
 
 read -p "Would you like me to edit /etc/default/grub? [Y/n]" -r R2
