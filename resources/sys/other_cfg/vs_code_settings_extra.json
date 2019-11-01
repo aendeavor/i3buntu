@@ -32,5 +32,8 @@
     "latex-workshop.view.pdf.viewer": "tab",
     "editor.wordWrap": "bounded",
     "editor.wordWrapColumn": 130,
-    "explorer.confirmDragAndDrop": false
+    "explorer.confirmDragAndDrop": false,
+    "asciidoc.preview.useEditorStyle": false,
+    "asciidoc.previewFrontMatter": "show",
+    "asciidoc.use_asciidoctorpdf": true,
 }
