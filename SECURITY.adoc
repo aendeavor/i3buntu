@@ -1,0 +1,9 @@
+= Security Policy
+
+== Supported Versions
+
+Currently, there are **no versions where explicite security support is being given to users**. This will not change, as this repository is a conglomeration of software, for which each distributor may give their own security policy and security support.
+
+## Reporting a Vulnerability
+
+A vulnerability of software used in this repository is to be reported on the distributor's page.
