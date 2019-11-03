@@ -1,0 +1,62 @@
+= Fonts README
+:toc:
+:toclevels: 2
+:showtitle:
+:homepage: https://github.com/Andevour/i3buntu
+:version: 0.1.1
+
+== About
+
+This file is intended for maintaining the font versions and giving the developers an overview. This file is not being copied anywhere.
+
+== Overview
+
+=== Ubuntu APT fonts
+
+* Roboto
+* OpenSans
+
+=== Included fonts
+
+[options="header"]
+[cols="2h,1,4"]
+|===
+
+| Fontname
+| Version
+| Source
+
+| Roboto
+| Latest
+| APT
+
+| OpenSans
+| Latest
+| APT
+
+| FontAwesome
+| 5.11.2
+|
+link:https://github.com/FortAwesome/Font-Awesome/releases/[GitHub Release 5.11.2]
+
+| Iosevka Nerd
+| v2
+| link:https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/RobotoMono.zip[GitHub Ryonasis' NerdFonts]
+
+| Robot Mono Nerd
+| v2
+| link:https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/Iosevka.zip[GitHub Ryonasis' NerdFonts]
+
+| FiraCode
+| v2
+| link:https://github.com/tonsky/FiraCode/tree/master/distr/ttf[GitHub Ryonasis' NerdFonts]
+
+| FiraCode Nerd
+| v2
+| link:https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/FiraCode.zip[GitHub Ryonasis' NerdFonts]
+
+| FiraMono
+| v2
+| link:https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/FiraMono.zip[GitHub Ryonasis' NerdFonts]
+
+|===
