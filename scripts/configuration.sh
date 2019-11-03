@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# ! IN TESTING !
-
 sudo echo -e "\nThe configuration script has begun!"
 
 # ? Preconfig
@@ -113,11 +111,17 @@ fi
 
 # TODO use scripts, not rsync for folders
 if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
-    if [[ ! -d ~/.fonts ]]; then
-        mkdir -p ~/.fonts
-    fi
-    rsync -a "${RES}/fonts/" ~/.fonts >> $LOG
-    fc-cache -v -f >> $LOG
+    find ${DIR}/resources/fonts/ -maxdepth 1 -type f -exec chmod +x {} \;
+    
+    (
+        cd ${DIR}/resources/fonts/ && echo -e "FiraCode will be installed..."
+        ./firacode.sh >> $LOG && echo -e "Finished installing FiraCode! FontAwesome is next..."
+        ./fontawesome.sh >> $LOG && echo -e "Finished installing FontAwesome! Iosevka is next..."
+        ./iosevkanerd.sh >> $LOG && echo -e "Finished installing Iosevka! Roboto Mono Nerd is next..."
+        ./robotomononerd.sh >> $LOG && echo -e "Finished installing Roboto Mono Nerd! Fonts installed. Renewing font-cache..."
+    )
+
+    fc-cache -f >> $LOG && echo -e "Finished renewing font-cache!"
 fi
 
 # ? Extra script finished

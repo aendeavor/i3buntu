@@ -96,6 +96,9 @@ ${AI[@]} gnome-keyring* libgnome-keyring0
 echo -e "\nTheming\n"
 ${AI[@]} gtk2-engines-pixbuf gtk2-engines-murrine
 
+echo -e "\nFonts - Roboto & OpenSans\n"
+${AI[@]} fonts-roboto fonts-open-sans
+
 echo - "\nIcon Theme\n"
 (cd ${DIR}/../resources/icon_theme && ./install.sh -a)
 
