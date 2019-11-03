@@ -30,6 +30,10 @@ This file is intended for maintaining the font versions and giving the developer
 | Latest
 | APT
 
+| Robot Mono Nerd
+| v2
+| link:https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/Iosevka.zip[GitHub Ryonasis' NerdFonts]
+
 | OpenSans
 | Latest
 | APT
@@ -42,10 +46,6 @@ link:https://github.com/FortAwesome/Font-Awesome/releases/[GitHub Release 5.11.2
 | Iosevka Nerd
 | v2
 | link:https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/RobotoMono.zip[GitHub Ryonasis' NerdFonts]
-
-| Robot Mono Nerd
-| v2
-| link:https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/Iosevka.zip[GitHub Ryonasis' NerdFonts]
 
 | FiraCode
 | v2
