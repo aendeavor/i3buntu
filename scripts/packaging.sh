@@ -38,6 +38,22 @@ if [[ ! -x "$EXEC" ]]; then
 fi
 
 # ? Preconfig finished
+# ? User-choices begin
+
+echo -e "Please make your choices: \n"
+
+read -p "Would you like to execute ubuntu-driver autoinstall? [Y/n]" -r R1
+read -p "Would you like to install OpenJDK? [Y/n]" -r R2
+read -p "Would you like to install Cryptomator? [Y/n]" -r R3
+read -p "Would you like to install Balena Etcher? [Y/n]" -r R4
+read -p "Would you like to install TeX? [Y/n]" -r R5
+read -p "Would you like to install ownCloud? [Y/n]" -r R6
+read -p "Would you like to install Build-Essentials? [Y/n]" -r R7
+read -p "Would you like to get RUST? [Y/n]" -r R8
+read -p "Would you like to install VS Code? [Y/n]" -r R9
+read -p "Would you like to install the JetBrains IDE suite? [Y/n]" -r R10
+
+# ? User-choices end
 # ? Actual script begins
 
 echo -e "Started at: $(date)" | ${WTL[@]}
@@ -112,23 +128,14 @@ echo -e "Finished reoving packages! Proceeding to updating and upgrading via APT
 sudo apt-get -qq -y update
 sudo apt-get -qq -y upgrade
 
+echo -e "Finished with the actual script."
+
 # ? Actual script finished
 # ? Extra script begins
 
-echo -e "Finished with the actual script."
+echo -e "Processing user-choices..."
 
 ## graphics driver
-read -p "Would you like me to execute ubuntu-driver autoinstall? [Y/n]" -r R1
-read -p "Would you like me to install OpenJDK? [Y/n]" -r R2
-read -p "Would you like me to install Cryptomator? [Y/n]" -r R3
-read -p "Would you like me to install Balena Etcher? [Y/n]" -r R4
-read -p "Would you like me to install TeX? [Y/n]" -r R5
-read -p "Would you like me to install ownCloud? [Y/n]" -r R6
-read -p "Would you like me to install Build-Essentials? [Y/n]" -r R7
-read -p "Would you like me to get RUST? [Y/n]" -r R8
-read -p "Would you like me to install VS Code? [Y/n]" -r R9
-read -p "Would you like me to install the JetBrains IDE suite? [Y/n]" -r R10
-
 if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
     sudo ubuntu-drivers autoinstall
 fi
@@ -179,6 +186,8 @@ if [[ $R10 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R10 ]]; then
     ${SI[@]} pycharm-professional --classic
     ${SI[@]} clion --classic
 fi
+
+echo -e "Finished with processing user-choices! One last update..."
 
 sudo apt-get -qq -y update
 sudo apt-get -qq -y upgrade
