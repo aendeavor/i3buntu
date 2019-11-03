@@ -97,7 +97,7 @@ echo -e "\nTheming\n"
 ${AI[@]} gtk2-engines-pixbuf gtk2-engines-murrine
 
 echo - "\nIcon Theme\n"
-(cd ${DIR}/../resources/icon_theme && ./install.sh -a) # ! not tested yet
+(cd ${DIR}/../resources/icon_theme && ./install.sh -a)
 
 echo -e "Finished installing packages! Proceeding to removing dmenu..."
 
@@ -116,11 +116,20 @@ echo -e "Finished with the actual script."
 
 ## graphics driver
 read -p "Would you like me to execute ubuntu-driver autoinstall? [Y/n]" -r R1
+read -p "Would you like me to install OpenJDK? [Y/n]" -r R2
+read -p "Would you like me to install Cryptomator? [Y/n]" -r R3
+read -p "Would you like me to install Balena Etcher? [Y/n]" -r R4
+read -p "Would you like me to install TeX? [Y/n]" -r R5
+read -p "Would you like me to install ownCloud? [Y/n]" -r R6
+read -p "Would you like me to install Build-Essentials? [Y/n]" -r R7
+read -p "Would you like me to get RUST? [Y/n]" -r R8
+read -p "Would you like me to install VS Code? [Y/n]" -r R9
+read -p "Would you like me to install the JetBrains IDE suite? [Y/n]" -r R10
+
 if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
     sudo ubuntu-drivers autoinstall
 fi
 
-read -p "Would you like me to install OpenJDK? [Y/n]" -r R2
 if [[ $R2 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R2 ]]; then
     if [[ $(lsb_release -r) == *"18.04"* ]]; then
         ${AI[@]} openjdk-11-jdk openjdk-11-demo openjdk-11-doc openjdk-11-jre-headless openjdk-11-source
@@ -129,45 +138,37 @@ if [[ $R2 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R2 ]]; then
     fi
 fi
 
-read -p "Would you like me to install Cryptomator? [Y/n]" -r R3
 if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
     sudo add-apt-repository ppa:sebastian-stenzel/cryptomator
     ${AI[@]} cryptomator
 fi
 
-read -p "Would you like me to install Balena Etcher? [Y/n]" -r R4
 if [[ $R4 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R4 ]]; then
     echo "deb https://deb.etcher.io stable etcher" | sudo tee /etc/apt/sources.list.d/balena-etcher.list
     sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 379CE192D401AB61
     ${AI[@]} balena-etcher-electron
 fi
 
-read -p "Would you like me to install TeX? [Y/n]" -r R5
 if [[ $R5 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R5 ]]; then
     ${AI[@]} texlive-full
 fi
 
-read -p "Would you like me to install ownCloud? [Y/n]" -r R6
 if [[ $R6 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R6 ]]; then
     ${AI[@]} owncloud-client
 fi
 
-read -p "Would you like me to install Build-Essentials? [Y/n]" -r R7
 if [[ $R7 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R7 ]]; then
     ${AI[@]} build-essential cmake
 fi
 
-read -p "Would you like me to get RUST? [Y/n]" -r R8
 if [[ $R8 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R8 ]]; then
     curl https://sh.rustup.rs -sSf | sh
 fi
 
-read -p "Would you like me to install VS Code? [Y/n]" -r R9
 if [[ $R9 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R9 ]]; then
     ${SI[@]} code --classic
 fi
 
-read -p "Would you like me to install the JetBrains IDE suite? [Y/n]" -r R10
 if [[ $R10 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R10 ]]; then
     ${SI[@]} intellij-idea-ultimate --classic
     ${SI[@]} kotlin --classic
@@ -178,6 +179,7 @@ fi
 
 sudo apt-get -qq -y update
 sudo apt-get -qq -y upgrade
+sudo snap refresh
 
 # ? Extra script finished
 # ? Postconfiguration and restart
