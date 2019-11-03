@@ -54,5 +54,3 @@ This guide and these files come with absolutely **no warranty**! The knowledge i
 ## Installation instructions
 
 Installation instructions are found [here](./INSTALL.md). You will need to get an ISO file first, install the base system, clone this repository, execute the packaging script, reboot, execute the configuration script, reboot, manually tweak the desktop - and you are done.
-
-The `configuration.sh` script is currently in testing and may behave incorrectly (*14th Oct. 2019*).
