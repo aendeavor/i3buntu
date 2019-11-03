@@ -111,7 +111,6 @@ if [[ $R2 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R2 ]]; then
     sudo update-grub 2>&1 >> $LOG
 fi
 
-# TODO use scripts, not rsync for folders
 if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
     if [[ ! -d ~/.fonts ]]; then
         mkdir -p ~/.fonts
