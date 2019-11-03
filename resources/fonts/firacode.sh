@@ -6,15 +6,35 @@ if [ ! -d "${FONTDIR}" ]; then
     mkdir -p "${FONTDIR}"
 fi
 
+if [[ ! -d "${FONTDIR}/FiraCode" ]]; then
+    mkdir -p "${FONTDIR}/FiraCode"
+fi
+
+# ? FiraCode font
+
 for type in Bold Light Medium Regular Retina; do
-    file_path="${HOME}/.local/share/fonts/FiraCode-${type}.ttf"
+    file_path="${HOME}/.local/share/fonts/FiraCode/FiraCode-${type}.ttf"
     file_url="https://github.com/tonsky/FiraCode/blob/master/distr/ttf/FiraCode-${type}.ttf?raw=true"
-    if [ ! -e "${file_path}" ]; then
-        echo "wget -O $file_path $file_url"
-        wget -O "${file_path}" "${file_url}"
-    else
-	echo "Found existing file $file_path"
-    fi;
+
+    wget -O "${file_path}" "${file_url}"
 done
 
-fc-cache -f
+# ? FiraCode Nerd fonts
+
+NERDFONT="FiraCodeNerd"
+MONOFONT="FiraMono"
+
+cd "${FONTDIR}"
+
+mkdir -p "${NERDFONT}"
+mkdir -p "${MONOFONT}"
+
+cd "${NERDFONT}"
+wget -O "${NERDFONT}.zip" "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/FiraCode.zip"
+unzip "${NERDFONT}.zip"
+rm "${NERDFONT}.zip"
+
+cd "../${MONOFONT}"
+wget -O "${MONOFONT}.zip" "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/FiraMono.zip"
+unzip "${MONOFONT}.zip"
+rm "${MONOFONT}.zip"
