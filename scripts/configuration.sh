@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# ! IN TESTING !
-
 sudo echo -e "\nThe configuration script has begun!"
 
 # ? Preconfig
@@ -92,6 +90,9 @@ xrdb ~/.Xresources >> $LOG
 
 echo ""
 read -p "Would you like me to edit nemo accordingly to your system? [Y/n]" -r R1
+read -p "Would you like me to edit /etc/default/grub? [Y/n]" -r R2
+read -p "Would you like me to sync fonts?" - R3
+
 if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
     xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search
     gsettings set org.cinnamon.desktop.default-applications.terminal exec 'urxvt'
@@ -102,20 +103,24 @@ if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
     sudo cp -f ${RES}/sys/other_cfg/vscode-current-dir.nemo_action "~/.local/share/nemo/actions/"
 fi
 
-read -p "Would you like me to edit /etc/default/grub? [Y/n]" -r R2
 if [[ $R2 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R2 ]]; then
     sudo rm -f /etc/default/grub
     sudo cp ${RES}/others/grub /etc/default/
     sudo update-grub 2>&1 >> $LOG
 fi
 
-read -p "Would you like me to sync fonts?" - R3
 if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
-    if [[ ! -d ~/.fonts ]]; then
-        mkdir -p ~/.fonts
-    fi
-    rsync -a "${RES}/fonts/" ~/.fonts >> $LOG
-    fc-cache -v -f >> $LOG
+    find ${DIR}/resources/fonts/ -maxdepth 1 -type f -exec chmod +x {} \;
+    
+    (
+        cd ${DIR}/resources/fonts/ && echo -e "FiraCode will be installed..."
+        ./firacode.sh >> $LOG && echo -e "Finished installing FiraCode! FontAwesome is next..."
+        ./fontawesome.sh >> $LOG && echo -e "Finished installing FontAwesome! Iosevka is next..."
+        ./iosevkanerd.sh >> $LOG && echo -e "Finished installing Iosevka! Roboto Mono Nerd is next..."
+        ./robotomononerd.sh >> $LOG && echo -e "Finished installing Roboto Mono Nerd! Fonts installed. Renewing font-cache..."
+    )
+
+    fc-cache -f >> $LOG && echo -e "Finished renewing font-cache!"
 fi
 
 # ? Extra script finished
