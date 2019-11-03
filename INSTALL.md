@@ -49,12 +49,24 @@ If everything went fine, you should be greeted on a graphical interface. After l
 
 Open the terminal by pressing *mod+enter* and execute the configuration script. It will setup all config files, from `.Xresources` over `.bashrc` to `.vimrc`. The [`configuration.sh`](./scripts/configuration.sh)-script **will automatically replace** files which it is supposed to deploy. It also performs a backup which can be found in `~/i3buntu/backups/` containing `.bak`-files and it will reboot your computer.
 
+Before you go though, make sure to put in the correct xrandr/arandr settings. You will need to do this to make sure your screens are properly displayd. As each screen setup is different, there is no universal automated solution here. Just open `arandr`, either by command line or through rofi, which is invoked with _Super + d_. This programm will assist you with the setup of multiple monitors. When you are done and satisfied, save these setting in a file of your choice, open this file and copy the content. Next, open the `config`-file in this repsoitory
+
+``` BASH
+vi resources/sys/Xi3/config
+```
+
+Paste your setup in line 154
+
+![xrandr settings](resources/doc/xrandr_settings.png)
+
+Afterwards, save the file and run your configuration script
+
 ``` BASH
 cd && ./scripts/configuration.sh
 ```
 
 ## Runlevel ∞ - Tweaks
 
-You may need to tweak Xorg to output your screens correctly, in case you have more than one monitor. The config file can be found under `/etc/X11/xorg.conf`. The programm *arandr* will assist you with the setup of multiple monitors. Also, although unlikely, make sure to install a graphics driver, if none has been installed.
+You may need to tweak Xorg to output your screens correctly, in case you have more than one monitor. The config file can be found under `/etc/X11/xorg.conf`. Also, although unlikely, make sure to install a graphics driver, if none has been installed.
 
-As all functionality has been setup, open *LXappearance* by pressing *Win + d*. *rofi* will be opened and will let you choose an application. Just type in "lxa..." and it should be there, hit return to open it. Choose your color theme, icon pack and font.
+As all functionality has been setup, open *LXappearance* by pressing _Super + d_. `rofi` will be opened and will let you choose an application. Just type in 'lxappearance' and it should be there, (you may need to hit return to open it)m. Choose your color theme, icon pack and font.
