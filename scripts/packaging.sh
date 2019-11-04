@@ -51,6 +51,12 @@ read -p "Would you like to install ownCloud? [Y/n]" -r R6
 read -p "Would you like to install Build-Essentials? [Y/n]" -r R7
 read -p "Would you like to get RUST? [Y/n]" -r R8
 read -p "Would you like to install VS Code? [Y/n]" -r R9
+
+RC1="no"
+if [[ $R9 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R9 ]]; then
+    read -p "Would you like to install recommended VS Code extensions?" -r RC1
+fi
+
 read -p "Would you like to install the JetBrains IDE suite? [Y/n]" -r R10
 
 # ? User-choices end
@@ -185,6 +191,11 @@ if [[ $R10 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R10 ]]; then
     ${SI[@]} kotlin-native --classic
     ${SI[@]} pycharm-professional --classic
     ${SI[@]} clion --classic
+fi
+
+if [[ $RC1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RC1 ]]; then
+    sudo chmod +x "${DIR}/resources/sys/vscode/extensions.sh"
+    ( cd ${DIR}/resources/sys/vscode && ./extensions.sh )
 fi
 
 echo -e "Finished with processing user-choices! One last update..."

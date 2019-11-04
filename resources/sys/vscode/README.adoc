@@ -1,0 +1,82 @@
+= Extensions
+:toc:
+:toclevels: 2
+:showtitle:
+:homepage: https://github.com/Andevour/i3buntu
+:version: 0.1.0
+
+== About
+
+This file provides an overview about all extensions that are to be deployed if you chose to do so.
+
+== List of extensions
+
+[options="header"]
+[cols="2h,2,6"]
+|===
+
+| Name
+| Creator
+| Description
+
+| AsciiDoc
+| stayfool
+| Provides live preview and syntax highlighting
+
+| AsciiDoc
+| João Pinto
+| Rich language support
+
+| Better Comments
+| Aaron Bond
+| Provides comment highlighting on use of `?`, `!` or `\*` in every language's comments
+
+| C/C++
+| Microsoft
+| Essential C/C++ support for VS Code. C/C++ IntelliSense, debugging, and code browsing.
+
+| Code Runner
+| Jun Han
+| Run C, C++, Java, JS, PHP, Python, ... directly in VS Code.
+
+| GitLens -- Git supercharged
+| Eric Amodio
+| Visualize code authorship and explore the repository all in VS Code
+
+| LaTeX Workshop
+| James Yu
+| Preview, compile and autocompletion. Everything you need for LaTeX in VS Code
+
+| Markdown All in One
+| Yu Zhang
+| Provides Markdown support across the board with handy shortcuts and proper highlighting.
+
+| Markdown PDF
+| yzane
+| Provides PDF creation / export for Markdown files
+
+| Markdown Preview GitHub Styling
+| Matt Bierner
+| The preview in VS Code now is the same as the preview of Markdown on GitHub. It is just a nicer way of displaying markdown.
+
+| markdownlint
+| David Anson
+| Just Markdown linting and style checking
+
+| Material Icon Theme
+| Phillipp Kief
+| Material Design icons for VS Code
+
+| Material Theme
+| Mattia Astorino
+| Material Design theme for VS Code
+
+| Python
+| Microsoft
+| Essential Pyhton support for VS Code. Linting, Debugging (multi-threaded, remote), Intellisense, code formatting, ...
+
+| Visual Studio IntelliCode
+| Microsoft
+| AI assisted code completionn and development
+
+|===
