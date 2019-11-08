@@ -1,5 +1,5 @@
 # ! BASH ALIASES - ADDITIONAL CONFIG FILE EXTENDING ~/.bashrc
-# ! ~/.bash_aliases - executed in ~/.bash
+# ! ~/.bash_aliases - executed in ~/.bashrc
 
 # check color support
 if [ -x /usr/bin/dircolors ]; then
@@ -20,12 +20,13 @@ alias path='echo $PATH'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
+alias .....='cd ../../../..'
 alias rm='rm -r'
 alias echo='echo -e'
 alias sizeof='du -sh'
 
 a () {
-    sudo apt-get "$1" "$2"
+    sudo apt-get "$1" "$2" "$3" "$4" "$5"
     return
 }
 export -f a
