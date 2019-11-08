@@ -8,7 +8,7 @@
 # user-choices are handled, including the
 # installation of chosen fonts.
 # 
-# current version - 0.3.4
+# current version - 0.3.6
 
 sudo echo -e "\nThe configuration script has begun!"
 
@@ -20,7 +20,7 @@ RES="$( readlink -m "${DIR}/../resources" )"
 SYS="$( readlink -m "${RES}/sys")"
 LOG="${BACK}/install_log"
 
-RS=( rsync -avhz --delete )
+RS=( rsync -ahz --delete )
 
 ##  init of backup-directory
 if [[ ! -d "$BACK" ]]; then
@@ -50,7 +50,7 @@ read -p "Would you like me to sync fonts?" - R3
 # backup
 echo -e "Checking for existing files...\n" | ${WTL[@]}
 
-HOME_FILES=( ~/.bash_aliases ~/.bashrc ~/.vimrc ~/.Xresources )
+HOME_FILES=( ~/.bash_aliases ~/.bashrc ~/.vimrc ~/.Xresources ~/.config/Code/User/settings.json )
 for file in ${HOME_FILES[@]}; do
     if [[ -f "$file" ]]; then
         backupFile="${BACK}${file#~}.bak"
@@ -84,21 +84,25 @@ mkdir -p ~/.config/i3
 ${RS[@]} "${SYS}/Xi3/config" ~/.config/i3 >> $LOG
 ${RS[@]} "${SYS}/Xi3/i3statusconfig" ~/.config/i3 >> $LOG
 
-sudo ${RS[@]} "${SYS}/Xi3/xorg.conf" /etc/X11 >> $LOG # brightness control
+sudo ${RS[@]} "${SYS}/Xi3/xorg.conf" /etc/X11 >> $LOG
 
 sudo mkdir -p /etc/lightdm
 sudo ${RS[@]} "${SYS}/other_cfg/lightdm-gtk-greeter.conf" /etc/lightdm >> $LOG
 
 mkdir -p ~/.urxvt/extensions
-${RS[@]} "${SYS}/sh/resize-font" ~/.urxvt/ext >> $LOG
+${RS[@]} "${SYS}/sh/resize-font" "~/.urxvt/ext" >> $LOG
 
 mkdir -p ~/pictures
-${RS[@]} "${RES}/images" ~/pictures >> $LOG
+${RS[@]} "${RES}/images" "~/pictures" >> $LOG
 
 AGTKCT='adapta-gtk-theme-colorpack'
-if ! dpkg -s $AGTKCT >/dev/null 2>&1; then
+if ! dpkg -s ${AGTKCT} >/dev/null 2>&1; then
     sudo dpkg -i "${RES}/design/AdaptaGTK_colorpack.deb"
 fi
+
+CC="~/.config/Code/User"
+mkdir -p "${CC}"
+${RS[@]} "${SYS}/vscode/settings.json" "${CC}" >> $LOG
 
 # reload of services and caches
 xrdb ~/.Xresources >> $LOG

@@ -5,7 +5,7 @@
 # browser, graphical environment and much more is
 # being installed.
 #
-# current version - 0.3.2
+# current version - 0.3.4
 
 sudo echo -e "\nInstallation has begun!"
 
