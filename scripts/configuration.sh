@@ -128,7 +128,7 @@ fi
 
 # deployment of fonts
 if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
-    find "${DIR}/resources/fonts/" -maxdepth 1 -not -iregex "[a-z0-9_\.\/\ ]*\w\.adoc" -iregex "[a-z0-9_\.\/\ ]*\w\.sh" -type f -exec chmod +x {} \;
+    find "${DIR}/resources/fonts/" -maxdepth 1 -iregex "[a-z0-9_\.\/\ ]*\w\.sh" -type f -exec chmod +x {} \;
 
     ( cd "${DIR}/resources/fonts/" && ./fonts.sh "${LOG}" )
 
