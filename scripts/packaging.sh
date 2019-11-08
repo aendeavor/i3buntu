@@ -1,6 +1,11 @@
 #!/bin/bash
 
-# ! WRAPPER SCRIPT FOR INITIAL INSTALLATION / PACKAGING
+# This script serves as the main installation script
+# for all neccessary packages. Via APT, core utils,
+# browser, graphical environment and much more is
+# being installed.
+#
+# current version - 0.3.2
 
 sudo echo -e "\nInstallation has begun!"
 
@@ -118,17 +123,17 @@ ${AI[@]} fonts-roboto fonts-open-sans
 echo - "\nIcon Theme\n"
 (cd ${DIR}/../resources/icon_theme && ./install.sh -a)
 
-echo -e "Finished installing packages! Proceeding to removing dmenu..."
+echo -e 'Finished installing packages! Proceeding to removing dmenu...'
 
 echo -e "\nDmenu\n"
 sudo apt-get remove ${IF[@]} suckless-tools
 
-echo -e "Finished reoving packages! Proceeding to updating and upgrading via APT..."
+echo -e 'Finished reoving packages! Proceeding to updating and upgrading via APT...'
 
 sudo apt-get -qq -y update
 sudo apt-get -qq -y upgrade
 
-echo -e "Finished with the actual script."
+echo -e 'Finished with the actual script.'
 
 # ? Actual script finished
 # ? Extra script begins
@@ -187,7 +192,7 @@ if [[ $R10 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R10 ]]; then
     ${SI[@]} clion --classic
 fi
 
-echo -e "Finished with processing user-choices! One last update..."
+echo -e 'Finished with processing user-choices! One last update...'
 
 sudo apt-get -qq -y update
 sudo apt-get -qq -y upgrade
