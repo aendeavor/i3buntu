@@ -194,8 +194,9 @@ if [[ $R10 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R10 ]]; then
 fi
 
 if [[ $RC1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RC1 ]]; then
+    echo -e "Installing VS Code Extensions..."
     sudo chmod +x "${DIR}/resources/sys/vscode/extensions.sh"
-    ( cd ${DIR}/resources/sys/vscode && ./extensions.sh )
+    "${DIR}/resources/sys/vscode/extensions.sh"
 fi
 
 echo -e "Finished with processing user-choices! One last update..."

@@ -7,7 +7,7 @@
 # installed extensions can be found under
 # ./README.adoc. 
 # 
-# current version - 0.0.4
+# current version - 0.0.5
 
 # ? Preconfig
 
@@ -21,13 +21,41 @@ if [[ -z "${CODE}" ]]; then
     CODE="/snap/bin/code"
 fi
 
-echo $CODE
+INSTALL=( ${CODE} --install-extension )
 
 # ? Preconfig finished
 # ? Actual script begins
 
-# ? Actual script finished
-# ? Extra script begins
+${INSTALL[@]} 2gua.rainbow-brackets
+${INSTALL[@]} aaron-bond.better-comments
+${INSTALL[@]} alefragnani.Bookmarks
+${INSTALL[@]} bierner.markdown-preview-github-styles
+${INSTALL[@]} DavidAnson.vscode-markdownlint
+${INSTALL[@]} eamodio.gitlens
+${INSTALL[@]} Equinusocio.vsc-material-theme
+${INSTALL[@]} formulahendry.code-runner
+${INSTALL[@]} James-Yu.latex-workshop
+${INSTALL[@]} joaompinto.asciidoctor-vscode
+${INSTALL[@]} ms-python.python
+${INSTALL[@]} ms-vscode-remote.remote-containers
+${INSTALL[@]} ms-vscode-remote.remote-ssh
+${INSTALL[@]} ms-vscode-remote.remote-ssh-edit
+${INSTALL[@]} ms-vscode-remote.remote-wsl
+${INSTALL[@]} ms-vscode-remote.vscode-remote-extensionpack
+${INSTALL[@]} ms-vscode.cpptools
+${INSTALL[@]} PKief.material-icon-theme
+${INSTALL[@]} redhat.vscode-xml
+${INSTALL[@]} redhat.vscode-yaml
+${INSTALL[@]} ritwickdey.LiveServer
+${INSTALL[@]} shd101wyy.markdown-preview-enhanced
+${INSTALL[@]} stayfool.vscode-asciidoc
+${INSTALL[@]} streetsidesoftware.code-spell-checker
+${INSTALL[@]} streetsidesoftware.code-spell-checker-german
+${INSTALL[@]} VisualStudioExptTeam.vscodeintellicode
+${INSTALL[@]} yzane.markdown-pdf
+${INSTALL[@]} yzhang.markdown-all-in-one
 
-# ? Extra script finished
+# ? Actual script finished
 # ? Postconfiguration
+
+echo -e "Finished installing VS Code extensions!"
