@@ -29,7 +29,7 @@ This file provides an overview about all extensions that are to be deployed if y
 
 | Better Comments
 | Aaron Bond
-| Provides comment highlighting on use of `?`, `!` or `\*` in every language's comments
+| Provides comment highlighting on use of `?`, `!` or star in every language's comments
 
 | Bookmarks
 | Alessandro Fragnani
@@ -62,10 +62,6 @@ This file provides an overview about all extensions that are to be deployed if y
 | Markdown All in One
 | Yu Zhang
 | Provides Markdown support across the board with handy shortcuts and proper highlighting.
-
-| Markdown PDF
-| yzane
-| Provides PDF creation / export for Markdown files
 
 | Markdown Preview GitHub Styling
 | Matt Bierner
