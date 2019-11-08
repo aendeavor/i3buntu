@@ -1,11 +1,16 @@
 {
+    "window.zoomLevel": 0,
+    "telemetry.enableTelemetry": false,
+
     "workbench.startupEditor": "newUntitledFile",
     "workbench.sideBar.location": "right",
     "workbench.colorTheme": "Material Theme Ocean High Contrast",
     "workbench.iconTheme": "material-icon-theme",
+
     "git.enableSmartCommit": true,
     "git.confirmSync": false,
     "git.autofetch": true,
+
     "latex-workshop.latex.tools": [
         {
             "name": "xelatex",
@@ -30,10 +35,65 @@
     "latex-workshop.message.update.show": false,
     "latex-workshop.latex.build.clearLog.everyRecipeStep.enabled": false,
     "latex-workshop.view.pdf.viewer": "tab",
+
+    "editor.suggestSelection": "first",
     "editor.wordWrap": "bounded",
     "editor.wordWrapColumn": 130,
+
     "explorer.confirmDragAndDrop": false,
+    "explorer.confirmDelete": false,
+
     "asciidoc.preview.useEditorStyle": false,
-    "asciidoc.previewFrontMatter": "show",
     "asciidoc.use_asciidoctorpdf": true,
+    
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+
+    "python.jediEnabled": false,
+
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    },
+
+    "cSpell.userWords": [
+        "DSGVO"
+    ],
+    "cSpell.language": "de,en",
+    "cSpell.enabledLanguageIds": [
+        "asciidoc",
+        "c",
+        "cpp",
+        "csharp",
+        "css",
+        "git-commit",
+        "go",
+        "handlebars",
+        "haskell",
+        "html",
+        "jade",
+        "java",
+        "javascript",
+        "javascriptreact",
+        "json",
+        "jsonc",
+        "latex",
+        "less",
+        "markdown",
+        "php",
+        "plaintext",
+        "pug",
+        "python",
+        "restructuredtext",
+        "rust",
+        "scala",
+        "scss",
+        "text",
+        "typescript",
+        "typescriptreact",
+        "yaml",
+        "yml"
+    ],
+
 }
