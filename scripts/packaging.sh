@@ -62,8 +62,8 @@ read -p "Would you like to install the JetBrains IDE suite? [Y/n]" -r R10
 # ? User-choices end
 # ? Actual script begins
 
-echo -e "Started at: $(date)" | ${WTL[@]}
-echo -e "Installing packages..."
+echo -e "Started at: $(date)"
+echo -e 'Installing packages...'
 
 echo -e "\nUbuntu critical packages\n"
 ${AI[@]} ubuntu-drivers-common htop intel-microcode software-properties-common curl
@@ -129,33 +129,37 @@ echo -e "Finished installing packages! Proceeding to removing dmenu..."
 echo -e "\nDmenu\n"
 sudo apt-get remove ${IF[@]} suckless-tools
 
-echo -e "Finished reoving packages! Proceeding to updating and upgrading via APT..."
+echo -e 'Finished reoving packages! Proceeding to updating and upgrading via APT...'
 
 sudo apt-get -qq -y update
 sudo apt-get -qq -y upgrade
 
-echo -e "Finished with the actual script."
+echo -e 'Finished with the actual script.'
 
 # ? Actual script finished
 # ? Extra script begins
 
-echo -e "Processing user-choices..."
+echo -e 'Processing user-choices...'
 
 ## graphics driver
 if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
+    echo -e 'Enabling ubuntu-drivers autoinstall...'
     sudo ubuntu-drivers autoinstall
 fi
 
 if [[ $R2 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R2 ]]; then
     if [[ $(lsb_release -r) == *"18.04"* ]]; then
+        echo -e 'Installing OpenJDK 11...'
         ${AI[@]} openjdk-11-jdk openjdk-11-demo openjdk-11-doc openjdk-11-jre-headless openjdk-11-source
     else
+        echo -e 'Installing OpenJDK 12...'
         ${AI[@]} openjdk-12-jdk openjdk-12-demo openjdk-12-doc openjdk-12-jre-headless openjdk-12-source
     fi
 fi
 
 if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
-    sudo add-apt-repository ppa:sebastian-stenzel/cryptomator
+    echo -e 'Installing Cryptomator...'
+    sudo add-apt-repository -y ppa:sebastian-stenzel/cryptomator
     ${AI[@]} cryptomator
 fi
 
@@ -166,26 +170,32 @@ if [[ $R4 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R4 ]]; then
 fi
 
 if [[ $R5 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R5 ]]; then
+    echo -e 'Installing LaTeX...'
     ${AI[@]} texlive-full
 fi
 
 if [[ $R6 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R6 ]]; then
+    echo -e 'Installing OwnCloud...'
     ${AI[@]} owncloud-client
 fi
 
 if [[ $R7 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R7 ]]; then
+    echo -e 'Installing build-essential & cmake...'
     ${AI[@]} build-essential cmake
 fi
 
 if [[ $R8 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R8 ]]; then
+    echo -e 'Installing RUST...'
     curl https://sh.rustup.rs -sSf | sh
 fi
 
 if [[ $R9 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R9 ]]; then
+    echo -e 'Installing VS Code...'
     ${SI[@]} code --classic
 fi
 
 if [[ $R10 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R10 ]]; then
+    echo -e "Installing JetBrains' IDE suite..."
     ${SI[@]} intellij-idea-ultimate --classic
     ${SI[@]} kotlin --classic
     ${SI[@]} kotlin-native --classic
@@ -194,12 +204,12 @@ if [[ $R10 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R10 ]]; then
 fi
 
 if [[ $RC1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RC1 ]]; then
-    echo -e "Installing VS Code Extensions..."
+    echo -e 'Installing VS Code Extensions...'
     sudo chmod +x "${DIR}/resources/sys/vscode/extensions.sh"
     "${DIR}/resources/sys/vscode/extensions.sh"
 fi
 
-echo -e "Finished with processing user-choices! One last update..."
+echo -e 'Finished with processing user-choices! One last update...'
 
 sudo apt-get -qq -y update
 sudo apt-get -qq -y upgrade
@@ -208,7 +218,7 @@ sudo snap refresh
 # ? Extra script finished
 # ? Postconfiguration and restart
 
-echo -e "The script has finished!\nEnded at: $(date)" | ${WTL[@]}
+echo -e "The script has finished!\nEnded at: $(date)"
 
 for I in {5..1..-1}; do
     echo -ne "\rRestart in $I seconds"
