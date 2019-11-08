@@ -1,10 +1,9 @@
 #!/bin/bash
 
-# This script serves as a wrapper for
-# the installation of all fonts in the
-# directory of this script.
+# This script serves as a wrapper for the installation
+# of all fonts in the directory of this script.
 # 
-# current version - 0.0.1
+# current version - 0.0.3
 
 # ? Preconfig
 
