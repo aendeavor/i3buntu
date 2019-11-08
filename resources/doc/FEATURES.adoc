@@ -1,0 +1,46 @@
+= Features
+
+== Overview
+
+This file exists to give you a comprehensive overview over all features _i3buntu_ either provides you with or improves upon. There are dozens of smaller improvements, which are going to be listed here as well. Make sure your read this page to know what you will get when using i3buntu.
+
+== Core features
+
+=== Design
+
+==== Window Manager
+
+The most obvios change, as it affects the design of your system, is the choice of _i3_. For itself, _i3_ is very ugly - but to be fair, this is where _i3buntu_ comes into play. The configuration has been done meticulously.
+
+[[i3]]
+image::https://upload.wikimedia.org/wikipedia/commons/2/27/I3_window_manager_logo.svg[i3,500]
+
+==== Color scheme
+
+The color scheme has been carefully chosen to implement into the system seemlessly. Every programm, from the shell to your browser have adapted these changes. They are feflected in the choice of icons, backgrounds and windows. The _Adapta GTK_ color theme enhances this experience. If you are curious about the used color and their values, look no further than `resources/design`. The `colour_palette.pdf` gives insight about the RGB, YMCK, HEX and HSV values. If you just want to stare at them, here they are
+
+[[color_scheme]]
+image::../design/color_palette.svg[color scheme, 600]
+
+If you would like to make your own version, consult these link:https://digitalsynopsis.com/design/minimal-web-color-palettes-combination-hex-code/[premade colors] or this link:https://coolors.co/[color generator].
+
+=== Performance
+
+==== No GNOME or KDE
+
+While GNOME and KDE can be beautiful as well, they are nonetheless heavy on resources. Today, this may not seem like much of a problem, and indeed, it isn't, but for some, getting **the** best performance out of their system matters. After all, you don't want to be sitting around waiting for your computer to finish its work - you want your computer to wait for you.
+
+The window manager _i3_ is completely written in _C_.
+
+=== Customizability
+
+For everyone familiar with the command line, there is nothing stopping you - if, you are, let's say, root. Why do we mention this here? On any other distro this is true as well? You are right, but then, firstly, it is correct for _i3buntu_ as well, and _i3buntu_ forces you to take the command line approach, like _Arch_ does. Simply because there are no graphical programs preinstalled to aid you, you will need to make yourself comfortable with _BASH_.
+
+[[BASH]]
+image::https://upload.wikimedia.org/wikipedia/commons/8/82/Gnu-bash-logo.svg[BASH, 600]
+
+That is, for all of you new to Linux, a good thing. The struggle at first is real, to be honest, but after a while you will ask youself how you could ever live without...
+
+== Developer features
+
+== Extension features

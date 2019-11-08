@@ -1,4 +1,4 @@
-= Fonts README
+= Fonts
 :toc:
 :toclevels: 2
 :showtitle:
