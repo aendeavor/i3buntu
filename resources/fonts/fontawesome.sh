@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# ? current version: FontAwesome Free 5.11.2 Desktop
-
 FONTDIR="${HOME}/.local/share/fonts"
 FONTNAME="FontAwesome"
 
