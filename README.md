@@ -4,7 +4,7 @@
 
 This repository aims at providing you with a set of instructions to create your own minimal Ubuntu installation with the i3 window manager. This will enable you to not only work more efficiently with your system, but also in a much more beautiful environment.
 
-[![Desktop Theme](resources/design/desktop_theme.png)](https://www.reddit.com/r/unixporn/)
+[![Desktop Theme](resources/doc/desktop_theme.png)](https://www.reddit.com/r/unixporn/)
 
 ## Prerequisites
 
@@ -47,10 +47,14 @@ On first sight, you will realize the prompt / PS1 has changed. It has become cle
 
 i3 and X are much more lightweight compared to GNOME or KDE. As a result, everything is faster. Through the use of a tiling window manager working with your computer feels easier, as there is no drag-n-drop, pre-defined workspaces and less use of your mouse.
 
+#### Overview page
+
+There is a dedicated page to all features and improvements _i3buntu_ provides you with. Have a look at the [FEATURES](./resources/doc/FEATURES.adoc) file, where detailed information is given. If you are curious what has been changed in contrast to normal Ubuntu, or if you are just interested in improving your own system with these features, this page is the right one for you.
+
 ## Warranty
 
 This guide and these files come with absolutely **no warranty**! The knowledge is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of unleashing indescribable horrors.
 
 ## Installation instructions
 
-Installation instructions are found [here](./INSTALL.md). You will need to get an ISO file first, install the base system, clone this repository, execute the packaging script, reboot, execute the configuration script, reboot, manually tweak the desktop - and you are done.
+Installation instructions are found [here](./INSTALL.md) or on the [wiki pages](https://github.com/Andevour/i3buntu/wiki). You will need to get an ISO file first, install the base system, clone this repository, execute the packaging script, reboot, execute the configuration script, reboot, manually tweak the desktop - and you are done.
