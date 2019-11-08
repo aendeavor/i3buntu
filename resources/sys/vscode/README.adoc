@@ -20,6 +20,10 @@ This file provides an overview about all extensions that are to be deployed if y
 | Description
 
 | AsciiDoc
+| stayfool
+| Provides live preview and syntax highlighting
+
+| AsciiDoc
 | João Pinto
 | Rich language support
 
@@ -34,6 +38,10 @@ This file provides an overview about all extensions that are to be deployed if y
 | C/C++
 | Microsoft
 | Essential C/C++ support for VS Code. C/C++ IntelliSense, debugging, and code browsing.
+
+| Code Runner
+| Jun Han
+| Run C, C++, Java, JS, PHP, Python, ... directly in VS Code.
 
 | Code Spell Checker
 | Street Side Software

@@ -33,6 +33,7 @@ ${INSTALL[@]} bierner.markdown-preview-github-styles
 ${INSTALL[@]} DavidAnson.vscode-markdownlint
 ${INSTALL[@]} eamodio.gitlens
 ${INSTALL[@]} Equinusocio.vsc-material-theme
+${INSTALL[@]} formulahendry.code-runner
 ${INSTALL[@]} James-Yu.latex-workshop
 ${INSTALL[@]} joaompinto.asciidoctor-vscode
 ${INSTALL[@]} ms-python.python
@@ -46,9 +47,12 @@ ${INSTALL[@]} PKief.material-icon-theme
 ${INSTALL[@]} redhat.vscode-xml
 ${INSTALL[@]} redhat.vscode-yaml
 ${INSTALL[@]} ritwickdey.LiveServer
+${INSTALL[@]} shd101wyy.markdown-preview-enhanced
+${INSTALL[@]} stayfool.vscode-asciidoc
 ${INSTALL[@]} streetsidesoftware.code-spell-checker
 ${INSTALL[@]} streetsidesoftware.code-spell-checker-german
 ${INSTALL[@]} VisualStudioExptTeam.vscodeintellicode
+${INSTALL[@]} yzane.markdown-pdf
 ${INSTALL[@]} yzhang.markdown-all-in-one
 
 # ? Actual script finished
