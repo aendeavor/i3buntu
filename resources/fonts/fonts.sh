@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # This script serves as a wrapper for
 # the installation of all fonts in the
