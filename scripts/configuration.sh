@@ -50,7 +50,7 @@ read -p "Would you like me to sync fonts?" - R3
 # backup
 echo -e "Checking for existing files...\n" | ${WTL[@]}
 
-HOME_FILES=( ~/.bash_aliases ~/.bashrc ~/.vimrc ~/.Xresources ~/.config/Code/User/settings.json )
+HOME_FILES=( "${HOME}/.bash_aliases" "${HOME}/.bashrc" "${HOME}/.vimrc" "${HOME}/.Xresources" "${HOME}/.config/Code/User/settings.json" )
 for file in ${HOME_FILES[@]}; do
     if [[ -f "$file" ]]; then
         backupFile="${BACK}${file#~}.bak"
@@ -59,16 +59,16 @@ for file in ${HOME_FILES[@]}; do
     fi
 done
 
-if [[ -d ~/.vim ]]; then
+if [[ -d "${HOME}/.vim" ]]; then
     echo -e "   -> Found ~/.vim directory!\n         Backing up to ${BACK}/.vim\n" | ${WTL[@]}
-    ${RS[@]} ~/.vim ${BACK} >> $LOG
-    rm -rf ~/.vim
+    ${RS[@]} "${HOME}/.vim" "${BACK}" >> $LOG
+    rm -rf "${HOME}/.vim"
 fi
 
-if [ -d ~/.config/i3 ]; then
+if [ -d "${HOME}/.config/i3" ]; then
     echo -e "   -> Found ~/.config/i3 directory!\n         Backing up to ${BACK}/i3\n" | ${WTL[@]}
-    ${RS[@]} ~/.config/i3 ${BACK} >> $LOG
-    rm -rf ~/.config/i3
+    ${RS[@]} "${HOME}/.config/i3" ${BACK} >> $LOG
+    rm -rf "${HOME}/.config/i3"
 fi
 
 # deployment
@@ -77,35 +77,35 @@ echo -e "Proceeding to deploying config files..." | ${WTL[@]}
 DEPLOY_IN_HOME=( sh/.bashrc sh/.bash_aliases vi/.vimrc vi/.viminfo Xi3/.Xresources )
 for sourceFile in "${DEPLOY_IN_HOME[@]}"; do
     echo -e "   -> Syncing $(basename -- "${sourceFile}")"  | ${WTL[@]}
-    ${RS[@]} "${SYS}/${sourceFile}" ~ >> $LOG
+    ${RS[@]} "${SYS}/${sourceFile}" "${HOME}" >> $LOG
 done
 
-mkdir -p ~/.config/i3
-${RS[@]} "${SYS}/Xi3/config" ~/.config/i3 >> $LOG
-${RS[@]} "${SYS}/Xi3/i3statusconfig" ~/.config/i3 >> $LOG
+mkdir -p "${HOME}/.config/i3"
+${RS[@]} "${SYS}/Xi3/config" "${HOME}/.config/i3" >> $LOG
+${RS[@]} "${SYS}/Xi3/i3statusconfig" "${HOME}/.config/i3" >> $LOG
 
 sudo ${RS[@]} "${SYS}/Xi3/xorg.conf" /etc/X11 >> $LOG
 
 sudo mkdir -p /etc/lightdm
 sudo ${RS[@]} "${SYS}/other_cfg/lightdm-gtk-greeter.conf" /etc/lightdm >> $LOG
 
-mkdir -p ~/.urxvt/extensions
-${RS[@]} "${SYS}/sh/resize-font" "~/.urxvt/ext" >> $LOG
+mkdir -p "${HOME}/.urxvt/extensions"
+${RS[@]} "${SYS}/sh/resize-font" "${HOME}/.urxvt/ext" >> $LOG
 
-mkdir -p ~/pictures
-${RS[@]} "${RES}/images" "~/pictures" >> $LOG
+mkdir -p "${HOME}/pictures"
+${RS[@]} "${RES}/images" "${HOME}/pictures" >> $LOG
 
 AGTKCT='adapta-gtk-theme-colorpack'
 if ! dpkg -s ${AGTKCT} >/dev/null 2>&1; then
     sudo dpkg -i "${RES}/design/AdaptaGTK_colorpack.deb"
 fi
 
-CC="~/.config/Code/User"
+CC="${HOME}/.config/Code/User"
 mkdir -p "${CC}"
 ${RS[@]} "${SYS}/vscode/settings.json" "${CC}" >> $LOG
 
 # reload of services and caches
-xrdb ~/.Xresources >> $LOG
+xrdb ${HOME}/.Xresources >> $LOG
 
 # ? Actual script finished
 # ? Extra script begins
@@ -117,7 +117,7 @@ if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
 
     gsettings set org.gnome.desktop.background show-desktop-icons false
     gsettings set org.nemo.desktop show-desktop-icons true
-    sudo cp -f "${RES}/sys/other_cfg/vscode-current-dir.nemo_action" "~/.local/share/nemo/actions/"
+    sudo cp -f "${RES}/sys/other_cfg/vscode-current-dir.nemo_action" "${HOME}/.local/share/nemo/actions/"
 fi
 
 if [[ $R2 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R2 ]]; then

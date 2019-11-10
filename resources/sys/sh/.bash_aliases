@@ -9,7 +9,7 @@
 
 # check color support
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    test -r "${HOME}/.dircolors" && eval "$(dircolors -b "${HOME}/.dircolors")" || eval "$(dircolors -b)"
     alias ls='ls --color=auto -lh'
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
@@ -50,7 +50,7 @@ areinstall () {
 export -f areinstall
 
 update () {
-    DIR=~/.update_log
+    DIR="${HOME}/.update_log"
     OPTIONS=(--yes --assume-yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages)
 
     sudo printf "\n\n\nNew update started at: " >> "$DIR"
