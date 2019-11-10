@@ -127,7 +127,11 @@ echo -e "\nFonts - Roboto & OpenSans\n"
 ${AI[@]} fonts-roboto fonts-open-sans
 
 echo - "\nIcon Theme\n"
-(cd ${DIR}/../resources/icon_theme && ./install.sh -a)
+(
+    cd "${DIR}/../resources/icon_theme/icon_theme.sh"
+    find . -maxdepth 1 -iregex "[a-z0-9_\.\/\ ]*\w\.sh" -type f -exec chmod +x {} \;
+    ./icon_theme.sh
+)
 
 echo -e 'Finished installing packages! Proceeding to removing dmenu...'
 
