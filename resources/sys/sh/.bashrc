@@ -1,6 +1,13 @@
 # ! BASHRC - CONFIGURATION FILE FOR YOUR BASH
 # ! ~/.bashrc - executed by bash for non-login shells
 
+# This bash script is executed on bash startup
+# to set the prompt, all neccessary parameters
+# and functionality.
+# Moreover, it loads ~/.bash_aliases.  
+#
+# current version - 0.6.4
+
 # if not running interactively, don't do anything
 case $- in
     *i*) ;;

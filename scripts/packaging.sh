@@ -195,7 +195,21 @@ fi
 
 if [[ $R8 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R8 ]]; then
     echo -e 'Installing RUST...'
-    curl https://sh.rustup.rs -sSf | sh
+    curl https://sh.rustup.rs -sSf | sh -s -- --profile complete
+    if [[ -e "~/.cargo/bin/rustup"]]; then
+        mkdir -p "~/.local/share/bash-completion/completions"
+        rustup completions bash &>> "~/.local/share/bash-completion/completions/rustup"
+
+        rustup set profile complete
+
+        COMPONENTS=( rust-docs rust-src rustfmt rls clippy )
+
+        for COMPONENT in ${COMPONENTS[@]}; do
+            rustup component add $COMPONENT &>> "$LOG"
+        done
+
+        rustup update
+    fi
 fi
 
 if [[ $R9 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R9 ]]; then
