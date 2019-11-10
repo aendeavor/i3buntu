@@ -130,7 +130,7 @@ echo - "\nIcon Theme\n"
 (
     cd "${DIR}/../resources/icon_theme/icon_theme.sh"
     find . -maxdepth 1 -iregex "[a-z0-9_\.\/\ ]*\w\.sh" -type f -exec chmod +x {} \;
-    ./icon_theme.sh
+    ./icon_theme.sh "$LOG"
 )
 
 echo -e 'Finished installing packages! Proceeding to removing dmenu...'
@@ -196,9 +196,10 @@ fi
 if [[ $R8 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R8 ]]; then
     echo -e 'Installing RUST...'
     curl https://sh.rustup.rs -sSf | sh -s -- --profile complete
-    if [[ -e "~/.cargo/bin/rustup"]]; then
-        mkdir -p "~/.local/share/bash-completion/completions"
-        rustup completions bash &>> "~/.local/share/bash-completion/completions/rustup"
+    if [[ -e "${HOME}/.cargo/bin/rustup"]]; then
+        mkdir -p "${HOME}/.local/share/bash-completion/completions"
+        touch "${HOME}/.local/share/bash-completion/completions/rustup"
+        rustup completions bash > "${HOME}/.local/share/bash-completion/completions/rustup"
 
         rustup set profile complete
 
