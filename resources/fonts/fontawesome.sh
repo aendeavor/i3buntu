@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# ? current version: FontAwesome Free 5.11.2 Desktop
+# ? Preconfig
 
 FONTDIR="${HOME}/.local/share/fonts"
 FONTNAME="FontAwesome"
@@ -8,6 +8,9 @@ FONTNAME="FontAwesome"
 if [[ ! -d "${FONTDIR}" ]]; then
     mkdir -p "${FONTDIR}"
 fi
+
+# ? Preconfig finished
+# ? Actual script begins
 
 cd $FONTDIR
 rm -rf $FONTNAME
@@ -19,3 +22,5 @@ unzip ${FONTNAME}.zip
 rm ${FONTNAME}.zip
 
 mv "fontawesome-free-5.11.2-desktop" $FONTNAME
+
+# ? Actual script finished

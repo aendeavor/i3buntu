@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# ? Preconfig
+
 FONTDIR="${HOME}/.local/share/fonts"
 
 if [[ ! -d "${FONTDIR}" ]]; then
@@ -10,8 +12,10 @@ if [[ ! -d "${FONTDIR}/FiraCode" ]]; then
     mkdir -p "${FONTDIR}/FiraCode"
 fi
 
-# ? FiraCode font
+# ? Preconfig finished
+# ? Actual script begins
 
+# FiraCode font
 for type in Bold Light Medium Regular Retina; do
     file_path="${HOME}/.local/share/fonts/FiraCode/FiraCode-${type}.ttf"
     file_url="https://github.com/tonsky/FiraCode/blob/master/distr/ttf/FiraCode-${type}.ttf?raw=true"
@@ -19,7 +23,7 @@ for type in Bold Light Medium Regular Retina; do
     wget -O "${file_path}" "${file_url}"
 done
 
-# ? FiraCode Nerd fonts
+# FiraCode Nerd fonts
 
 NERDFONT="FiraCodeNerd"
 MONOFONT="FiraMono"
@@ -38,3 +42,5 @@ cd "../${MONOFONT}"
 wget -O "${MONOFONT}.zip" "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/FiraMono.zip"
 unzip "${MONOFONT}.zip"
 rm "${MONOFONT}.zip"
+
+# ? Actual script finished
