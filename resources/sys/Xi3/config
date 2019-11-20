@@ -79,7 +79,7 @@ bar {
 bindsym $mod+Return exec "urxvtcd"
 
 # lock the screen
-bindsym $mod+Shift+x exec i3lock-fancy -- scrot -z -q 25
+bindsym $mod+Shift+x exec i3lock -u -e -i ~/pictures/wallpapers/firewatch.png -t
 
 # application manager
 bindsym $mod+d exec rofi -show run

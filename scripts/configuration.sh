@@ -18,16 +18,16 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 BACK="$( readlink -m "${DIR}/../backups/$( date '+%d-%m-%Y--%H-%M-%S' )" )"
 RES="$( readlink -m "${DIR}/../resources" )"
 SYS="$( readlink -m "${RES}/sys")"
-LOG="${BACK}/install_log"
+LOG="${BACK}/configuration_log"
 
 RS=( rsync -ahz --delete )
 
-##  init of backup-directory
+## Init of backup-directory
 if [[ ! -d "$BACK" ]]; then
     mkdir -p "$BACK"
 fi
 
-##  init of log
+## Init of logfile
 if [[ ! -f "$LOG" ]]; then
     if [[ ! -w "$LOG" ]]; then
         sudo rm $LOG
@@ -47,7 +47,7 @@ read -p "Would you like me to sync fonts?" - R3
 # ? User-choices end
 # ? Actual script begins
 
-# backup
+## Backup
 echo -e "Checking for existing files...\n" | ${WTL[@]}
 
 HOME_FILES=( "${HOME}/.bash_aliases" "${HOME}/.bashrc" "${HOME}/.vimrc" "${HOME}/.Xresources" "${HOME}/.config/Code/User/settings.json" )
@@ -71,7 +71,7 @@ if [ -d "${HOME}/.config/i3" ]; then
     rm -rf "${HOME}/.config/i3"
 fi
 
-# deployment
+## Deployment
 echo -e "Proceeding to deploying config files..." | ${WTL[@]}
 
 DEPLOY_IN_HOME=( sh/.bashrc sh/.bash_aliases vi/.vimrc vi/.viminfo Xi3/.Xresources )
@@ -87,7 +87,9 @@ ${RS[@]} "${SYS}/Xi3/i3statusconfig" "${HOME}/.config/i3" >> $LOG
 sudo ${RS[@]} "${SYS}/Xi3/xorg.conf" /etc/X11 >> $LOG
 
 sudo mkdir -p /etc/lightdm
+sudo mkdir -p /usr/share/lightdm
 sudo ${RS[@]} "${SYS}/other_cfg/lightdm-gtk-greeter.conf" /etc/lightdm >> $LOG
+sudo ${RS[@]} "${RES}/images/firewatch.jpg" /usr/share/lightdm >> $LOG
 
 mkdir -p "${HOME}/.urxvt/extensions"
 ${RS[@]} "${SYS}/sh/resize-font" "${HOME}/.urxvt/ext" >> $LOG
@@ -104,7 +106,7 @@ CC="${HOME}/.config/Code/User"
 mkdir -p "${CC}"
 ${RS[@]} "${SYS}/vscode/settings.json" "${CC}" >> $LOG
 
-# reload of services and caches
+## Reload of services and caches
 xrdb ${HOME}/.Xresources >> $LOG
 
 # ? Actual script finished
@@ -126,7 +128,7 @@ if [[ $R2 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R2 ]]; then
     sudo update-grub 2>&1 >> $LOG
 fi
 
-# deployment of fonts
+## Deployment of fonts
 if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
     find "${DIR}/resources/fonts/" -maxdepth 1 -iregex "[a-z0-9_\.\/\ ]*\w\.sh" -type f -exec chmod +x {} \;
 
