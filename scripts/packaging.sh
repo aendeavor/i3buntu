@@ -5,27 +5,27 @@
 # browser, graphical environment and much more is
 # being installed.
 #
-# current version - 0.3.4
+# current version - 0.3.6
 
 sudo echo -e "\nInstallation has begun!"
 
 # ? Preconfig
 
-##  directories and files - absolute & normalized
+## Directories and files - absolute & normalized
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 BACK="$(readlink -m "${DIR}/../backups/packageInstallation/$(date '+%d-%m-%Y--%H-%M-%S')")"
-LOG="${BACK}/.install_log"
+LOG="${BACK}/packaging_log"
 
 IF=( --yes --assume-yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages )
 AI=( sudo apt-get install ${IF[@]} )
 SI=( sudo snap install )
 
-##  init of backup-directory
+## Init of backup-directory
 if [[ ! -d "$BACK" ]]; then
     mkdir -p "$BACK"
 fi
 
-##  init of log
+## Init of logfile
 if [[ ! -f "$LOG" ]]; then
     if [[ ! -w "$LOG" ]]; then
         sudo rm $LOG
@@ -64,64 +64,59 @@ fi
 
 read -p "Would you like to install the JetBrains IDE suite? [Y/n]" -r R10
 
-# ? User-choices end
+# TODO manipulate console output here
+
+# ? User choices end
+# ? Init of package selection
+
+CRITICAL=( ubuntu-drivers-common htop intel-microcode curl wget )
+
+PACKAGING=( software-properties-common python-software-properties snapd )
+
+DISPLAY=( xorg xserver-xorg lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings i3 )
+
+GRAPHICS=( compton xbacklight feh rofi arandr mesa-utils mesa-utils-extra i3lock )
+
+AUDIO=( pulseaudio gstreamer1.0-pulseaudio pulseaudio-module-raop pulseaudio-module-bluetooth )
+
+FILES=( nemo file-roller p7zip-full filezilla )
+
+SHELL=( rxvt-unicode vim xsel xclip neofetch )
+
+AUTH=( policykit-desktop-privileges policykit-1-gnome gnome-keyring* libgnome-keyring0 )
+
+THEMING=( gtk2-engines-pixbuf gtk2-engines-murrine lxappearance )
+
+MISCELLANEOUS=( gparted fontconfig evince gedit nomacs python3-distutils scrot )
+
+PACKAGE_SELECTION_ONE=( "${CRITICAL[@]}" "${PACKAGING[@]}" "${DISPLAY[@]}" "${GRAPHICS[@]}" )
+PACKAGE_SELECTION_TWO=( "${AUDIO[@]}" "${FILES[@]}" "${SHELL[@]}" "${AUTH[@]}" "${THEMING[@]}" "${MISCELLANEOUS[@]}" )
+
+# ? End of init of package selection
 # ? Actual script begins
 
 echo -e "Started at: $(date)"
 echo -e 'Installing packages...'
 
-echo -e "\nUbuntu critical packages\n"
-${AI[@]} ubuntu-drivers-common htop intel-microcode software-properties-common curl
+echo -e "\nFirst selection of packages...\n"
+for PACKAGE in "${PACKAGE_SELECTION_ONE[@]}"; do
+    ${AI[@]} ${PACKAGE}
+done
 
 echo -e "\nNetworking\n"
-${AI[@]} --install-recommends net-tools network-manager*
+${AI[@]} --install-recommends net-tools
+${AI[@]} --install-recommends network-manager*
 
-echo -e "\nPulse audio\n"
-${AI[@]} pulseaudio gstreamer1.0-pulseaudio pulseaudio-module-raop pulseaudio-module-bluetooth
-
-echo -e "\nUbuntu miscellaneous packages\n"
-${AI[@]} file-roller p7zip-full gparted fontconfig filezilla
-${AI[@]} xsel lxappearance evince gedit nomacs nemo python3-distutils
-
-echo -e "\nAuthentication\n"
-${AI[@]} policykit-desktop-privileges policykit-1-gnome
-
-echo -e "\nURXVT\n"
-${AI[@]} rxvt-unicode neofetch
-
-echo -e "\nVIM\n"
-${AI[@]} vim
-
-echo -e "\nXorg\n"
-${AI[@]} xorg xserver-xorg
-
-echo -e "\nLightDM\n"
-${AI[@]} lightdm lightdm-gtk-greeter
-##  lightdm-gtk-greeter-settings
-
-echo -e "\nMesa\n"
-${AI[@]} mesa-utils mesa-utils-extra
-
-echo -e "\ni3\n"
-${AI[@]} i3 compton xbacklight feh rofi arandr
-
-echo -e "\ni3lock-fancy\n"
-${AI[@]} i3lock-fancy scrot
+echo -e "\nSecond selection of packages...\n"
+for PACKAGE in "${PACKAGE_SELECTION_TWO[@]}"; do
+    ${AI[@]} ${PACKAGE}
+done
 
 echo -e "\nFirefox\n"
 ${AI[@]} --no-install-recommends firefox
 
 echo -e "\nThunderbird\n"
 ${AI[@]} thunderbird
-
-echo -e "\nSnap\n"
-${AI[@]} snapd
-
-echo -e "\nGNOME Keyring\n"
-${AI[@]} gnome-keyring* libgnome-keyring0
-
-echo -e "\nTheming\n"
-${AI[@]} gtk2-engines-pixbuf gtk2-engines-murrine
 
 echo -e "\nFonts - Roboto & OpenSans\n"
 ${AI[@]} fonts-roboto fonts-open-sans
@@ -150,7 +145,7 @@ echo -e 'Finished with the actual script.'
 
 echo -e 'Processing user-choices...'
 
-## graphics driver
+## Graphics driver
 if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
     echo -e 'Enabling ubuntu-drivers autoinstall...'
     sudo ubuntu-drivers autoinstall
