@@ -20,7 +20,7 @@ RES="$( readlink -m "${DIR}/../resources" )"
 SYS="$( readlink -m "${RES}/sys")"
 LOG="${BACK}/configuration_log"
 
-RS=( rsync -ahz --delete )
+RS=( &>>"${LOG}" rsync -ahz --delete )
 
 ## Init of backup-directory
 if [[ ! -d "$BACK" ]]; then
@@ -55,19 +55,19 @@ for file in ${HOME_FILES[@]}; do
     if [[ -f "$file" ]]; then
         backupFile="${BACK}${file#~}.bak"
         echo -e "   -> Found ${file}!\n         Backing up to ${backupFile}\n" | ${WTL[@]}
-        ${RS[@]} "$file" "$backupFile" >> $LOG
+        ${RS[@]} "$file" "$backupFile"
     fi
 done
 
 if [[ -d "${HOME}/.vim" ]]; then
     echo -e "   -> Found ~/.vim directory!\n         Backing up to ${BACK}/.vim\n" | ${WTL[@]}
-    ${RS[@]} "${HOME}/.vim" "${BACK}" >> $LOG
+    ${RS[@]} "${HOME}/.vim" "${BACK}"
     rm -rf "${HOME}/.vim"
 fi
 
 if [ -d "${HOME}/.config/i3" ]; then
     echo -e "   -> Found ~/.config/i3 directory!\n         Backing up to ${BACK}/i3\n" | ${WTL[@]}
-    ${RS[@]} "${HOME}/.config/i3" ${BACK} >> $LOG
+    ${RS[@]} "${HOME}/.config/i3" ${BACK}
     rm -rf "${HOME}/.config/i3"
 fi
 
@@ -77,37 +77,37 @@ echo -e "Proceeding to deploying config files..." | ${WTL[@]}
 DEPLOY_IN_HOME=( sh/.bashrc sh/.bash_aliases vi/.vimrc vi/.viminfo Xi3/.Xresources )
 for sourceFile in "${DEPLOY_IN_HOME[@]}"; do
     echo -e "   -> Syncing $(basename -- "${sourceFile}")"  | ${WTL[@]}
-    ${RS[@]} "${SYS}/${sourceFile}" "${HOME}" >> $LOG
+    ${RS[@]} "${SYS}/${sourceFile}" "${HOME}"
 done
 
 mkdir -p "${HOME}/.config/i3"
-${RS[@]} "${SYS}/Xi3/config" "${HOME}/.config/i3" >> $LOG
-${RS[@]} "${SYS}/Xi3/i3statusconfig" "${HOME}/.config/i3" >> $LOG
+${RS[@]} "${SYS}/Xi3/config" "${HOME}/.config/i3"
+${RS[@]} "${SYS}/Xi3/i3statusconfig" "${HOME}/.config/i3"
 
-sudo ${RS[@]} "${SYS}/Xi3/xorg.conf" /etc/X11 >> $LOG
+sudo ${RS[@]} "${SYS}/Xi3/xorg.conf" /etc/X11
 
 sudo mkdir -p /etc/lightdm
 sudo mkdir -p /usr/share/lightdm
-sudo ${RS[@]} "${SYS}/other_cfg/lightdm-gtk-greeter.conf" /etc/lightdm >> $LOG
-sudo ${RS[@]} "${RES}/images/firewatch.jpg" /usr/share/lightdm >> $LOG
+sudo ${RS[@]} "${SYS}/other_cfg/lightdm-gtk-greeter.conf" /etc/lightdm
+sudo ${RS[@]} "${RES}/images/firewatch.jpg" /usr/share/lightdm
 
 mkdir -p "${HOME}/.urxvt/extensions"
-${RS[@]} "${SYS}/sh/resize-font" "${HOME}/.urxvt/ext" >> $LOG
+${RS[@]} "${SYS}/sh/resize-font" "${HOME}/.urxvt/ext"
 
 mkdir -p "${HOME}/pictures"
-${RS[@]} "${RES}/images" "${HOME}/pictures" >> $LOG
+${RS[@]} "${RES}/images" "${HOME}/pictures" 
 
 AGTKCT='adapta-gtk-theme-colorpack'
 if ! dpkg -s ${AGTKCT} >/dev/null 2>&1; then
-    sudo dpkg -i "${RES}/design/AdaptaGTK_colorpack.deb"
+    &>>"${LOG}" sudo dpkg -i "${RES}/design/AdaptaGTK_colorpack.deb"
 fi
 
 CC="${HOME}/.config/Code/User"
 mkdir -p "${CC}"
-${RS[@]} "${SYS}/vscode/settings.json" "${CC}" >> $LOG
+${RS[@]} "${SYS}/vscode/settings.json" "${CC}" 
 
 ## Reload of services and caches
-xrdb ${HOME}/.Xresources >> $LOG
+&>>"${LOG}" xrdb ${HOME}/.Xresources 
 
 # ? Actual script finished
 # ? Extra script begins
@@ -125,7 +125,7 @@ fi
 if [[ $R2 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R2 ]]; then
     sudo rm -f /etc/default/grub
     sudo cp ${RES}/others/grub /etc/default/
-    sudo update-grub 2>&1 >> $LOG
+    sudo update-grub &>>"${LOG}"
 fi
 
 ## Deployment of fonts
@@ -135,13 +135,13 @@ if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
     ( cd "${DIR}/resources/fonts/" && ./fonts.sh "${LOG}" )
 
     echo -e "Renewing font-cache..."
-    fc-cache -f >> $LOG && echo -e "Finished renewing font-cache!"
+    fc-cache -f &>>"${LOG}" && echo -e "Finished renewing font-cache!" | ${WTL[@]}
 fi
 
 # ? Extra script finished
 # ? Postconfiguration and restart
 
-echo -e "\nDeployment of configuration files has ended. Installation finished!" | ${WTL[@]}
+echo -e "\nDeployment of configuration files has ended. Installation finished!\n\n" | ${WTL[@]}
 read -p "It is recommended to restart now. Would you like me to restart?" -r R10
 if [[ $R10 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R10 ]]; then
     sudo shutdown -r now

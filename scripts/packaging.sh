@@ -5,7 +5,7 @@
 # browser, graphical environment and much more is
 # being installed.
 #
-# current version - 0.4.11
+# current version - 0.5.1
 
 sudo echo -e "\nInstallation has begun!"
 
@@ -17,8 +17,8 @@ BACK="$(readlink -m "${DIR}/../backups/packageInstallation/$(date '+%d-%m-%Y--%H
 LOG="${BACK}/packaging_log"
 
 IF=( --yes --assume-yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages )
-AI=( sudo apt-get install ${IF[@]} )
-SI=( sudo snap install )
+AI=( &>>"${LOG}" sudo apt-get install ${IF[@]} )
+SI=( &>>"${LOG}" sudo snap install )
 
 ## Init of backup-directory
 if [[ ! -d "$BACK" ]]; then
@@ -28,11 +28,11 @@ fi
 ## Init of logfile
 if [[ ! -f "$LOG" ]]; then
     if [[ ! -w "$LOG" ]]; then
-        sudo rm $LOG
+        sudo rm $LOG &>/dev/null
     fi
     touch "$LOG"
 fi
-WTL=( tee -a "$LOG" )
+WTL=( tee -a "${LOG}" )
 
 sudo apt-get -qq -y update
 sudo apt-get -qq -y upgrade
@@ -58,8 +58,6 @@ if [[ $R9 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R9 ]]; then
 fi
 
 read -p "Would you like to install the JetBrains IDE suite? [Y/n]" -r R10
-
-# TODO manipulate console output here
 
 # ? User choices end
 # ? Init of package selection
@@ -90,126 +88,130 @@ PACKAGE_SELECTION_TWO=( "${AUDIO[@]}" "${FILES[@]}" "${SHELL[@]}" "${AUTH[@]}" "
 # ? End of init of package selection
 # ? Actual script begins
 
-echo -e "Started at: $(date)"
-echo -e 'Installing packages...'
+echo -e "Started at: $(date)" | ${WTL[@]}
+echo -e 'Installing packages...'  | ${WTL[@]}
 
-echo -e "\nFirst selection of packages...\n"
+echo -e "\nFirst selection of packages...\n" | ${WTL[@]}
 for PACKAGE in "${PACKAGE_SELECTION_ONE[@]}"; do
     ${AI[@]} ${PACKAGE}
 done
 
-echo -e "\nNetworking\n"
+echo -e "\nNetworking\n" | ${WTL[@]}
 ${AI[@]} --install-recommends net-tools
 ${AI[@]} --install-recommends network-manager*
 
-echo -e "\nSecond selection of packages...\n"
+echo -e "\nSecond selection of packages...\n" | ${WTL[@]}
 for PACKAGE in "${PACKAGE_SELECTION_TWO[@]}"; do
     ${AI[@]} ${PACKAGE}
 done
 
-echo -e "\nFirefox\n"
+echo -e "\nFirefox\n" | ${WTL[@]}
 ${AI[@]} --no-install-recommends firefox
 
-echo -e "\nThunderbird\n"
+echo -e "\nThunderbird\n" | ${WTL[@]}
 ${AI[@]} thunderbird
 
-echo -e "\nFonts - Roboto & OpenSans\n"
+echo -e "\nFonts - Roboto & OpenSans\n" | ${WTL[@]}
 ${AI[@]} fonts-roboto fonts-open-sans
 
-echo -e "\nIcon Theme\n"
+echo -e "\nIcon Theme\n" | ${WTL[@]}
 (
     cd "${DIR}/../resources/icon_theme/icon_theme.sh"
-    find . -maxdepth 1 -iregex "[a-z0-9_\.\/\ ]*\w\.sh" -type f -exec chmod +x {} \;
-    ./icon_theme.sh "$LOG"
+    &>>"${LOG}" find . -maxdepth 1 -iregex "[a-z0-9_\.\/\ ]*\w\.sh" -type f -exec chmod +x {} \;
+    &>>"${LOG}" ./icon_theme.sh "$LOG"
 )
 
-echo -e 'Finished installing packages! Proceeding to removing dmenu...'
+echo -e 'Finished installing packages! Proceeding to removing dmenu...' | ${WTL[@]}
 
-echo -e "\nDmenu\n"
-sudo apt-get remove ${IF[@]} suckless-tools
+echo -e "\nDmenu\n" | ${WTL[@]}
+&>>"${LOG}" sudo apt-get remove ${IF[@]} suckless-tools
 
-echo -e 'Finished reoving packages! Proceeding to updating and upgrading via APT...'
+echo -e 'Finished reoving packages! Proceeding to updating and upgrading via APT...' | ${WTL[@]}
 
-sudo apt-get -qq -y update
-sudo apt-get -qq -y upgrade
+&>>"${LOG}" sudo apt-get -qq -y update
+&>>"${LOG}" sudo apt-get -qq -y upgrade
 
-echo -e 'Finished with the actual script.'
+echo -e 'Finished with the actual script.' | ${WTL[@]}
 
 # ? Actual script finished
 # ? Extra script begins
 
-echo -e 'Processing user-choices...'
+echo -e 'Processing user-choices...' | ${WTL[@]}
 
 ## Graphics driver
 if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
-    echo -e 'Enabling ubuntu-drivers autoinstall...'
-    sudo ubuntu-drivers autoinstall
+    echo -e 'Enabling ubuntu-drivers autoinstall...' | ${WTL[@]}
+    &>>"${LOG}" sudo ubuntu-drivers autoinstall
 fi
 
 if [[ $R2 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R2 ]]; then
     if [[ $(lsb_release -r) == *"18.04"* ]]; then
-        echo -e 'Installing OpenJDK 11...'
+        echo -e 'Installing OpenJDK 11...' | ${WTL[@]}
         ${AI[@]} openjdk-11-jdk openjdk-11-demo openjdk-11-doc openjdk-11-jre-headless openjdk-11-source
     else
-        echo -e 'Installing OpenJDK 12...'
+        echo -e 'Installing OpenJDK 12...' | ${WTL[@]}
         ${AI[@]} openjdk-12-jdk openjdk-12-demo openjdk-12-doc openjdk-12-jre-headless openjdk-12-source
     fi
 fi
 
 if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
-    echo -e 'Installing Cryptomator...'
-    sudo add-apt-repository -y ppa:sebastian-stenzel/cryptomator
+    echo -e 'Installing Cryptomator...' | ${WTL[@]}
+    &>>"${LOG}" sudo add-apt-repository -y ppa:sebastian-stenzel/cryptomator
     ${AI[@]} cryptomator
 fi
 
 if [[ $R4 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R4 ]]; then
-    echo "deb https://deb.etcher.io stable etcher" | sudo tee /etc/apt/sources.list.d/balena-etcher.list
-    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 379CE192D401AB61
+    if [[ ! -e /etc/apt/sources.list.d/balena-etcher.list ]]; then
+        sudo touch /etc/apt/sources.list.d/balena-etcher.list
+    fi
+
+    echo "deb https://deb.etcher.io stable etcher" | sudo > /etc/apt/sources.list.d/balena-etcher.list
+    &>>"${LOG}" sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 379CE192D401AB61
     ${AI[@]} balena-etcher-electron
 fi
 
 if [[ $R5 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R5 ]]; then
-    echo -e 'Installing LaTeX...'
+    echo -e 'Installing LaTeX...' | ${WTL[@]}
     ${AI[@]} texlive-full
 fi
 
 if [[ $R6 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R6 ]]; then
-    echo -e 'Installing OwnCloud...'
+    echo -e 'Installing OwnCloud...' | ${WTL[@]}
     ${AI[@]} owncloud-client
 fi
 
 if [[ $R7 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R7 ]]; then
-    echo -e 'Installing build-essential & cmake...'
+    echo -e 'Installing build-essential & cmake...' | ${WTL[@]}
     ${AI[@]} build-essential cmake
 fi
 
 if [[ $R8 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R8 ]]; then
-    echo -e 'Installing RUST...'
+    echo -e 'Installing RUST...' | ${WTL[@]}
     curl https://sh.rustup.rs -sSf | sh -s -- --profile complete
     if [[ -e "${HOME}/.cargo/bin/rustup"]]; then
         mkdir -p "${HOME}/.local/share/bash-completion/completions"
         touch "${HOME}/.local/share/bash-completion/completions/rustup"
         rustup completions bash > "${HOME}/.local/share/bash-completion/completions/rustup"
 
-        rustup set profile complete
+        &>>"${LOG}" rustup set profile complete
 
         COMPONENTS=( rust-docs rust-analysis rust-src rustfmt rls clippy )
 
         for COMPONENT in ${COMPONENTS[@]}; do
-            rustup component add $COMPONENT &>> "$LOG"
+            &>>"${LOG}" rustup component add $COMPONENT
         done
 
-        rustup update
+        &>>"${LOG}" rustup update
     fi
 fi
 
 if [[ $R9 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R9 ]]; then
-    echo -e 'Installing VS Code...'
+    echo -e 'Installing VS Code...' | ${WTL[@]}
     ${SI[@]} code --classic
 fi
 
 if [[ $R10 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R10 ]]; then
-    echo -e "Installing JetBrains' IDE suite..."
+    echo -e "Installing JetBrains' IDE suite..." | ${WTL[@]}
     ${SI[@]} intellij-idea-ultimate --classic
     ${SI[@]} kotlin --classic
     ${SI[@]} kotlin-native --classic
@@ -218,21 +220,21 @@ if [[ $R10 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R10 ]]; then
 fi
 
 if [[ $RC1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RC1 ]]; then
-    echo -e 'Installing VS Code Extensions...'
+    echo -e 'Installing VS Code Extensions...' | ${WTL[@]}
     sudo chmod +x "${DIR}/resources/sys/vscode/extensions.sh"
-    "${DIR}/resources/sys/vscode/extensions.sh"
+    &>>"${LOG}" "${DIR}/resources/sys/vscode/extensions.sh"
 fi
 
-echo -e 'Finished with processing user-choices! One last update...'
+echo -e 'Finished with processing user-choices! One last update...' | ${WTL[@]}
 
-sudo apt-get -qq -y update
-sudo apt-get -qq -y upgrade
-sudo snap refresh
+&>>"${LOG}"sudo apt-get -qq -y update
+&>>"${LOG}"sudo apt-get -qq -y upgrade
+&>>"${LOG}"sudo snap refresh
 
 # ? Extra script finished
 # ? Postconfiguration and restart
 
-echo -e "The script has finished!\nEnded at: $(date)"
+echo -e "The script has finished!\nEnded at: $(date)\n\n" | ${WTL[@]}
 
 for I in {5..1..-1}; do
     echo -ne "\rRestart in $I seconds"
