@@ -5,7 +5,7 @@
 # browser, graphical environment and much more is
 # being installed.
 #
-# current version - 0.3.6
+# current version - 0.4.11
 
 sudo echo -e "\nInstallation has begun!"
 
@@ -36,11 +36,6 @@ WTL=( tee -a "$LOG" )
 
 sudo apt-get -qq -y update
 sudo apt-get -qq -y upgrade
-
-EXEC="${DIR}/../resources/scripts/packaging.sh"
-if [[ ! -x "$EXEC" ]]; then
-    sudo chmod +x $EXEC
-fi
 
 # ? Preconfig finished
 # ? User-choices begin
@@ -121,7 +116,7 @@ ${AI[@]} thunderbird
 echo -e "\nFonts - Roboto & OpenSans\n"
 ${AI[@]} fonts-roboto fonts-open-sans
 
-echo - "\nIcon Theme\n"
+echo -e "\nIcon Theme\n"
 (
     cd "${DIR}/../resources/icon_theme/icon_theme.sh"
     find . -maxdepth 1 -iregex "[a-z0-9_\.\/\ ]*\w\.sh" -type f -exec chmod +x {} \;
@@ -198,7 +193,7 @@ if [[ $R8 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R8 ]]; then
 
         rustup set profile complete
 
-        COMPONENTS=( rust-docs rust-src rustfmt rls clippy )
+        COMPONENTS=( rust-docs rust-analysis rust-src rustfmt rls clippy )
 
         for COMPONENT in ${COMPONENTS[@]}; do
             rustup component add $COMPONENT &>> "$LOG"

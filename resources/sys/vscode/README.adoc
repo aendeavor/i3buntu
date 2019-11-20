@@ -31,6 +31,10 @@ This file provides an overview about all extensions that are to be deployed if y
 | Aaron Bond
 | Provides comment highlighting on use of `?`, `!` or star in every language's comments
 
+| Better TOML
+| bungcip
+| Syntax highlighting for `.toml` files
+
 | Bookmarks
 | Alessandro Fragnani
 | Mark lines and jump to them
@@ -46,6 +50,10 @@ This file provides an overview about all extensions that are to be deployed if y
 | Code Spell Checker
 | Street Side Software
 | A simple spell checker for various file types.
+
+| Crates
+| Seray Uzgur
+| Helps managing `Cargo.toml` for RUST projects
 
 | GitLens -- Git supercharged
 | Eric Amodio
@@ -90,6 +98,10 @@ This file provides an overview about all extensions that are to be deployed if y
 | Remote Development (Pack)
 | Microsoft
 | The Remote Development extension pack allows you to open any folder in a container, on a remote machine, ...
+
+| Rust (rls)
+| rust-lang
+| Adds language support for RUST to Visual Studio Code
 
 | Visual Studio IntelliCode
 | Microsoft
