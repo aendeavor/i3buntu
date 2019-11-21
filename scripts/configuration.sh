@@ -50,7 +50,7 @@ read -p "Would you like me to sync fonts?" - R3
 ## Backup
 echo -e "Checking for existing files...\n" | ${WTL[@]}
 
-HOME_FILES=( "${HOME}/.bash_aliases" "${HOME}/.bashrc" "${HOME}/.vimrc" "${HOME}/.Xresources" "${HOME}/.config/Code/User/settings.json" )
+HOME_FILES=( "${HOME}/.bash_aliases" "${HOME}/.bashrc" "${HOME}/.vimrc" "${HOME}/.Xresources" "${HOME}/.config/Code/User/settings.json" "${HOME}/.config/compton.conf" )
 for file in ${HOME_FILES[@]}; do
     if [[ -f "$file" ]]; then
         backupFile="${BACK}${file#~}.bak"
@@ -93,6 +93,9 @@ sudo ${RS[@]} "${RES}/images/firewatch.jpg" /usr/share/lightdm
 
 mkdir -p "${HOME}/.urxvt/extensions"
 ${RS[@]} "${SYS}/sh/resize-font" "${HOME}/.urxvt/ext"
+
+mkdir -p "${HOME}/.config"
+${RS[@]} "${SYS}/other_cfg/compton.conf" "${HOME}/.config"
 
 mkdir -p "${HOME}/pictures"
 ${RS[@]} "${RES}/images" "${HOME}/pictures" 

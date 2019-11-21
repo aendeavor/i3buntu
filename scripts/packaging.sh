@@ -5,7 +5,7 @@
 # browser, graphical environment and much more is
 # being installed.
 #
-# current version - 0.5.1
+# current version - 0.5.2
 
 sudo echo -e "\nInstallation has begun!"
 
@@ -62,7 +62,7 @@ read -p "Would you like to install the JetBrains IDE suite? [Y/n]" -r R10
 # ? User choices end
 # ? Init of package selection
 
-CRITICAL=( ubuntu-drivers-common htop intel-microcode curl wget )
+CRITICAL=( ubuntu-drivers-common htop intel-microcode curl wget libaio1 )
 
 PACKAGING=( software-properties-common python-software-properties snapd )
 
@@ -78,7 +78,7 @@ SHELL=( rxvt-unicode vim xsel xclip neofetch )
 
 AUTH=( policykit-desktop-privileges policykit-1-gnome gnome-keyring* libgnome-keyring0 )
 
-THEMING=( gtk2-engines-pixbuf gtk2-engines-murrine lxappearance )
+THEMING=( gtk2-engines-pixbuf gtk2-engines-murrine lxappearance compton-conf )
 
 MISCELLANEOUS=( gparted fontconfig evince gedit nomacs python3-distutils scrot )
 
@@ -94,6 +94,10 @@ echo -e 'Installing packages...'  | ${WTL[@]}
 echo -e "\nFirst selection of packages...\n" | ${WTL[@]}
 for PACKAGE in "${PACKAGE_SELECTION_ONE[@]}"; do
     ${AI[@]} ${PACKAGE}
+
+    if (( $? != 0 )); then
+        printf "\n\n\e[38;5;203mLATEST PACKAGE INSTALLATION EXITED WITH A BAD STATUS CODE\e[39m\n\n"
+    fi
 done
 
 echo -e "\nNetworking\n" | ${WTL[@]}
@@ -103,6 +107,10 @@ ${AI[@]} --install-recommends network-manager*
 echo -e "\nSecond selection of packages...\n" | ${WTL[@]}
 for PACKAGE in "${PACKAGE_SELECTION_TWO[@]}"; do
     ${AI[@]} ${PACKAGE}
+
+    if (( $? != 0 )); then
+        printf "\n\n\e[38;5;203mLATEST PACKAGE INSTALLATION EXITED WITH A BAD STATUS CODE\e[39m\n\n"
+    fi
 done
 
 echo -e "\nFirefox\n" | ${WTL[@]}
