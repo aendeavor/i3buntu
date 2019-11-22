@@ -61,7 +61,7 @@ read -p "Would you like to install the JetBrains IDE suite? [Y/n]" -r R10
 
 CRITICAL=( ubuntu-drivers-common htop intel-microcode curl wget libaio1 )
 
-NETWORKING=( net-tools network-manager* )
+NETWORKING=( net-tools network-manager* firefox )
 
 PACKAGING=( software-properties-common snapd )
 
@@ -77,7 +77,9 @@ SHELL=( rxvt-unicode vim xsel xclip neofetch )
 
 AUTH=( policykit-desktop-privileges policykit-1-gnome gnome-keyring* libgnome-keyring0 )
 
-THEMING=( gtk2-engines-pixbuf gtk2-engines-murrine lxappearance compton-conf fonts-roboto fonts-open-sans )
+THEMING=( gtk2-engines-pixbuf gtk2-engines-murrine lxappearance compton-conf)
+
+FONTS=( fonts-roboto fonts-open-sans fonts-lyx )
 
 MISCELLANEOUS=( gparted fontconfig evince gedit nomacs python3-distutils scrot thunderbird )
 
@@ -95,7 +97,7 @@ echo -e "\nStarted at: $(date)\n\nInitial update" | ${WTL[@]}
 >/dev/null 2>>"${LOG}" sudo apt-get -y update
 >/dev/null 2>>"${LOG}" sudo apt-get -y upgrade
 
-echo -e "Installing packages" | ${WTL[@]}
+echo -e "Installing packages:\n" | ${WTL[@]}
 
 printf "%-35s | %-25s | %-15s" "PACKAGE" "STATUS" "EXIT CODE"
 printf "\n"
@@ -109,10 +111,7 @@ for PACKAGE in "${PACKAGES[@]}"; do
     &>>"${LOG}" echo -e "${PACKAGE}\n\t -> EXIT CODE: ${EC}"
 done
 
-&>>"${LOG}" echo -e "Firefox is being processed..."
->/dev/null 2>>"${LOG}" ${AI[@]} --no-install-recommends firefox
-
-echo -e "\nTela Icon-Theme is being processed..." | ${WTL[@]}
+echo -e "\nIcon-Theme is being processed..." | ${WTL[@]}
 (
     cd "${DIR}/../resources/icon_theme"
     &>>"${LOG}" find . -maxdepth 1 -iregex "[a-z0-9_\.\/\ ]*\w\.sh" -type f -exec chmod +x {} \;
@@ -134,7 +133,7 @@ echo -e 'Finished with the actual script.' | ${WTL[@]}
 # ? Actual script finished
 # ? Extra script begins
 
-echo -e 'Processing user-choices...' | ${WTL[@]}
+echo -e 'Processing user-choices:' | ${WTL[@]}
 
 ## Graphics driver
 if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
@@ -224,11 +223,11 @@ if [[ $RC1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RC1 ]]; then
     &>>"${LOG}" "${DIR}/resources/sys/vscode/extensions.sh"
 fi
 
-echo -e 'Finished with processing user-choices! One last update...' | ${WTL[@]}
+echo -e 'Finished with processing user-choices. One last update...' | ${WTL[@]}
 
-&>>"${LOG}" sudo apt-get -qq -y update
-&>>"${LOG}" sudo apt-get -qq -y upgrade
-&>>"${LOG}" sudo snap refresh
+>/dev/null 2>>"${LOG}" sudo apt-get -y update
+>/dev/null 2>>"${LOG}" sudo apt-get -y upgrade
+>/dev/null 2>>"${LOG}" sudo snap refresh
 
 # ? Extra script finished
 # ? Postconfiguration and restart
