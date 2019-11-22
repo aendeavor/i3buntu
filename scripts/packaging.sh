@@ -17,8 +17,8 @@ BACK="$(readlink -m "${DIR}/../backups/packageInstallation/$(date '+%d-%m-%Y--%H
 LOG="${BACK}/packaging_log"
 
 IF=( --yes --assume-yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages )
-AI=( &>>"${LOG}" sudo apt-get install ${IF[@]} )
-SI=( &>>"${LOG}" sudo snap install )
+AI=( sudo apt-get install ${IF[@]} )
+SI=( sudo snap install )
 
 ## Init of backup-directory
 if [[ ! -d "$BACK" ]]; then
@@ -28,7 +28,7 @@ fi
 ## Init of logfile
 if [[ ! -f "$LOG" ]]; then
     if [[ ! -w "$LOG" ]]; then
-        sudo rm $LOG &>/dev/null
+        &>/dev/null sudo rm $LOG
     fi
     touch "$LOG"
 fi
@@ -93,7 +93,7 @@ echo -e 'Installing packages...'  | ${WTL[@]}
 
 echo -e "\nFirst selection of packages...\n" | ${WTL[@]}
 for PACKAGE in "${PACKAGE_SELECTION_ONE[@]}"; do
-    ${AI[@]} ${PACKAGE}
+    &>>"${LOG}" ${AI[@]} ${PACKAGE}
 
     if (( $? != 0 )); then
         printf "\n\n\e[38;5;203mLATEST PACKAGE INSTALLATION EXITED WITH A BAD STATUS CODE\e[39m\n\n"
@@ -101,12 +101,12 @@ for PACKAGE in "${PACKAGE_SELECTION_ONE[@]}"; do
 done
 
 echo -e "\nNetworking\n" | ${WTL[@]}
-${AI[@]} --install-recommends net-tools
-${AI[@]} --install-recommends network-manager*
+&>>"${LOG}" ${AI[@]} --install-recommends net-tools
+&>>"${LOG}" ${AI[@]} --install-recommends network-manager*
 
 echo -e "\nSecond selection of packages...\n" | ${WTL[@]}
 for PACKAGE in "${PACKAGE_SELECTION_TWO[@]}"; do
-    ${AI[@]} ${PACKAGE}
+    &>>"${LOG}" ${AI[@]} ${PACKAGE}
 
     if (( $? != 0 )); then
         printf "\n\n\e[38;5;203mLATEST PACKAGE INSTALLATION EXITED WITH A BAD STATUS CODE\e[39m\n\n"
@@ -114,13 +114,13 @@ for PACKAGE in "${PACKAGE_SELECTION_TWO[@]}"; do
 done
 
 echo -e "\nFirefox\n" | ${WTL[@]}
-${AI[@]} --no-install-recommends firefox
+&>>"${LOG}" ${AI[@]} --no-install-recommends firefox
 
 echo -e "\nThunderbird\n" | ${WTL[@]}
-${AI[@]} thunderbird
+&>>"${LOG}" ${AI[@]} thunderbird
 
 echo -e "\nFonts - Roboto & OpenSans\n" | ${WTL[@]}
-${AI[@]} fonts-roboto fonts-open-sans
+&>>"${LOG}" ${AI[@]} fonts-roboto fonts-open-sans
 
 echo -e "\nIcon Theme\n" | ${WTL[@]}
 (
@@ -155,17 +155,17 @@ fi
 if [[ $R2 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R2 ]]; then
     if [[ $(lsb_release -r) == *"18.04"* ]]; then
         echo -e 'Installing OpenJDK 11...' | ${WTL[@]}
-        ${AI[@]} openjdk-11-jdk openjdk-11-demo openjdk-11-doc openjdk-11-jre-headless openjdk-11-source
+        &>>"${LOG}" ${AI[@]} openjdk-11-jdk openjdk-11-demo openjdk-11-doc openjdk-11-jre-headless openjdk-11-source
     else
         echo -e 'Installing OpenJDK 12...' | ${WTL[@]}
-        ${AI[@]} openjdk-12-jdk openjdk-12-demo openjdk-12-doc openjdk-12-jre-headless openjdk-12-source
+        &>>"${LOG}" ${AI[@]} openjdk-12-jdk openjdk-12-demo openjdk-12-doc openjdk-12-jre-headless openjdk-12-source
     fi
 fi
 
 if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
     echo -e 'Installing Cryptomator...' | ${WTL[@]}
     &>>"${LOG}" sudo add-apt-repository -y ppa:sebastian-stenzel/cryptomator
-    ${AI[@]} cryptomator
+    &>>"${LOG}" ${AI[@]} cryptomator
 fi
 
 if [[ $R4 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R4 ]]; then
@@ -175,22 +175,22 @@ if [[ $R4 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R4 ]]; then
 
     echo "deb https://deb.etcher.io stable etcher" | sudo > /etc/apt/sources.list.d/balena-etcher.list
     &>>"${LOG}" sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 379CE192D401AB61
-    ${AI[@]} balena-etcher-electron
+    &>>"${LOG}" ${AI[@]} balena-etcher-electron
 fi
 
 if [[ $R5 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R5 ]]; then
     echo -e 'Installing LaTeX...' | ${WTL[@]}
-    ${AI[@]} texlive-full
+    &>>"${LOG}" ${AI[@]} texlive-full
 fi
 
 if [[ $R6 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R6 ]]; then
     echo -e 'Installing OwnCloud...' | ${WTL[@]}
-    ${AI[@]} owncloud-client
+    &>>"${LOG}" ${AI[@]} owncloud-client
 fi
 
 if [[ $R7 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R7 ]]; then
     echo -e 'Installing build-essential & cmake...' | ${WTL[@]}
-    ${AI[@]} build-essential cmake
+    &>>"${LOG}" ${AI[@]} build-essential cmake
 fi
 
 if [[ $R8 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R8 ]]; then
@@ -215,16 +215,16 @@ fi
 
 if [[ $R9 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R9 ]]; then
     echo -e 'Installing VS Code...' | ${WTL[@]}
-    ${SI[@]} code --classic
+    &>>"${LOG}" ${SI[@]} code --classic
 fi
 
 if [[ $R10 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R10 ]]; then
     echo -e "Installing JetBrains' IDE suite..." | ${WTL[@]}
-    ${SI[@]} intellij-idea-ultimate --classic
-    ${SI[@]} kotlin --classic
-    ${SI[@]} kotlin-native --classic
-    ${SI[@]} pycharm-professional --classic
-    ${SI[@]} clion --classic
+    &>>"${LOG}" ${SI[@]} intellij-idea-ultimate --classic
+    &>>"${LOG}" ${SI[@]} kotlin --classic
+    &>>"${LOG}" ${SI[@]} kotlin-native --classic
+    &>>"${LOG}" ${SI[@]} pycharm-professional --classic
+    &>>"${LOG}" ${SI[@]} clion --classic
 fi
 
 if [[ $RC1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RC1 ]]; then

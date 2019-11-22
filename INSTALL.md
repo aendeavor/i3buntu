@@ -16,30 +16,33 @@ This image does not support UEFI right out of the box. However, I created an ISO
 
 ## Runlevel 3 - Managing packages
 
-If you chose the desktop version, struck down GNOME packages, e.g. `gnome-desktop*` and reboot. From hereon, if you didn't use the `ks.cfg` (see link to minimal installation) to script your installation, the first thing to do would be installing git:
+If you chose the desktop version, struck down GNOME packages, e.g. `gnome-desktop*` and reboot. From hereon, if you didn't use the `ks.cfg` (see link to minimal installation) to script your installation, the first thing to do would be updating and grabbing mandatory ppa-repositories:
 
 ``` BASH
 # update to the latest state, if possible
 sudo apt-get -y update && sudo apt-get -y upgrade
 
 # get necessary tools to add an APT repository
-apt-get install -y software-properties-common python-software-properties
+sudo apt-get install -y software-properties-common
 
 # add official GIT-Core and Mozilla APT repositories
 sudo add-apt-repository -y ppa:git-core/ppa
 sudo add-apt-repository -y ppa:ubuntu-mozilla-security/ppa
-
-# install GIT itself
-sudo apt-get install git
 ```
 
 Afterwards, you can clone this repository to your new machine. Then execute the `packaging.sh` script. The script will install all needed packages and dependencies, it will let you make some choices and it will reboot your computer after everything is finished.
 
 ``` BASH
-# clone this repository into the folder i3buntu
-cd && git clone -- https://github.com/Andevour/i3ubuntu.git
+# download the latest release
+cd && wget https://github.com/Andevour/i3buntu/archive/v0.8.0-stable.tar.gz
 
-# execute the primary packaging script
+# decompress the .tar.gz
+tar xvfz v0.8.0-stable.tar.gz && rm v0.8.0-stable.tar.gz
+
+# rename the directory
+mv i3buntu* i3buntu
+
+# execute the packaging.sh script
 cd && ./i3buntu/scripts/packaging.sh
 ```
 
