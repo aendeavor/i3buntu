@@ -51,12 +51,15 @@ ${INSTALL[@]} ritwickdey.LiveServer
 ${INSTALL[@]} serayuzgur.crate
 ${INSTALL[@]} shd101wyy.markdown-preview-enhanced
 ${INSTALL[@]} stayfool.vscode-asciidoc
-${INSTALL[@]} rust-lang.rust
 ${INSTALL[@]} streetsidesoftware.code-spell-checker
 ${INSTALL[@]} streetsidesoftware.code-spell-checker-german
 ${INSTALL[@]} VisualStudioExptTeam.vscodeintellicode
 ${INSTALL[@]} yzane.markdown-pdf
 ${INSTALL[@]} yzhang.markdown-all-in-one
+
+if [[ ! -z $(which rustup) ]]; then
+    ${INSTALL[@]} rust-lang.rust
+fi
 
 # ? Actual script finished
 # ? Postconfiguration
