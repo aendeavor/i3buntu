@@ -93,10 +93,11 @@ echo -e "Started at: $(date)" | ${WTL[@]}
 
 echo -e "\nFirst selection of packages is being processed..." | ${WTL[@]}
 for PACKAGE in "${PACKAGE_SELECTION_ONE[@]}"; do
+    &>>"${LOG}" echo -e "${PACKAGE} is being installed..."
     &>>"${LOG}" ${AI[@]} ${PACKAGE}
 
     if (( $? != 0 )); then
-        printf "\n\n\e[38;5;203mLATEST PACKAGE INSTALLATION EXITED WITH A BAD STATUS CODE - PROCEEDING...\e[39m\n\n"
+        printf "\n\n\e[38;5;203mLATEST PACKAGE INSTALLATION EXITED WITH A BAD STATUS CODE - PROCEEDING...\e[39m\n\n" | ${WTL[@]}
     fi
 done
 
@@ -109,7 +110,7 @@ for PACKAGE in "${PACKAGE_SELECTION_TWO[@]}"; do
     &>>"${LOG}" ${AI[@]} ${PACKAGE}
 
     if (( $? != 0 )); then
-        printf "\n\n\e[38;5;203mLATEST PACKAGE INSTALLATION EXITED WITH A BAD STATUS CODE\e[39m\n\n"
+        printf "\n\n\e[38;5;203mLATEST PACKAGE INSTALLATION EXITED WITH A BAD STATUS CODE\e[39m\n\n" | ${WTL[@]}
     fi
 done
 
