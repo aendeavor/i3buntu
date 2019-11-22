@@ -92,14 +92,14 @@ PACKAGES=( "${PONE[@]}" "${PTWO[@]}" "${PTHREE[@]}" )
 
 echo -e "\nStarted at: $(date)\n\nInitial update" | ${WTL[@]}
 
->/dev/null 2>"${LOG}" sudo apt-get -y update
->/dev/null 2>"${LOG}" sudo apt-get -y upgrade
+>/dev/null 2>>"${LOG}" sudo apt-get -y update
+>/dev/null 2>>"${LOG}" sudo apt-get -y upgrade
 
 echo -e "Installing packages" | ${WTL[@]}
 
 for PACKAGE in "${PACKAGES[@]}"; do
     echo -e "${PACKAGE}\t\t is being processed..." | ${WTL[@]}
-    >/dev/null 2>"${LOG}" ${AI[@]} ${PACKAGE}
+    >/dev/null 2>>"${LOG}" ${AI[@]} ${PACKAGE}
 
     if (( $? != 0 )); then
         printf "\e[38;5;203mEXITED WITH BAD STATUS CODE\e[39m"
@@ -108,7 +108,7 @@ for PACKAGE in "${PACKAGES[@]}"; do
 done
 
 &>>"${LOG}" echo -e "Firefox is being processed..."
->/dev/null 2>"${LOG}" ${AI[@]} --no-install-recommends firefox
+>/dev/null 2>>"${LOG}" ${AI[@]} --no-install-recommends firefox
 
 echo -e "Tela Icon-Theme is being processed..." | ${WTL[@]}
 (
@@ -120,12 +120,12 @@ echo -e "Tela Icon-Theme is being processed..." | ${WTL[@]}
 echo -e 'Finished installing packages! Proceeding to removing dmenu...' | ${WTL[@]}
 
 &>>"${LOG}" echo -e "Dmenu is being removed..."
->/dev/null 2>"${LOG}" sudo apt-get remove ${IF[@]} suckless-tools
+>/dev/null 2>>"${LOG}" sudo apt-get remove ${IF[@]} suckless-tools
 
 echo -e 'Finished removing packages! Proceeding to updating and upgrading via APT...' | ${WTL[@]}
 
->/dev/null 2>"${LOG}" sudo apt-get -y update
->/dev/null 2>"${LOG}" sudo apt-get -y upgrade
+>/dev/null 2>>"${LOG}" sudo apt-get -y update
+>/dev/null 2>>"${LOG}" sudo apt-get -y upgrade
 
 echo -e 'Finished with the actual script.' | ${WTL[@]}
 
