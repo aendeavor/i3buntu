@@ -5,7 +5,7 @@
 # browser, graphical environment and much more is
 # being installed.
 #
-# current version - 0.7.4
+# current version - 0.7.12
 
 sudo echo -e "\nPackaging stage has begun!"
 
@@ -84,7 +84,7 @@ FONTS=( fonts-roboto fonts-open-sans fonts-lyx )
 MISCELLANEOUS=( gparted fontconfig evince gedit nomacs python3-distutils scrot thunderbird )
 
 PONE=( "${CRITICAL[@]}" "${NETWORKING[@]}" "${PACKAGING[@]}" )
-PTWO=( "${DISPLAY[@]}" "${GRAPHICS[@]}" "${AUDIO[@]}" "${FILES[@]}" )
+PTWO=( "${DISPLAY[@]}" "${GRAPHICS[@]}" "${AUDIO[@]}" "${FILES[@]}" "${FONTS[@]}" )
 PTHREE=( "${SHELL[@]}" "${AUTH[@]}" "${THEMING[@]}" "${MISCELLANEOUS[@]}" )
 
 PACKAGES=( "${PONE[@]}" "${PTWO[@]}" "${PTHREE[@]}" )
@@ -99,13 +99,13 @@ echo -e "\nStarted at: $(date)\n\nInitial update" | ${WTL[@]}
 
 echo -e "Installing packages:\n" | ${WTL[@]}
 
-printf "%-35s | %-25s | %-15s" "PACKAGE" "STATUS" "EXIT CODE"
+printf "%-35s | %-15s | %-15s" "PACKAGE" "STATUS" "EXIT CODE"
 printf "\n"
 for PACKAGE in "${PACKAGES[@]}"; do
     >/dev/null 2>>"${LOG}" ${AI[@]} ${PACKAGE}
 
     EC=$?
-    printf "%-35s | %-25s | %-15s" "${PACKAGE}" "is being processed..." "${EC}"
+    printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Processed" "${EC}"
     printf "\n"
 
     &>>"${LOG}" echo -e "${PACKAGE}\n\t -> EXIT CODE: ${EC}"
@@ -232,7 +232,7 @@ echo -e 'Finished with processing user-choices. One last update...' | ${WTL[@]}
 # ? Extra script finished
 # ? Postconfiguration and restart
 
-echo -e "\nThe script has finished!\nEnded at: $(date)" | ${WTL[@]}
+echo -e "\nThe script has finished!\nEnded at: $(date)\n" | ${WTL[@]}
 
 for I in {7..1..-1}; do
     echo -ne "\rRestart in $I seconds."
