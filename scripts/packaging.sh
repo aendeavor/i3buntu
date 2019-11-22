@@ -64,7 +64,7 @@ read -p "Would you like to install the JetBrains IDE suite? [Y/n]" -r R10
 
 CRITICAL=( ubuntu-drivers-common htop intel-microcode curl wget libaio1 )
 
-PACKAGING=( software-properties-common python-software-properties snapd )
+PACKAGING=( software-properties-common snapd )
 
 DISPLAY=( xorg xserver-xorg lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings i3 )
 
@@ -110,17 +110,18 @@ for PACKAGE in "${PACKAGE_SELECTION_TWO[@]}"; do
     &>>"${LOG}" ${AI[@]} ${PACKAGE}
 
     if (( $? != 0 )); then
-        printf "\n\n\e[38;5;203mLATEST PACKAGE INSTALLATION EXITED WITH A BAD STATUS CODE\e[39m\n\n" | ${WTL[@]}
+        printf "\n\n\e[38;5;203mLATEST PACKAGE INSTALLATION EXITED WITH A BAD STATUS CODE\e[39m\n\n"
+        &>>"${LOG}" echo -e "\nLATEST PACKAGE INSTALLATION EXITED WITH A BAD STATUS CODE\n"
     fi
 done
 
 &>>"${LOG}" echo -e "\nFirefox is being processed...\n"
 &>>"${LOG}" ${AI[@]} --no-install-recommends firefox
 
-echo -e "\nThunderbird is being processed...\n"
+&>>"${LOG}" echo -e "\nThunderbird is being processed...\n"
 &>>"${LOG}" ${AI[@]} thunderbird
 
-echo -e "\nFonts - Roboto & OpenSans - are being processed...\n"
+&>>"${LOG}" echo -e "\nFonts - Roboto & OpenSans - are being processed...\n"
 &>>"${LOG}" ${AI[@]} fonts-roboto fonts-open-sans
 
 &>>"${LOG}" echo -e "\nIcon Theme\n"
@@ -195,12 +196,13 @@ if [[ $R7 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R7 ]]; then
 fi
 
 if [[ $R8 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R8 ]]; then
-    echo -e 'Installing RUST...' | ${WTL[@]}
+    echo -e '\n\nInstalling RUST...' | ${WTL[@]}
     curl https://sh.rustup.rs -sSf | sh -s -- --profile complete
     if [[ -e "${HOME}/.cargo/bin/rustup" ]]; then
         mkdir -p "${HOME}/.local/share/bash-completion/completions"
         touch "${HOME}/.local/share/bash-completion/completions/rustup"
-        rustup completions bash > "${HOME}/.local/share/bash-completion/completions/rustup"
+        source "${HOME}/.cargo/env"
+        "${HOME}/.cargo/bin/rustup" completions bash > "${HOME}/.local/share/bash-completion/completions/rustup"
 
         &>>"${LOG}" rustup set profile complete
 
