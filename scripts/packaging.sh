@@ -97,12 +97,15 @@ echo -e "\nStarted at: $(date)\n\nInitial update" | ${WTL[@]}
 
 echo -e "Installing packages" | ${WTL[@]}
 
-printf "%-25s | %-30s | %-20s" "${PACKAGE}" "is being installed..." "" | ${WTL[@]}
+printf "%-25s | %-30s | %-20s" "PACKAGE" "STATUS" "EXIT CODE"
 for PACKAGE in "${PACKAGES[@]}"; do
     >/dev/null 2>>"${LOG}" ${AI[@]} ${PACKAGE}
 
-    printf "%-25s | %-30s | %-20s" "${PACKAGE}" "is being processed..." "$?" | ${WTL[@]}
+    EC=$?
+    printf "%-35s | %-25s | %-15s" "${PACKAGE}" "is being processed..." "${EC}"
     printf "\n"
+
+    &>>"${LOG}" echo -e "${PACKAGE} - EXIT CODE: ${EC}"
 done
 
 &>>"${LOG}" echo -e "Firefox is being processed..."
