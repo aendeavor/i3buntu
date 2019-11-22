@@ -97,14 +97,12 @@ echo -e "\nStarted at: $(date)\n\nInitial update" | ${WTL[@]}
 
 echo -e "Installing packages" | ${WTL[@]}
 
+printf "%-25s | %-30s | %-20s" "${PACKAGE}" "is being installed..." "" | ${WTL[@]}
 for PACKAGE in "${PACKAGES[@]}"; do
-    echo -e "${PACKAGE}\t\t is being processed..." | ${WTL[@]}
     >/dev/null 2>>"${LOG}" ${AI[@]} ${PACKAGE}
 
-    if (( $? != 0 )); then
-        printf "\e[38;5;203mEXITED WITH BAD STATUS CODE\e[39m"
-        &>>"${LOG}" printf "EXITED WITH BAD STATUS CODE"
-    fi
+    printf "%-25s | %-30s | %-20s" "${PACKAGE}" "is being processed..." "$?" | ${WTL[@]}
+    printf "\n"
 done
 
 &>>"${LOG}" echo -e "Firefox is being processed..."
