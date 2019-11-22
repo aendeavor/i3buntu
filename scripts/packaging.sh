@@ -5,13 +5,13 @@
 # browser, graphical environment and much more is
 # being installed.
 #
-# current version - 0.5.2
+# current version - 0.7.4
 
-sudo echo -e "\nInstallation has begun!"
+sudo echo -e "\nPackaging stage has begun!"
 
 # ? Preconfig
 
-## Directories and files - absolute & normalized
+## directories and files - absolute & normalized
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 BACK="$(readlink -m "${DIR}/../backups/packageInstallation/$(date '+%d-%m-%Y--%H-%M-%S')")"
 LOG="${BACK}/packaging_log"
@@ -20,12 +20,12 @@ IF=( --yes --assume-yes --allow-unauthenticated --allow-downgrades --allow-remov
 AI=( sudo apt-get install ${IF[@]} )
 SI=( sudo snap install )
 
-## Init of backup-directory
+## init of backup-directory
 if [[ ! -d "$BACK" ]]; then
     mkdir -p "$BACK"
 fi
 
-## Init of logfile
+## init of logfile
 if [[ ! -f "$LOG" ]]; then
     if [[ ! -w "$LOG" ]]; then
         &>/dev/null sudo rm $LOG
@@ -33,9 +33,6 @@ if [[ ! -f "$LOG" ]]; then
     touch "$LOG"
 fi
 WTL=( tee -a "${LOG}" )
-
-sudo apt-get -qq -y update
-sudo apt-get -qq -y upgrade
 
 # ? Preconfig finished
 # ? User-choices begin
@@ -64,6 +61,8 @@ read -p "Would you like to install the JetBrains IDE suite? [Y/n]" -r R10
 
 CRITICAL=( ubuntu-drivers-common htop intel-microcode curl wget libaio1 )
 
+NETWORKING=( net-tools network-manager* )
+
 PACKAGING=( software-properties-common snapd )
 
 DISPLAY=( xorg xserver-xorg lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings i3 )
@@ -78,53 +77,41 @@ SHELL=( rxvt-unicode vim xsel xclip neofetch )
 
 AUTH=( policykit-desktop-privileges policykit-1-gnome gnome-keyring* libgnome-keyring0 )
 
-THEMING=( gtk2-engines-pixbuf gtk2-engines-murrine lxappearance compton-conf )
+THEMING=( gtk2-engines-pixbuf gtk2-engines-murrine lxappearance compton-conf fonts-roboto fonts-open-sans )
 
-MISCELLANEOUS=( gparted fontconfig evince gedit nomacs python3-distutils scrot )
+MISCELLANEOUS=( gparted fontconfig evince gedit nomacs python3-distutils scrot thunderbird )
 
-PACKAGE_SELECTION_ONE=( "${CRITICAL[@]}" "${PACKAGING[@]}" "${DISPLAY[@]}" "${GRAPHICS[@]}" )
-PACKAGE_SELECTION_TWO=( "${AUDIO[@]}" "${FILES[@]}" "${SHELL[@]}" "${AUTH[@]}" "${THEMING[@]}" "${MISCELLANEOUS[@]}" )
+PONE=( "${CRITICAL[@]}" "${NETWORKING[@]}" "${PACKAGING[@]}" )
+PTWO=( "${DISPLAY[@]}" "${GRAPHICS[@]}" "${AUDIO[@]}" "${FILES[@]}" )
+PTHREE=( "${SHELL[@]}" "${AUTH[@]}" "${THEMING[@]}" "${MISCELLANEOUS[@]}" )
+
+PACKAGES=( "${PONE[@]}" "${PTWO[@]}" "${PTHREE[@]}" )
 
 # ? End of init of package selection
 # ? Actual script begins
 
-echo -e "\nInstalling packages..." | ${WTL[@]}
-echo -e "Started at: $(date)" | ${WTL[@]}
+echo -e "\nStarted at: $(date)\nInitial update..." | ${WTL[@]}
 
-echo -e "\nFirst selection of packages is being processed..." | ${WTL[@]}
-for PACKAGE in "${PACKAGE_SELECTION_ONE[@]}"; do
-    &>>"${LOG}" echo -e "${PACKAGE} is being installed..."
-    &>>"${LOG}" ${AI[@]} ${PACKAGE}
+>/dev/null 2>"${LOG}" sudo apt-get -y update
+>/dev/null 2>"${LOG}" sudo apt-get -y upgrade
+
+echo -e "Installing packages...\
+\nFirst selection of packages is being processed..." | ${WTL[@]}
+
+for PACKAGE in "${PACKAGEs[@]}"; do
+    echo -e "${PACKAGE}\t\t is being processed..." | ${WTL[@]}
+    >/dev/null 2>"${LOG}" ${AI[@]} ${PACKAGE}
 
     if (( $? != 0 )); then
-        printf "\n\n\e[38;5;203mLATEST PACKAGE INSTALLATION EXITED WITH A BAD STATUS CODE - PROCEEDING...\e[39m\n\n" | ${WTL[@]}
+        printf "\e[38;5;203mEXITED WITH BAD STATUS CODE\e[39m"
+        &>>"${LOG}" printf "EXITED WITH BAD STATUS CODE"
     fi
 done
 
-echo -e "\nNetworking packages are being processed...\n" | ${WTL[@]}
-&>>"${LOG}" ${AI[@]} --install-recommends net-tools
-&>>"${LOG}" ${AI[@]} --install-recommends network-manager*
+&>>"${LOG}" echo -e "Firefox is being processed..."
+>/dev/null 2>"${LOG}" ${AI[@]} --no-install-recommends firefox
 
-echo -e "\nSecond selection of packages is being processed..." | ${WTL[@]}
-for PACKAGE in "${PACKAGE_SELECTION_TWO[@]}"; do
-    &>>"${LOG}" ${AI[@]} ${PACKAGE}
-
-    if (( $? != 0 )); then
-        printf "\n\n\e[38;5;203mLATEST PACKAGE INSTALLATION EXITED WITH A BAD STATUS CODE\e[39m\n\n"
-        &>>"${LOG}" echo -e "\nLATEST PACKAGE INSTALLATION EXITED WITH A BAD STATUS CODE\n"
-    fi
-done
-
-&>>"${LOG}" echo -e "\nFirefox is being processed...\n"
-&>>"${LOG}" ${AI[@]} --no-install-recommends firefox
-
-&>>"${LOG}" echo -e "\nThunderbird is being processed...\n"
-&>>"${LOG}" ${AI[@]} thunderbird
-
-&>>"${LOG}" echo -e "\nFonts - Roboto & OpenSans - are being processed...\n"
-&>>"${LOG}" ${AI[@]} fonts-roboto fonts-open-sans
-
-&>>"${LOG}" echo -e "\nIcon Theme\n"
+echo -e "Tela Icon-Theme is being processed..." | ${WTL[@]}
 (
     cd "${DIR}/../resources/icon_theme"
     &>>"${LOG}" find . -maxdepth 1 -iregex "[a-z0-9_\.\/\ ]*\w\.sh" -type f -exec chmod +x {} \;
@@ -133,13 +120,13 @@ done
 
 echo -e 'Finished installing packages! Proceeding to removing dmenu...' | ${WTL[@]}
 
-echo -e "\nDmenu is being removed...\n" | ${WTL[@]}
-&>>"${LOG}" sudo apt-get remove ${IF[@]} suckless-tools
+&>>"${LOG}" echo -e "Dmenu is being removed..."
+>/dev/null 2>"${LOG}" sudo apt-get remove ${IF[@]} suckless-tools
 
 echo -e 'Finished removing packages! Proceeding to updating and upgrading via APT...' | ${WTL[@]}
 
-&>>"${LOG}" sudo apt-get -qq -y update
-&>>"${LOG}" sudo apt-get -qq -y upgrade
+>/dev/null 2>"${LOG}" sudo apt-get -y update
+>/dev/null 2>"${LOG}" sudo apt-get -y upgrade
 
 echo -e 'Finished with the actual script.' | ${WTL[@]}
 
