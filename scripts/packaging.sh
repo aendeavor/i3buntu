@@ -90,15 +90,14 @@ PACKAGES=( "${PONE[@]}" "${PTWO[@]}" "${PTHREE[@]}" )
 # ? End of init of package selection
 # ? Actual script begins
 
-echo -e "\nStarted at: $(date)\nInitial update..." | ${WTL[@]}
+echo -e "\nStarted at: $(date)\n\nInitial update" | ${WTL[@]}
 
 >/dev/null 2>"${LOG}" sudo apt-get -y update
 >/dev/null 2>"${LOG}" sudo apt-get -y upgrade
 
-echo -e "Installing packages...\
-\nFirst selection of packages is being processed..." | ${WTL[@]}
+echo -e "Installing packages" | ${WTL[@]}
 
-for PACKAGE in "${PACKAGEs[@]}"; do
+for PACKAGE in "${PACKAGES[@]}"; do
     echo -e "${PACKAGE}\t\t is being processed..." | ${WTL[@]}
     >/dev/null 2>"${LOG}" ${AI[@]} ${PACKAGE}
 
@@ -232,10 +231,10 @@ echo -e 'Finished with processing user-choices! One last update...' | ${WTL[@]}
 # ? Extra script finished
 # ? Postconfiguration and restart
 
-echo -e "The script has finished!\nEnded at: $(date)\n\n" | ${WTL[@]}
+echo -e "\nThe script has finished!\nEnded at: $(date)" | ${WTL[@]}
 
-for I in {5..1..-1}; do
-    echo -ne "\rRestart in $I seconds"
+for I in {7..1..-1}; do
+    echo -ne "\rRestart in $I seconds."
     sleep 1
 done
 sudo shutdown -r now
