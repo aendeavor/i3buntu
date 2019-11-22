@@ -5,7 +5,7 @@
 # browser, graphical environment and much more is
 # being installed.
 #
-# current version - 0.7.12
+# current version - 0.8.0
 
 sudo echo -e "\nPackaging stage has begun!"
 
@@ -144,83 +144,87 @@ fi
 if [[ $R2 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R2 ]]; then
     if [[ $(lsb_release -r) == *"18.04"* ]]; then
         echo -e 'Installing OpenJDK 11...' | ${WTL[@]}
-        &>>"${LOG}" ${AI[@]} openjdk-11-jdk openjdk-11-demo openjdk-11-doc openjdk-11-jre-headless openjdk-11-source
+        >/dev/null 2>>"${LOG}" ${AI[@]} openjdk-11-jdk openjdk-11-demo openjdk-11-doc openjdk-11-jre-headless openjdk-11-source
     else
         echo -e 'Installing OpenJDK 12...' | ${WTL[@]}
-        &>>"${LOG}" ${AI[@]} openjdk-12-jdk openjdk-12-demo openjdk-12-doc openjdk-12-jre-headless openjdk-12-source
+        >/dev/null 2>>"${LOG}" ${AI[@]} openjdk-12-jdk openjdk-12-demo openjdk-12-doc openjdk-12-jre-headless openjdk-12-source
     fi
 fi
 
 if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
     echo -e 'Installing Cryptomator...' | ${WTL[@]}
     &>>"${LOG}" sudo add-apt-repository -y ppa:sebastian-stenzel/cryptomator
-    &>>"${LOG}" ${AI[@]} cryptomator
+    >/dev/null 2>>"${LOG}" ${AI[@]} cryptomator
 fi
 
 if [[ $R4 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R4 ]]; then
+    echo -e 'Installing Etcher...' | ${WTL[@]}
     if [[ ! -e /etc/apt/sources.list.d/balena-etcher.list ]]; then
         sudo touch /etc/apt/sources.list.d/balena-etcher.list
     fi
 
     echo "deb https://deb.etcher.io stable etcher" | >/dev/null sudo tee /etc/apt/sources.list.d/balena-etcher.list
     &>>"${LOG}" sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 379CE192D401AB61
-    &>>"${LOG}" ${AI[@]} balena-etcher-electron
+    >/dev/null 2>>"${LOG}" ${AI[@]} balena-etcher-electron
 fi
 
 if [[ $R5 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R5 ]]; then
     echo -e 'Installing LaTeX...' | ${WTL[@]}
-    &>>"${LOG}" ${AI[@]} texlive-full
+    >/dev/null 2>>"${LOG}" ${AI[@]} texlive-full
 fi
 
 if [[ $R6 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R6 ]]; then
     echo -e 'Installing OwnCloud...' | ${WTL[@]}
-    &>>"${LOG}" ${AI[@]} owncloud-client
+    >/dev/null 2>>"${LOG}" ${AI[@]} owncloud-client
 fi
 
 if [[ $R7 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R7 ]]; then
     echo -e 'Installing build-essential & cmake...' | ${WTL[@]}
-    &>>"${LOG}" ${AI[@]} build-essential cmake
+    >/dev/null 2>>"${LOG}" ${AI[@]} build-essential cmake
 fi
 
 if [[ $R8 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R8 ]]; then
     echo -e '\n\nInstalling RUST...' | ${WTL[@]}
-    curl https://sh.rustup.rs -sSf | sh -s -- --profile complete
-    if [[ -e "${HOME}/.cargo/bin/rustup" ]]; then
-        mkdir -p "${HOME}/.local/share/bash-completion/completions"
-        touch "${HOME}/.local/share/bash-completion/completions/rustup"
-        source "${HOME}/.cargo/env"
-        "${HOME}/.cargo/bin/rustup" completions bash > "${HOME}/.local/share/bash-completion/completions/rustup"
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    source "${HOME}/.cargo/env"
+    
+    mkdir -p "${HOME}/.local/share/bash-completion/completions"
+    touch "${HOME}/.local/share/bash-completion/completions/rustup"
+    rustup completions bash > "${HOME}/.local/share/bash-completion/completions/rustup"
 
-        &>>"${LOG}" rustup set profile complete
 
-        COMPONENTS=( rust-docs rust-analysis rust-src rustfmt rls clippy )
+    COMPONENTS=( rust-docs rust-analysis rust-src rustfmt rls clippy )
+    for COMPONENT in ${COMPONENTS[@]}; do
+        &>>"${LOG}" rustup component add $COMPONENT
+    done
+    
+    &>>"${LOG}" rustup set profile complete
 
-        for COMPONENT in ${COMPONENTS[@]}; do
-            &>>"${LOG}" rustup component add $COMPONENT
-        done
-
-        &>>"${LOG}" rustup update
+    if [[ ! -z $(which code) ]]; then
+        code --install-extension rust-lang.rust
     fi
+
+    &>>"${LOG}" rustup update
 fi
 
 if [[ $R9 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R9 ]]; then
     echo -e 'Installing VS Code...' | ${WTL[@]}
-    &>>"${LOG}" ${SI[@]} code --classic
-fi
-
-if [[ $R10 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R10 ]]; then
-    echo -e "Installing JetBrains' IDE suite..." | ${WTL[@]}
-    &>>"${LOG}" ${SI[@]} intellij-idea-ultimate --classic
-    &>>"${LOG}" ${SI[@]} kotlin --classic
-    &>>"${LOG}" ${SI[@]} kotlin-native --classic
-    &>>"${LOG}" ${SI[@]} pycharm-professional --classic
-    &>>"${LOG}" ${SI[@]} clion --classic
+    >/dev/null 2>>"${LOG}" ${SI[@]} code --classic
 fi
 
 if [[ $RC1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RC1 ]]; then
     echo -e 'Installing VS Code Extensions...' | ${WTL[@]}
-    sudo chmod +x "${DIR}/resources/sys/vscode/extensions.sh"
-    &>>"${LOG}" "${DIR}/resources/sys/vscode/extensions.sh"
+    sudo chmod +x "${DIR}/../resources/sys/vscode/extensions.sh"
+    &>>"${LOG}" "${DIR}/../resources/sys/vscode/extensions.sh"
+fi
+
+if [[ $R10 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R10 ]]; then
+    echo -e "Installing JetBrains' IDE suite..." | ${WTL[@]}
+    >/dev/null 2>>"${LOG}" ${SI[@]} intellij-idea-ultimate --classic
+    >/dev/null 2>>"${LOG}" ${SI[@]} kotlin --classic
+    >/dev/null 2>>"${LOG}" ${SI[@]} kotlin-native --classic
+    >/dev/null 2>>"${LOG}" ${SI[@]} pycharm-professional --classic
+    >/dev/null 2>>"${LOG}" ${SI[@]} clion --classic
 fi
 
 echo -e 'Finished with processing user-choices. One last update...' | ${WTL[@]}
