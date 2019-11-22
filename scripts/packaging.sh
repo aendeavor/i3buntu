@@ -40,7 +40,7 @@ sudo apt-get -qq -y upgrade
 # ? Preconfig finished
 # ? User-choices begin
 
-echo -e "Please make your choices: \n"
+echo -e "\nPlease make your choices:"
 
 read -p "Would you like to execute ubuntu-driver autoinstall? [Y/n]" -r R1
 read -p "Would you like to install OpenJDK? [Y/n]" -r R2
@@ -54,7 +54,7 @@ read -p "Would you like to install VS Code? [Y/n]" -r R9
 
 RC1="no"
 if [[ $R9 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R9 ]]; then
-    read -p "Would you like to install recommended VS Code extensions?" -r RC1
+    read -p "Would you like to install recommended VS Code extensions? [Y/n]" -r RC1
 fi
 
 read -p "Would you like to install the JetBrains IDE suite? [Y/n]" -r R10
@@ -88,23 +88,23 @@ PACKAGE_SELECTION_TWO=( "${AUDIO[@]}" "${FILES[@]}" "${SHELL[@]}" "${AUTH[@]}" "
 # ? End of init of package selection
 # ? Actual script begins
 
+echo -e "\nInstalling packages..." | ${WTL[@]}
 echo -e "Started at: $(date)" | ${WTL[@]}
-echo -e 'Installing packages...'  | ${WTL[@]}
 
-echo -e "\nFirst selection of packages...\n" | ${WTL[@]}
+echo -e "\nFirst selection of packages is being processed..." | ${WTL[@]}
 for PACKAGE in "${PACKAGE_SELECTION_ONE[@]}"; do
     &>>"${LOG}" ${AI[@]} ${PACKAGE}
 
     if (( $? != 0 )); then
-        printf "\n\n\e[38;5;203mLATEST PACKAGE INSTALLATION EXITED WITH A BAD STATUS CODE\e[39m\n\n"
+        printf "\n\n\e[38;5;203mLATEST PACKAGE INSTALLATION EXITED WITH A BAD STATUS CODE - PROCEEDING...\e[39m\n\n"
     fi
 done
 
-echo -e "\nNetworking\n" | ${WTL[@]}
+echo -e "\nNetworking packages are being processed...\n" | ${WTL[@]}
 &>>"${LOG}" ${AI[@]} --install-recommends net-tools
 &>>"${LOG}" ${AI[@]} --install-recommends network-manager*
 
-echo -e "\nSecond selection of packages...\n" | ${WTL[@]}
+echo -e "\nSecond selection of packages is being processed..." | ${WTL[@]}
 for PACKAGE in "${PACKAGE_SELECTION_TWO[@]}"; do
     &>>"${LOG}" ${AI[@]} ${PACKAGE}
 
@@ -113,28 +113,28 @@ for PACKAGE in "${PACKAGE_SELECTION_TWO[@]}"; do
     fi
 done
 
-echo -e "\nFirefox\n" | ${WTL[@]}
+&>>"${LOG}" echo -e "\nFirefox is being processed...\n"
 &>>"${LOG}" ${AI[@]} --no-install-recommends firefox
 
-echo -e "\nThunderbird\n" | ${WTL[@]}
+echo -e "\nThunderbird is being processed...\n"
 &>>"${LOG}" ${AI[@]} thunderbird
 
-echo -e "\nFonts - Roboto & OpenSans\n" | ${WTL[@]}
+echo -e "\nFonts - Roboto & OpenSans - are being processed...\n"
 &>>"${LOG}" ${AI[@]} fonts-roboto fonts-open-sans
 
-echo -e "\nIcon Theme\n" | ${WTL[@]}
+&>>"${LOG}" echo -e "\nIcon Theme\n"
 (
-    cd "${DIR}/../resources/icon_theme/icon_theme.sh"
+    cd "${DIR}/../resources/icon_theme"
     &>>"${LOG}" find . -maxdepth 1 -iregex "[a-z0-9_\.\/\ ]*\w\.sh" -type f -exec chmod +x {} \;
     &>>"${LOG}" ./icon_theme.sh "$LOG"
 )
 
 echo -e 'Finished installing packages! Proceeding to removing dmenu...' | ${WTL[@]}
 
-echo -e "\nDmenu\n" | ${WTL[@]}
+echo -e "\nDmenu is being removed...\n" | ${WTL[@]}
 &>>"${LOG}" sudo apt-get remove ${IF[@]} suckless-tools
 
-echo -e 'Finished reoving packages! Proceeding to updating and upgrading via APT...' | ${WTL[@]}
+echo -e 'Finished removing packages! Proceeding to updating and upgrading via APT...' | ${WTL[@]}
 
 &>>"${LOG}" sudo apt-get -qq -y update
 &>>"${LOG}" sudo apt-get -qq -y upgrade
@@ -173,7 +173,7 @@ if [[ $R4 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R4 ]]; then
         sudo touch /etc/apt/sources.list.d/balena-etcher.list
     fi
 
-    echo "deb https://deb.etcher.io stable etcher" | sudo > /etc/apt/sources.list.d/balena-etcher.list
+    echo "deb https://deb.etcher.io stable etcher" | >/dev/null sudo tee /etc/apt/sources.list.d/balena-etcher.list
     &>>"${LOG}" sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 379CE192D401AB61
     &>>"${LOG}" ${AI[@]} balena-etcher-electron
 fi
@@ -196,7 +196,7 @@ fi
 if [[ $R8 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R8 ]]; then
     echo -e 'Installing RUST...' | ${WTL[@]}
     curl https://sh.rustup.rs -sSf | sh -s -- --profile complete
-    if [[ -e "${HOME}/.cargo/bin/rustup"]]; then
+    if [[ -e "${HOME}/.cargo/bin/rustup" ]]; then
         mkdir -p "${HOME}/.local/share/bash-completion/completions"
         touch "${HOME}/.local/share/bash-completion/completions/rustup"
         rustup completions bash > "${HOME}/.local/share/bash-completion/completions/rustup"
@@ -235,9 +235,9 @@ fi
 
 echo -e 'Finished with processing user-choices! One last update...' | ${WTL[@]}
 
-&>>"${LOG}"sudo apt-get -qq -y update
-&>>"${LOG}"sudo apt-get -qq -y upgrade
-&>>"${LOG}"sudo snap refresh
+&>>"${LOG}" sudo apt-get -qq -y update
+&>>"${LOG}" sudo apt-get -qq -y upgrade
+&>>"${LOG}" sudo snap refresh
 
 # ? Extra script finished
 # ? Postconfiguration and restart
