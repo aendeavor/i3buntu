@@ -14,14 +14,16 @@ NAME="tela"
 # ? Preconfig finished
 # ? Actual script begins
 
-echo -e 'Icon theme "Tela" will be installed...'
+echo -e 'Icon theme "Tela" will be installed...' >> "$LOG"
 
 cd /tmp
-wget -O ${NAME}.zip "https://github.com/vinceliuice/Tela-icon-theme/archive/2019-09-29.zip" >> "$LOG"
-unzip ${NAME}.zip >> /dev/null
-cd $NAME
+rm -r Tela* tela* &>/dev/null
 
-find . -maxdepth 1 -regex "install.sh" -type f -exec chmod +x {} \;
-./install -a >> "$LOG"
+wget -O ${NAME}.zip "https://github.com/vinceliuice/Tela-icon-theme/archive/2019-09-29.zip" >> "$LOG"
+unzip "${NAME}.zip" &> /dev/null
+mv Tela* "${NAME}"
+
+find "/tmp/tela/" -maxdepth 1 -regex "install.sh" -type f -exec chmod +x {} \;
+/tmp/tela/install.sh -a >> "$LOG"
 
 # ? Actual script finished
