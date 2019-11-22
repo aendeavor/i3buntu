@@ -97,7 +97,8 @@ echo -e "\nStarted at: $(date)\n\nInitial update" | ${WTL[@]}
 
 echo -e "Installing packages" | ${WTL[@]}
 
-printf "%-25s | %-30s | %-20s" "PACKAGE" "STATUS" "EXIT CODE"
+printf "%-35s | %-25s | %-15s" "PACKAGE" "STATUS" "EXIT CODE"
+printf "\n"
 for PACKAGE in "${PACKAGES[@]}"; do
     >/dev/null 2>>"${LOG}" ${AI[@]} ${PACKAGE}
 
@@ -105,13 +106,13 @@ for PACKAGE in "${PACKAGES[@]}"; do
     printf "%-35s | %-25s | %-15s" "${PACKAGE}" "is being processed..." "${EC}"
     printf "\n"
 
-    &>>"${LOG}" echo -e "${PACKAGE} - EXIT CODE: ${EC}"
+    &>>"${LOG}" echo -e "${PACKAGE}\n\t -> EXIT CODE: ${EC}"
 done
 
 &>>"${LOG}" echo -e "Firefox is being processed..."
 >/dev/null 2>>"${LOG}" ${AI[@]} --no-install-recommends firefox
 
-echo -e "Tela Icon-Theme is being processed..." | ${WTL[@]}
+echo -e "\nTela Icon-Theme is being processed..." | ${WTL[@]}
 (
     cd "${DIR}/../resources/icon_theme"
     &>>"${LOG}" find . -maxdepth 1 -iregex "[a-z0-9_\.\/\ ]*\w\.sh" -type f -exec chmod +x {} \;

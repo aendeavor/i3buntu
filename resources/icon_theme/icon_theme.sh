@@ -17,7 +17,7 @@ DIR="${HOME}/icon_tmp"
 
 echo -e 'Icon theme "Tela" will be installed...' >> "$LOG"
 
-rm -r "${DIR}"
+&>/dev/null rm -r "${DIR}"
 mkdir -p "${DIR}"
 cd "${DIR}"
 
@@ -26,7 +26,8 @@ unzip "${NAME}.zip" &> /dev/null
 mv Tela* "${NAME}"
 
 find "${DIR}/${NAME}" -maxdepth 1 -regex "install.sh" -type f -exec chmod +x {} \;
-"${DIR}/${NAME}/install.sh" -a >> "$LOG"
+cd "${DIR}/${NAME}"
+./install.sh -a >> "$LOG"
 
 rm -r "${DIR}"
 
