@@ -123,7 +123,7 @@ echo -e '\nFinished with the actual script.' | ${WTL[@]}
 echo -e 'Processing user-choices:' | ${WTL[@]}
 
 if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
-    printf "-> Nemo is being configured:"
+    printf "\n-> Nemo is being configured:"
     
     xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search
     gsettings set org.cinnamon.desktop.default-applications.terminal exec 'urxvt'
@@ -166,7 +166,7 @@ fi
 # ? Extra script finished
 # ? Postconfiguration and restart
 
-echo -e "\nDeployment of configuration files has ended. Installation finished!\n\n" | ${WTL[@]}
+echo -e "\n\nDeployment of configuration files has ended. Installation finished!\n\n" | ${WTL[@]}
 read -p "It is recommended to restart now. Would you like me to restart? [Y/n]" -r R10
 if [[ $R10 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R10 ]]; then
     shutdown -r now
