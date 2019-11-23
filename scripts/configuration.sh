@@ -54,60 +54,60 @@ HOME_FILES=( "${HOME}/.bash_aliases" "${HOME}/.bashrc" "${HOME}/.vimrc" "${HOME}
 for FILE in ${HOME_FILES[@]}; do
     if [[ -f "$FILE" ]]; then
         backupFile="${BACK}${FILE#~}.bak"
-        echo -e "\t-> Found ${FILE}\n\t\tBacking up to ${backupFile}" | ${WTL[@]}
+        echo -e "-> Found ${FILE}\n\t\tBacking up to ${backupFile}" | ${WTL[@]}
         >/dev/null 2>>"${LOG}" sudo ${RS[@]} "$FILE" "$backupFile"
     fi
 done
 
 if [[ -d "${HOME}/.vim" ]]; then
-    echo -e "\t-> Found ~/.vim directory!\n\t\tBacking up to ${BACK}/.vim" | ${WTL[@]}
+    echo -e "-> Found ~/.vim directory!\n\t\tBacking up to ${BACK}/.vim" | ${WTL[@]}
     >/dev/null 2>>"${LOG}" sudo ${RS[@]} "${HOME}/.vim" "${BACK}"
     rm -rf "${HOME}/.vim"
 fi
 
 if [ -d "${HOME}/.config" ]; then
-    echo -e "\t-> Found ~/.config directory!\n\t\tBacking up to ${BACK}/.config" | ${WTL[@]}
+    echo -e "-> Found ~/.config directory!\n\t\tBacking up to ${BACK}/.config" | ${WTL[@]}
     >/dev/null 2>>"${LOG}" sudo ${RS[@]} "${HOME}/.config/i3" "${BACK}"
 fi
 
 ## deployment of configuration files
-echo -e "Proceeding to deploying config files..." | ${WTL[@]}
+echo -e "\nProceeding to deploying config files..." | ${WTL[@]}
 
 DEPLOY_IN_HOME=( sh/.bashrc sh/.bash_aliases vi/.vimrc vi/.viminfo Xi3/.Xresources )
 for sourceFile in "${DEPLOY_IN_HOME[@]}"; do
-    echo -e "\t-> Syncing $(basename -- "${sourceFile}")"  | ${WTL[@]}
+    echo -e "-> Syncing $(basename -- "${sourceFile}")"  | ${WTL[@]}
     >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/${sourceFile}" "${HOME}"
 done
 
 mkdir -p "${HOME}/.config/i3" "${HOME}/.urxvt/extensions" "${HOME}/.config" "${HOME}/images"
 sudo mkdir -p /usr/share/lightdm /etc/lightdm
 
-echo -e "\t-> Syncing i3's config"  | ${WTL[@]}
+echo -e "-> Syncing i3's config"  | ${WTL[@]}
 >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/Xi3/config" "${HOME}/.config/i3"
 
-echo -e "\t-> Syncing i3's statusconfig"  | ${WTL[@]}
+echo -e "-> Syncing i3's statusconfig"  | ${WTL[@]}
 >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/Xi3/i3statusconfig" "${HOME}/.config/i3"
 
-echo -e "\t-> Syncing xorg.conf"  | ${WTL[@]}
+echo -e "-> Syncing xorg.conf"  | ${WTL[@]}
 sudo ${RS[@]} "${SYS}/Xi3/xorg.conf" /etc/X11
 
-echo -e "\t-> Syncing lightdm-gtk-greeter.conf"  | ${WTL[@]}
+echo -e "-> Syncing lightdm-gtk-greeter.conf"  | ${WTL[@]}
 >/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/other_cfg/lightdm-gtk-greeter.conf" /etc/lightdm
 
-echo -e "\t-> Syncing lightdm wallpaper"  | ${WTL[@]}
+echo -e "-> Syncing lightdm wallpaper"  | ${WTL[@]}
 >/dev/null 2>>"${LOG}" sudo ${RS[@]} "${RES}/images/firewatch.jpg" /usr/share/lightdm
 
-echo -e "\t-> Syncing URXVT resize-font extension"  | ${WTL[@]}
+echo -e "-> Syncing URXVT resize-font extension"  | ${WTL[@]}
 >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/sh/resize-font" "${HOME}/.urxvt/ext"
 
-echo -e "\t-> Syncing compton.conf"  | ${WTL[@]}
+echo -e "-> Syncing compton.conf"  | ${WTL[@]}
 >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/other_cfg/compton.conf" "${HOME}/.config"
 
-echo -e "\t-> Syncing images directory"  | ${WTL[@]}
+echo -e "-> Syncing images directory"  | ${WTL[@]}
 >/dev/null 2>>"${LOG}" ${RS[@]} "${RES}/images" "${HOME}" 
 
 if [[ -d "${HOME}/.config/Code" ]]; then
-    echo -e "\t-> Syncing VS Code settings"  | ${WTL[@]}
+    echo -e "-> Syncing VS Code settings"  | ${WTL[@]}
     sudo mkdir -p "${HOME}/.config/Code/User"
     >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vscode/settings.json" "${HOME}/.config/Code/User"
 fi
@@ -125,13 +125,14 @@ if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
 
     gsettings set org.gnome.desktop.background show-desktop-icons false
     gsettings set org.nemo.desktop show-desktop-icons true
-    mkdir "${HOME}/.local/share/nemo/actions/"
+    mkdir -p "${HOME}/.local/share/nemo/actions"
     sudo cp -f "${RES}/sys/other_cfg/vscode-current-dir.nemo_action" "${HOME}/.local/share/nemo/actions/"
 fi
 
 if [[ $R2 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R2 ]]; then
-    sudo cp /etc/default/grub "${BACK}" && sudo rm -f /etc/default/grub
-    sudo cp ${RES}/sys/other_cfg/grub /etc/default/
+    &>/dev/null sudo cp /etc/default/grub "${BACK}"
+    &>/dev/null sudo rm -f /etc/default/grub
+    &>/dev/null sudo cp ${RES}/sys/other_cfg/grub /etc/default/
     >/dev/null 2>>"${LOG}" sudo update-grub
 fi
 
