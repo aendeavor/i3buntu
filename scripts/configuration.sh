@@ -123,7 +123,7 @@ echo -e '\nFinished with the actual script.' | ${WTL[@]}
 echo -e 'Processing user-choices:' | ${WTL[@]}
 
 if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
-    printf "Nemo is being configured:"
+    printf "-> Nemo is being configured:"
     
     xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search
     gsettings set org.cinnamon.desktop.default-applications.terminal exec 'urxvt'
@@ -138,7 +138,7 @@ if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
 fi
 
 if [[ $R2 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R2 ]]; then
-    printf "\nGrub is being configured..."
+    printf "\n->Grub is being configured..."
 
     &>/dev/null sudo cp /etc/default/grub "${BACK}"
     &>/dev/null sudo rm -f /etc/default/grub
@@ -150,7 +150,7 @@ fi
 
 ## deployment of fonts
 if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
-    printf "\nFonts are being installed:\n"
+    printf "\n->Fonts are being installed:\n"
     
     find "${RES}/fonts/" -maxdepth 1 -iregex "[a-z0-9_\.\/\ ]*\w\.sh" -type f -exec chmod +x {} \;
     (
