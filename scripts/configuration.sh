@@ -48,30 +48,30 @@ read -p "Would you like me to sync fonts? [Y/n]" -r R3
 # ? Actual script begins
 
 ## backup of configuration files
-echo -e "\nChecking for existing files..." | ${WTL[@]}
+echo -e "\nChecking for existing files:" | ${WTL[@]}
 
 HOME_FILES=( "${HOME}/.bash_aliases" "${HOME}/.bashrc" "${HOME}/.vimrc" "${HOME}/.Xresources" )
 for FILE in ${HOME_FILES[@]}; do
     if [[ -f "$FILE" ]]; then
         backupFile="${BACK}${FILE#~}.bak"
-        echo -e "-> Found ${FILE}\n\t\tBacking up to ${backupFile}" | ${WTL[@]}
+        echo -e "-> Found ${FILE}\n\tBacking up to ${backupFile}" | ${WTL[@]}
         >/dev/null 2>>"${LOG}" sudo ${RS[@]} "$FILE" "$backupFile"
     fi
 done
 
 if [[ -d "${HOME}/.vim" ]]; then
-    echo -e "-> Found ~/.vim directory!\n\t\tBacking up to ${BACK}/.vim" | ${WTL[@]}
+    echo -e "-> Found ~/.vim directory!\n\tBacking up to ${BACK}/.vim" | ${WTL[@]}
     >/dev/null 2>>"${LOG}" sudo ${RS[@]} "${HOME}/.vim" "${BACK}"
     rm -rf "${HOME}/.vim"
 fi
 
 if [ -d "${HOME}/.config" ]; then
-    echo -e "-> Found ~/.config directory!\n\t\tBacking up to ${BACK}/.config" | ${WTL[@]}
+    echo -e "-> Found ~/.config directory!\n\tBacking up to ${BACK}/.config" | ${WTL[@]}
     >/dev/null 2>>"${LOG}" sudo ${RS[@]} "${HOME}/.config/i3" "${BACK}"
 fi
 
 ## deployment of configuration files
-echo -e "\nProceeding to deploying config files..." | ${WTL[@]}
+echo -e "\nProceeding to deploying config files:" | ${WTL[@]}
 
 DEPLOY_IN_HOME=( sh/.bashrc sh/.bash_aliases vi/.vimrc vi/.viminfo Xi3/.Xresources )
 for sourceFile in "${DEPLOY_IN_HOME[@]}"; do
@@ -115,10 +115,16 @@ fi
 ## reload of services and caches
 >/dev/null 2>>"${LOG}" xrdb ${HOME}/.Xresources 
 
+echo -e 'Finished with the actual script.' | ${WTL[@]}
+
 # ? Actual script finished
 # ? Extra script begins
 
+echo -e 'Processing user-choices:' | ${WTL[@]}
+
 if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
+    echo "Nemo is being configured..."
+    
     xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search
     gsettings set org.cinnamon.desktop.default-applications.terminal exec 'urxvt'
     gsettings set org.cinnamon.desktop.default-applications.terminal exec-arg -e
@@ -127,19 +133,26 @@ if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
     gsettings set org.nemo.desktop show-desktop-icons true
     mkdir -p "${HOME}/.local/share/nemo/actions"
     sudo cp -f "${RES}/sys/other_cfg/vscode-current-dir.nemo_action" "${HOME}/.local/share/nemo/actions/"
+
+    printf "\t finished."
 fi
 
 if [[ $R2 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R2 ]]; then
+    echo "Grub is being configured..."
+
     &>/dev/null sudo cp /etc/default/grub "${BACK}"
     &>/dev/null sudo rm -f /etc/default/grub
     &>/dev/null sudo cp ${RES}/sys/other_cfg/grub /etc/default/
     >/dev/null 2>>"${LOG}" sudo update-grub
+
+    printf "\t finished."
 fi
 
 ## deployment of fonts
 if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
+    echo "Fonts are being installed:"
+    
     find "${RES}/fonts/" -maxdepth 1 -iregex "[a-z0-9_\.\/\ ]*\w\.sh" -type f -exec chmod +x {} \;
-
     ( cd "${RES}/fonts/" && ./fonts.sh "${LOG}" )
 
     echo -e "Renewing font-cache..."
@@ -153,5 +166,5 @@ fi
 echo -e "\nDeployment of configuration files has ended. Installation finished!\n\n" | ${WTL[@]}
 read -p "It is recommended to restart now. Would you like me to restart? [Y/n]" -r R10
 if [[ $R10 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R10 ]]; then
-    sudo shutdown -r now
+    shutdown -r now
 fi
