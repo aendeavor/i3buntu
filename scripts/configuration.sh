@@ -138,7 +138,7 @@ if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
 fi
 
 if [[ $R2 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R2 ]]; then
-    printf "\n->Grub is being configured..."
+    printf "\n-> Grub is being configured..."
 
     &>/dev/null sudo cp /etc/default/grub "${BACK}"
     &>/dev/null sudo rm -f /etc/default/grub
@@ -150,7 +150,7 @@ fi
 
 ## deployment of fonts
 if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
-    printf "\n->Fonts are being installed:\n"
+    printf "\n-> Fonts are being installed:\n"
     
     find "${RES}/fonts/" -maxdepth 1 -iregex "[a-z0-9_\.\/\ ]*\w\.sh" -type f -exec chmod +x {} \;
     (
