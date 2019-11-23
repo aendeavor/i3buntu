@@ -1,0 +1,19 @@
+# Add 'repo' label to any root file changes
+repo:
+  - ./*
+  
+# Add '@domain/core' label to any change within the 'core' package
+@domain/core:
+  - scripts/*
+  - resources/sys/*
+
+# Add 'resource' label to any resource
+resource:
+  - resources/fonts/*
+  - resources/icon_theme/*
+  - resources/images/*
+  
+# Add 'documentation' label
+documentation:
+  - resource/doc/*
+  - resource/design/*
