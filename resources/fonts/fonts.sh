@@ -9,22 +9,23 @@
 # ? Preconfig
 
 LOG="$1"
+WTL=( tee -a "$LOG" )
 
 # ? Preconfig finished
 # ? Actual script begins
 
-echo -e "FiraCode will be installed..."
-./firacode.sh >> $LOG
+echo -e "\t->FiraCode will be installed..."
+./firacode.sh 
 
-echo -e "Finished installing FiraCode! FontAwesome is next..."
-./fontawesome.sh >> $LOG
+printf "\tfinished.\n\t->FontAwesome is next..."
+./fontawesome.sh
 
-echo -e "Finished installing FontAwesome! Iosevka is next..."
-./iosevkanerd.sh >> $LOG
+printf "\tfinished.\n\t->Iosevka is next..."
+./iosevkanerd.sh
 
-echo -e "Finished installing Iosevka! Roboto Mono Nerd is next..."
-./robotomononerd.sh >> $LOG
+printf "\tfinished.\n\t->Roboto Mono Nerd is next..."
+./robotomononerd.sh
 
-echo -e "Finished installing Roboto Mono Nerd! Fonts installed."
+printf "\tfinished.\n\t->Fonts installed."
 
 # ? Actual script finished
