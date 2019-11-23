@@ -35,12 +35,12 @@ mkdir -p "${MONOFONT}"
 
 cd "${NERDFONT}"
 wget -O "${NERDFONT}.zip" "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/FiraCode.zip" -q --show-progress
-&>/dev/null unzip "${NERDFONT}.zip"
+&>/dev/null unzip -u "${NERDFONT}.zip"
 &>/dev/null rm "${NERDFONT}.zip"
 
 cd "../${MONOFONT}"
 wget -O "${MONOFONT}.zip" "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/FiraMono.zip" -q --show-progress
-&>/dev/null unzip "${MONOFONT}.zip"
+&>/dev/null unzip -u "${MONOFONT}.zip"
 &>/dev/null rm "${MONOFONT}.zip"
 
 # ? Actual script finished
