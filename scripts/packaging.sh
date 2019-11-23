@@ -105,11 +105,18 @@ for PACKAGE in "${PACKAGES[@]}"; do
     >/dev/null 2>>"${LOG}" ${AI[@]} ${PACKAGE}
 
     EC=$?
-    printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Processed" "${EC}"
+    printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Installed" "${EC}"
     printf "\n"
 
     &>>"${LOG}" echo -e "${PACKAGE}\n\t -> EXIT CODE: ${EC}"
 done
+
+>/dev/null 2>>"${LOG}" sudo apt-get remove ${IF[@]} suckless-tools
+EC=$?
+printf "%-35s | %-15s | %-15s" "dmenu" "Removed" "${EC}"
+printf "\n"
+&>>"${LOG}" echo -e "dmenu\n\t -> EXIT CODE: ${EC}"
+unset EC
 
 echo -e "\nIcon-Theme is being processed..." | ${WTL[@]}
 (
@@ -118,12 +125,13 @@ echo -e "\nIcon-Theme is being processed..." | ${WTL[@]}
     &>>"${LOG}" ./icon_theme.sh "$LOG"
 )
 
-echo -e 'Finished installing packages! Proceeding to removing dmenu...' | ${WTL[@]}
+if ! dpkg -s adapta-gtk-theme-colorpack >/dev/null 2>&1; then
+    echo -e "Color-Pack is being processed...\n" | ${WTL[@]}
+    >/dev/null 2>>"${LOG}" sudo dpkg -i "${DIR}/../resources/design/AdaptaGTK_colorpack.deb"
+fi
 
-&>>"${LOG}" echo -e "Dmenu is being removed..."
->/dev/null 2>>"${LOG}" sudo apt-get remove ${IF[@]} suckless-tools
 
-echo -e 'Finished removing packages! Proceeding to updating and upgrading via APT...' | ${WTL[@]}
+echo -e 'Post-Update via APT' | ${WTL[@]}
 
 >/dev/null 2>>"${LOG}" sudo apt-get -y update
 >/dev/null 2>>"${LOG}" sudo apt-get -y upgrade
