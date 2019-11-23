@@ -18,7 +18,7 @@ fi
 # FiraCode font
 cd "${FONTDIR}/FiraCode"
 for TYPE in Bold Light Medium Regular Retina; do
-    FILE_URL="https://github.com/tonsky/FiraCode/blob/master/distr/ttf/FiraCode-${type}.ttf?raw=true"
+    FILE_URL="https://github.com/tonsky/FiraCode/blob/master/distr/ttf/FiraCode-${TYPE}.ttf?raw=true"
 
     wget -O "FiraCode-${TYPE}.ttf" "${FILE_URL}" -q --show-progress
 done
