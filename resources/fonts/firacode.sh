@@ -16,11 +16,11 @@ fi
 # ? Actual script begins
 
 # FiraCode font
-for type in Bold Light Medium Regular Retina; do
-    file_path="${HOME}/.local/share/fonts/FiraCode/FiraCode-${type}.ttf"
-    file_url="https://github.com/tonsky/FiraCode/blob/master/distr/ttf/FiraCode-${type}.ttf?raw=true"
+cd "${FONTDIR}/FiraCode"
+for TYPE in Bold Light Medium Regular Retina; do
+    FILE_URL="https://github.com/tonsky/FiraCode/blob/master/distr/ttf/FiraCode-${type}.ttf?raw=true"
 
-    wget -O "${file_path}" "${file_url}" -q --show-progress
+    wget -O "FiraCode-${TYPE}.ttf" "${FILE_URL}" -q --show-progress
 done
 
 # FiraCode Nerd fonts

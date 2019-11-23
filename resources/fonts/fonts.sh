@@ -14,18 +14,18 @@ WTL=( tee -a "$LOG" )
 # ? Preconfig finished
 # ? Actual script begins
 
-echo -e "\t->FiraCode will be installed..."
+echo -e "\t\t->FiraCode will be installed..."
 ./firacode.sh 
 
-printf "\tfinished.\n\t->FontAwesome is next..."
+printf "\t\t->FontAwesome is next..."
 ./fontawesome.sh
 
-printf "\tfinished.\n\t->Iosevka is next..."
+printf "\t\t->Iosevka is next..."
 ./iosevkanerd.sh
 
-printf "\tfinished.\n\t->Roboto Mono Nerd is next..."
+printf "\t\t->Roboto Mono Nerd is next..."
 ./robotomononerd.sh
 
-printf "\tfinished.\n\t->Fonts installed."
+printf "\t->Fonts installed."
 
 # ? Actual script finished

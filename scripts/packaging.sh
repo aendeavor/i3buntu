@@ -105,8 +105,11 @@ for PACKAGE in "${PACKAGES[@]}"; do
     >/dev/null 2>>"${LOG}" ${AI[@]} ${PACKAGE}
 
     EC=$?
-    printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Installed" "${EC}"
-    printf "\n"
+    if (( $EC != 0 )); then
+        printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Not Installed" "${EC}"
+    else
+        printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Installed" "${EC}"
+        printf "\n"
 
     &>>"${LOG}" echo -e "${PACKAGE}\n\t -> EXIT CODE: ${EC}"
 done
@@ -134,12 +137,12 @@ echo -e 'Post-Update via APT' | ${WTL[@]}
 >/dev/null 2>>"${LOG}" sudo apt-get -y update
 >/dev/null 2>>"${LOG}" sudo apt-get -y upgrade
 
-echo -e 'Finished with the actual script.' | ${WTL[@]}
+echo -e '\nFinished with the actual script.' | ${WTL[@]}
 
 # ? Actual script finished
 # ? Extra script begins
 
-echo -e 'Processing user-choices:' | ${WTL[@]}
+echo -e 'Processing user-choices:\n' | ${WTL[@]}
 
 ## Graphics driver
 if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
@@ -191,20 +194,17 @@ fi
 
 if [[ $R8 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R8 ]]; then
     echo -e '\n\nInstalling RUST...' | ${WTL[@]}
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile complete
     source "${HOME}/.cargo/env"
     
     mkdir -p "${HOME}/.local/share/bash-completion/completions"
     touch "${HOME}/.local/share/bash-completion/completions/rustup"
     rustup completions bash > "${HOME}/.local/share/bash-completion/completions/rustup"
 
-
     COMPONENTS=( rust-docs rust-analysis rust-src rustfmt rls clippy )
     for COMPONENT in ${COMPONENTS[@]}; do
         &>>"${LOG}" rustup component add $COMPONENT
     done
-    
-    &>>"${LOG}" rustup set profile complete
 
     if [[ ! -z $(which code) ]]; then
         code --install-extension rust-lang.rust
@@ -214,7 +214,7 @@ if [[ $R8 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R8 ]]; then
 fi
 
 if [[ $R9 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R9 ]]; then
-    echo -e 'Installing VS Code...' | ${WTL[@]}
+    echo -e '\nInstalling VS Code...' | ${WTL[@]}
     >/dev/null 2>>"${LOG}" ${SI[@]} code --classic
 fi
 
