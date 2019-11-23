@@ -4,7 +4,7 @@
 # the installation of the icon theme
 # "Tela".
 # 
-# current version - 0.2.4
+# current version - 0.3.0
 
 # ? Preconfig
 

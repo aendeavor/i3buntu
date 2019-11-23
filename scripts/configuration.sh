@@ -8,7 +8,7 @@
 # user-choices are handled, including the
 # installation of chosen fonts.
 # 
-# current version - 0.3.9
+# current version - 0.5.0
 
 sudo echo -e "\nThe configuration stage has begun!"
 
