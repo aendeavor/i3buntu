@@ -27,7 +27,7 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightne
 new_window 1pixel
 
 # Wallpaper
-exec_always feh --bg-scale $HOME/pictures/wallpapers/firewatch.jpg
+exec_always feh --bg-scale $HOME/images/firewatch.jpg
 
 # Font
 font xft:Roboto:style=Regular:pixelsize=13
@@ -79,7 +79,7 @@ bar {
 bindsym $mod+Return exec "urxvtcd"
 
 # lock the screen
-bindsym $mod+Shift+x exec i3lock-fancy -- scrot -z -q 25
+bindsym $mod+Shift+x exec i3lock -u -e -i ~/pictures/wallpapers/firewatch.png -t
 
 # application manager
 bindsym $mod+d exec rofi -show run
@@ -239,7 +239,7 @@ bindsym $mod+r mode "resize"
 # Startup of authentication agent, urxvt-deamon and compton compositor
 exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 exec urxvtd -q -o -f &
-exec compton -f -C -G -b &
+exec compton &
 exec owncloud &
 exec_always ssh-add ~/.ssh/* >> /dev/null &
 

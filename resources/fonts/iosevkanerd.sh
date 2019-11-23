@@ -1,14 +1,19 @@
 #!/usr/bin/env bash
 
-# ? current version: FontAwesome Free 5.11.2 Desktop
+# ? Preconfig
 
 FONTDIR="${HOME}/.local/share/fonts"
 FONTNAME="IosevkaNerd"
+
+# ? Preconfig finished
+# ? Actual script begins
 
 cd "${FONTDIR}"
 
 mkdir -p "${FONTNAME}"
 cd "${FONTNAME}"
-wget -O "${FONTNAME}.zip" "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/Iosevka.zip"
-unzip "${FONTNAME}.zip"
-rm "${FONTNAME}.zip"
+wget -O "${FONTNAME}.zip" "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/Iosevka.zip" -q --show-progress
+&>/dev/null unzip -u "${FONTNAME}.zip"
+&>/dev/null rm "${FONTNAME}.zip"
+
+# ? Actual script finished

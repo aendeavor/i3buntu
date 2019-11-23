@@ -29,6 +29,7 @@ INSTALL=( ${CODE} --install-extension )
 ${INSTALL[@]} 2gua.rainbow-brackets
 ${INSTALL[@]} aaron-bond.better-comments
 ${INSTALL[@]} alefragnani.Bookmarks
+${INSTALL[@]} bungcip.better-toml
 ${INSTALL[@]} bierner.markdown-preview-github-styles
 ${INSTALL[@]} DavidAnson.vscode-markdownlint
 ${INSTALL[@]} eamodio.gitlens
@@ -47,6 +48,7 @@ ${INSTALL[@]} PKief.material-icon-theme
 ${INSTALL[@]} redhat.vscode-xml
 ${INSTALL[@]} redhat.vscode-yaml
 ${INSTALL[@]} ritwickdey.LiveServer
+${INSTALL[@]} serayuzgur.crate
 ${INSTALL[@]} shd101wyy.markdown-preview-enhanced
 ${INSTALL[@]} stayfool.vscode-asciidoc
 ${INSTALL[@]} streetsidesoftware.code-spell-checker
@@ -54,6 +56,10 @@ ${INSTALL[@]} streetsidesoftware.code-spell-checker-german
 ${INSTALL[@]} VisualStudioExptTeam.vscodeintellicode
 ${INSTALL[@]} yzane.markdown-pdf
 ${INSTALL[@]} yzhang.markdown-all-in-one
+
+if [[ ! -z $(which rustup) ]]; then
+    ${INSTALL[@]} rust-lang.rust
+fi
 
 # ? Actual script finished
 # ? Postconfiguration

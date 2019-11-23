@@ -1,6 +1,13 @@
 # ! BASHRC - CONFIGURATION FILE FOR YOUR BASH
 # ! ~/.bashrc - executed by bash for non-login shells
 
+# This bash script is executed on bash startup
+# to set the prompt, all neccessary parameters
+# and functionality.
+# Moreover, it loads ~/.bash_aliases.  
+#
+# current version - 0.6.4
+
 # if not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -67,8 +74,8 @@ fi
 unset color_prompt force_color_prompt
 
 # aliases
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+if [ -f "${HOME}/.bash_aliases" ]; then
+    . "${HOME}/.bash_aliases"
 fi
 
 # enable programmable completion features

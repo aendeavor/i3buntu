@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# ? Preconfig
+
 FONTDIR="${HOME}/.local/share/fonts"
 
 if [[ ! -d "${FONTDIR}" ]]; then
@@ -10,16 +12,18 @@ if [[ ! -d "${FONTDIR}/FiraCode" ]]; then
     mkdir -p "${FONTDIR}/FiraCode"
 fi
 
-# ? FiraCode font
+# ? Preconfig finished
+# ? Actual script begins
 
-for type in Bold Light Medium Regular Retina; do
-    file_path="${HOME}/.local/share/fonts/FiraCode/FiraCode-${type}.ttf"
-    file_url="https://github.com/tonsky/FiraCode/blob/master/distr/ttf/FiraCode-${type}.ttf?raw=true"
+# FiraCode font
+cd "${FONTDIR}/FiraCode"
+for TYPE in Bold Light Medium Regular Retina; do
+    FILE_URL="https://github.com/tonsky/FiraCode/blob/master/distr/ttf/FiraCode-${TYPE}.ttf?raw=true"
 
-    wget -O "${file_path}" "${file_url}"
+    wget -O "FiraCode-${TYPE}.ttf" "${FILE_URL}" -q --show-progress
 done
 
-# ? FiraCode Nerd fonts
+# FiraCode Nerd fonts
 
 NERDFONT="FiraCodeNerd"
 MONOFONT="FiraMono"
@@ -30,11 +34,13 @@ mkdir -p "${NERDFONT}"
 mkdir -p "${MONOFONT}"
 
 cd "${NERDFONT}"
-wget -O "${NERDFONT}.zip" "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/FiraCode.zip"
-unzip "${NERDFONT}.zip"
-rm "${NERDFONT}.zip"
+wget -O "${NERDFONT}.zip" "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/FiraCode.zip" -q --show-progress
+&>/dev/null unzip -u "${NERDFONT}.zip"
+&>/dev/null rm "${NERDFONT}.zip"
 
 cd "../${MONOFONT}"
-wget -O "${MONOFONT}.zip" "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/FiraMono.zip"
-unzip "${MONOFONT}.zip"
-rm "${MONOFONT}.zip"
+wget -O "${MONOFONT}.zip" "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/FiraMono.zip" -q --show-progress
+&>/dev/null unzip -u "${MONOFONT}.zip"
+&>/dev/null rm "${MONOFONT}.zip"
+
+# ? Actual script finished
