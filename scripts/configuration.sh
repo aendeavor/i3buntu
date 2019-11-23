@@ -153,10 +153,13 @@ if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
     echo "Fonts are being installed:"
     
     find "${RES}/fonts/" -maxdepth 1 -iregex "[a-z0-9_\.\/\ ]*\w\.sh" -type f -exec chmod +x {} \;
-    ( cd "${RES}/fonts/" && ./fonts.sh "${LOG}" )
+    (
+        cd "${RES}/fonts/"
+        ./fonts.sh | ${WTL[@]}
+    )
 
     echo -e "Renewing font-cache..."
-    fc-cache -f >/dev/null 2>>"${LOG}"
+    >/dev/null 2>>"${LOG}" fc-cache -f
     printf "\tfinished.\n" | ${WTL[@]}
 fi
 
