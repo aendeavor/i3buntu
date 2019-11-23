@@ -13,7 +13,7 @@ sudo echo -e "\nPackaging stage has begun!"
 
 ## directories and files - absolute & normalized
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-BACK="$(readlink -m "${DIR}/../backups/packageInstallation/$(date '+%d-%m-%Y--%H-%M-%S')")"
+BACK="$(readlink -m "${DIR}/../backups/packaging/$(date '+%d-%m-%Y--%H-%M-%S')")"
 LOG="${BACK}/packaging_log"
 
 IF=( --yes --assume-yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages )

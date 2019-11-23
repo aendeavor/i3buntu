@@ -15,7 +15,7 @@ sudo echo -e "\nThe configuration stage has begun!"
 # ? Preconfig
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-BACK="$( readlink -m "${DIR}/../backups/$( date '+%d-%m-%Y--%H-%M-%S' )" )"
+BACK="$( readlink -m "${DIR}/../backups/configuration/$( date '+%d-%m-%Y--%H-%M-%S' )" )"
 RES="$( readlink -m "${DIR}/../resources" )"
 SYS="$( readlink -m "${RES}/sys")"
 LOG="${BACK}/configuration_log"
@@ -52,21 +52,21 @@ echo -e "\nChecking for existing files..." | ${WTL[@]}
 
 HOME_FILES=( "${HOME}/.bash_aliases" "${HOME}/.bashrc" "${HOME}/.vimrc" "${HOME}/.Xresources" "${HOME}/.config/Code/User/settings.json" "${HOME}/.config/compton.conf" )
 for FILE in ${HOME_FILES[@]}; do
-    if [[ -f "$file" ]]; then
+    if [[ -f "$FILE" ]]; then
         backupFile="${BACK}${FILE#~}.bak"
-        echo -e "   -> Found ${FILE}!\n         Backing up to ${backupFile}\n" | ${WTL[@]}
+        echo -e "   -> Found ${FILE}\n\t\tBacking up to ${backupFile}\n" | ${WTL[@]}
         >/dev/null 2>>"${LOG}" sudo ${RS[@]} "$FILE" "$backupFile"
     fi
 done
 
 if [[ -d "${HOME}/.vim" ]]; then
-    echo -e "   -> Found ~/.vim directory!\n         Backing up to ${BACK}/.vim\n" | ${WTL[@]}
+    echo -e "   -> Found ~/.vim directory!\n\t\tBacking up to ${BACK}/.vim\n" | ${WTL[@]}
     >/dev/null 2>>"${LOG}" sudo ${RS[@]} "${HOME}/.vim" "${BACK}"
     rm -rf "${HOME}/.vim"
 fi
 
 if [ -d "${HOME}/.config/i3" ]; then
-    echo -e "   -> Found ~/.config/i3 directory!\n         Backing up to ${BACK}/i3\n" | ${WTL[@]}
+    echo -e "   -> Found ~/.config/i3 directory!\n\t\tBacking up to ${BACK}/i3\n" | ${WTL[@]}
     >/dev/null 2>>"${LOG}" sudo ${RS[@]} "${HOME}/.config/i3" "${BACK}"
     rm -rf "${HOME}/.config/i3"
 fi
