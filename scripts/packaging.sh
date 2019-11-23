@@ -130,9 +130,7 @@ if ! dpkg -s adapta-gtk-theme-colorpack >/dev/null 2>&1; then
     >/dev/null 2>>"${LOG}" sudo dpkg -i "${DIR}/../resources/design/AdaptaGTK_colorpack.deb"
 fi
 
-
 echo -e 'Post-Update via APT' | ${WTL[@]}
-
 >/dev/null 2>>"${LOG}" sudo apt-get -y update
 >/dev/null 2>>"${LOG}" sudo apt-get -y upgrade
 

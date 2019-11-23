@@ -47,7 +47,7 @@ read -p "Would you like me to sync fonts? [Y/n]" -r R3
 # ? User-choices end
 # ? Actual script begins
 
-## Backup
+## backup of configuration files
 echo -e "\nChecking for existing files..." | ${WTL[@]}
 
 HOME_FILES=( "${HOME}/.bash_aliases" "${HOME}/.bashrc" "${HOME}/.vimrc" "${HOME}/.Xresources" )
@@ -70,7 +70,7 @@ if [ -d "${HOME}/.config" ]; then
     >/dev/null 2>>"${LOG}" sudo ${RS[@]} "${HOME}/.config/i3" "${BACK}"
 fi
 
-## Deployment
+## deployment of configuration files
 echo -e "Proceeding to deploying config files..." | ${WTL[@]}
 
 DEPLOY_IN_HOME=( sh/.bashrc sh/.bash_aliases vi/.vimrc vi/.viminfo Xi3/.Xresources )
@@ -112,7 +112,7 @@ if [[ -d "${HOME}/.config/Code" ]]; then
     >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vscode/settings.json" "${HOME}/.config/Code/User"
 fi
 
-## Reload of services and caches
+## reload of services and caches
 >/dev/null 2>>"${LOG}" xrdb ${HOME}/.Xresources 
 
 # ? Actual script finished
@@ -125,24 +125,25 @@ if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
 
     gsettings set org.gnome.desktop.background show-desktop-icons false
     gsettings set org.nemo.desktop show-desktop-icons true
+    mkdir "${HOME}/.local/share/nemo/actions/"
     sudo cp -f "${RES}/sys/other_cfg/vscode-current-dir.nemo_action" "${HOME}/.local/share/nemo/actions/"
 fi
 
 if [[ $R2 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R2 ]]; then
-    sudo rm -f /etc/default/grub
-    sudo cp ${RES}/others/grub /etc/default/
+    sudo cp /etc/default/grub "${BACK}" && sudo rm -f /etc/default/grub
+    sudo cp ${RES}/sys/other_cfg/grub /etc/default/
     >/dev/null 2>>"${LOG}" sudo update-grub
 fi
 
-## Deployment of fonts
+## deployment of fonts
 if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
-    find "${DIR}/resources/fonts/" -maxdepth 1 -iregex "[a-z0-9_\.\/\ ]*\w\.sh" -type f -exec chmod +x {} \;
+    find "${RES}/fonts/" -maxdepth 1 -iregex "[a-z0-9_\.\/\ ]*\w\.sh" -type f -exec chmod +x {} \;
 
-    ( cd "${DIR}/resources/fonts/" && ./fonts.sh "${LOG}" )
+    ( cd "${RES}/fonts/" && ./fonts.sh "${LOG}" )
 
     echo -e "Renewing font-cache..."
     fc-cache -f >/dev/null 2>>"${LOG}"
-    echo -e "Finished renewing font-cache!" | ${WTL[@]}
+    printf "\tfinished.\n" | ${WTL[@]}
 fi
 
 # ? Extra script finished
