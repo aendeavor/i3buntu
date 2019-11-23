@@ -17,15 +17,15 @@ WTL=( tee -a "$LOG" )
 echo -e "\t\t->FiraCode will be installed..."
 ./firacode.sh 
 
-printf "\t\t->FontAwesome is next..."
+echo -e "\t\t->FontAwesome is next..."
 ./fontawesome.sh
 
-printf "\t\t->Iosevka is next..."
+echo -e "\t\t->Iosevka is next..."
 ./iosevkanerd.sh
 
-printf "\t\t->Roboto Mono Nerd is next..."
+echo -e "\t\t->Roboto Mono Nerd is next..."
 ./robotomononerd.sh
 
-printf "\t->Fonts installed."
+echo -e "\t->Fonts installed."
 
 # ? Actual script finished

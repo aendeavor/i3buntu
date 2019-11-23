@@ -13,7 +13,7 @@ cd "${FONTDIR}"
 mkdir -p "${FONTNAME}"
 cd "${FONTNAME}"
 wget -O "${FONTNAME}.zip" "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/Iosevka.zip" -q --show-progress
-&>/dev/null unzip "${FONTNAME}.zip"
+&>/dev/null unzip -u "${FONTNAME}.zip"
 &>/dev/null rm "${FONTNAME}.zip"
 
 # ? Actual script finished
