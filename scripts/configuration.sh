@@ -50,25 +50,24 @@ read -p "Would you like me to sync fonts? [Y/n]" -r R3
 ## Backup
 echo -e "\nChecking for existing files..." | ${WTL[@]}
 
-HOME_FILES=( "${HOME}/.bash_aliases" "${HOME}/.bashrc" "${HOME}/.vimrc" "${HOME}/.Xresources" "${HOME}/.config/Code/User/settings.json" "${HOME}/.config/compton.conf" )
+HOME_FILES=( "${HOME}/.bash_aliases" "${HOME}/.bashrc" "${HOME}/.vimrc" "${HOME}/.Xresources" )
 for FILE in ${HOME_FILES[@]}; do
     if [[ -f "$FILE" ]]; then
         backupFile="${BACK}${FILE#~}.bak"
-        echo -e "   -> Found ${FILE}\n\t\tBacking up to ${backupFile}\n" | ${WTL[@]}
+        echo -e "\t-> Found ${FILE}\n\t\tBacking up to ${backupFile}\n" | ${WTL[@]}
         >/dev/null 2>>"${LOG}" sudo ${RS[@]} "$FILE" "$backupFile"
     fi
 done
 
 if [[ -d "${HOME}/.vim" ]]; then
-    echo -e "   -> Found ~/.vim directory!\n\t\tBacking up to ${BACK}/.vim\n" | ${WTL[@]}
+    echo -e "\t-> Found ~/.vim directory!\n\t\tBacking up to ${BACK}/.vim\n" | ${WTL[@]}
     >/dev/null 2>>"${LOG}" sudo ${RS[@]} "${HOME}/.vim" "${BACK}"
     rm -rf "${HOME}/.vim"
 fi
 
-if [ -d "${HOME}/.config/i3" ]; then
-    echo -e "   -> Found ~/.config/i3 directory!\n\t\tBacking up to ${BACK}/i3\n" | ${WTL[@]}
+if [ -d "${HOME}/.config" ]; then
+    echo -e "\t-> Found ~/.config directory!\n\t\tBacking up to ${BACK}/.config\n" | ${WTL[@]}
     >/dev/null 2>>"${LOG}" sudo ${RS[@]} "${HOME}/.config/i3" "${BACK}"
-    rm -rf "${HOME}/.config/i3"
 fi
 
 ## Deployment
@@ -76,7 +75,7 @@ echo -e "Proceeding to deploying config files..." | ${WTL[@]}
 
 DEPLOY_IN_HOME=( sh/.bashrc sh/.bash_aliases vi/.vimrc vi/.viminfo Xi3/.Xresources )
 for sourceFile in "${DEPLOY_IN_HOME[@]}"; do
-    echo -e "   -> Syncing $(basename -- "${sourceFile}")"  | ${WTL[@]}
+    echo -e "\t-> Syncing $(basename -- "${sourceFile}")"  | ${WTL[@]}
     >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/${sourceFile}" "${HOME}"
 done
 
@@ -97,8 +96,8 @@ mkdir -p "${HOME}/.urxvt/extensions"
 mkdir -p "${HOME}/.config"
 >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/other_cfg/compton.conf" "${HOME}/.config"
 
-mkdir -p "${HOME}/pictures"
->/dev/null 2>>"${LOG}" ${RS[@]} "${RES}/images" "${HOME}/pictures" 
+mkdir -p "${HOME}/images"
+>/dev/null 2>>"${LOG}" ${RS[@]} "${RES}/images" "${HOME}" 
 
 AGTKCT='adapta-gtk-theme-colorpack'
 if ! dpkg -s ${AGTKCT} >/dev/null 2>&1; then
