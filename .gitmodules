@@ -1,0 +1,3 @@
+[submodule "Documentation"]
+	path = Documentation
+	url = git@github.com:Andevour/Documentation.git
