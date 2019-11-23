@@ -21,7 +21,7 @@ echo -e 'Icon theme "Tela" will be installed...' >> "$LOG"
 mkdir -p "${DIR}"
 cd "${DIR}"
 
-wget -O ${NAME}.zip "https://github.com/vinceliuice/Tela-icon-theme/archive/2019-09-29.zip" >> "$LOG"
+wget -O ${NAME}.zip "https://github.com/vinceliuice/Tela-icon-theme/archive/2019-09-29.zip" &> /dev/null
 unzip "${NAME}.zip" &> /dev/null
 mv Tela* "${NAME}"
 
