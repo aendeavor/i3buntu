@@ -115,7 +115,7 @@ fi
 ## reload of services and caches
 >/dev/null 2>>"${LOG}" xrdb ${HOME}/.Xresources 
 
-echo -e 'Finished with the actual script.' | ${WTL[@]}
+echo -e '\nFinished with the actual script.' | ${WTL[@]}
 
 # ? Actual script finished
 # ? Extra script begins
@@ -123,7 +123,7 @@ echo -e 'Finished with the actual script.' | ${WTL[@]}
 echo -e 'Processing user-choices:' | ${WTL[@]}
 
 if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
-    echo "Nemo is being configured..."
+    printf "Nemo is being configured:\n"
     
     xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search
     gsettings set org.cinnamon.desktop.default-applications.terminal exec 'urxvt'
@@ -138,7 +138,7 @@ if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
 fi
 
 if [[ $R2 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R2 ]]; then
-    echo "Grub is being configured..."
+    printf "\nGrub is being configured..."
 
     &>/dev/null sudo cp /etc/default/grub "${BACK}"
     &>/dev/null sudo rm -f /etc/default/grub
@@ -150,7 +150,7 @@ fi
 
 ## deployment of fonts
 if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
-    echo "Fonts are being installed:"
+    printf "\nFonts are being installed:"
     
     find "${RES}/fonts/" -maxdepth 1 -iregex "[a-z0-9_\.\/\ ]*\w\.sh" -type f -exec chmod +x {} \;
     (
@@ -158,7 +158,7 @@ if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
         ./fonts.sh | ${WTL[@]}
     )
 
-    echo -e "Renewing font-cache..."
+    printf "\nRenewing font-cache..."
     >/dev/null 2>>"${LOG}" fc-cache -f
     printf "\tfinished.\n" | ${WTL[@]}
 fi
