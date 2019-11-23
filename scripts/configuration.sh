@@ -54,19 +54,19 @@ HOME_FILES=( "${HOME}/.bash_aliases" "${HOME}/.bashrc" "${HOME}/.vimrc" "${HOME}
 for FILE in ${HOME_FILES[@]}; do
     if [[ -f "$FILE" ]]; then
         backupFile="${BACK}${FILE#~}.bak"
-        echo -e "\t-> Found ${FILE}\n\t\tBacking up to ${backupFile}\n" | ${WTL[@]}
+        echo -e "\t-> Found ${FILE}\n\t\tBacking up to ${backupFile}" | ${WTL[@]}
         >/dev/null 2>>"${LOG}" sudo ${RS[@]} "$FILE" "$backupFile"
     fi
 done
 
 if [[ -d "${HOME}/.vim" ]]; then
-    echo -e "\t-> Found ~/.vim directory!\n\t\tBacking up to ${BACK}/.vim\n" | ${WTL[@]}
+    echo -e "\t-> Found ~/.vim directory!\n\t\tBacking up to ${BACK}/.vim" | ${WTL[@]}
     >/dev/null 2>>"${LOG}" sudo ${RS[@]} "${HOME}/.vim" "${BACK}"
     rm -rf "${HOME}/.vim"
 fi
 
 if [ -d "${HOME}/.config" ]; then
-    echo -e "\t-> Found ~/.config directory!\n\t\tBacking up to ${BACK}/.config\n" | ${WTL[@]}
+    echo -e "\t-> Found ~/.config directory!\n\t\tBacking up to ${BACK}/.config" | ${WTL[@]}
     >/dev/null 2>>"${LOG}" sudo ${RS[@]} "${HOME}/.config/i3" "${BACK}"
 fi
 
@@ -79,34 +79,38 @@ for sourceFile in "${DEPLOY_IN_HOME[@]}"; do
     >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/${sourceFile}" "${HOME}"
 done
 
-mkdir -p "${HOME}/.config/i3"
+mkdir -p "${HOME}/.config/i3" "${HOME}/.urxvt/extensions" "${HOME}/.config" "${HOME}/images"
+sudo mkdir -p /usr/share/lightdm /etc/lightdm
+
+echo -e "\t-> Syncing i3's config"  | ${WTL[@]}
 >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/Xi3/config" "${HOME}/.config/i3"
+
+echo -e "\t-> Syncing i3's statusconfig"  | ${WTL[@]}
 >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/Xi3/i3statusconfig" "${HOME}/.config/i3"
 
+echo -e "\t-> Syncing xorg.conf"  | ${WTL[@]}
 sudo ${RS[@]} "${SYS}/Xi3/xorg.conf" /etc/X11
 
-sudo mkdir -p /etc/lightdm
-sudo mkdir -p /usr/share/lightdm
+echo -e "\t-> Syncing lightdm-gtk-greeter.conf"  | ${WTL[@]}
 >/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/other_cfg/lightdm-gtk-greeter.conf" /etc/lightdm
+
+echo -e "\t-> Syncing lightdm wallpaper"  | ${WTL[@]}
 >/dev/null 2>>"${LOG}" sudo ${RS[@]} "${RES}/images/firewatch.jpg" /usr/share/lightdm
 
-mkdir -p "${HOME}/.urxvt/extensions"
+echo -e "\t-> Syncing URXVT resize-font extension"  | ${WTL[@]}
 >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/sh/resize-font" "${HOME}/.urxvt/ext"
 
-mkdir -p "${HOME}/.config"
+echo -e "\t-> Syncing compton.conf"  | ${WTL[@]}
 >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/other_cfg/compton.conf" "${HOME}/.config"
 
-mkdir -p "${HOME}/images"
+echo -e "\t-> Syncing images directory"  | ${WTL[@]}
 >/dev/null 2>>"${LOG}" ${RS[@]} "${RES}/images" "${HOME}" 
 
-AGTKCT='adapta-gtk-theme-colorpack'
-if ! dpkg -s ${AGTKCT} >/dev/null 2>&1; then
-    >/dev/null 2>>"${LOG}" sudo dpkg -i "${RES}/design/AdaptaGTK_colorpack.deb"
+if [[ -d "${HOME}/.config/Code" ]]; then
+    echo -e "\t-> Syncing VS Code settings"  | ${WTL[@]}
+    sudo mkdir -p "${HOME}/.config/Code/User"
+    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vscode/settings.json" "${HOME}/.config/Code/User"
 fi
-
-CC="${HOME}/.config/Code/User"
-mkdir -p "${CC}"
->/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vscode/settings.json" "${CC}" 
 
 ## Reload of services and caches
 >/dev/null 2>>"${LOG}" xrdb ${HOME}/.Xresources 
@@ -145,7 +149,7 @@ fi
 # ? Postconfiguration and restart
 
 echo -e "\nDeployment of configuration files has ended. Installation finished!\n\n" | ${WTL[@]}
-read -p "It is recommended to restart now. Would you like me to restart?" -r R10
+read -p "It is recommended to restart now. Would you like me to restart? [Y/n]" -r R10
 if [[ $R10 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R10 ]]; then
     sudo shutdown -r now
 fi
