@@ -110,6 +110,7 @@ for PACKAGE in "${PACKAGES[@]}"; do
     else
         printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Installed" "${EC}"
         printf "\n"
+    fi
 
     &>>"${LOG}" echo -e "${PACKAGE}\n\t -> EXIT CODE: ${EC}"
 done
