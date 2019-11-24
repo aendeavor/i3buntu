@@ -34,10 +34,10 @@ Afterwards, you can clone this repository to your new machine. Then execute the 
 
 ``` BASH
 # download the latest release
-cd && wget https://github.com/Andevour/i3buntu/archive/v0.8.0-stable.tar.gz
+cd && wget https://github.com/Andevour/i3buntu/archive/v0.8.1-stable.tar.gz
 
 # decompress the .tar.gz
-tar xvfz v0.8.0-stable.tar.gz && rm v0.8.0-stable.tar.gz
+tar xvfz v0.8.1-stable.tar.gz && rm v0.8.1-stable.tar.gz
 
 # rename the directory
 mv i3buntu* i3buntu
