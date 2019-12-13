@@ -33,6 +33,7 @@ ${INSTALL[@]} bungcip.better-toml
 ${INSTALL[@]} bierner.markdown-preview-github-styles
 ${INSTALL[@]} DavidAnson.vscode-markdownlint
 ${INSTALL[@]} eamodio.gitlens
+${INSTALL[@]} editorconfig.editorconfig
 ${INSTALL[@]} Equinusocio.vsc-material-theme
 ${INSTALL[@]} formulahendry.code-runner
 ${INSTALL[@]} James-Yu.latex-workshop
