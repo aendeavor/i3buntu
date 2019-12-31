@@ -157,6 +157,15 @@ echo -e "Installing packages:\n" | ${WTL[@]}
 
 printf "%-35s | %-15s | %-15s" "PACKAGE" "STATUS" "EXIT CODE"
 printf "\n"
+
+# Needs to be checked first, as LightDM conflicts with these packages
+>/dev/null 2>>"${LOG}" sudo apt-get remove ${IF[@]} liblightdm-gobject* liblightdm-qt*
+EC=$?
+printf "%-35s | %-15s | %-15s" "liblightdm-*" "Removed" "${EC}"
+printf "\n"
+&>>"${LOG}" echo -e "dmenu\n\t -> EXIT CODE: ${EC}"
+unset EC
+
 for PACKAGE in "${PACKAGES[@]}"; do
     >/dev/null 2>>"${LOG}" ${AI[@]} ${PACKAGE}
 
