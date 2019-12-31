@@ -5,7 +5,7 @@
 # browser, graphical environment and much more is
 # being installed.
 #
-# current version - 0.8.0
+# current version - 0.8.3
 
 sudo echo -e "\nPackaging stage has begun!"
 
@@ -59,35 +59,91 @@ read -p "Would you like to install the JetBrains IDE suite? [Y/n]" -r R10
 # ? User choices end
 # ? Init of package selection
 
-CRITICAL=( ubuntu-drivers-common htop intel-microcode curl wget libaio1 )
+CRITICAL=(
+    ubuntu-drivers-common
+    intel-microcode
+    curl
+    wget
+    libaio1
 
-NETWORKING=( net-tools network-manager* firefox )
+    net-tools
+    network-manager*
+    
+    software-properties-common
+    python3-distutils
+    snapd
 
-PACKAGING=( software-properties-common snapd )
+    rxvt-unicode
+    vim
 
-DISPLAY=( xorg xserver-xorg lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings i3 )
+    nemo
+    file-roller
+    p7zip-full
 
-GRAPHICS=( compton xbacklight feh rofi arandr mesa-utils mesa-utils-extra i3lock )
+    rofi
 
-AUDIO=( pulseaudio gstreamer1.0-pulseaudio pulseaudio-module-raop pulseaudio-module-bluetooth )
+    policykit-desktop-privileges
+    policykit-1-gnome
+    gnome-keyring*
+    libgnome-keyring0
 
-FILES=( nemo file-roller p7zip-full filezilla )
+    firefox
+    thunderbird
+)
 
-SHELL=( rxvt-unicode vim xsel xclip neofetch )
+ENV=(
+    xorg
+    xserver-xorg
+    xbacklight
 
-AUTH=( policykit-desktop-privileges policykit-1-gnome gnome-keyring* libgnome-keyring0 )
+    lightdm
+    lightdm-gtk-greeter
+    lightdm-gtk-greeter-settings
 
-THEMING=( gtk2-engines-pixbuf gtk2-engines-murrine lxappearance compton-conf)
+    i3
+    i3lock
+    feh
+    compton
+    
+    mesa-utils
+    mesa-utils-extra
 
-FONTS=( fonts-roboto fonts-open-sans fonts-lyx )
+    gtk2-engines-pixbuf
+    gtk2-engines-murrine
+    
+    lxappearance
+    arandr
 
-MISCELLANEOUS=( gparted fontconfig evince gedit nomacs python3-distutils scrot thunderbird )
+    pulseaudio
+    gstreamer1.0-pulseaudio
+    pulseaudio-module-raop
+    pulseaudio-module-bluetooth
+)
 
-PONE=( "${CRITICAL[@]}" "${NETWORKING[@]}" "${PACKAGING[@]}" )
-PTWO=( "${DISPLAY[@]}" "${GRAPHICS[@]}" "${AUDIO[@]}" "${FILES[@]}" "${FONTS[@]}" )
-PTHREE=( "${SHELL[@]}" "${AUTH[@]}" "${THEMING[@]}" "${MISCELLANEOUS[@]}" )
+MISC=(
+    xsel
+    xclip
 
-PACKAGES=( "${PONE[@]}" "${PTWO[@]}" "${PTHREE[@]}" )
+    neofetch
+    htop
+
+    fonts-roboto
+    fonts-open-sans
+    fonts-lyx
+
+    gparted
+
+    fontconfig
+    compton-conf
+    
+    evince
+    gedit
+    nomacs
+    
+    scrot
+)
+
+PACKAGES=( "${CRITICAL[@]}" "${ENV[@]}" "${MISC[@]}" )
 
 # ? End of init of package selection
 # ? Actual script begins
@@ -101,6 +157,15 @@ echo -e "Installing packages:\n" | ${WTL[@]}
 
 printf "%-35s | %-15s | %-15s" "PACKAGE" "STATUS" "EXIT CODE"
 printf "\n"
+
+# Needs to be checked first, as LightDM conflicts with these packages
+>/dev/null 2>>"${LOG}" sudo apt-get remove ${IF[@]} liblightdm-gobject* liblightdm-qt*
+EC=$?
+printf "%-35s | %-15s | %-15s" "liblightdm-*" "Removed" "${EC}"
+printf "\n"
+&>>"${LOG}" echo -e "dmenu\n\t -> EXIT CODE: ${EC}"
+unset EC
+
 for PACKAGE in "${PACKAGES[@]}"; do
     >/dev/null 2>>"${LOG}" ${AI[@]} ${PACKAGE}
 

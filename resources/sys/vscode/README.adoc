@@ -59,6 +59,10 @@ This file provides an overview about all extensions that are to be deployed if y
 | editorconfig
 | Maintain consistent coding styles for multiple developers working on the same project across various editors and IDEs
 
+| Docker
+| Microsoft
+| Adds syntax highlighting, commands, hover tips, and linting for Dockerfile and docker-compose files.
+
 | GitLens -- Git supercharged
 | Eric Amodio
 | Visualize code authorship and explore the repository all in VS Code
