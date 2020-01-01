@@ -19,7 +19,7 @@ NC='\033[0m'        # NO COLOR
 # ? Checks
 
 if [[ ! $(docker -v) =~ ^Docker\ version\ [1-9.]* ]]; then
-    echo -e "${RED}ERROR${NC}\tDocker seems to be not installed on this system."
+    echo -e "${RED}ERROR${NC}\tWe could not locate docker on this system. Is it installed and in \$PATH?"
     exit 1
 fi
 
