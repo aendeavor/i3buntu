@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # This script serves as the main installation script
-# for all neccessary packages. Via APT, core utils,
-# browser, graphical environment and much more is
-# being installed.
+# for all neccessary packages for a desktop installation.
+# Via APT, core utils, browser, graphical environment
+# and much more is being installed.
 #
-# current version - 0.8.3
+# current version - 0.9.0
 
 sudo echo -e "\nPackaging stage has begun!"
 
@@ -13,10 +13,10 @@ sudo echo -e "\nPackaging stage has begun!"
 
 ## directories and files - absolute & normalized
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-BACK="$(readlink -m "${DIR}/../backups/packaging/$(date '+%d-%m-%Y--%H-%M-%S')")"
+BACK="$(readlink -m "${DIR}/../../backups/packaging/$(date '+%d-%m-%Y--%H-%M-%S')")"
 LOG="${BACK}/packaging_log"
 
-IF=( --yes --assume-yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages )
+IF=( --yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages )
 AI=( sudo apt-get install ${IF[@]} )
 SI=( sudo snap install )
 
@@ -158,7 +158,7 @@ echo -e "Installing packages:\n" | ${WTL[@]}
 printf "%-35s | %-15s | %-15s" "PACKAGE" "STATUS" "EXIT CODE"
 printf "\n"
 
-# Needs to be checked first, as LightDM conflicts with these packages
+# needs to be checked first, as LightDM conflicts with these packages
 >/dev/null 2>>"${LOG}" sudo apt-get remove ${IF[@]} liblightdm-gobject* liblightdm-qt*
 EC=$?
 printf "%-35s | %-15s | %-15s" "liblightdm-*" "Removed" "${EC}"
@@ -210,7 +210,7 @@ echo -e '\nFinished with the actual script.' | ${WTL[@]}
 
 echo -e 'Processing user-choices:\n' | ${WTL[@]}
 
-## Graphics driver
+## graphics driver
 if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
     echo -e 'Enabling ubuntu-drivers autoinstall...' | ${WTL[@]}
     &>>"${LOG}" sudo ubuntu-drivers autoinstall
@@ -309,9 +309,7 @@ echo -e 'Finished with processing user-choices. One last update...' | ${WTL[@]}
 # ? Postconfiguration and restart
 
 echo -e "\nThe script has finished!\nEnded at: $(date)\n" | ${WTL[@]}
-
-for I in {7..1..-1}; do
-    echo -ne "\rRestart in $I seconds."
-    sleep 1
-done
-sudo shutdown -r now
+read -p "It is recommended to restart now. Would you like me to restart? [Y/n]" -r Rrestart
+if [[ $Rrestart =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $Rrestart ]]; then
+    shutdown -r now
+fi
