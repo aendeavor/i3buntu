@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # This script serves as the main installation script
-# for all neccessary packages. Via APT, core utils,
-# browser, graphical environment and much more is
-# being installed.
+# for all neccessary packages for a desktop installation.
+# Via APT, core utils, browser, graphical environment
+# and much more is being installed.
 #
-# current version - 0.8.0
+# current version - 0.9.0
 
 sudo echo -e "\nPackaging stage has begun!"
 
@@ -13,10 +13,10 @@ sudo echo -e "\nPackaging stage has begun!"
 
 ## directories and files - absolute & normalized
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-BACK="$(readlink -m "${DIR}/../backups/packaging/$(date '+%d-%m-%Y--%H-%M-%S')")"
+BACK="$(readlink -m "${DIR}/../../backups/packaging/$(date '+%d-%m-%Y--%H-%M-%S')")"
 LOG="${BACK}/packaging_log"
 
-IF=( --yes --assume-yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages )
+IF=( --yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages )
 AI=( sudo apt-get install ${IF[@]} )
 SI=( sudo snap install )
 
@@ -55,39 +55,96 @@ if [[ $R9 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R9 ]]; then
 fi
 
 read -p "Would you like to install the JetBrains IDE suite? [Y/n]" -r R10
+read -p "Would you like to install Docker? [Y/n]" -r R11
 
 # ? User choices end
 # ? Init of package selection
 
-CRITICAL=( ubuntu-drivers-common htop intel-microcode curl wget libaio1 )
+CRITICAL=(
+    ubuntu-drivers-common
+    intel-microcode
+    curl
+    wget
+    libaio1
 
-NETWORKING=( net-tools network-manager* firefox )
+    net-tools
+    network-manager*
+    
+    software-properties-common
+    python3-distutils
+    snapd
 
-PACKAGING=( software-properties-common snapd )
+    rxvt-unicode
+    vim
 
-DISPLAY=( xorg xserver-xorg lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings i3 )
+    nemo
+    file-roller
+    p7zip-full
 
-GRAPHICS=( compton xbacklight feh rofi arandr mesa-utils mesa-utils-extra i3lock )
+    rofi
 
-AUDIO=( pulseaudio gstreamer1.0-pulseaudio pulseaudio-module-raop pulseaudio-module-bluetooth )
+    policykit-desktop-privileges
+    policykit-1-gnome
+    gnome-keyring*
+    libgnome-keyring0
 
-FILES=( nemo file-roller p7zip-full filezilla )
+    firefox
+    thunderbird
+)
 
-SHELL=( rxvt-unicode vim xsel xclip neofetch )
+ENV=(
+    xorg
+    xserver-xorg
+    xbacklight
 
-AUTH=( policykit-desktop-privileges policykit-1-gnome gnome-keyring* libgnome-keyring0 )
+    lightdm
+    lightdm-gtk-greeter
+    lightdm-gtk-greeter-settings
 
-THEMING=( gtk2-engines-pixbuf gtk2-engines-murrine lxappearance compton-conf)
+    i3
+    i3lock
+    feh
+    compton
+    
+    mesa-utils
+    mesa-utils-extra
 
-FONTS=( fonts-roboto fonts-open-sans fonts-lyx )
+    gtk2-engines-pixbuf
+    gtk2-engines-murrine
+    
+    lxappearance
+    arandr
 
-MISCELLANEOUS=( gparted fontconfig evince gedit nomacs python3-distutils scrot thunderbird )
+    pulseaudio
+    gstreamer1.0-pulseaudio
+    pulseaudio-module-raop
+    pulseaudio-module-bluetooth
+)
 
-PONE=( "${CRITICAL[@]}" "${NETWORKING[@]}" "${PACKAGING[@]}" )
-PTWO=( "${DISPLAY[@]}" "${GRAPHICS[@]}" "${AUDIO[@]}" "${FILES[@]}" "${FONTS[@]}" )
-PTHREE=( "${SHELL[@]}" "${AUTH[@]}" "${THEMING[@]}" "${MISCELLANEOUS[@]}" )
+MISC=(
+    xsel
+    xclip
 
-PACKAGES=( "${PONE[@]}" "${PTWO[@]}" "${PTHREE[@]}" )
+    neofetch
+    htop
+
+    fonts-roboto
+    fonts-open-sans
+    fonts-lyx
+
+    gparted
+
+    fontconfig
+    compton-conf
+    
+    evince
+    gedit
+    nomacs
+    
+    scrot
+)
+
+PACKAGES=( "${CRITICAL[@]}" "${ENV[@]}" "${MISC[@]}" )
 
 # ? End of init of package selection
 # ? Actual script begins
@@ -101,6 +158,15 @@ echo -e "Installing packages:\n" | ${WTL[@]}
 
 printf "%-35s | %-15s | %-15s" "PACKAGE" "STATUS" "EXIT CODE"
 printf "\n"
+
+# needs to be checked first, as LightDM conflicts with these packages
+>/dev/null 2>>"${LOG}" sudo apt-get remove ${IF[@]} liblightdm-gobject* liblightdm-qt*
+EC=$?
+printf "%-35s | %-15s | %-15s" "liblightdm-*" "Removed" "${EC}"
+printf "\n"
+&>>"${LOG}" echo -e "dmenu\n\t -> EXIT CODE: ${EC}"
+unset EC
+
 for PACKAGE in "${PACKAGES[@]}"; do
     >/dev/null 2>>"${LOG}" ${AI[@]} ${PACKAGE}
 
@@ -145,7 +211,7 @@ echo -e '\nFinished with the actual script.' | ${WTL[@]}
 
 echo -e 'Processing user-choices:\n' | ${WTL[@]}
 
-## Graphics driver
+## graphics driver
 if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
     echo -e 'Enabling ubuntu-drivers autoinstall...' | ${WTL[@]}
     &>>"${LOG}" sudo ubuntu-drivers autoinstall
@@ -234,6 +300,11 @@ if [[ $R10 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R10 ]]; then
     >/dev/null 2>>"${LOG}" ${SI[@]} clion --classic
 fi
 
+if [[ $RC11 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RC11 ]]; then
+    echo -e 'Installing Docker...' | ${WTL[@]}
+    $(readlink -m "${DIR}/../sys/docker/get_docker.sh") $DIR
+fi
+
 echo -e 'Finished with processing user-choices. One last update...' | ${WTL[@]}
 
 >/dev/null 2>>"${LOG}" sudo apt-get -y update
@@ -244,9 +315,7 @@ echo -e 'Finished with processing user-choices. One last update...' | ${WTL[@]}
 # ? Postconfiguration and restart
 
 echo -e "\nThe script has finished!\nEnded at: $(date)\n" | ${WTL[@]}
-
-for I in {7..1..-1}; do
-    echo -ne "\rRestart in $I seconds."
-    sleep 1
-done
-sudo shutdown -r now
+read -p "It is recommended to restart now. Would you like me to restart? [Y/n]" -r Rrestart
+if [[ $Rrestart =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $Rrestart ]]; then
+    shutdown -r now
+fi

@@ -33,10 +33,12 @@ ${INSTALL[@]} bungcip.better-toml
 ${INSTALL[@]} bierner.markdown-preview-github-styles
 ${INSTALL[@]} DavidAnson.vscode-markdownlint
 ${INSTALL[@]} eamodio.gitlens
+${INSTALL[@]} editorconfig.editorconfig
 ${INSTALL[@]} Equinusocio.vsc-material-theme
 ${INSTALL[@]} formulahendry.code-runner
 ${INSTALL[@]} James-Yu.latex-workshop
 ${INSTALL[@]} joaompinto.asciidoctor-vscode
+${INSTALL[@]} ms-azuretools.vscode-docker
 ${INSTALL[@]} ms-python.python
 ${INSTALL[@]} ms-vscode-remote.remote-containers
 ${INSTALL[@]} ms-vscode-remote.remote-ssh
@@ -56,6 +58,7 @@ ${INSTALL[@]} streetsidesoftware.code-spell-checker-german
 ${INSTALL[@]} VisualStudioExptTeam.vscodeintellicode
 ${INSTALL[@]} yzane.markdown-pdf
 ${INSTALL[@]} yzhang.markdown-all-in-one
+
 
 if [[ ! -z $(which rustup) ]]; then
     ${INSTALL[@]} rust-lang.rust
