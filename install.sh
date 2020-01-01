@@ -16,6 +16,8 @@ GRE='\033[1;32m'    # GREEN
 YEL='\033[1;33m'    # YELLOW
 NC='\033[0m'        # NO COLOR
 
+# ? Actual script
+
 case "$1" in 
         "--docker")
             echo -e "${GRE}SUCCESS${NC}\tDocker will be setup."

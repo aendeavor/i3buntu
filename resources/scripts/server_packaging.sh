@@ -155,4 +155,4 @@ echo -e 'Finished with processing user-choices. One last update...' | ${WTL[@]}
 echo -e "\nPackaging has finished!\nEnded at: $(date)\n" | ${WTL[@]}
 echo -e "\nStarting configuration." | ${WTL[@]}
 
-${DIR}/_server_configuration.sh
+"${DIR}/server_configuration.sh"
