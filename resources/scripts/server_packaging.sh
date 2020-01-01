@@ -42,6 +42,7 @@ echo -e "\nPlease make your choices:"
 read -p "Would you like to execute ubuntu-driver autoinstall? [Y/n]" -r R1
 read -p "Would you like to install Build-Essentials? [Y/n]" -r R2
 read -p "Would you like to get RUST? [Y/n]" -r R3
+read -p "Would you like to install Docker? [Y/n]" -r R4
 
 # ? User choices end
 # ? Init of package selection
@@ -143,6 +144,10 @@ if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
     rustup update | ${WTL[@]}
 fi
 
+if [[ $RC4 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RC4 ]]; then
+    echo -e 'Installing Docker...' | ${WTL[@]}
+    $(readlink -m "${DIR}/../sys/docker/get_docker.sh") $DIR
+fi
 
 echo -e 'Finished with processing user-choices. One last update...' | ${WTL[@]}
 
@@ -155,4 +160,4 @@ echo -e 'Finished with processing user-choices. One last update...' | ${WTL[@]}
 echo -e "\nPackaging has finished!\nEnded at: $(date)\n" | ${WTL[@]}
 echo -e "\nStarting configuration." | ${WTL[@]}
 
-${DIR}/_server_configuration.sh
+"${DIR}/server_configuration.sh"
