@@ -1,20 +1,15 @@
-ARG OS_VER=18.04
-
-FROM ubuntu:${OS_VER} AS baseOS
+FROM ubuntu:18.04
 
 LABEL maintainer="georg.lauterbach@mailbox.tu-dresden.de"
 LABEL version="0.0.1"
-LABEL description="Custom Ubuntu 18.04 LTS with the i3 Window Manager"
+LABEL description="Custom Ubuntu 18.04 LTS"
 
-SHELL [ "/bin/bash", "-c" ]
+# ! actually unnecessary as in the container, you are root by default
+# TODO change later
+RUN apt-get -y -qq update && apt-get install -y -qq dialog apt-utils sudo &>>/dev/null
 
-WORKDIR ${HOME}
-
-COPY ./scripts/* i3buntu/scripts/
-COPY ./resources/* i3buntu/resources/
-
+COPY ./ /i3buntu/
 # execute the actual scripts for i3buntu
-RUN ${HOME}/i3buntu/scripts/packaging.sh
-RUN ${HOME}/i3buntu/scripts/configuration.sh
+RUN /i3buntu/scripts/docker_conf.sh
 
 CMD [ "/bin/bash" ]
