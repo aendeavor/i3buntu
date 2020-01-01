@@ -7,13 +7,13 @@
 #
 # current version - 0.9.0
 
-echo -e "\nPackaging stage has begun!"
+echo -e "\nDocker packaging and configuration has begun!"
 
 # ? Preconfig
 
 ## directories and files - absolute & normalized
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
-SYS="$(readlink -m "${DIR}/../sys")"
+SYS="$(readlink -m "${DIR}/sys")"
 
 RS=( rsync -ahq --delete )
 
@@ -22,20 +22,12 @@ AI=(apt-get install ${IF[@]})
 SI=(snap install)
 
 # ? Preconfig finished
-# ? User-choices begin
-
-echo -e "\nPlease make your choices:"
-
-read -p "Would you like to execute ubuntu-driver autoinstall? [Y/n]" -r R1
-read -p "Would you like to install Build-Essentials? [Y/n]" -r R2
-read -p "Would you like to get RUST? [Y/n]" -r R3
-
-# ? User choices end
 # ? Init of package selection
 
 CRITICAL=(
     curl
     wget
+    rsync
     libaio1
     
     net-tools
@@ -52,7 +44,7 @@ ENV=(
 MISC=(
     xsel
     xclip
-    \
+    
     htop
 )
 
@@ -61,10 +53,10 @@ PACKAGES=("${CRITICAL[@]}" "${ENV[@]}" "${MISC[@]}")
 # ? End of init of package selection
 # ? Actual script begins
 
-echo -e "\nStarted at: $(date)\n\nInitial update"
+echo -e "Started at: $(date '+%d-%m-%Y--%H-%M-%S')\n\nInitial update"
 
-apt-get -y update
-apt-get -y upgrade
+&>>/dev/null apt-get -y update
+&>>/dev/null apt-get -y upgrade
 
 echo -e "Installing packages:\n"
 
@@ -72,10 +64,10 @@ printf "%-35s | %-15s | %-15s" "PACKAGE" "STATUS" "EXIT CODE"
 printf "\n"
 
 for PACKAGE in "${PACKAGES[@]}"; do
-    ${AI[@]} ${PACKAGE}
+    &>>/dev/null ${AI[@]} ${PACKAGE}
 
     EC=$?
-    if (($EC != 0)); then
+    if (( $EC != 0 )); then
         printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Not Installed" "${EC}"
     else
         printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Installed" "${EC}"
@@ -83,21 +75,12 @@ for PACKAGE in "${PACKAGES[@]}"; do
     fi
 done
 
-echo -e 'Post-Update via APT'
-apt-get -y update
-apt-get -y upgrade
-
 DEPLOY_IN_HOME=(sh/.bashrc sh/.bash_aliases vi/.vimrc vi/.viminfo)
 for sourceFile in "${DEPLOY_IN_HOME[@]}"; do
     echo -e "-> Syncing $(basename -- "${sourceFile}")"
-    ${RS[@]} &>>/dev/null "${SYS}/${sourceFile}" "${HOME}"
+    ${RS[@]} >>/dev/null "${SYS}/${sourceFile}" "/root"
 done
 
 # ? Actual script finished
 
-echo -e "\nPackaging has finished!\nEnded at: $(date)\n"
-
-# ? Execution of next script
-
-echo -e "\nStarting configuration."
-${DIR}/_docker_configuration.sh
+echo -e "\nFinished!"

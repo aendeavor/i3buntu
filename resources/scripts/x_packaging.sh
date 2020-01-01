@@ -55,6 +55,7 @@ if [[ $R9 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R9 ]]; then
 fi
 
 read -p "Would you like to install the JetBrains IDE suite? [Y/n]" -r R10
+read -p "Would you like to install Docker? [Y/n]" -r R11
 
 # ? User choices end
 # ? Init of package selection
@@ -297,6 +298,11 @@ if [[ $R10 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R10 ]]; then
     >/dev/null 2>>"${LOG}" ${SI[@]} kotlin-native --classic
     >/dev/null 2>>"${LOG}" ${SI[@]} pycharm-professional --classic
     >/dev/null 2>>"${LOG}" ${SI[@]} clion --classic
+fi
+
+if [[ $RC11 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RC11 ]]; then
+    echo -e 'Installing Docker...' | ${WTL[@]}
+    $(readlink -m "${DIR}/../sys/docker/get_docker.sh") $DIR
 fi
 
 echo -e 'Finished with processing user-choices. One last update...' | ${WTL[@]}
