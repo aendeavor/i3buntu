@@ -15,19 +15,19 @@ sudo echo -e "\nThe configuration stage has begun!"
 # ? Preconfig
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-BACK="$( readlink -m "${DIR}/../backups/configuration/$( date '+%d-%m-%Y--%H-%M-%S' )" )"
-RES="$( readlink -m "${DIR}/../resources" )"
+BACK="$( readlink -m "${DIR}/../../backups/configuration/$( date '+%d-%m-%Y--%H-%M-%S' )" )"
+RES="$( readlink -m "${DIR}/../" )"
 SYS="$( readlink -m "${RES}/sys")"
 LOG="${BACK}/configuration_log"
 
 RS=( rsync -ahq --delete )
 
-## Init of backup-directory
+## init of backup-directory
 if [[ ! -d "$BACK" ]]; then
     mkdir -p "$BACK"
 fi
 
-## Init of logfile
+## init of logfile
 if [[ ! -f "$LOG" ]]; then
     if [[ ! -w "$LOG" ]]; then
         &>/dev/null sudo rm $LOG
