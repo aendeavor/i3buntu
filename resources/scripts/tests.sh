@@ -16,5 +16,4 @@ WAR="${YEL}WARNING${NC}\t"
 SUC="${GRE}SUCCESS${NC}\t"
 INF="${BLU}INFO${NC}\t"
 
-echo -e "${INF} Test"
-echo -e "${WAR} Test"
+echo -e "${WAR}This is a test!"
