@@ -3,7 +3,7 @@
 # This script serves as the main installation script
 # for all neccessary packages for a server installation.
 # 
-# current version - 0.9.2
+# current version - 0.9.3
 
 sudo printf ""
 

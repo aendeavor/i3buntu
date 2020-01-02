@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# This script servers testing purposes and
+# is not being used in actual scripts. 
+
 # ? Preconfig
 
 ## directory of this file - absolute & normalized

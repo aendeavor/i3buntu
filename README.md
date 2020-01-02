@@ -8,19 +8,22 @@ This repository aims at providing you with a set of instructions to create your 
 
 ## What's new
 
-Since 0.8.1 stable, the following changes took place:
+The latest unstable release is [v0.9.2-beta1](https://github.com/aendeavor/i3buntu/releases/tag/v0.9.2-beta1). The latest stable release is [v0.8.1-stable](https://github.com/aendeavor/i3buntu/releases/tag/v0.8.1-stable).
+
+Since _0.8.1-stable_, the following changes took place:
 
 * 2 new build methods
   * i3buntu now ships with a server and a docker version
-  * the server version is like th desktop version, but without the graphical environment
+  * the server version is like the desktop version, but without the graphical environment
   * the docker build script builds a dedicated docker container
 * new build script
-  * the build script has been reworked - now one single script distributes the installations. Further information in [./INSTALL.md](./INSTALL.md)
+  * the build script has been reworked - now one single script distributes the installations. Further information in [INSTALL.md](./INSTALL.md)
 * Docker integration
   * Docker can now be installed during packaging
   * A dedicated docker images can now be automatically created
 * new way logging
   * logging has been reworked to show more color and coherent output
+* NeoVim integration
 
 ## Prerequisites
 
@@ -32,7 +35,7 @@ The following instructions are made for [Ubuntu](https://wiki.archlinux.org/inde
 
 ### Knowledge
 
-It is *highly recomended* to be familier with the linux environment and command line. Absolute beginners might start off with a simple Ubuntu installation and become comfortable first, before approaching this.
+It is *highly recommended* to be familiar with the linux environment and command line. Absolute beginners might start off with a simple Ubuntu installation and become comfortable first, before approaching this.
 
 ### Dependencies
 
@@ -51,13 +54,13 @@ This guide relies on using the following sources.
 
 #### Desktop Environment and Color Scheme
 
-The i3 window manager together with the X display server drive your Ubuntu desktop. There is no bloatware or unneccessary waste of screen-space.
+The i3 window manager together with the X display server drive your Ubuntu desktop. There is no bloatware or unnecessary waste of screen-space.
 
 The color scheme has been carefully picked and almost all components that can be configured have adapted this theme. Through the use of applications like URXVT and i3, customizability is no problem. If you are not satisfied with colors, change them on your own.
 
 #### Terminal
 
-On first sight, you will realize the prompt / PS1 has changed. It has become clearer and more lightweight. Bash now provides you with many more tools and aliases. The file [`bash_aliases`](resources/bash/.bash_aliases) contains aliases and exported functions. Make youself familiar with them.
+On first sight, you will realize the prompt / PS1 has changed. It has become clearer and more lightweight. Bash now provides you with many more tools and aliases. The file [`bash_aliases`](resources/bash/.bash_aliases) contains aliases and exported functions. Make yourself familiar with them.
 
 #### Performance and Efficiency
 
