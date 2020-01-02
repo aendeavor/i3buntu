@@ -35,10 +35,12 @@ cd $SCR
 
 curl -sSL https://get.docker.com -o docker_installer.sh
 sh docker_installer.sh
+cd $SCR
 rm docker_installer.sh
 
 curl -fsSL https://test.docker.com -o docker_installer_test.sh
 sh docker_installer_test.sh
+cd $SCR
 rm docker_installer_test.sh
 
 ## return from where we were called from

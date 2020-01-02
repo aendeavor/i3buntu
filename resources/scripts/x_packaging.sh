@@ -5,7 +5,8 @@
 # Via APT, core utils, browser, graphical environment
 # and much more is being installed.
 #
-# current version - 0.9.0
+# version   0.9.0
+# sources   <https://afshinm.name/neovim/>
 
 sudo echo -e "\nPackaging stage has begun!"
 
@@ -19,6 +20,15 @@ LOG="${BACK}/packaging_log"
 IF=( --yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages )
 AI=( sudo apt-get install ${IF[@]} )
 SI=( sudo snap install )
+
+RED='\033[0;31m'    # RED
+GRE='\033[1;32m'    # GREEN
+YEL='\033[1;33m'    # YELLOW
+NC='\033[0m'        # NO COLOR
+
+ERR="${RED}ERROR${NC}"
+WAR="${YEL}WARNING${NC}"
+SUC="${GRE}SUCCESS${NC}"
 
 ## init of backup-directory
 if [[ ! -d "$BACK" ]]; then
@@ -56,6 +66,7 @@ fi
 
 read -p "Would you like to install the JetBrains IDE suite? [Y/n]" -r R10
 read -p "Would you like to install Docker? [Y/n]" -r R11
+read -p "Would you like to install NeoVIM? [Y/n]" -r R12
 
 # ? User choices end
 # ? Init of package selection
@@ -303,6 +314,15 @@ fi
 if [[ $RC11 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RC11 ]]; then
     echo -e 'Installing Docker...' | ${WTL[@]}
     $(readlink -m "${DIR}/../sys/docker/get_docker.sh") $DIR
+fi
+
+if [[ $RC12 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RC12 ]]; then
+    echo -e 'Installing NeoVIM...' | ${WTL[@]}
+    sudo apt install neovim
+    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+    echo -e "${WAR} You will need to run :PlugInstall seperately in NeoVIM as you cannot execute this command in a shell."
+    echo -e "${WAR} Thereafter, run ~/.config/nvim/plugged/YouCompleteMe/install.py --racer-completer --tern-completer."
 fi
 
 echo -e 'Finished with processing user-choices. One last update...' | ${WTL[@]}
