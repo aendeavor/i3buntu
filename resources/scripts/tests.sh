@@ -4,5 +4,16 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 echo "Hello, World!"
 
-echo -e 'Installing Docker...' | ${WTL[@]}
-$(readlink -m "${DIR}/../sys/docker/get_docker.sh") $DIR
+RED='\033[0;31m'    # RED
+GRE='\033[1;32m'    # GREEN
+YEL='\033[1;33m'    # YELLOW
+BLU='\033[1;34m'    # BLUE
+NC='\033[0m'        # NO COLOR
+
+ERR="${RED}ERROR${NC}\t"
+WAR="${YEL}WARNING${NC}\t"
+SUC="${GRE}SUCCESS${NC}\t"
+INF="${BLU}INFO${NC}\t"
+
+echo -e "${INF} Test"
+echo -e "${WAR} Test"

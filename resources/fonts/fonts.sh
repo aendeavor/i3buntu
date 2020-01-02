@@ -8,24 +8,52 @@
 
 # ? Preconfig
 
-LOG="$1"
-WTL=( tee -a "$LOG" )
+RED='\033[0;31m'    # RED
+GRE='\033[1;32m'    # GREEN
+YEL='\033[1;33m'    # YELLOW
+BLU='\033[1;34m'    # BLUE
+NC='\033[0m'        # NO COLOR
+
+ERR="${RED}ERROR${NC}"
+WAR="${YEL}WARNING${NC}"
+SUC="${GRE}SUCCESS${NC}"
+INF="${BLU}INFO${NC}"
 
 # ? Preconfig finished
 # ? Actual script begins
 
-echo -e "\t->FiraCode will be installed..."
+echo -e "${INF}FiraCode will be installed..."
 ./firacode.sh 
+if (( $? == 0 )); then
+    echo -e "${SUC}FiraCode successfully installed."
+else
+    echo -e "${ERR}FiraCode not successfully installed."
+fi
 
-echo -e "\t->FontAwesome is next..."
+echo -e "${INF}FontAwesome is next..."
 ./fontawesome.sh
+if (( $? == 0 )); then
+    echo -e "${SUC}FontAwesome successfully installed."
+else
+    echo -e "${ERR}FontAwesome not successfully installed."
+fi
 
-echo -e "\t->Iosevka is next..."
+echo -e "${INF}Iosevka is next..."
 ./iosevkanerd.sh
+if (( $? == 0 )); then
+    echo -e "${SUC}Iosevka successfully installed."
+else
+    echo -e "${ERR}Iosevka not successfully installed."
+fi
 
-echo -e "\t->Roboto Mono Nerd is next..."
+echo -e "${INF}Roboto Mono Nerd is next..."
 ./robotomononerd.sh
+if (( $? == 0 )); then
+    echo -e "${SUC}Roboto Mono Nerd successfully installed."
+else
+    echo -e "${ERR}Roboto Mono Nerd not successfully installed."
+fi
 
-echo -e "\t->Fonts installed."
+echo -e "${INF}Fonts installed."
 
 # ? Actual script finished
