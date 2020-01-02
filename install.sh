@@ -27,7 +27,7 @@ INF="${BLU}INFO${NC}\t"
 case "$1" in 
         "--docker")
             echo -e "${SUC}Docker will be setup."
-            "${SCR}/docker_up.sh"
+            "${SCR}/../sys/docker/docker_up.sh"
         ;;
         "--desktop")
             case "$2" in

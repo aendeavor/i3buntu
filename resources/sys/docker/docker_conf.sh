@@ -19,7 +19,6 @@ RS=( rsync -ahq --delete )
 
 IF=(--yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages)
 AI=(apt-get install ${IF[@]})
-SI=(snap install)
 
 # ? Preconfig finished
 # ? Init of package selection
@@ -53,12 +52,12 @@ PACKAGES=("${CRITICAL[@]}" "${ENV[@]}" "${MISC[@]}")
 # ? End of init of package selection
 # ? Actual script begins
 
-echo -e "Started at: $(date '+%d-%m-%Y--%H-%M-%S')\n\nInitial update"
+echo -e "${INF}Started at: $(date '+%d.%m.%Y-%H:%M')\n${INF}Initial update"
 
 &>>/dev/null apt-get -y update
 &>>/dev/null apt-get -y upgrade
 
-echo -e "Installing packages:\n"
+echo -e "${INF}Installing packages:\n"
 
 printf "%-35s | %-15s | %-15s" "PACKAGE" "STATUS" "EXIT CODE"
 printf "\n"
