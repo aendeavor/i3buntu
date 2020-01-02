@@ -68,10 +68,15 @@ fi
 
 read -p "Would you like to install the JetBrains IDE suite? [Y/n]" -r R10
 read -p "Would you like to install Docker? [Y/n]" -r R11
+
+if [[ $R11 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R11 ]]; then
+    echo -e "\n${WAR}Docker has been chosen as an installation candidate. This may reqire manual user-input near the end of this script.\n"
+fi
+
 read -p "Would you like to install RUST? [Y/n]" -r R12
 
 if [[ $R12 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R12 ]]; then
-    echo -e "\n${WAR}Rust has been chosen as an installation candidate. This reqires manual user-input at the ed of this script."
+    echo -e "\n${WAR}Rust has been chosen as an installation candidate. This reqires manual user-input at the end of this script.\n"
     sleep 3s
 fi
 # ? User choices end
@@ -166,30 +171,28 @@ PACKAGES=( "${CRITICAL[@]}" "${ENV[@]}" "${MISC[@]}" )
 # ? End of init of package selection
 # ? Actual script begins
 
-echo -e "\n${INF}Started at: $(date '+%d.%m.%Y-%H:%M')\n${INF}Initial update" | ${WTL[@]}
+echo -e "${INF}Started at: $(date '+%d.%m.%Y-%H:%M')\n${INF}Initial update" | ${WTL[@]}
 
-# >/dev/null 2>>"${LOG}" sudo apt-get -y update
-# >/dev/null 2>>"${LOG}" sudo apt-get -y upgrade
+>/dev/null 2>>"${LOG}" sudo apt-get -y update
+>/dev/null 2>>"${LOG}" sudo apt-get -y upgrade
 
 echo -e "${INF}Installing packages\n" | ${WTL[@]}
 
 printf "%-35s | %-15s | %-15s" "PACKAGE" "STATUS" "EXIT CODE"
 printf "\n"
 
-# needs to be checked first, as LightDM conflicts with these packages
-# >/dev/null 2>>"${LOG}" sudo apt-get remove ${IF[@]} liblightdm-gobject* liblightdm-qt*
-# EC=$?
-EC=0
+## needs to be checked first, as LightDM conflicts with these packages
+>/dev/null 2>>"${LOG}" sudo apt-get remove ${IF[@]} liblightdm-gobject* liblightdm-qt*
+EC=$?
 printf "%-35s | %-15s | %-15s" "liblightdm-*" "Removed" "${EC}"
 printf "\n"
 &>>"${LOG}" echo -e "dmenu\n\t -> EXIT CODE: ${EC}"
 unset EC
 
 for PACKAGE in "${PACKAGES[@]}"; do
-    # >/dev/null 2>>"${LOG}" ${AI[@]} ${PACKAGE}
+    >/dev/null 2>>"${LOG}" ${AI[@]} ${PACKAGE}
 
-    # EC=$?
-    EC=0
+    EC=$?
     if (( $EC != 0 )); then
         printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Not Installed" "${EC}"
     else
@@ -200,9 +203,8 @@ for PACKAGE in "${PACKAGES[@]}"; do
     &>>"${LOG}" echo -e "${PACKAGE}\n\t -> EXIT CODE: ${EC}"
 done
 
-# >/dev/null 2>>"${LOG}" sudo apt-get remove ${IF[@]} suckless-tools
-# EC=$?
-EC=0
+>/dev/null 2>>"${LOG}" sudo apt-get remove ${IF[@]} suckless-tools
+EC=$?
 printf "%-35s | %-15s | %-15s" "dmenu" "Removed" "${EC}"
 printf "\n\n"
 &>>"${LOG}" echo -e "dmenu\n\t -> EXIT CODE: ${EC}"
@@ -211,14 +213,14 @@ unset EC
 echo -e "${INF}Icon-Theme is being processed" | ${WTL[@]}
 (
     cd "${DIR}/../icon_theme"
-    # &>>"${LOG}" find . -maxdepth 1 -iregex "[a-z0-9_\.\/\ ]*\w\.sh" -type f -exec chmod +x {} \;
-    # &>>"${LOG}" ./icon_theme.sh "$LOG"
+    &>>"${LOG}" find . -maxdepth 1 -iregex "[a-z0-9_\.\/\ ]*\w\.sh" -type f -exec chmod +x {} \;
+    &>>"${LOG}" ./icon_theme.sh "$LOG"
 )
 
-# if ! dpkg -s adapta-gtk-theme-colorpack >/dev/null 2>&1; then
+if ! dpkg -s adapta-gtk-theme-colorpack >/dev/null 2>&1; then
     echo -e "${INF}Color-Pack is being processed" | ${WTL[@]}
-    # >/dev/null 2>>"${LOG}" sudo dpkg -i "${DIR}/../resources/design/AdaptaGTK_colorpack.deb"
-# fi
+    >/dev/null 2>>"${LOG}" sudo dpkg -i "${DIR}/../resources/design/AdaptaGTK_colorpack.deb"
+fi
 
 echo -e "${SUC}Finished with actual script" | ${WTL[@]}
 
@@ -308,11 +310,11 @@ fi
 
 if [[ $RC11 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RC11 ]]; then
     echo -e 'Installing Docker' | ${WTL[@]}
+    echo -e "${WAR}Manual user-input may be requiered!\n" | ${WTL[@]}
     $(readlink -m "${DIR}/../sys/docker/get_docker.sh") $DIR
 fi
 
 if [[ $R12 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R12 ]]; then
-exit 0
     echo -e "Installing RUST" | ${WTL[@]}
     echo -e "${WAR}Manual user-input requiered!\n" | ${WTL[@]}
 
@@ -342,7 +344,7 @@ echo -e "\n${SUC}Finished with processing user-choices" | ${WTL[@]}
 # ? Postconfiguration and restart
 
 echo -e "\n${INF}The script has finished!\n${INF}Ended at: $(date '+%d.%m.%Y-%H:%M')\n" | ${WTL[@]}
-read -p "It is recommended to restart now. Would you like to restart? [Y/n]" -r Rrestart
-if [[ $Rrestart =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $Rrestart ]]; then
+read -p "It is recommended to restart now. Would you like to restart? [Y/n]" -r RESTART
+if [[ $RESTART =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RESTART ]]; then
     shutdown -r now
 fi
