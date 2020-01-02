@@ -4,7 +4,7 @@
 # all other scripts, i.e. the desktop, server or
 # Docker installation of i3buntu.
 #
-# current version - 0.0.1
+# current version - 0.1.0
 
 # ? Preconfig
 
