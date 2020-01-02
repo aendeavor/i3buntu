@@ -25,7 +25,8 @@ INF="${BLU}INFO${NC}\t"
 # ? Checks
 
 if [[ $(docker -v) =~ ^Docker\ version\ [1-9.]* ]]; then
-    echo -e "${WAR}Docker seems to be already installed."
+    echo -e "\t--> ${WAR}Docker seems to be already installed."
+    printf "\t--> "
     read -p "Would you like to abort the installation of Docker? (This wont affect the calling script.) [Y/n]" -r R1
     
     if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
@@ -42,20 +43,14 @@ curl -sSL https://get.docker.com -o docker_installer.sh
 sh docker_installer.sh
 
 if (( $? == 0 )); then
-    echo -e "${SUC}Docker successfully installed."
+    echo -e "\t-->${SUC}Docker successfully installed."
 else
-    echo -e "${ERR}Docker not successfully installed."
+    echo -e "\t-->${ERR}Docker not successfully installed."
     exit 1
 fi
 
 cd $SCR
 rm docker_installer.sh
-
-## Not necessary 
-# curl -fsSL https://test.docker.com -o docker_installer_test.sh
-# sh docker_installer_test.sh
-# cd $SCR
-# rm docker_installer_test.sh
 
 ## return from where we were called from
 cd $RIP
