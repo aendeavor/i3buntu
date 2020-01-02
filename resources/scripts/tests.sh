@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+# ? Preconfig
 
-echo "Hello, World!"
+## directory of this file - absolute & normalized
+SCR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 RED='\033[0;31m'    # RED
 GRE='\033[1;32m'    # GREEN
