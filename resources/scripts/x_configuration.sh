@@ -8,9 +8,9 @@
 # user-choices are handled, including the
 # installation of chosen fonts.
 # 
-# current version - 0.5.0
+# current version - 0.6.0
 
-sudo echo -e "\nThe configuration stage has begun!"
+sudo printf ""
 
 # ? Preconfig
 
@@ -21,6 +21,17 @@ SYS="$( readlink -m "${RES}/sys")"
 LOG="${BACK}/configuration_log"
 
 RS=( rsync -ahq --delete )
+
+RED='\033[0;31m'    # RED
+GRE='\033[1;32m'    # GREEN
+YEL='\033[1;33m'    # YELLOW
+BLU='\033[1;34m'    # BLUE
+NC='\033[0m'        # NO COLOR
+
+ERR="${RED}ERROR${NC}\t"
+WAR="${YEL}WARNING${NC}\t"
+SUC="${GRE}SUCCESS${NC}\t"
+INF="${BLU}INFO${NC}\t"
 
 ## init of backup-directory
 if [[ ! -d "$BACK" ]]; then
@@ -39,17 +50,18 @@ WTL=( tee -a "$LOG" )
 # ? Preconfig finished
 # ? User-choices begin
 
-echo ""
-read -p "Would you like me to edit nemo accordingly to your system? [Y/n]" -r R1
-read -p "Would you like me to edit /etc/default/grub? [Y/n]" -r R2
-read -p "Would you like me to sync fonts? [Y/n]" -r R3
+sudo echo -e "${INF}Configuration has begun!\n${INF}Please make your choices:\n"
+
+read -p "Would you like to edit nemo accordingly to your system? [Y/n]" -r R1
+read -p "Would you like to edit /etc/default/grub? [Y/n]" -r R2
+read -p "Would you like to sync fonts? [Y/n]" -r R3
 
 # ? User-choices end
 # ? Actual script begins
 
-## backup of configuration files
-echo -e "\nChecking for existing files:" | ${WTL[@]}
+echo -e "\n${INF}Started at: $(date '+%d.%m.%Y-%H:%M')\n${INF}Checkig for existing files\n" | ${WTL[@]}
 
+## backup of configuration files
 HOME_FILES=( "${HOME}/.bash_aliases" "${HOME}/.bashrc" "${HOME}/.vimrc" "${HOME}/.Xresources" )
 for FILE in ${HOME_FILES[@]}; do
     if [[ -f "$FILE" ]]; then
@@ -71,7 +83,7 @@ if [ -d "${HOME}/.config" ]; then
 fi
 
 ## deployment of configuration files
-echo -e "\nProceeding to deploying config files:" | ${WTL[@]}
+echo -e "\n${INF}Deploying config files" | ${WTL[@]}
 
 DEPLOY_IN_HOME=( sh/.bashrc sh/.bash_aliases vi/.vimrc vi/.viminfo Xi3/.Xresources )
 for sourceFile in "${DEPLOY_IN_HOME[@]}"; do
@@ -89,7 +101,7 @@ echo -e "-> Syncing i3's statusconfig"  | ${WTL[@]}
 >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/Xi3/i3statusconfig" "${HOME}/.config/i3"
 
 echo -e "-> Syncing xorg.conf"  | ${WTL[@]}
-sudo ${RS[@]} "${SYS}/Xi3/xorg.conf" /etc/X11
+>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/Xi3/xorg.conf" /etc/X11
 
 echo -e "-> Syncing lightdm-gtk-greeter.conf"  | ${WTL[@]}
 >/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/other_cfg/lightdm-gtk-greeter.conf" /etc/lightdm
@@ -103,6 +115,14 @@ echo -e "-> Syncing URXVT resize-font extension"  | ${WTL[@]}
 echo -e "-> Syncing compton.conf"  | ${WTL[@]}
 >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/other_cfg/compton.conf" "${HOME}/.config"
 
+if ! dpkg -s neovim >/dev/null 2>&1; then
+    echo -e "-> Syncing NeoVim's config"  | ${WTL[@]}
+    mkdir -p ~/.config/nvim/colors
+    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vi/init.vim" "${HOME}/.config/nvim"
+    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vi/colors/" "${HOME}/.config/nvim"
+fi
+
+
 echo -e "-> Syncing images directory"  | ${WTL[@]}
 >/dev/null 2>>"${LOG}" ${RS[@]} "${RES}/images" "${HOME}" 
 
@@ -112,18 +132,18 @@ if [[ -d "${HOME}/.config/Code" ]]; then
     >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vscode/settings.json" "${HOME}/.config/Code/User"
 fi
 
-## reload of services and caches
+echo -e "\n${INF} Reloading X-services"
 >/dev/null 2>>"${LOG}" xrdb ${HOME}/.Xresources 
 
-echo -e '\nFinished with the actual script.' | ${WTL[@]}
+echo -e "${SUC}Finished with the actual script" | ${WTL[@]}
 
 # ? Actual script finished
 # ? Extra script begins
 
-echo -e 'Processing user-choices:' | ${WTL[@]}
+echo -e "${INF}Processing user-choices" | ${WTL[@]}
 
 if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
-    printf "\n-> Nemo is being configured:"
+    printf "\n-> Nemo is being configured..."
     
     xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search
     gsettings set org.cinnamon.desktop.default-applications.terminal exec 'urxvt'
@@ -150,7 +170,7 @@ fi
 
 ## deployment of fonts
 if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
-    printf "\n-> Fonts are being installed:\n"
+    echo -e "\n${INF} Fonts are processed\n" | ${WTL[@]}
     
     find "${RES}/fonts/" -maxdepth 1 -iregex "[a-z0-9_\.\/\ ]*\w\.sh" -type f -exec chmod +x {} \;
     (
@@ -158,16 +178,17 @@ if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
         ./fonts.sh | ${WTL[@]}
     )
 
-    printf "\nRenewing font-cache..."
+    echo -e "\n${INF}Renewing font cache" | ${WTL[@]}
     >/dev/null 2>>"${LOG}" fc-cache -f
-    printf "\tfinished.\n" | ${WTL[@]}
 fi
+
+echo -e "\n${SUC}Finished with processing user-choices" | ${WTL[@]}
 
 # ? Extra script finished
 # ? Postconfiguration and restart
 
-echo -e "\n\nDeployment of configuration files has ended. Installation finished!\n\n" | ${WTL[@]}
-read -p "It is recommended to restart now. Would you like me to restart? [Y/n]" -r R10
-if [[ $R10 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R10 ]]; then
+echo -e "\n${INF}The script has finished!\n${INF}Ended at: $(date '+%d.%m.%Y-%H:%M')\n" | ${WTL[@]}
+read -p "It is recommended to restart now. Would you like to restart? [Y/n]" -r RESTART
+if [[ $RESTART =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RESTART ]]; then
     shutdown -r now
 fi

@@ -10,7 +10,7 @@
 # 
 # current version - 0.6.1
 
-sudo echo -e "\nThe configuration stage has begun!"
+sudo printf ""
 
 # ? Preconfig
 
@@ -21,6 +21,17 @@ SYS="$( readlink -m "${RES}/sys")"
 LOG="${BACK}/configuration_log"
 
 RS=( rsync -ahq --delete )
+
+RED='\033[0;31m'    # RED
+GRE='\033[1;32m'    # GREEN
+YEL='\033[1;33m'    # YELLOW
+BLU='\033[1;34m'    # BLUE
+NC='\033[0m'        # NO COLOR
+
+ERR="${RED}ERROR${NC}\t"
+WAR="${YEL}WARNING${NC}\t"
+SUC="${GRE}SUCCESS${NC}\t"
+INF="${BLU}INFO${NC}\t"
 
 ## init of backup-directory
 if [[ ! -d "$BACK" ]]; then
@@ -40,7 +51,7 @@ WTL=( tee -a "$LOG" )
 # ? Actual script begins
 
 ## backup of configuration files
-echo -e "\nChecking for existing files:" | ${WTL[@]}
+sudo echo -e "${INF}Configuration has begun!\n${INF}Started at: $(date '+%d.%m.%Y-%H:%M')\n${INF}Checkig for existing files\n" | ${WTL[@]}
 
 HOME_FILES=( "${HOME}/.bash_aliases" "${HOME}/.bashrc" "${HOME}/.vimrc" )
 for FILE in ${HOME_FILES[@]}; do
@@ -71,15 +82,13 @@ for sourceFile in "${DEPLOY_IN_HOME[@]}"; do
     >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/${sourceFile}" "${HOME}"
 done
 
-echo -e '\nFinished with the actual script.' | ${WTL[@]}
+echo -e "${SUC}Finished with the actual script" | ${WTL[@]}
 
 # ? Actual script finished
 # ? Postconfiguration and restart
 
-echo -e "\n\nDeployment of configuration files has ended. Installation finished!\n\n" | ${WTL[@]}
-
-for I in {10..1..-1}; do
-    echo -ne "\rRestart in $I seconds."
-    sleep 1
-done
-sudo shutdown -r now
+echo -e "\n${INF}The script has finished!\n${INF}Ended at: $(date '+%d.%m.%Y-%H:%M')\n" | ${WTL[@]}
+read -p "It is recommended to restart now. Would you like to restart? [Y/n]" -r RESTART
+if [[ $RESTART =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RESTART ]]; then
+    shutdown -r now
+fi

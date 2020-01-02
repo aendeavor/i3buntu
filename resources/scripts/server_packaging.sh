@@ -1,13 +1,11 @@
 #!/bin/bash
 
 # This script serves as the main installation script
-# for all neccessary packages for a desktop installation.
-# Via APT, core utils, browser, graphical environment
-# and much more is being installed.
-#
-# current version - 0.9.0
+# for all neccessary packages for a server installation.
+# 
+# current version - 0.9.2
 
-sudo echo -e "\nPackaging stage has begun!"
+sudo printf ""
 
 # ? Preconfig
 
@@ -19,6 +17,17 @@ LOG="${BACK}/packaging_log"
 IF=( --yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages )
 AI=( sudo apt-get install ${IF[@]} )
 SI=( sudo snap install )
+
+RED='\033[0;31m'    # RED
+GRE='\033[1;32m'    # GREEN
+YEL='\033[1;33m'    # YELLOW
+BLU='\033[1;34m'    # BLUE
+NC='\033[0m'        # NO COLOR
+
+ERR="${RED}ERROR${NC}\t"
+WAR="${YEL}WARNING${NC}\t"
+SUC="${GRE}SUCCESS${NC}\t"
+INF="${BLU}INFO${NC}\t"
 
 ## init of backup-directory
 if [[ ! -d "$BACK" ]]; then
@@ -37,12 +46,22 @@ WTL=( tee -a "${LOG}" )
 # ? Preconfig finished
 # ? User-choices begin
 
-echo -e "\nPlease make your choices:"
+sudo echo -e "${INF}Packaging has begun!\n${INF}Please make your choices:\n"
 
 read -p "Would you like to execute ubuntu-driver autoinstall? [Y/n]" -r R1
 read -p "Would you like to install Build-Essentials? [Y/n]" -r R2
-read -p "Would you like to get RUST? [Y/n]" -r R3
-read -p "Would you like to install Docker? [Y/n]" -r R4
+read -p "Would you like to install Docker? [Y/n]" -r R3
+
+if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
+    echo -e "\n${WAR}Docker has been chosen as an installation candidate. This may reqire manual user-input near the end of this script.\n"
+fi
+
+read -p "Would you like to get RUST? [Y/n]" -r R4
+
+if [[ $R4 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R4 ]]; then
+    echo -e "\n${WAR}Rust has been chosen as an installation candidate. This reqires manual user-input at the end of this script.\n"
+    sleep 3s
+fi
 
 # ? User choices end
 # ? Init of package selection
@@ -83,12 +102,12 @@ PACKAGES=( "${CRITICAL[@]}" "${ENV[@]}" "${MISC[@]}" )
 # ? End of init of package selection
 # ? Actual script begins
 
-echo -e "\nStarted at: $(date)\n\nInitial update" | ${WTL[@]}
+echo -e "${INF}Started at: $(date '+%d.%m.%Y-%H:%M')\n${INF}Initial update" | ${WTL[@]}
 
 sudo apt-get -y update | ${WTL[@]}
 sudo apt-get -y upgrade | ${WTL[@]}
 
-echo -e "Installing packages:\n" | ${WTL[@]}
+echo -e "${INF}Installing packages\n" | ${WTL[@]}
 
 printf "%-35s | %-15s | %-15s" "PACKAGE" "STATUS" "EXIT CODE"
 printf "\n"
@@ -105,31 +124,37 @@ for PACKAGE in "${PACKAGES[@]}"; do
     fi
 done
 
-echo -e 'Post-Update via APT' | ${WTL[@]}
->/dev/null 2>>"${LOG}" sudo apt-get -y update
->/dev/null 2>>"${LOG}" sudo apt-get -y upgrade
+echo -e "\n${SUC}Finished with actual script" | ${WTL[@]}
 
-echo -e '\nFinished with the actual script.' | ${WTL[@]}
 
 # ? Actual script finished
 # ? Extra script begins
 
-echo -e 'Processing user-choices:\n' | ${WTL[@]}
+echo -e "${INF}Processing user-choices\n" | ${WTL[@]}
 
 ## graphics driver
 if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
-    echo -e 'Enabling ubuntu-drivers autoinstall...' | ${WTL[@]}
+    echo 'Enabling ubuntu-drivers autoinstall' | ${WTL[@]}
     &>>"${LOG}" sudo ubuntu-drivers autoinstall
 fi
 
 if [[ $R2 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R2 ]]; then
-    echo -e 'Installing build-essential & cmake...' | ${WTL[@]}
+    echo 'Installing build-essential & CMake' | ${WTL[@]}
     >/dev/null 2>>"${LOG}" ${AI[@]} build-essential cmake
 fi
 
-if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
-    echo -e '\n\nInstalling RUST...' | ${WTL[@]}
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+if [[ $RC3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RC3 ]]; then
+    echo -e 'Installing Docker' | ${WTL[@]}
+    echo -e "${WAR}Manual user-input may be requiered!\n" | ${WTL[@]}
+    $(readlink -m "${DIR}/../sys/docker/get_docker.sh") $DIR
+fi
+
+if [[ $R12 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R12 ]]; then
+    echo -e "Installing RUST" | ${WTL[@]}
+    echo -e "${WAR}Manual user-input requiered!\n" | ${WTL[@]}
+
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile complete
+    
     source "${HOME}/.cargo/env"
     
     mkdir -p "${HOME}/.local/share/bash-completion/completions"
@@ -138,26 +163,17 @@ if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
 
     COMPONENTS=( rust-docs rust-analysis rust-src rustfmt rls clippy )
     for COMPONENT in ${COMPONENTS[@]}; do
-        rustup component add $COMPONENT | ${WTL[@]}
+        &>>"${LOG}" rustup component add $COMPONENT
     done
 
-    rustup update | ${WTL[@]}
+    >/dev/null 2>>"${LOG}" rustup update
 fi
 
-if [[ $RC4 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RC4 ]]; then
-    echo -e 'Installing Docker...' | ${WTL[@]}
-    $(readlink -m "${DIR}/../sys/docker/get_docker.sh") $DIR
-fi
+echo -e "\n${SUC}Finished with processing user-choices" | ${WTL[@]}
 
-echo -e 'Finished with processing user-choices. One last update...' | ${WTL[@]}
+# ? Extra script finished
+# ? Execution of next script
 
->/dev/null 2>>"${LOG}" sudo apt-get -y update
->/dev/null 2>>"${LOG}" sudo apt-get -y upgrade
->/dev/null 2>>"${LOG}" sudo snap refresh
-
-# ? Finish & Execution of next script
-
-echo -e "\nPackaging has finished!\nEnded at: $(date)\n" | ${WTL[@]}
-echo -e "\nStarting configuration." | ${WTL[@]}
+echo -e "${INF}This script has finished!\n${INF}Ended at: $(date '+%d.%m.%Y-%H:%M')\n${INF}Starting configuration-script now" | ${WTL[@]}
 
 "${DIR}/server_configuration.sh"
