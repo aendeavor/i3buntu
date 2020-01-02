@@ -6,6 +6,22 @@ This repository aims at providing you with a set of instructions to create your 
 
 [![Desktop Theme](resources/doc/desktop_theme.png)](https://www.reddit.com/r/unixporn/)
 
+## What's new
+
+Since 0.8.1 stable, the following changes took place:
+
+* 2 new build methods
+  * i3buntu now ships with a server and a docker version
+  * the server version is like th desktop version, but without the graphical environment
+  * the docker build script builds a dedicated docker container
+* new build script
+  * the build script has been reworked - now one single script distributes the installations. Further information in [./INSTALL.md](./INSTALL.md)
+* Docker integration
+  * Docker can now be installed during packaging
+  * A dedicated docker images can now be automatically created
+* new way logging
+  * logging has been reworked to show more color and coherent output
+
 ## Prerequisites
 
 ### Why Ubuntu
