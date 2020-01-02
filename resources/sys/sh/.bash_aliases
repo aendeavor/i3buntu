@@ -30,6 +30,9 @@ alias .....='cd ../../../..'
 alias rm='rm -r'
 alias echo='echo -e'
 alias sizeof='du -sh'
+alias v='vi'
+alias vm='vim'
+alias vi='nvim'
 
 a () {
     sudo apt-get "$1" "$2" "$3" "$4" "$5"
