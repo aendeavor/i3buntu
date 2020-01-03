@@ -26,6 +26,10 @@ tztime local {
 }
 
 battery all {
-    format = "%percentage"
+	format = "%percentage"
+    integer_battery_capacity = true
+    hide_seconds = true
+    threshold_type = percentage
+    low_threshold = 30
     format_down = ""
 }
