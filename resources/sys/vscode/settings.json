@@ -7,6 +7,8 @@
     "workbench.colorTheme": "Material Theme Ocean High Contrast",
     "workbench.iconTheme": "material-icon-theme",
 
+    "editor.fontLigatures": true,
+
     "git.enableSmartCommit": true,
     "git.confirmSync": false,
     "git.autofetch": true,
