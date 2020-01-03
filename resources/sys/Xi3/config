@@ -16,6 +16,7 @@ floating_modifier $mod
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
+## amixer -D pulse sset Master 100% unmute
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
@@ -238,6 +239,7 @@ bindsym $mod+r mode "resize"
 
 # Startup of authentication agent, urxvt-deamon and compton compositor
 exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+exec nm-applet &
 exec urxvtd -q -o -f &
 exec compton &
 exec owncloud &
