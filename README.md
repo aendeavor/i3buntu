@@ -1,43 +1,53 @@
 # Ubuntu Minimal & i3
 
+[//]: # (Serves an overview of i3buntu)
+[//]: # (version 0.9.3)
+
 ## Preamble
 
-This repository aims at providing you with a set of instructions to create your own minimal Ubuntu installation with the i3 window manager. This will enable you to not only work more efficiently with your system, but also in a much more beautiful environment.
+This repository aims at providing you with a set of instructions to create your own minimal Ubuntu installation with the i3 window manager. If you want to learn about i3buntu's features, there is a dedicated [FEATURES](./resources/doc/FEATURES.adoc) file. The latest (unstable) release of i3buntu is [v0.9.2-beta1](https://github.com/aendeavor/i3buntu/releases/tag/v0.9.2-beta1), the latest stable release is [v0.8.1-stable](https://github.com/aendeavor/i3buntu/releases/tag/v0.8.1-stable).
 
 [![Desktop Theme](resources/doc/desktop_theme.png)](https://www.reddit.com/r/unixporn/)
 
-## What's new
+## Installation instructions
 
-The latest unstable release is [v0.9.2-beta1](https://github.com/aendeavor/i3buntu/releases/tag/v0.9.2-beta1). The latest stable release is [v0.8.1-stable](https://github.com/aendeavor/i3buntu/releases/tag/v0.8.1-stable).
+Installation instructions are found [here](./INSTALL.md) or on the [wiki pages](https://github.com/aendeavor/i3buntu/wiki).
 
-Since _0.8.1-stable_, the following changes took place:
+## Latest enhancements
 
-* 2 new build methods
-  * i3buntu now ships with a server and a docker version
-  * the server version is like the desktop version, but without the graphical environment
-  * the docker build script builds a dedicated docker container
-* new build script
-  * the build script has been reworked - now one single script distributes the installations. Further information in [INSTALL.md](./INSTALL.md)
-* Docker integration
-  * Docker can now be installed during packaging
-  * A dedicated docker images can now be automatically created
-* new way logging
-  * logging has been reworked to show more color and coherent output
-* NeoVim integration
+##### New build script
 
-## Prerequisites
+The build script has been reworked - now one single script distributes the installations. Further information is found in [INSTALL.md](./INSTALL.md).
 
-### Why Ubuntu
+##### Two new build methods
+
+i3buntu now ships with a server and a docker version. The server version is like the desktop version, but without the graphical environment, the docker build script on the other hand builds a dedicated docker container.
+
+##### New way of logging
+
+Logging has been reworked to show more color and coherent output.
+
+##### Docker integration
+
+Docker can now be installed during packaging. A dedicated docker image can now be automatically created. This image is also found on [i3buntu's packages site](https://github.com/aendeavor/i3buntu/packages).
+
+##### NeoVIM integration
+
+NeoVIM is now featured as a user-choice. Furthermore, it comes with VIM-plug as the standard plugin manager and a color theme (Gruvbox).
+
+## About
+
+##### Why Ubuntu
 
 The following instructions are made for [Ubuntu](https://wiki.archlinux.org/index.php/Arch_compared_to_other_distributions#Ubuntu) / [Debian](https://wiki.archlinux.org/index.php/Arch_compared_to_other_distributions#General) based systems and are not compatible with other operating systems. Ubuntu has been chosen to provide every person with ease of use and stability. Although [Arch Linux](https://wiki.archlinux.org/index.php/Arch_Linux) is just more powerful when it comes to customizability, it is also more difficult to setup, and far easier to accidentally destroy.
 
-**Systems not based on Ubuntu, including but not limited to those using package-managers differing from APT or not supporting Snap, are not officially supported by this guide.**
+Systems not based on Ubuntu, including but not limited to those using package-managers differing from APT or not supporting Snap, are not officially supported by this guide.
 
-### Knowledge
+##### Knowledge
 
-It is *highly recommended* to be familiar with the linux environment and command line. Absolute beginners might start off with a simple Ubuntu installation and become comfortable first, before approaching this.
+It is recommended to be familiar with the linux environment and command line. Absolute beginners might start off with a simple Ubuntu installation and become comfortable first, before approaching this.
 
-### Dependencies
+##### Dependencies
 
 This guide relies on using the following sources.
 
@@ -50,30 +60,26 @@ This guide relies on using the following sources.
 * [LightDM](https://wiki.archlinux.org/index.php/LightDM) Display Manager
 * [Nemo](https://wiki.archlinux.org/index.php/Nemo) File Manager
 
-### Improvements
+## Improvements
 
-#### Desktop Environment and Color Scheme
+##### Desktop Environment and Color Scheme
 
 The i3 window manager together with the X display server drive your Ubuntu desktop. There is no bloatware or unnecessary waste of screen-space.
 
 The color scheme has been carefully picked and almost all components that can be configured have adapted this theme. Through the use of applications like URXVT and i3, customizability is no problem. If you are not satisfied with colors, change them on your own.
 
-#### Terminal
+##### Terminal
 
 On first sight, you will realize the prompt / PS1 has changed. It has become clearer and more lightweight. Bash now provides you with many more tools and aliases. The file [`bash_aliases`](resources/bash/.bash_aliases) contains aliases and exported functions. Make yourself familiar with them.
 
-#### Performance and Efficiency
+##### Performance and Efficiency
 
 i3 and X are much more lightweight compared to GNOME or KDE. As a result, everything is faster. Through the use of a tiling window manager working with your computer feels easier, as there is no drag-n-drop, pre-defined workspaces and less use of your mouse.
 
-#### Overview page
+##### Overview page
 
 There is a dedicated page to all features and improvements _i3buntu_ provides you with. Have a look at the [FEATURES](./resources/doc/FEATURES.adoc) file, where detailed information is given. If you are curious what has been changed in contrast to normal Ubuntu, or if you are just interested in improving your own system with these features, this page is the right one for you.
 
 ## Warranty
 
 This guide and these files come with absolutely **no warranty**! The knowledge is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of unleashing indescribable horrors.
-
-## Installation instructions
-
-Installation instructions are found [here](./INSTALL.md) or on the [wiki pages](https://github.com/Andevour/i3buntu/wiki). You will need to get an ISO file first, install the base system, clone this repository, execute the packaging script, reboot, execute the configuration script, reboot, manually tweak the desktop - and you are done.

@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # This script serves as the main installation script
-# for all neccessary packages for a desktop installation.
+# for all neccessary packages that a Docker container
+# should contain.
 # Via APT, core utils, browser, graphical environment
 # and much more is being installed.
 #
@@ -32,13 +33,9 @@ CRITICAL=(
     net-tools
     
     vim
-    neovim
 )
 
-ENV=(
-    build-essential
-    cmake
-)
+ENV=()
 
 MISC=(
     xsel
