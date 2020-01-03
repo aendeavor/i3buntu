@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This script serves as a wrapper for executing
+# This script serves as the main wrapper for executing
 # all other scripts, i.e. the desktop, server or
 # Docker installation of i3buntu.
 #
@@ -26,7 +26,7 @@ INF="${BLU}INFO${NC}\t"
 
 case "$1" in 
         "--docker")
-            echo -e "${SUC}Docker will be setup."
+            echo -e "${SUC}A Docker container will be setup."
             "${SCR}/../sys/docker/docker_up.sh"
         ;;
         "--desktop")
