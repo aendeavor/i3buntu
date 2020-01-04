@@ -2,7 +2,7 @@ general {
 	colors = true
 
 	color_good = "#827972"
-	color_bad = "#827972"
+	color_bad = "#E84A5f"
 	color_degraded = "#827972"
     color_separator = "#FDDAC6"
 
