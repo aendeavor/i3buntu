@@ -1,3 +1,3 @@
-[submodule "Documentation"]
-	path = Documentation
+[submodule "documentation"]
+	path = documentation
 	url = git@github.com:aendeavor/documentation.git
