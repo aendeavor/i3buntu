@@ -2,17 +2,21 @@
     "window.zoomLevel": 0,
     "telemetry.enableTelemetry": false,
 
+    // workbench
     "workbench.startupEditor": "newUntitledFile",
     "workbench.sideBar.location": "right",
     "workbench.colorTheme": "Material Theme Ocean High Contrast",
     "workbench.iconTheme": "material-icon-theme",
 
-    "editor.fontLigatures": true,
-
+    // git
     "git.enableSmartCommit": true,
     "git.confirmSync": false,
     "git.autofetch": true,
-
+    
+    // latex
+    "latex-workshop.message.update.show": false,
+    "latex-workshop.latex.build.clearLog.everyRecipeStep.enabled": false,
+    "latex-workshop.view.pdf.viewer": "tab",
     "latex-workshop.latex.tools": [
         {
             "name": "xelatex",
@@ -34,24 +38,29 @@
             ]
         }
     ],
-    "latex-workshop.message.update.show": false,
-    "latex-workshop.latex.build.clearLog.everyRecipeStep.enabled": false,
-    "latex-workshop.view.pdf.viewer": "tab",
 
+    // editor
+    "editor.fontLigatures": true,
     "editor.suggestSelection": "first",
     "editor.wordWrap": "bounded",
     "editor.wordWrapColumn": 130,
 
+    // explorer
     "explorer.confirmDragAndDrop": false,
     "explorer.confirmDelete": false,
 
-    "asciidoc.preview.useEditorStyle": false,
+    // asciidoc
     "asciidoc.use_asciidoctorpdf": true,
+    "asciidoc.preview.useEditorStyle": false,
+    "asciidoc.use_asciidoctor_js": false,
     
+    // intellicode
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
 
+    // python
     "python.jediEnabled": false,
 
+    // files
     "files.exclude": {
         "**/.classpath": true,
         "**/.project": true,
@@ -59,9 +68,7 @@
         "**/.factorypath": true
     },
 
-    "cSpell.userWords": [
-        "DSGVO"
-    ],
+    // cspell
     "cSpell.language": "de,en",
     "cSpell.enabledLanguageIds": [
         "asciidoc",
@@ -98,4 +105,6 @@
         "yml"
     ],
 
+    // liveserver
+    "liveServer.settings.donotShowInfoMsg": true
 }

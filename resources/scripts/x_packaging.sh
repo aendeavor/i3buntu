@@ -147,6 +147,8 @@ MISC=(
     xsel
     xclip
 
+    ruby
+
     neofetch
     htop
 
@@ -267,6 +269,7 @@ fi
 if [[ $R5 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R5 ]]; then
     echo -e 'Installing LaTeX...' | ${WTL[@]}
     >/dev/null 2>>"${LOG}" ${AI[@]} texlive-full
+    >/dev/null 2>>"${LOG}" ${AI[@]} python3-pygments
 fi
 
 if [[ $R6 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R6 ]]; then
