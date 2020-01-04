@@ -109,6 +109,12 @@ if [[ ! -z $(which rustup) ]]; then
     fi
 fi
 
+if [[ ! -z $(which gem) ]]; then
+     sudo gem install asciidoctor-pdf --pre
+     sudo gem install pygments.r
+     sudo gem install rouge
+fi
+
 # ? Actual script finished
 # ? Postconfiguration
 
