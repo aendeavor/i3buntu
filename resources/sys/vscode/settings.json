@@ -52,7 +52,7 @@
     // asciidoc
     "asciidoc.use_asciidoctorpdf": true,
     "asciidoc.preview.useEditorStyle": false,
-    "asciidoc.use_asciidoctor_js": false,
+    "asciidoc.use_asciidoctor_js": true,
     
     // intellicode
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
