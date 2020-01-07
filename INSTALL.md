@@ -34,7 +34,7 @@ sudo add-apt-repository -y ppa:ubuntu-mozilla-security/ppa
 Afterwards, download a release of i3buntu onto your system. You will need to extract  it, and, if you like, you can rename it. The following commands accomplish just that.
 
 ``` BASH
-# download the latest release
+# download the latest stable release
 cd && wget https://github.com/Andevour/i3buntu/archive/v0.8.1-stable.tar.gz
 
 # decompress the .tar.gz
@@ -73,9 +73,7 @@ cd && ./i3buntu/install.sh --docker
 
 After a reboot, you should be greeted on a graphical interface. During login, i3 will ask you whether you would like to create an i3 config file, which you will answer with _yes_. For your _mod key_, choose the _Super_ key. If you're new to tiling window managers, now would be the time to read a [wiki](https://wiki.archlinux.org/index.php/I3).
 
-_Before version v0.9.2-beta1_, you will need to execute the `configuration.sh` script. Open the terminal by pressing _mod + Enter_ and execute it. It will setup all configuration-files and **will automatically replace** files which it is supposed to deploy. It also performs a backup which can be found in `~/i3buntu/backups/` containing `.bak`-files.
-
-Before you go though, make sure to put in the correct xrandr/arandr settings. You will need to do this to make sure your screens are properly displayed. As each screen setup is different, there is no universal automated solution here. Just open `arandr`, either by command line or through rofi, which is invoked with _mod + d_. This programm will assist you with the setup of multiple monitors. When you are done and satisfied, save these setting in a file of your choice, open this file and copy the content. Next, open i3's `config`-file in this repositorythe
+Before you go though, make sure to put in the correct xrandr/arandr settings. You will need to do this to make sure your screens are properly displayed. As each screen setup is different, there is no universal automated solution here. Just open `arandr`, either by command line or through rofi, which is invoked with _mod + d_. `arandr` will assist you with the setup of multiple monitors. When you are done and satisfied, save these setting in a file of your choice, open this file and copy the content. Next, open i3's `config`-file in this repository
 
 ``` BASH
 cd ~/i3buntu && vi ./resources/sys/Xi3/config
@@ -87,11 +85,13 @@ Paste your setup in these lines
 
 Afterwards, save the file and run your configuration script
 
+_Before version v0.9.2-beta1_, you will need to execute the `configuration.sh` script. Open the terminal by pressing _mod + Enter_ and execute it. It will setup all configuration-files and **will automatically replace** files which it is supposed to deploy. It also performs a backup which can be found in `~/i3buntu/backups/` containing `.bak`-files.
+
 ``` BASH
 cd && ./i3buntu/scripts/configuration.sh
 ```
 
-_From version v0.9.2-beta1 onwards_ however, there is a new and enhanced way. The [`install.sh`](./install.sh) also grants you the ability to configure i3buntu with necessary configuration files. It basically works just like the old `configuration.sh` with enhancements. A backup is performed, files are replaced, user-choices processed. The server-installation does this automatically, so you will not need to do this yourself if you install i3buntu as a server. There is also no separate configuration for the Docker container. This is how you invoke configuration:
+_From version v0.9.2-beta1 onwards_ however, [`install.sh`](./install.sh) also grants you the ability to configure i3buntu with necessary configuration files. It basically works just like the old `configuration.sh` with enhancements. A backup is performed, files are replaced, user-choices processed. The server-installation does this automatically, so you will not need to do this yourself if you install i3buntu as a server. There is also no separate configuration for the Docker container. This is how you invoke configuration:
 
 ``` BASH
 # For desktop installations, you will need

@@ -66,7 +66,7 @@ This guide relies on using the following sources.
 
 The i3 window manager together with the X display server drive your Ubuntu desktop. There is no bloatware or unnecessary waste of screen-space.
 
-The color scheme has been carefully picked and almost all components that can be configured have adapted this theme. Through the use of applications like URXVT and i3, customizability is no problem. If you are not satisfied with colors, change them on your own.
+The color scheme has been carefully picked and almost all components that can be configured have adapted this theme. Through the use of applications like URXVT and i3, customizability is no problem.
 
 ##### Terminal
 
@@ -74,11 +74,7 @@ On first sight, you will realize the prompt / PS1 has changed. It has become cle
 
 ##### Performance and Efficiency
 
-i3 and X are much more lightweight compared to GNOME or KDE. As a result, everything is faster. Through the use of a tiling window manager working with your computer feels easier, as there is no drag-n-drop, pre-defined workspaces and less use of your mouse.
-
-##### Overview page
-
-There is a dedicated page to all features and improvements _i3buntu_ provides you with. Have a look at the [FEATURES](./resources/doc/FEATURES.adoc) file, where detailed information is given. If you are curious what has been changed in contrast to normal Ubuntu, or if you are just interested in improving your own system with these features, this page is the right one for you.
+i3 and X are much more lightweight compared to GNOME or KDE. As a result, everything is faster. Through the use of a tiling window manager working with your computer feels easier, as there are pre-defined workspaces.
 
 ## Warranty
 
