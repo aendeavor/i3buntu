@@ -3,7 +3,7 @@
 # This script serves as the main installation script
 # for all neccessary packages for a server installation.
 # 
-# current version - 0.9.3
+# current version - 0.9.5
 
 sudo printf ""
 
@@ -18,16 +18,8 @@ IF=( --yes --allow-unauthenticated --allow-downgrades --allow-remove-essential -
 AI=( sudo apt-get install ${IF[@]} )
 SI=( sudo snap install )
 
-RED='\033[0;31m'    # RED
-GRE='\033[1;32m'    # GREEN
-YEL='\033[1;33m'    # YELLOW
-BLU='\033[1;34m'    # BLUE
-NC='\033[0m'        # NO COLOR
-
-ERR="${RED}ERROR${NC}\t"
-WAR="${YEL}WARNING${NC}\t"
-SUC="${GRE}SUCCESS${NC}\t"
-INF="${BLU}INFO${NC}\t"
+# initiate aliases and functions
+. "${DIR}/../sys/sh/.bash_aliases"
 
 ## init of backup-directory
 if [[ ! -d "$BACK" ]]; then
@@ -46,20 +38,22 @@ WTL=( tee -a "${LOG}" )
 # ? Preconfig finished
 # ? User-choices begin
 
-sudo echo -e "${INF}Packaging has begun!\n${INF}Please make your choices:\n"
+inform 'Packaging has begun'
+inform "Please make your choices:\n"
 
 read -p "Would you like to execute ubuntu-driver autoinstall? [Y/n]" -r R1
 read -p "Would you like to install Build-Essentials? [Y/n]" -r R2
 read -p "Would you like to install Docker? [Y/n]" -r R3
 
 if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
-    echo -e "\n${WAR}Docker has been chosen as an installation candidate. This may reqire manual user-input near the end of this script.\n"
+    warn "Docker has been chosen as an installation candidate. This may reqire manual user-input near the end of this script.\n"
+    sleep 3s
 fi
 
 read -p "Would you like to get RUST? [Y/n]" -r R4
 
 if [[ $R4 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R4 ]]; then
-    echo -e "\n${WAR}Rust has been chosen as an installation candidate. This reqires manual user-input at the end of this script.\n"
+    warn "Rust has been chosen as an installation candidate. This reqires manual user-input at the end of this script.\n"
     sleep 3s
 fi
 
@@ -102,12 +96,10 @@ PACKAGES=( "${CRITICAL[@]}" "${ENV[@]}" "${MISC[@]}" )
 # ? End of init of package selection
 # ? Actual script begins
 
-echo -e "${INF}Started at: $(date '+%d.%m.%Y-%H:%M')\n${INF}Initial update" | ${WTL[@]}
+inform 'Initial update' "$LOG"
+update
 
-sudo apt-get -y update | ${WTL[@]}
-sudo apt-get -y upgrade | ${WTL[@]}
-
-echo -e "${INF}Installing packages\n" | ${WTL[@]}
+inform "Installing packages\n" "$LOG"
 
 printf "%-35s | %-15s | %-15s" "PACKAGE" "STATUS" "EXIT CODE"
 printf "\n"
@@ -124,13 +116,12 @@ for PACKAGE in "${PACKAGES[@]}"; do
     fi
 done
 
-echo -e "\n${SUC}Finished with actual script" | ${WTL[@]}
-
+succ 'Finished with actual script' "LOG"
 
 # ? Actual script finished
 # ? Extra script begins
 
-echo -e "${INF}Processing user-choices\n" | ${WTL[@]}
+inform "Processing user-choices\n" "LOG"
 
 ## graphics driver
 if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
@@ -169,11 +160,12 @@ if [[ $R12 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R12 ]]; then
     >/dev/null 2>>"${LOG}" rustup update
 fi
 
-echo -e "\n${SUC}Finished with processing user-choices" | ${WTL[@]}
+succ 'Finished with processing user-choices' "$LOG"
 
 # ? Extra script finished
 # ? Execution of next script
 
-echo -e "${INF}This script has finished!\n${INF}Ended at: $(date '+%d.%m.%Y-%H:%M')\n${INF}Starting configuration-script now" | ${WTL[@]}
+inform 'This script has finished'
+inform 'Starting configuration-script now'
 
 "${DIR}/server_configuration.sh"

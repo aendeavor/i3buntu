@@ -5,7 +5,7 @@
 # Via APT, core utils, browser, graphical environment
 # and much more is being installed.
 #
-# version   0.9.3
+# version   0.9.5
 # sources   https://afshinm.name/neovim/
 
 sudo printf ""
@@ -21,16 +21,8 @@ IF=( --yes --allow-unauthenticated --allow-downgrades --allow-remove-essential -
 AI=( sudo apt-get install ${IF[@]} )
 SI=( sudo snap install )
 
-RED='\033[0;31m'    # RED
-GRE='\033[1;32m'    # GREEN
-YEL='\033[1;33m'    # YELLOW
-BLU='\033[1;34m'    # BLUE
-NC='\033[0m'        # NO COLOR
-
-ERR="${RED}ERROR${NC}\t"
-WAR="${YEL}WARNING${NC}\t"
-SUC="${GRE}SUCCESS${NC}\t"
-INF="${BLU}INFO${NC}\t"
+# initiate aliases and functions
+. "${DIR}/../sys/sh/.bash_aliases"
 
 ## init of backup-directory
 if [[ ! -d "$BACK" ]]; then
@@ -49,7 +41,8 @@ WTL=( tee -a "${LOG}" )
 # ? Preconfig finished
 # ? User-choices begin
 
-echo -e "${INF}Packaging has begun!\n${INF}Please make your choices:\n"
+inform 'Packaging has begun'
+inform "Please make your choices:\n"
 
 read -p "Would you like to execute ubuntu-driver autoinstall? [Y/n]" -r R1
 read -p "Would you like to install OpenJDK? [Y/n]" -r R2
@@ -70,15 +63,17 @@ read -p "Would you like to install the JetBrains IDE suite? [Y/n]" -r R10
 read -p "Would you like to install Docker? [Y/n]" -r R11
 
 if [[ $R11 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R11 ]]; then
-    echo -e "\n${WAR}Docker has been chosen as an installation candidate. This may reqire manual user-input near the end of this script.\n"
+    warn "Docker has been chosen as an installation candidate. This may reqire manual user-input near the end of this script.\n"
+    sleep 3s
 fi
 
 read -p "Would you like to install RUST? [Y/n]" -r R12
 
 if [[ $R12 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R12 ]]; then
-    echo -e "\n${WAR}Rust has been chosen as an installation candidate. This reqires manual user-input at the end of this script.\n"
+    warn "Rust has been chosen as an installation candidate. This reqires manual user-input at the end of this script.\n"
     sleep 3s
 fi
+
 # ? User choices end
 # ? Init of package selection
 
@@ -166,6 +161,7 @@ MISC=(
     nomacs
     
     scrot
+    qalculator
 )
 
 PACKAGES=( "${CRITICAL[@]}" "${ENV[@]}" "${MISC[@]}" )
@@ -173,23 +169,16 @@ PACKAGES=( "${CRITICAL[@]}" "${ENV[@]}" "${MISC[@]}" )
 # ? End of init of package selection
 # ? Actual script begins
 
-echo -e "${INF}Started at: $(date '+%d.%m.%Y-%H:%M')\n${INF}Initial update" | ${WTL[@]}
+inform 'Initial update' "$LOG"
+update
 
->/dev/null 2>>"${LOG}" sudo apt-get -y update
->/dev/null 2>>"${LOG}" sudo apt-get -y upgrade
-
-echo -e "${INF}Installing packages\n" | ${WTL[@]}
+inform "Installing packages\n" "$LOG"
 
 printf "%-35s | %-15s | %-15s" "PACKAGE" "STATUS" "EXIT CODE"
 printf "\n"
 
 ## needs to be checked first, as LightDM conflicts with these packages
->/dev/null 2>>"${LOG}" sudo apt-get remove ${IF[@]} liblightdm-gobject* liblightdm-qt*
-EC=$?
-printf "%-35s | %-15s | %-15s" "liblightdm-*" "Removed" "${EC}"
-printf "\n"
-&>>"${LOG}" echo -e "dmenu\n\t -> EXIT CODE: ${EC}"
-unset EC
+uninstall_and_log "${LOG}" liblightdm-gobject* liblightdm-qt*
 
 for PACKAGE in "${PACKAGES[@]}"; do
     >/dev/null 2>>"${LOG}" ${AI[@]} ${PACKAGE}
@@ -205,14 +194,9 @@ for PACKAGE in "${PACKAGES[@]}"; do
     &>>"${LOG}" echo -e "${PACKAGE}\n\t -> EXIT CODE: ${EC}"
 done
 
->/dev/null 2>>"${LOG}" sudo apt-get remove ${IF[@]} suckless-tools
-EC=$?
-printf "%-35s | %-15s | %-15s" "dmenu" "Removed" "${EC}"
-printf "\n\n"
-&>>"${LOG}" echo -e "dmenu\n\t -> EXIT CODE: ${EC}"
-unset EC
+uninstall_and_log "${LOG}" suckless-tools
 
-echo -e "${INF}Icon-Theme is being processed" | ${WTL[@]}
+inform 'Icon-Theme is being processed' "$LOG"
 (
     cd "${DIR}/../icon_theme"
     &>>"${LOG}" find . -maxdepth 1 -iregex "[a-z0-9_\.\/\ ]*\w\.sh" -type f -exec chmod +x {} \;
@@ -220,16 +204,16 @@ echo -e "${INF}Icon-Theme is being processed" | ${WTL[@]}
 )
 
 if ! dpkg -s adapta-gtk-theme-colorpack >/dev/null 2>&1; then
-    echo -e "${INF}Color-Pack is being processed" | ${WTL[@]}
+    inform 'Color-Pack is being processed ' "$LOG"
     >/dev/null 2>>"${LOG}" sudo dpkg -i "${DIR}/../resources/design/AdaptaGTK_colorpack.deb"
 fi
 
-echo -e "${SUC}Finished with actual script" | ${WTL[@]}
+succ 'Finished with actual script' "LOG"
 
 # ? Actual script finished
 # ? Extra script begins
 
-echo -e "${INF}Processing user-choices\n" | ${WTL[@]}
+inform "Processing user-choices\n" "LOG"
 
 ## graphics driver
 if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
@@ -287,8 +271,8 @@ if [[ $RC8 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RC8 ]]; then
     >/dev/null 2>>"${LOG}" sudo apt install neovim
     >/dev/null 2>>"${LOG}" curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-    echo -e "\t-->${WAR}You will need to run :PlugInstall seperately in NeoVIM as you cannot execute this command in a shell."
-    echo -e "\t-->${WAR}Thereafter, run ~/.config/nvim/plugged/YouCompleteMe/install.py --racer-completer --tern-completer."
+    warn 'You will need to run :PlugInstall seperately in NeoVIM as you cannot execute this command in a shell.'
+    warn 'Thereafter, run ~/.config/nvim/plugged/YouCompleteMe/install.py --racer-completer --tern-completer.'
     sleep 3s
 fi
 
@@ -313,13 +297,13 @@ fi
 
 if [[ $RC11 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RC11 ]]; then
     echo -e 'Installing Docker' | ${WTL[@]}
-    echo -e "${WAR}Manual user-input may be requiered!\n" | ${WTL[@]}
+    warn "Manual user-input may be required!\n"
     $(readlink -m "${DIR}/../sys/docker/get_docker.sh") $DIR
 fi
 
 if [[ $R12 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R12 ]]; then
     echo -e "Installing RUST" | ${WTL[@]}
-    echo -e "${WAR}Manual user-input requiered!\n" | ${WTL[@]}
+    warn "Manual user-input requiered!\n"
 
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile complete
     
@@ -341,12 +325,12 @@ if [[ $R12 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R12 ]]; then
     >/dev/null 2>>"${LOG}" rustup update
 fi
 
-echo -e "\n${SUC}Finished with processing user-choices" | ${WTL[@]}
+succ 'Finished with processing user-choices' "$LOG"
 
 # ? Extra script finished
 # ? Postconfiguration and restart
 
-echo -e "\n${INF}The script has finished!\n${INF}Ended at: $(date '+%d.%m.%Y-%H:%M')\n" | ${WTL[@]}
+inform 'The script has finished' "$LOG"
 read -p "It is recommended to restart now. Would you like to restart? [Y/n]" -r RESTART
 if [[ $RESTART =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RESTART ]]; then
     shutdown -r now

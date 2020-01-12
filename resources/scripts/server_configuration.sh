@@ -8,7 +8,7 @@
 # by the sever_packaging.sh script after it has
 # run.
 # 
-# current version - 0.6.2
+# current version - 0.7.3
 
 sudo printf ""
 
@@ -22,16 +22,8 @@ LOG="${BACK}/configuration_log"
 
 RS=( rsync -ahq --delete )
 
-RED='\033[0;31m'    # RED
-GRE='\033[1;32m'    # GREEN
-YEL='\033[1;33m'    # YELLOW
-BLU='\033[1;34m'    # BLUE
-NC='\033[0m'        # NO COLOR
-
-ERR="${RED}ERROR${NC}\t"
-WAR="${YEL}WARNING${NC}\t"
-SUC="${GRE}SUCCESS${NC}\t"
-INF="${BLU}INFO${NC}\t"
+# initiate aliases and functions
+. "${SYS}/sh/.bash_aliases"
 
 ## init of backup-directory
 if [[ ! -d "$BACK" ]]; then
@@ -51,7 +43,8 @@ WTL=( tee -a "$LOG" )
 # ? Actual script begins
 
 ## backup of configuration files
-sudo echo -e "${INF}Configuration has begun!\n${INF}Started at: $(date '+%d.%m.%Y-%H:%M')\n${INF}Checkig for existing files\n" | ${WTL[@]}
+inform "Configuration has begun\n"
+inform "Checkig for existing files\n" "$LOG"
 
 HOME_FILES=( "${HOME}/.bash_aliases" "${HOME}/.bashrc" "${HOME}/.vimrc" )
 for FILE in ${HOME_FILES[@]}; do
@@ -74,7 +67,7 @@ if [ -d "${HOME}/.config" ]; then
 fi
 
 ## deployment of configuration files
-echo -e "\nProceeding to deploying config files:" | ${WTL[@]}
+inform "\nProceeding to deploying config files:" "$LOG"
 
 DEPLOY_IN_HOME=( sh/.bashrc sh/.bash_aliases vi/.vimrc vi/.viminfo )
 for sourceFile in "${DEPLOY_IN_HOME[@]}"; do
@@ -82,12 +75,12 @@ for sourceFile in "${DEPLOY_IN_HOME[@]}"; do
     >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/${sourceFile}" "${HOME}"
 done
 
-echo -e "${SUC}Finished with the actual script" | ${WTL[@]}
+inform 'Finished with the actual script' "$LOG"
 
 # ? Actual script finished
 # ? Postconfiguration and restart
 
-echo -e "\n${INF}The script has finished!\n${INF}Ended at: $(date '+%d.%m.%Y-%H:%M')\n" | ${WTL[@]}
+inform 'The script has finished'
 read -p "It is recommended to restart now. Would you like to restart? [Y/n]" -r RESTART
 if [[ $RESTART =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RESTART ]]; then
     shutdown -r now
