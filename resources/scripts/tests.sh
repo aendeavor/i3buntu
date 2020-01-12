@@ -15,3 +15,7 @@ SCR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 . "${SCR}/../sys/sh/.bash_aliases"
 
 warn 'This is a test!'
+
+succ "TEST"
+inform "TEST"
+err "TEST"

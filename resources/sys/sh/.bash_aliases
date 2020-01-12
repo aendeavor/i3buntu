@@ -49,21 +49,21 @@ export -f inform
 err()
 {
     local LOG=${2:-"/dev/null"}
-    echo -e "$(date '+%d.%m.%Y %H:%M:%S') \033[0;31mINFO\033[0m\t$1" | tee -a "$LOG"
+    echo -e "$(date '+%d.%m.%Y %H:%M:%S') \033[0;31mERROR\033[0m\t$1" | tee -a "$LOG"
 }
 export -f err
 
 warn()
 {
     local LOG=${2:-"/dev/null"}
-    echo -e "$(date '+%d.%m.%Y %H:%M:%S') \033[1;33mINFO\033[0m\t$1" | tee -a "$LOG"
+    echo -e "$(date '+%d.%m.%Y %H:%M:%S') \033[1;33mWARNING\033[0m\t$1" | tee -a "$LOG"
 }
 export -f warn
 
 succ()
 {
     local LOG=${2:-"/dev/null"}
-    echo -e "$(date '+%d.%m.%Y %H:%M:%S') \033[1;34mINFO\033[0m\t$1" | tee -a "$LOG"
+    echo -e "$(date '+%d.%m.%Y %H:%M:%S') \033[1;32mSUCESS\033[0m\t$1" | tee -a "$LOG"
 }
 export -f succ
 
