@@ -11,6 +11,8 @@
 ## directory of this file - absolute & normalized
 SCR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/resources/scripts"
 
+. "${SCR}/../sys/sh/.bash_aliases"
+
 RED='\033[0;31m'    # RED
 GRE='\033[1;32m'    # GREEN
 YEL='\033[1;33m'    # YELLOW
@@ -26,47 +28,51 @@ INF="${BLU}INFO${NC}\t"
 
 case "$1" in 
         "--docker")
-            echo -e "${SUC}A Docker container will be setup."
+            succ 'A Docker container will be setup.'
             "${SCR}/../sys/docker/docker_up.sh"
         ;;
         "--desktop")
             case "$2" in
                 "pkg")
-                    echo -e "${SUC}Packaging for desktops will be executed."
+                    succ 'Packaging for desktops will be executed.'
                     "${SCR}/x_packaging.sh"
                 ;;
                 "cfg")
-                    echo -e "${SUC}Configuration for desktops will be executed."
+                    succ 'Configuration for desktops will be executed.'
                     "${SCR}/x_configuration.sh"
                 ;;
                 *)
-                    echo -e "${WAR}Please state whether you want packaging or configuration to happen."
+                    warn 'Please state whether you want packaging or configuration to happen.'
                     while true; do
                         read -p "Would you like to execute packaging or configuration? [pkg/cfg]" -r PAR
                         if [[ $PAR =~ ^(cfg|pkg) ]]; then
                             break
                         else
-                            echo -e "${WAR}Could not identify input. Try again."
+                            warn 'Could not identify input. Try again.'
                             continue
                         fi
                     done
 
                     if [[ $PAR == "pkg" ]]; then
-                        echo -e "${SUC}Packaging for desktops will be executed."
+                        succ 'Packaging for desktops will be executed.'
                         "${SCR}/x_packaging.sh"
                     else
-                        echo -e "${SUC}Configuration for desktops will be executed."
+                        succ 'Configuration for desktops will be executed.'
                         "${SCR}/x_configuration.sh"
                     fi
                 ;;
             esac
         ;;
         "--server")
-            echo -e "${SUC}Server packaging and configuration will be setup."
+            succ 'Server packaging and configuration will be setup.'
             "${SCR}/server_packaging.sh"
         ;;
+        "--version" | "-v")
+            echo -e "i3buntu\t\tversion  v0.9.2-beta.1 unstable"
+            echo -e "This script\tversion  v0.1.0"
+            ;;
         *)
-            echo -e "${ERR}Please consult INSTALL.md on how to use this script."
+            err 'Please consult INSTALL.md on how to use this script.'
             exit 1
         ;;
 esac
