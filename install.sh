@@ -13,17 +13,6 @@ SCR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/resources
 
 . "${SCR}/../sys/sh/.bash_aliases"
 
-RED='\033[0;31m'    # RED
-GRE='\033[1;32m'    # GREEN
-YEL='\033[1;33m'    # YELLOW
-BLU='\033[1;34m'    # BLUE
-NC='\033[0m'        # NO COLOR
-
-ERR="${RED}ERROR${NC}\t"
-WAR="${YEL}WARNING${NC}\t"
-SUC="${GRE}SUCCESS${NC}\t"
-INF="${BLU}INFO${NC}\t"
-
 # ? Actual script
 
 case "$1" in 
@@ -31,7 +20,7 @@ case "$1" in
             succ 'A Docker container will be setup.'
             "${SCR}/../sys/docker/docker_up.sh"
         ;;
-        "--desktop")
+        "--desktop" | "-d")
             case "$2" in
                 "pkg")
                     succ 'Packaging for desktops will be executed.'
@@ -63,7 +52,7 @@ case "$1" in
                 ;;
             esac
         ;;
-        "--server")
+        "--server" | "-s")
             succ 'Server packaging and configuration will be setup.'
             "${SCR}/server_packaging.sh"
         ;;
