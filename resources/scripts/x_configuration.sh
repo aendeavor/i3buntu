@@ -8,7 +8,7 @@
 # user-choices are handled, including the
 # installation of chosen fonts.
 # 
-# current version - 0.6.2
+# current version - 0.7.5
 
 sudo printf ""
 
@@ -22,16 +22,8 @@ LOG="${BACK}/configuration_log"
 
 RS=( rsync -ahq --delete )
 
-RED='\033[0;31m'    # RED
-GRE='\033[1;32m'    # GREEN
-YEL='\033[1;33m'    # YELLOW
-BLU='\033[1;34m'    # BLUE
-NC='\033[0m'        # NO COLOR
-
-ERR="${RED}ERROR${NC}\t"
-WAR="${YEL}WARNING${NC}\t"
-SUC="${GRE}SUCCESS${NC}\t"
-INF="${BLU}INFO${NC}\t"
+# initiate aliases and functions
+. "${SYS}/sh/.bash_aliases"
 
 ## init of backup-directory
 if [[ ! -d "$BACK" ]]; then
@@ -45,12 +37,13 @@ if [[ ! -f "$LOG" ]]; then
     fi
     touch "$LOG"
 fi
-WTL=( tee -a "$LOG" )
+WTL=( tee -a "${LOG}" )
 
 # ? Preconfig finished
 # ? User-choices begin
 
-sudo echo -e "${INF}Configuration has begun!\n${INF}Please make your choices:\n"
+inform 'Configuration has begun'
+inform "Please make your choices:\n"
 
 read -p "Would you like to edit nemo accordingly to your system? [Y/n]" -r R1
 read -p "Would you like to edit /etc/default/grub? [Y/n]" -r R2
@@ -59,7 +52,7 @@ read -p "Would you like to sync fonts? [Y/n]" -r R3
 # ? User-choices end
 # ? Actual script begins
 
-echo -e "\n${INF}Started at: $(date '+%d.%m.%Y-%H:%M')\n${INF}Checkig for existing files\n" | ${WTL[@]}
+inform "Checkig for existing files\n" "$LOG"
 
 ## backup of configuration files
 HOME_FILES=( "${HOME}/.bash_aliases" "${HOME}/.bashrc" "${HOME}/.vimrc" "${HOME}/.Xresources" )
@@ -83,7 +76,7 @@ if [ -d "${HOME}/.config" ]; then
 fi
 
 ## deployment of configuration files
-echo -e "\n${INF}Deploying config files" | ${WTL[@]}
+inform 'Deploying config files' "$LOG"
 
 DEPLOY_IN_HOME=( sh/.bashrc sh/.bash_aliases vi/.vimrc vi/.viminfo Xi3/.Xresources )
 for sourceFile in "${DEPLOY_IN_HOME[@]}"; do
@@ -132,15 +125,15 @@ if [[ -d "${HOME}/.config/Code" ]]; then
     >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vscode/settings.json" "${HOME}/.config/Code/User"
 fi
 
-echo -e "\n${INF} Reloading X-services"
+inform 'Reloading X-services'
 >/dev/null 2>>"${LOG}" xrdb ${HOME}/.Xresources 
 
-echo -e "${SUC}Finished with the actual script" | ${WTL[@]}
+succ 'Finished with the actual script' "$LOG"
 
 # ? Actual script finished
 # ? Extra script begins
 
-echo -e "${INF}Processing user-choices" | ${WTL[@]}
+inform 'Processing user-choices' "$LOG"
 
 if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
     printf "\n-> Nemo is being configured..."
@@ -182,12 +175,12 @@ if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
     >/dev/null 2>>"${LOG}" fc-cache -f
 fi
 
-echo -e "\n${SUC}Finished with processing user-choices" | ${WTL[@]}
+succ 'Finished with processing user-choices' "$LOG"
 
 # ? Extra script finished
 # ? Postconfiguration and restart
 
-echo -e "\n${INF}The script has finished!\n${INF}Ended at: $(date '+%d.%m.%Y-%H:%M')\n" | ${WTL[@]}
+inform 'The script has finished' "$LOG"
 read -p "It is recommended to restart now. Would you like to restart? [Y/n]" -r RESTART
 if [[ $RESTART =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RESTART ]]; then
     shutdown -r now

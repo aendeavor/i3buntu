@@ -37,6 +37,9 @@ Afterwards, download a release of i3buntu onto your system. You will need to ext
 # download the latest stable release
 cd && wget https://github.com/Andevour/i3buntu/archive/v0.8.1-stable.tar.gz
 
+# or grab the latest unstable release
+cd && wget https://github.com/aendeavor/i3buntu/archive/v0.9.2-beta.1.tar.gz
+
 # decompress the .tar.gz
 tar xvfz v0.8.1-stable.tar.gz && rm v0.8.1-stable.tar.gz
 
