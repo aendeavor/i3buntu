@@ -95,6 +95,7 @@ CRITICAL=(
     vim
 
     nemo
+    ranger
     file-roller
     p7zip-full
 

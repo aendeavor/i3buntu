@@ -59,7 +59,10 @@ case "$1" in
         "--version" | "-v")
             echo -e "i3buntu\t\tversion  v0.9.2-beta.1 unstable"
             echo -e "This script\tversion  v0.1.0"
-            ;;
+        ;;
+        "--help" | "-h")
+            echo -e "Implementation still mising here!"
+        ;;
         *)
             err 'Please consult INSTALL.md on how to use this script.'
             exit 1

@@ -75,6 +75,7 @@ CRITICAL=(
 
     vim
     neovim
+    ranger
 
     policykit-desktop-privileges
     policykit-1-gnome
@@ -82,13 +83,15 @@ CRITICAL=(
     libgnome-keyring0
 )
 
-ENV=( )
+ENV=(
+    htop
+)
 
 MISC=(
     xsel
     xclip
 
-    htop
+    ncdu
 )
 
 PACKAGES=( "${CRITICAL[@]}" "${ENV[@]}" "${MISC[@]}" )

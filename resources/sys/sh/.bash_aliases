@@ -29,6 +29,9 @@ alias sd='blkid -o list'
 alias sizeof='du -sh'
 alias evince='evince "$1" > /dev/null 2>&1 &'
 
+alias v="vi"
+alias vi="nvim"
+
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
