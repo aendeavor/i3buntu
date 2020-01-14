@@ -61,7 +61,12 @@ case "$1" in
             echo -e "This script\tversion  v0.1.0"
         ;;
         "--help" | "-h")
-            echo -e "Implementation still mising here!"
+            echo -e 'This is the installation script for i3buntu from where\nevery installation and Docker build takes place.'
+            
+            echo -e "\nYou are able to start a \033[1;34mDocker\033[0m build and\nrun by executing this script with \n\033[1;33m\$ ./install.sh --docker\033[0m"
+            
+            echo -e "\nYou can install the \033[0;31mdesktop\033[0m version with\neither of both of the following commands.\nThe desktop installation is a two-part\nprocess, i.e. you will need to\nexecute packaging and configuration seperately.\nFor packaging, just append 'pkg' after the flag,\nfor configuration append 'cfg'.\n\033[1;33m\$ ./install.sh --desktop\n\$ ./install.sh -d\033[0m"
+            echo -e "\nYou can install the \033[1;32mserver\033[0m version with\neither of both of the following commands.\nThe server version's installation, unlike\nthe desktop installation, is a one-part\nprocess. Therefore, you will not need to\nappend any options.\n\033[1;33m\$ ./install.sh --server\n\$ ./install.sh -s\033[0m"
         ;;
         *)
             err 'Please consult INSTALL.md on how to use this script.'

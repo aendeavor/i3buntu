@@ -89,7 +89,10 @@ bindsym $mod+d exec rofi -show run
 bindsym $mod+c exec code
 
 # nemo
-bindsym $mod+n exec nemo
+bindsym $mod+Ctrl+n exec nemo
+
+# ranger
+bindsym $mod+n exec --no-startup-id urxvt -e ranger
 
 # firefox
 bindsym $mod+f exec firefox
