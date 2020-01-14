@@ -7,7 +7,7 @@
 # installed extensions can be found under
 # ./README.adoc. 
 # 
-# current version - 0.0.5
+# current version - 0.2.4
 
 # ? Preconfig
 
@@ -16,23 +16,15 @@ SCR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 ## return pointer
 RIP=$1
 
-RED='\033[0;31m'    # RED
-GRE='\033[1;32m'    # GREEN
-YEL='\033[1;33m'    # YELLOW
-BLU='\033[1;34m'    # BLUE
-NC='\033[0m'        # NO COLOR
-
-ERR="${RED}ERROR${NC}\t"
-WAR="${YEL}WARNING${NC}\t"
-SUC="${GRE}SUCCESS${NC}\t"
-INF="${BLU}INFO${NC}\t"
+# initiate aliases and functions
+. "${SCR}/../sh/.bash_aliases"
 
 INSTALL=( ${CODE} --install-extension )
 
 # ? Checks
 
 if [[ -z $(which code) ]] || [[ ! -e "/snap/bin/code" ]]; then
-    echo -e "${ERR} Docker is not installed. Aborting the installation of extensions!"
+    err 'Docker is not installed. Aborting the installation of extensions'
     exit 1
 fi
 
@@ -105,7 +97,7 @@ if [[ ! -z $(which rustup) ]]; then
     &>>/dev/null ${INSTALL[@]} rust-lang.rust
 
     if (( $? == 0 )); then
-        echo -e "${INF} As RUST is installed, we successfully installed rust-lang fr VS Code too."
+        inform 'As RUST is installed, we successfully installed rust-lang for VS Code too'
     fi
 fi
 
@@ -116,4 +108,4 @@ fi
 # ? Actual script finished
 # ? Postconfiguration
 
-echo -e "Finished installing VS Code extensions!"
+inform 'Finished installing VS Code extensions'

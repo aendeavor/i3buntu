@@ -4,56 +4,48 @@
 # the installation of all fonts in the
 # directory of this script.
 # 
-# current version - 0.2.0
+# current version - 0.3.0
 
 # ? Preconfig
 
-RED='\033[0;31m'    # RED
-GRE='\033[1;32m'    # GREEN
-YEL='\033[1;33m'    # YELLOW
-BLU='\033[1;34m'    # BLUE
-NC='\033[0m'        # NO COLOR
-
-ERR="${RED}ERROR${NC}"
-WAR="${YEL}WARNING${NC}"
-SUC="${GRE}SUCCESS${NC}"
-INF="${BLU}INFO${NC}"
+# initiate aliases and functions
+. "${DIR}/../sys/sh/.bash_aliases"
 
 # ? Preconfig finished
 # ? Actual script begins
 
-echo -e "${INF}FiraCode will be installed..."
+inform 'FiraCode will be installed...'
 ./firacode.sh 
 if (( $? == 0 )); then
-    echo -e "${SUC}FiraCode successfully installed."
+    succ 'FiraCode successfully installed'
 else
-    echo -e "${ERR}FiraCode not successfully installed."
+    err 'FiraCode not successfully installed'
 fi
 
-echo -e "${INF}FontAwesome is next..."
+inform 'FontAwesome is next...'
 ./fontawesome.sh
 if (( $? == 0 )); then
-    echo -e "${SUC}FontAwesome successfully installed."
+    succ 'FontAwesome successfully installed'
 else
-    echo -e "${ERR}FontAwesome not successfully installed."
+    err 'FontAwesome not successfully installed'
 fi
 
-echo -e "${INF}Iosevka is next..."
+inform 'Iosevka is next...'
 ./iosevkanerd.sh
 if (( $? == 0 )); then
-    echo -e "${SUC}Iosevka successfully installed."
+    succ 'Iosevka successfully installed'
 else
-    echo -e "${ERR}Iosevka not successfully installed."
+    err 'Iosevka not successfully installed'
 fi
 
-echo -e "${INF}Roboto Mono Nerd is next..."
+inform 'Roboto Mono Nerd is next...'
 ./robotomononerd.sh
 if (( $? == 0 )); then
-    echo -e "${SUC}Roboto Mono Nerd successfully installed."
+    succ 'Roboto Mono Nerd successfully installed'
 else
-    echo -e "${ERR}Roboto Mono Nerd not successfully installed."
+    err 'Roboto Mono Nerd not successfully installed'
 fi
 
-echo -e "${INF}Fonts installed."
+succ 'Fonts installed'
 
 # ? Actual script finished
