@@ -29,8 +29,7 @@ alias sd='blkid -o list'
 alias sizeof='du -sh'
 alias evince='evince "$1" > /dev/null 2>&1 &'
 
-alias v="vi"
-alias vi="nvim"
+alias v="nvim"
 
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -116,6 +115,9 @@ sv () {
 export -f sv
 
 sf () {
+    SEARCH={$1:?Enter a search-regex}
+    MAXDEPTH={$2:-5}
+    find . -maxdepth $MAXDEPTH -iregex "[a-z0-9_\.\/\ ]*${SEARCH}" -type f
     ls -lha | grep $1
     return
 }
