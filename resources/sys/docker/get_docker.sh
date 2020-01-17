@@ -2,7 +2,7 @@
 # This script serves as a wrapper for installing
 # the latest version of Docker.
 # 
-# version   0.1.1 unstable
+# version   0.2.1 stable
 # source    https://github.com/docker/docker-install
 
 # ? Preconfig
@@ -33,8 +33,8 @@ fi
 ## go into this folder to handle temporaries
 cd $SCR
 
-curl -sSL https://get.docker.com -o docker_installer.sh
-sh docker_installer.sh
+&>>/dev/null curl -sSL https://get.docker.com -o docker_installer.sh
+sh docker_installer.sh &>>/dev/null
 
 if (( $? == 0 )); then
     succ 'Docker successfully installed'
