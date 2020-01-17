@@ -157,7 +157,7 @@ update () {
         rustup update &>>"$DIR"
     fi
 
-    succ 'Completed task' "$DIR"
+    succ 'Completed update' "$DIR"
     return
 }
 export -f update
