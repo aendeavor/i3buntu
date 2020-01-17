@@ -25,22 +25,14 @@ AI=(apt-get install ${IF[@]})
 # ? Init of package selection
 
 CRITICAL=(
-    curl
     wget
-    rsync
-    libaio1
-    
+    rsync    
     net-tools
-    
-    vim
 )
 
 ENV=()
 
 MISC=(
-    xsel
-    xclip
-    
     htop
 )
 
@@ -71,10 +63,10 @@ for PACKAGE in "${PACKAGES[@]}"; do
     fi
 done
 
-DEPLOY_IN_HOME=(sh/.bashrc sh/.bash_aliases vi/.vimrc vi/.viminfo)
+DEPLOY_IN_HOME=(.bashrc .bash_aliases)
 for sourceFile in "${DEPLOY_IN_HOME[@]}"; do
     echo -e "-> Syncing $(basename -- "${sourceFile}")"
-    ${RS[@]} >>/dev/null "${SYS}/${sourceFile}" "/root"
+    ${RS[@]} >>/dev/null "./${sourceFile}" "/root"
 done
 
 # ? Actual script finished
