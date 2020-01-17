@@ -108,7 +108,7 @@ printf "%-35s | %-15s | %-15s" "PACKAGE" "STATUS" "EXIT CODE"
 printf "\n"
 
 for PACKAGE in "${PACKAGES[@]}"; do
-    "${LOG}" ${AI[@]} ${PACKAGE} | ${WTL[@]}
+    &>>"${LOG}" ${AI[@]} ${PACKAGE}
 
     EC=$?
     if (( $EC != 0 )); then
