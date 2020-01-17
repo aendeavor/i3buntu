@@ -34,7 +34,7 @@ case "$1" in
                     "${SCR}/x_configuration.sh"
                 ;;
                 *)
-                    warn 'Please state whether you want packaging or configuration to happen'
+                    inform 'Please state whether you want packaging or configuration to happen'
                     while true; do
                         read -p "Would you like to execute packaging or configuration? [pkg/cfg]" -r PAR
                         if [[ $PAR =~ ^(cfg|pkg) ]]; then
@@ -68,6 +68,6 @@ case "$1" in
         *)
             echo -e "i3buntu: '$1' is not a command."
             echo -e "See './install --help'"
-            exit 1
+            exit 10
         ;;
 esac
