@@ -170,6 +170,7 @@ PACKAGES=( "${CRITICAL[@]}" "${ENV[@]}" "${MISC[@]}" )
 # ? End of init of package selection
 # ? Actual script begins
 
+echo ""
 inform 'Initial update' "$LOG"
 update
 
@@ -209,6 +210,7 @@ if ! dpkg -s adapta-gtk-theme-colorpack >/dev/null 2>&1; then
     >/dev/null 2>>"${LOG}" sudo dpkg -i "${DIR}/../resources/design/AdaptaGTK_colorpack.deb"
 fi
 
+echo ""
 succ 'Finished with actual script' "LOG"
 
 # ? Actual script finished
