@@ -17,13 +17,15 @@ RIP=$1
 
 # ? Checks
 
-if [[ $(docker -v) =~ ^Docker\ version\ [1-9.]* ]]; then
+if [[ -n $(which docker) ]]; then
     warn 'Docker seems to be already installed'
     read -p "Would you like to abort the installation of Docker? (This wont affect the calling script.) [Y/n]" -r R1
     
     if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
         exit 0
     fi
+
+    warn 'There is going to be a delay of approximately 20s. Hang on...'
 fi
 
 # ? Actual script

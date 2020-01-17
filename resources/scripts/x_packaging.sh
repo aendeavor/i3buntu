@@ -269,7 +269,7 @@ fi
 
 if [[ $RC8 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RC8 ]]; then
     echo -e 'Installing NeoVIM...' | ${WTL[@]}
-    >/dev/null 2>>"${LOG}" sudo apt install neovim
+    >/dev/null 2>>"${LOG}" sudo apt-get install neovim
     >/dev/null 2>>"${LOG}" curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
     warn 'You will need to run :PlugInstall seperately in NeoVIM as you cannot execute this command in a shell.'
