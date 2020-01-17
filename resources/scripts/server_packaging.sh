@@ -48,14 +48,14 @@ read -p "Would you like to install Docker? [Y/n]" -r R4
 
 if [[ $R4 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R4 ]]; then
     warn 'Docker has been chosen as an installation candidate. This may reqire manual user-input near the end of this script.'
-    sleep 3s
+    sleep 1s
 fi
 
 read -p "Would you like to get RUST? [Y/n]" -r R5
 
 if [[ $R5 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R5 ]]; then
     warn 'Rust has been chosen as an installation candidate. This reqires manual user-input at the end of this script.'
-    sleep 3s
+    sleep 1s
 fi
 
 # ? User choices end
@@ -102,7 +102,8 @@ PACKAGES=( "${CRITICAL[@]}" "${ENV[@]}" "${MISC[@]}" )
 # ? End of init of package selection
 # ? Actual script begins
 
-inform "\nInitial update" "$LOG"
+echo ""
+inform "Initial update" "$LOG"
 update
 
 inform "Installing packages\n" "$LOG"
@@ -118,14 +119,14 @@ for PACKAGE in "${PACKAGES[@]}"; do
         printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Not Installed" "${EC}"
     else
         printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Installed" "${EC}"
-        printf "\n"
     fi
 
     printf "\n"
     &>>"${LOG}" echo -e "${PACKAGE}\n\t -> EXIT CODE: ${EC}"
 done
 
-succ "\nFinished with actual script" "$LOG"
+echo ""
+succ "Finished with actual script" "$LOG"
 
 # ? Actual script finished
 # ? Extra script begins
@@ -157,7 +158,8 @@ if [[ $RC4 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RC4 ]]; then
     echo -e 'Installing Docker' | ${WTL[@]}
     warn "Manual user-input may be requiered!\n" "$LOG"
     SH=$(readlink -m "${DIR}/../sys/docker/get_docker.sh")
-    SH "$LOG"
+    printf "\n"
+    $SH "$LOG"
 fi
 
 if [[ $R5 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R5 ]]; then
@@ -179,7 +181,7 @@ if [[ $R5 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R5 ]]; then
         done
 
         >/dev/null 2>>"${LOG}" rustup update
-    done
+    fi
 fi
 
 succ 'Finished with processing user-choices' "$LOG"

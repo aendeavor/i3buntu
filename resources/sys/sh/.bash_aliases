@@ -130,8 +130,8 @@ shutn () {
 export -f shutn
 
 update () {
-    DIR="${HOME}/.update_log"
-    OPTIONS=(--yes --assume-yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages)
+    local DIR="${HOME}/.update_log"
+    local OPTIONS=(--yes --assume-yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages)
 
     # ? Actual function begins
     sudo printf ""
