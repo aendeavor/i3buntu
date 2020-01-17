@@ -43,17 +43,18 @@ inform "Please make your choices:\n"
 
 read -p "Would you like to execute ubuntu-driver autoinstall? [Y/n]" -r R1
 read -p "Would you like to install Build-Essentials? [Y/n]" -r R2
-read -p "Would you like to install Docker? [Y/n]" -r R3
+read -p "Would you like to install NeoVIM? [Y/n]" -r R3
+read -p "Would you like to install Docker? [Y/n]" -r R4
 
-if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
-    warn "Docker has been chosen as an installation candidate. This may reqire manual user-input near the end of this script.\n"
+if [[ $R4 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R4 ]]; then
+    warn 'Docker has been chosen as an installation candidate. This may reqire manual user-input near the end of this script.'
     sleep 3s
 fi
 
-read -p "Would you like to get RUST? [Y/n]" -r R4
+read -p "Would you like to get RUST? [Y/n]" -r R5
 
-if [[ $R4 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R4 ]]; then
-    warn "Rust has been chosen as an installation candidate. This reqires manual user-input at the end of this script.\n"
+if [[ $R5 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R5 ]]; then
+    warn 'Rust has been chosen as an installation candidate. This reqires manual user-input at the end of this script.'
     sleep 3s
 fi
 
@@ -91,6 +92,8 @@ MISC=(
     xsel
     xclip
 
+    neofetch
+
     ncdu
 )
 
@@ -99,7 +102,7 @@ PACKAGES=( "${CRITICAL[@]}" "${ENV[@]}" "${MISC[@]}" )
 # ? End of init of package selection
 # ? Actual script begins
 
-inform 'Initial update' "$LOG"
+inform "\nInitial update" "$LOG"
 update
 
 inform "Installing packages\n" "$LOG"
@@ -108,23 +111,26 @@ printf "%-35s | %-15s | %-15s" "PACKAGE" "STATUS" "EXIT CODE"
 printf "\n"
 
 for PACKAGE in "${PACKAGES[@]}"; do
-    &>>"${LOG}" ${AI[@]} ${PACKAGE}
+    2>>"${LOG}" >>/dev/null ${AI[@]} ${PACKAGE}
 
     EC=$?
     if (( $EC != 0 )); then
-        printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Not Installed" "${EC}" | ${WTL[@]}
+        printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Not Installed" "${EC}"
     else
-        printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Installed" "${EC}" | ${WTL[@]}
+        printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Installed" "${EC}"
         printf "\n"
     fi
+
+    printf "\n"
+    &>>"${LOG}" echo -e "${PACKAGE}\n\t -> EXIT CODE: ${EC}"
 done
 
-succ 'Finished with actual script' "LOG"
+succ "\nFinished with actual script" "$LOG"
 
 # ? Actual script finished
 # ? Extra script begins
 
-inform "Processing user-choices\n" "LOG"
+inform "Processing user-choices\n" "$LOG"
 
 ## graphics driver
 if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
@@ -137,30 +143,43 @@ if [[ $R2 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R2 ]]; then
     >/dev/null 2>>"${LOG}" ${AI[@]} build-essential cmake
 fi
 
-if [[ $RC3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RC3 ]]; then
-    echo -e 'Installing Docker' | ${WTL[@]}
-    echo -e "${WAR}Manual user-input may be requiered!\n" | ${WTL[@]}
-    $(readlink -m "${DIR}/../sys/docker/get_docker.sh") $DIR
+if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
+    echo -e 'Installing NeoVIM...' | ${WTL[@]}
+    >/dev/null 2>>"${LOG}" sudo apt-get install neovim
+    >/dev/null 2>>"${LOG}" curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+    warn 'You will need to run :PlugInstall seperately in NeoVIM as you cannot execute this command in a shell.'
+    warn 'Thereafter, run ~/.config/nvim/plugged/YouCompleteMe/install.py --racer-completer --tern-completer.'
+    sleep 3s
 fi
 
-if [[ $R12 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R12 ]]; then
+if [[ $RC4 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RC4 ]]; then
+    echo -e 'Installing Docker' | ${WTL[@]}
+    warn "Manual user-input may be requiered!\n" "$LOG"
+    SH=$(readlink -m "${DIR}/../sys/docker/get_docker.sh")
+    SH "$LOG"
+fi
+
+if [[ $R5 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R5 ]]; then
     echo -e "Installing RUST" | ${WTL[@]}
-    echo -e "${WAR}Manual user-input requiered!\n" | ${WTL[@]}
+    warn "Manual user-input requiered!\n" "$LOG"
 
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile complete
     
-    source "${HOME}/.cargo/env"
-    
-    mkdir -p "${HOME}/.local/share/bash-completion/completions"
-    touch "${HOME}/.local/share/bash-completion/completions/rustup"
-    rustup completions bash > "${HOME}/.local/share/bash-completion/completions/rustup"
+    if [[ -e "${HOME}/.cargo/env" ]]; then
+        source "${HOME}/.cargo/env"
 
-    COMPONENTS=( rust-docs rust-analysis rust-src rustfmt rls clippy )
-    for COMPONENT in ${COMPONENTS[@]}; do
-        &>>"${LOG}" rustup component add $COMPONENT
+        mkdir -p "${HOME}/.local/share/bash-completion/completions"
+        touch "${HOME}/.local/share/bash-completion/completions/rustup"
+        rustup completions bash > "${HOME}/.local/share/bash-completion/completions/rustup"
+
+        COMPONENTS=( rust-docs rust-analysis rust-src rustfmt rls clippy )
+        for COMPONENT in ${COMPONENTS[@]}; do
+            &>>"${LOG}" rustup component add $COMPONENT
+        done
+
+        >/dev/null 2>>"${LOG}" rustup update
     done
-
-    >/dev/null 2>>"${LOG}" rustup update
 fi
 
 succ 'Finished with processing user-choices' "$LOG"
