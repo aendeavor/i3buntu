@@ -4,7 +4,7 @@
 # the installation of all fonts in the
 # directory of this script.
 # 
-# current version - 0.3.0
+# current version - 0.3.0 unstable
 
 # ? Preconfig
 

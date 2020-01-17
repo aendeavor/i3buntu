@@ -7,7 +7,7 @@
 # installed extensions can be found under
 # ./README.adoc. 
 # 
-# current version - 0.2.4
+# current version - 0.2.4 unstable
 
 # ? Preconfig
 
