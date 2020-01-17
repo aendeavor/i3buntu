@@ -5,7 +5,7 @@
 # Via APT, core utils, browser, graphical environment
 # and much more is being installed.
 #
-# version   0.9.5
+# version   0.9.5 unstable
 # sources   https://afshinm.name/neovim/
 
 sudo printf ""

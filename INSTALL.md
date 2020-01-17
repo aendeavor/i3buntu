@@ -59,17 +59,17 @@ _From version v0.9.2-beta1 onwards_ however, there is a new and enhanced way. In
 ``` BASH
 # For desktop installations, you will need
 # to execute the packaging and configuration separately.
-cd && ./i3buntu/install.sh --desktop pkg
+cd && ./i3buntu/install.sh desktop pkg
 
 # You can also omit pkg - you will then be
 # prompted whether you want packaging or configuration to happen.
-cd && ./i3buntu/install.sh --desktop
+cd && ./i3buntu/install.sh desktop
 
 # For server installations, run
-cd && ./i3buntu/install.sh --server
+cd && ./i3buntu/install.sh server
 
 # To create and run a Docker container, run
-cd && ./i3buntu/install.sh --docker
+cd && ./i3buntu/install.sh docker
 ```
 
 ## Runlevel 5 - Configuration
@@ -99,11 +99,11 @@ _From version v0.9.2-beta1 onwards_ however, [`install.sh`](./install.sh) also g
 ``` BASH
 # For desktop installations, you will need
 # to execute the packaging and configuration separately.
-cd && ./i3buntu/install.sh --desktop cfg
+cd && ./i3buntu/install.sh desktop cfg
 
 # You can also omit cfg - you will then be
 # prompted whether you want packaging or configuration to happen.
-cd && ./i3buntu/install.sh --desktop
+cd && ./i3buntu/install.sh desktop
 ```
 
 ## Runlevel ∞ - Tweaks

@@ -4,7 +4,7 @@
 # creating and running a dedicated
 # docker container.
 #
-# current version - 0.0.1
+# current version - 0.1.1 unstable
 
 # ? Preconfig
 
@@ -16,7 +16,7 @@ SCR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # ? Checks
 
-if [[ ! $(docker -v) =~ ^Docker\ version\ [1-9.]* ]]; then
+if [[ -z $(which docker) ]]; then
     err "We could not locate docker on this system. Is it installed and in \$PATH?\n"
     exit 1
 fi

@@ -4,7 +4,7 @@
 # all other scripts, i.e. the desktop, server or
 # Docker installation of i3buntu.
 #
-# current version - 0.1.0
+# current version - 0.3.2 stable
 
 # ? Preconfig
 
@@ -13,25 +13,28 @@ SCR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/resources
 
 . "${SCR}/../sys/sh/.bash_aliases"
 
+HELP="\nUsage: ./install [OPTIONS] COMMAND [FLAG]\n\nInstallation script for i3buntu from where every installation and Docker build takes place\n\nCommands:\n d,\t\033[0;31mdesktop\033[0m [FLAG]\tStart installation for desktops (packaging or configuration)\n s,\t\033[1;32mserver\033[0m\t\tStart installation for servers (packaging and configuration)\n\t\033[1;34mdocker\033[0m\t\tStart a Docker build and run\n\nFlags:\n\t--pkg\t\tFor desktop installations; specifies action to take (packaging)\n  \t--cfg\t\tFor desktop installations; specifies action to take (configuration)\n\nOptions:\n -h,\t--help\t\tShows this help dialogue\n -v,\t--version\tShows the current version of i3buntu and of this script\n"
+
+VERSION="i3buntu\t\t\tv0.9.2-beta.2\tunstable\ninstall.sh\t\tv0.3.2\t\tstable\n\nx_packaging\t\tv0.9.5\t\tunstable\nx_configuration\t\tv0.7.5\t\tunstable\n\nserver_packaging\tv0.9.5\t\tunstable\nserver_configuration\tv0.7.3\t\tunstable\n\ndocker_up\t\tv0.1.1\t\tunstable\nget_docker\t\tv0.1.1\t\tunstable\n\nextensions\t\tv0.2.4\t\tunstable\nfonts\t\t\tv0.3.0\t\tunstable\n"
+
 # ? Actual script
 
 case "$1" in 
-        "--docker")
-            succ 'A Docker container will be setup.'
+        "docker")
             "${SCR}/../sys/docker/docker_up.sh"
         ;;
-        "--desktop" | "-d")
+        "desktop" | "d")
             case "$2" in
-                "pkg")
-                    succ 'Packaging for desktops will be executed.'
+                "--pkg")
+                    succ 'Packaging for desktops started'
                     "${SCR}/x_packaging.sh"
                 ;;
-                "cfg")
-                    succ 'Configuration for desktops will be executed.'
+                "--cfg")
+                    succ 'Configuration for desktops started'
                     "${SCR}/x_configuration.sh"
                 ;;
                 *)
-                    warn 'Please state whether you want packaging or configuration to happen.'
+                    warn 'Please state whether you want packaging or configuration to happen'
                     while true; do
                         read -p "Would you like to execute packaging or configuration? [pkg/cfg]" -r PAR
                         if [[ $PAR =~ ^(cfg|pkg) ]]; then
@@ -43,33 +46,28 @@ case "$1" in
                     done
 
                     if [[ $PAR == "pkg" ]]; then
-                        succ 'Packaging for desktops will be executed.'
+                        succ 'Packaging for desktops started'
                         "${SCR}/x_packaging.sh"
                     else
-                        succ 'Configuration for desktops will be executed.'
+                        succ 'Configuration for desktops started'
                         "${SCR}/x_configuration.sh"
                     fi
                 ;;
             esac
         ;;
-        "--server" | "-s")
-            succ 'Server packaging and configuration will be setup.'
+        "server" | "s")
+            succ 'Server packaging and configuration started'
             "${SCR}/server_packaging.sh"
         ;;
         "--version" | "-v")
-            echo -e "i3buntu\t\tversion  v0.9.2-beta.1 unstable"
-            echo -e "This script\tversion  v0.1.0"
+            echo -e $VERSION
         ;;
         "--help" | "-h")
-            echo -e 'This is the installation script for i3buntu from where\nevery installation and Docker build takes place.'
-            
-            echo -e "\nYou are able to start a \033[1;34mDocker\033[0m build and\nrun by executing this script with \n\033[1;33m\$ ./install.sh --docker\033[0m"
-            
-            echo -e "\nYou can install the \033[0;31mdesktop\033[0m version with\neither of both of the following commands.\nThe desktop installation is a two-part\nprocess, i.e. you will need to\nexecute packaging and configuration seperately.\nFor packaging, just append 'pkg' after the flag,\nfor configuration append 'cfg'.\n\033[1;33m\$ ./install.sh --desktop\n\$ ./install.sh -d\033[0m"
-            echo -e "\nYou can install the \033[1;32mserver\033[0m version with\neither of both of the following commands.\nThe server version's installation, unlike\nthe desktop installation, is a one-part\nprocess. Therefore, you will not need to\nappend any options.\n\033[1;33m\$ ./install.sh --server\n\$ ./install.sh -s\033[0m"
+            echo -e $HELP
         ;;
         *)
-            err 'Please consult INSTALL.md on how to use this script.'
+            echo -e "i3buntu: '$1' is not a command."
+            echo -e "See './install --help'"
             exit 1
         ;;
 esac
