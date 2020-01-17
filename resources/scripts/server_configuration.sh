@@ -8,7 +8,7 @@
 # by the sever_packaging.sh script after it has
 # run.
 # 
-# current version - 0.7.3 unstable
+# current version - 0.8.0 stable
 
 sudo printf ""
 
