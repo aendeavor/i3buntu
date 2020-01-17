@@ -75,7 +75,6 @@ CRITICAL=(
     snapd
 
     vim
-    neovim
     ranger
 
     policykit-desktop-privileges
