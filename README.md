@@ -5,7 +5,7 @@
 
 ## Preamble
 
-This repository aims at providing you with a set of instructions to create your own minimal Ubuntu installation with the i3 window manager. If you want to learn about i3buntu's features, there is a dedicated [FEATURES](./resources/doc/FEATURES.adoc) file. The latest (unstable) release of i3buntu is [v0.9.2-beta1](https://github.com/aendeavor/i3buntu/releases/tag/v0.9.2-beta1), the latest stable release is [v0.8.1-stable](https://github.com/aendeavor/i3buntu/releases/tag/v0.8.1-stable).
+This repository aims at providing you with a set of instructions to create your own minimal Ubuntu installation with the i3 window manager. If you want to learn about i3buntu's features, there is a dedicated [FEATURES](./resources/doc/FEATURES.adoc) file. The latest (unstable) release of i3buntu is [v0.9.2-beta.3](https://github.com/aendeavor/i3buntu/releases/tag/v0.9.2-beta.3), the latest stable release is [v0.8.1-stable](https://github.com/aendeavor/i3buntu/releases/tag/v0.8.1-stable).
 
 [![Desktop Theme](resources/doc/desktop_theme.png)](https://www.reddit.com/r/unixporn/)
 
