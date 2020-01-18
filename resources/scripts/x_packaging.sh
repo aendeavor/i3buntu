@@ -55,7 +55,7 @@ read -p "Would you like to install NeoVIM? [Y/n]" -r R8
 read -p "Would you like to install VS Code? [Y/n]" -r R9
 
 RC1="no"
-if [[ $RC1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RC1 ]]; then
+if [[ $R9 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R9 ]]; then
     read -p "Would you like to install recommended VS Code extensions? [Y/n]" -r RC1
 fi
 
