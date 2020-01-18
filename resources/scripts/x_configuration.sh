@@ -52,7 +52,7 @@ read -p "Would you like to sync fonts? [Y/n]" -r R3
 # ? User-choices end
 # ? Actual script begins
 
-inform "Checkig for existing files\n" "$LOG"
+inform "Checkig for existing files" "$LOG"
 
 ## backup of configuration files
 HOME_FILES=( "${HOME}/.bash_aliases" "${HOME}/.bashrc" "${HOME}/.vimrc" "${HOME}/.Xresources" )
@@ -108,11 +108,14 @@ echo -e "-> Syncing URXVT resize-font extension"  | ${WTL[@]}
 echo -e "-> Syncing compton.conf"  | ${WTL[@]}
 >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/other_cfg/compton.conf" "${HOME}/.config"
 
-if ! dpkg -s neovim >/dev/null 2>&1; then
+dpkg -s neovim >/dev/null 2>&1
+EC=$?
+
+if (( $EC == 0 )); then
     echo -e "-> Syncing NeoVim's config"  | ${WTL[@]}
     mkdir -p ~/.config/nvim/colors
     >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vi/init.vim" "${HOME}/.config/nvim"
-    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vi/colors/" "${HOME}/.config/nvim"
+    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vi/colors/" "${HOME}/.config/nvim/colors"
 fi
 
 
@@ -133,10 +136,11 @@ succ 'Finished with the actual script' "$LOG"
 # ? Actual script finished
 # ? Extra script begins
 
-inform 'Processing user-choices' "$LOG"
+echo ""
+inform "Processing user-choices\n" "$LOG"
 
 if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
-    printf "\n-> Nemo is being configured..."
+    printf "-> Nemo is being configured..."
     
     xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search
     gsettings set org.cinnamon.desktop.default-applications.terminal exec 'urxvt'
@@ -147,24 +151,24 @@ if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
     mkdir -p "${HOME}/.local/share/nemo/actions"
     sudo cp -f "${RES}/sys/other_cfg/vscode-current-dir.nemo_action" "${HOME}/.local/share/nemo/actions/"
 
-    printf "\t finished."
+    printf "\t finished.\n"
 fi
 
 if [[ $R2 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R2 ]]; then
-    printf "\n-> Grub is being configured..."
+    printf "-> Grub is being configured..."
 
     &>/dev/null sudo cp /etc/default/grub "${BACK}"
     &>/dev/null sudo rm -f /etc/default/grub
     &>/dev/null sudo cp ${RES}/sys/other_cfg/grub /etc/default/
     >/dev/null 2>>"${LOG}" sudo update-grub
 
-    printf "\t finished."
+    printf "\t finished.\n"
 fi
 
 ## deployment of fonts
 if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
-    echo -e "\n${INF} Fonts are processed\n" | ${WTL[@]}
-    
+    inform "Fonts are processed\n" "$LOG"
+
     find "${RES}/fonts/" -maxdepth 1 -iregex "[a-z0-9_\.\/\ ]*\w\.sh" -type f -exec chmod +x {} \;
     (
         cd "${RES}/fonts/"
