@@ -4,7 +4,7 @@
 # creating and running a dedicated
 # docker container.
 #
-# current version - 0.1.1 unstable
+# current version - 0.2.0 stable
 
 # ? Preconfig
 

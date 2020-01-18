@@ -2,7 +2,7 @@
 # This script serves as a wrapper for installing
 # the latest version of Docker.
 # 
-# version   0.2.1 stable
+# version   0.3.0 stable
 # source    https://github.com/docker/docker-install
 
 # ? Preconfig

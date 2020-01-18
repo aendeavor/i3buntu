@@ -8,7 +8,7 @@
 # user-choices are handled, including the
 # installation of chosen fonts.
 # 
-# current version - 0.7.5 unstable
+# current version - 0.9.1 stable
 
 sudo printf ""
 
