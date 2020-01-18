@@ -4,7 +4,7 @@
 # all other scripts, i.e. the desktop, server or
 # Docker installation of i3buntu.
 #
-# current version - 0.3.2 stable
+# current version - 0.3.4 stable
 
 # ? Preconfig
 
@@ -15,7 +15,7 @@ SCR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/resources
 
 HELP="\nUsage: ./install [OPTIONS] COMMAND [FLAG]\n\nDeployment script for i3buntu from where every installation and Docker build takes place\n\nCommands:\n d,\t\033[0;31mdesktop\033[0m [FLAG]\tStart installation for desktops (packaging or configuration)\n s,\t\033[1;32mserver\033[0m\t\tStart installation for servers (packaging and configuration)\n\t\033[1;34mdocker\033[0m\t\tStart a Docker build and run\n\nFlags:\n\t--pkg\t\tFor desktop installations; specifies action to take (packaging)\n  \t--cfg\t\tFor desktop installations; specifies action to take (configuration)\n\nOptions:\n -h,\t--help\t\tShows this help dialogue\n -v,\t--version\tShows the current version of i3buntu and of the used scripts\n"
 
-VERSION="i3buntu\t\t\tv0.9.2-beta.2\tunstable\ninstall.sh\t\tv0.3.2\t\tstable\n\nx_packaging\t\tv0.9.5\t\tunstable\nx_configuration\t\tv0.7.5\t\tunstable\n\nserver_packaging\tv1.0.0\t\tstable\nserver_configuration\tv0.8.0\t\tstable\n\ndocker_up\t\tv0.1.1\t\tunstable\nget_docker\t\tv0.2.1\t\tstable\n\nextensions\t\tv0.2.4\t\tunstable\nfonts\t\t\tv0.3.0\t\tunstable\n"
+VERSION="i3buntu\t\t\tv0.9.2\t\tstable\ninstall.sh\t\tv0.3.4\t\tstable\n\nx_packaging\t\tv1.0.2\t\tstable\nx_configuration\t\tv0.9.1\t\tstable\n\nserver_packaging\tv1.1.1\t\tstable\nserver_configuration\tv0.8.0\t\tstable\n\ndocker_up\t\tv0.2.0\t\tstable\nget_docker\t\tv0.2.1\t\tstable\n\nextensions\t\tv0.2.1\t\tstable\nfonts\t\t\tv0.3.1\t\tstable\n"
 
 # ? Actual script
 
