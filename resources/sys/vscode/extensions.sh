@@ -19,12 +19,10 @@ RIP=$1
 # initiate aliases and functions
 . "${SCR}/../sh/.bash_aliases"
 
-INSTALL=( ${CODE} --install-extension )
-
 # ? Checks
 
-if [[ -z $(which code) ]] || [[ ! -e "/snap/bin/code" ]]; then
-    err 'Docker is not installed. Aborting the installation of extensions'
+if [[ -z $(which code) ]] && [[ ! -e "/snap/bin/code" ]]; then
+    err 'VS Code is not installed. Aborting the installation of extensions'
     exit 1
 fi
 
@@ -33,6 +31,8 @@ CODE=$(which code)
 if [[ -z "${CODE}" ]]; then
     CODE="/snap/bin/code"
 fi
+
+INSTALL=( ${CODE} --install-extension )
 
 # ? Preconfig finished
 # ? Selection of extions

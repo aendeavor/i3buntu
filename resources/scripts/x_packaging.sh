@@ -144,6 +144,7 @@ MISC=(
     xclip
 
     ruby
+    python2.7-dev
 
     neofetch
     htop
@@ -308,7 +309,7 @@ if [[ $R11 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R11 ]]; then
     $SH "$DIR"
 fi
 
-if [[ $R12 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $12 ]]; then
+if [[ $R12 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z ${12} ]]; then
     echo -e "Installing RUST" | ${WTL[@]}
     warn "Manual user-input requiered!\n" "$LOG"
 
