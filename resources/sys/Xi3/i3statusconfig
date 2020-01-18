@@ -2,7 +2,7 @@ general {
 	colors = true
 
 	color_good = "#827972"
-	color_bad = "#827972"
+	color_bad = "#E84A5f"
 	color_degraded = "#827972"
     color_separator = "#FDDAC6"
 
@@ -26,6 +26,10 @@ tztime local {
 }
 
 battery all {
-    format = "%percentage"
+	format = "%percentage"
+    integer_battery_capacity = true
+    hide_seconds = true
+    threshold_type = percentage
+    low_threshold = 30
     format_down = ""
 }

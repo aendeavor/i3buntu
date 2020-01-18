@@ -4,28 +4,50 @@
 # the installation of all fonts in the
 # directory of this script.
 # 
-# current version - 0.2.0
+# current version - 0.3.1 stable
 
 # ? Preconfig
 
-LOG="$1"
-WTL=( tee -a "$LOG" )
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+# initiate aliases and functions
+. "${DIR}/../sys/sh/.bash_aliases"
 
 # ? Preconfig finished
 # ? Actual script begins
 
-echo -e "\t->FiraCode will be installed..."
+inform 'FiraCode will be installed...'
 ./firacode.sh 
+if (( $? == 0 )); then
+    succ 'FiraCode successfully installed'
+else
+    err 'FiraCode not successfully installed'
+fi
 
-echo -e "\t->FontAwesome is next..."
+inform 'FontAwesome is next...'
 ./fontawesome.sh
+if (( $? == 0 )); then
+    succ 'FontAwesome successfully installed'
+else
+    err 'FontAwesome not successfully installed'
+fi
 
-echo -e "\t->Iosevka is next..."
+inform 'Iosevka is next...'
 ./iosevkanerd.sh
+if (( $? == 0 )); then
+    succ 'Iosevka successfully installed'
+else
+    err 'Iosevka not successfully installed'
+fi
 
-echo -e "\t->Roboto Mono Nerd is next..."
+inform 'Roboto Mono Nerd is next...'
 ./robotomononerd.sh
+if (( $? == 0 )); then
+    succ 'Roboto Mono Nerd successfully installed'
+else
+    err 'Roboto Mono Nerd not successfully installed'
+fi
 
-echo -e "\t->Fonts installed."
+succ 'Fonts installed'
 
 # ? Actual script finished

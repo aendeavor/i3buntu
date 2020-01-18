@@ -8,48 +8,53 @@
 # user-choices are handled, including the
 # installation of chosen fonts.
 # 
-# current version - 0.5.0
+# current version - 0.9.1 stable
 
-sudo echo -e "\nThe configuration stage has begun!"
+sudo printf ""
 
 # ? Preconfig
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-BACK="$( readlink -m "${DIR}/../backups/configuration/$( date '+%d-%m-%Y--%H-%M-%S' )" )"
-RES="$( readlink -m "${DIR}/../resources" )"
+BACK="$( readlink -m "${DIR}/../../backups/configuration/$( date '+%d-%m-%Y--%H-%M-%S' )" )"
+RES="$( readlink -m "${DIR}/../" )"
 SYS="$( readlink -m "${RES}/sys")"
 LOG="${BACK}/configuration_log"
 
 RS=( rsync -ahq --delete )
 
-## Init of backup-directory
+# initiate aliases and functions
+. "${SYS}/sh/.bash_aliases"
+
+## init of backup-directory
 if [[ ! -d "$BACK" ]]; then
     mkdir -p "$BACK"
 fi
 
-## Init of logfile
+## init of logfile
 if [[ ! -f "$LOG" ]]; then
     if [[ ! -w "$LOG" ]]; then
         &>/dev/null sudo rm $LOG
     fi
     touch "$LOG"
 fi
-WTL=( tee -a "$LOG" )
+WTL=( tee -a "${LOG}" )
 
 # ? Preconfig finished
 # ? User-choices begin
 
-echo ""
-read -p "Would you like me to edit nemo accordingly to your system? [Y/n]" -r R1
-read -p "Would you like me to edit /etc/default/grub? [Y/n]" -r R2
-read -p "Would you like me to sync fonts? [Y/n]" -r R3
+inform 'Configuration has begun'
+inform "Please make your choices:\n"
+
+read -p "Would you like to edit nemo accordingly to your system? [Y/n]" -r R1
+read -p "Would you like to edit /etc/default/grub? [Y/n]" -r R2
+read -p "Would you like to sync fonts? [Y/n]" -r R3
 
 # ? User-choices end
 # ? Actual script begins
 
-## backup of configuration files
-echo -e "\nChecking for existing files:" | ${WTL[@]}
+inform "Checkig for existing files" "$LOG"
 
+## backup of configuration files
 HOME_FILES=( "${HOME}/.bash_aliases" "${HOME}/.bashrc" "${HOME}/.vimrc" "${HOME}/.Xresources" )
 for FILE in ${HOME_FILES[@]}; do
     if [[ -f "$FILE" ]]; then
@@ -71,7 +76,7 @@ if [ -d "${HOME}/.config" ]; then
 fi
 
 ## deployment of configuration files
-echo -e "\nProceeding to deploying config files:" | ${WTL[@]}
+inform 'Proceeding to deploying config files' "$LOG"
 
 DEPLOY_IN_HOME=( sh/.bashrc sh/.bash_aliases vi/.vimrc vi/.viminfo Xi3/.Xresources )
 for sourceFile in "${DEPLOY_IN_HOME[@]}"; do
@@ -89,7 +94,7 @@ echo -e "-> Syncing i3's statusconfig"  | ${WTL[@]}
 >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/Xi3/i3statusconfig" "${HOME}/.config/i3"
 
 echo -e "-> Syncing xorg.conf"  | ${WTL[@]}
-sudo ${RS[@]} "${SYS}/Xi3/xorg.conf" /etc/X11
+>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/Xi3/xorg.conf" /etc/X11
 
 echo -e "-> Syncing lightdm-gtk-greeter.conf"  | ${WTL[@]}
 >/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/other_cfg/lightdm-gtk-greeter.conf" /etc/lightdm
@@ -103,6 +108,17 @@ echo -e "-> Syncing URXVT resize-font extension"  | ${WTL[@]}
 echo -e "-> Syncing compton.conf"  | ${WTL[@]}
 >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/other_cfg/compton.conf" "${HOME}/.config"
 
+dpkg -s neovim >/dev/null 2>&1
+EC=$?
+
+if (( $EC == 0 )); then
+    echo -e "-> Syncing NeoVim's config"  | ${WTL[@]}
+    mkdir -p ~/.config/nvim/colors
+    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vi/init.vim" "${HOME}/.config/nvim"
+    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vi/colors/" "${HOME}/.config/nvim/colors"
+fi
+
+
 echo -e "-> Syncing images directory"  | ${WTL[@]}
 >/dev/null 2>>"${LOG}" ${RS[@]} "${RES}/images" "${HOME}" 
 
@@ -112,18 +128,19 @@ if [[ -d "${HOME}/.config/Code" ]]; then
     >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vscode/settings.json" "${HOME}/.config/Code/User"
 fi
 
-## reload of services and caches
+inform 'Reloading X-services'
 >/dev/null 2>>"${LOG}" xrdb ${HOME}/.Xresources 
 
-echo -e '\nFinished with the actual script.' | ${WTL[@]}
+succ 'Finished with the actual script' "$LOG"
 
 # ? Actual script finished
 # ? Extra script begins
 
-echo -e 'Processing user-choices:' | ${WTL[@]}
+echo ""
+inform "Processing user-choices\n" "$LOG"
 
 if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
-    printf "\n-> Nemo is being configured:"
+    printf "-> Nemo is being configured..."
     
     xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search
     gsettings set org.cinnamon.desktop.default-applications.terminal exec 'urxvt'
@@ -134,40 +151,41 @@ if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
     mkdir -p "${HOME}/.local/share/nemo/actions"
     sudo cp -f "${RES}/sys/other_cfg/vscode-current-dir.nemo_action" "${HOME}/.local/share/nemo/actions/"
 
-    printf "\t finished."
+    printf "\t finished.\n"
 fi
 
 if [[ $R2 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R2 ]]; then
-    printf "\n-> Grub is being configured..."
+    printf "-> Grub is being configured..."
 
     &>/dev/null sudo cp /etc/default/grub "${BACK}"
     &>/dev/null sudo rm -f /etc/default/grub
     &>/dev/null sudo cp ${RES}/sys/other_cfg/grub /etc/default/
     >/dev/null 2>>"${LOG}" sudo update-grub
 
-    printf "\t finished."
+    printf "\t finished.\n"
 fi
 
 ## deployment of fonts
 if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
-    printf "\n-> Fonts are being installed:\n"
-    
+    inform "Fonts are processed\n" "$LOG"
+
     find "${RES}/fonts/" -maxdepth 1 -iregex "[a-z0-9_\.\/\ ]*\w\.sh" -type f -exec chmod +x {} \;
     (
         cd "${RES}/fonts/"
         ./fonts.sh | ${WTL[@]}
     )
 
-    printf "\nRenewing font-cache..."
+    echo -e "\n${INF}Renewing font cache" | ${WTL[@]}
     >/dev/null 2>>"${LOG}" fc-cache -f
-    printf "\tfinished.\n" | ${WTL[@]}
 fi
+
+succ 'Finished with processing user-choices' "$LOG"
 
 # ? Extra script finished
 # ? Postconfiguration and restart
 
-echo -e "\n\nDeployment of configuration files has ended. Installation finished!\n\n" | ${WTL[@]}
-read -p "It is recommended to restart now. Would you like me to restart? [Y/n]" -r R10
-if [[ $R10 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R10 ]]; then
+inform 'The script has finished' "$LOG"
+read -p "It is recommended to restart now. Would you like to restart? [Y/n]" -r RESTART
+if [[ $RESTART =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RESTART ]]; then
     shutdown -r now
 fi
