@@ -55,7 +55,7 @@ read -p "Would you like to install NeoVIM? [Y/n]" -r R8
 read -p "Would you like to install VS Code? [Y/n]" -r R9
 
 RC1="no"
-if [[ $R9 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R9 ]]; then
+if [[ $RC1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RC1 ]]; then
     read -p "Would you like to install recommended VS Code extensions? [Y/n]" -r RC1
 fi
 
@@ -64,14 +64,14 @@ read -p "Would you like to install Docker? [Y/n]" -r R11
 
 if [[ $R11 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R11 ]]; then
     warn "Docker has been chosen as an installation candidate. This may reqire manual user-input near the end of this script.\n"
-    sleep 3s
+    sleep 1s
 fi
 
 read -p "Would you like to install RUST? [Y/n]" -r R12
 
 if [[ $R12 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R12 ]]; then
     warn "Rust has been chosen as an installation candidate. This reqires manual user-input at the end of this script.\n"
-    sleep 3s
+    sleep 1s
 fi
 
 # ? User choices end
@@ -162,7 +162,7 @@ MISC=(
     nomacs
     
     scrot
-    qalculator
+    qalculate
 )
 
 PACKAGES=( "${CRITICAL[@]}" "${ENV[@]}" "${MISC[@]}" )
@@ -197,6 +197,7 @@ for PACKAGE in "${PACKAGES[@]}"; do
 done
 
 uninstall_and_log "${LOG}" suckless-tools
+echo ""
 
 if [[ ! -d "${HOME}/.local/share/icons/Tela" ]]; then
     inform 'Icon-Theme is being processed' "$LOG"
@@ -208,11 +209,10 @@ if [[ ! -d "${HOME}/.local/share/icons/Tela" ]]; then
 fi
 
 if ! dpkg -s adapta-gtk-theme-colorpack >/dev/null 2>&1; then
-    inform 'Color-Pack is being processed ' "$LOG"
-    >/dev/null 2>>"${LOG}" sudo dpkg -i "${DIR}/../resources/design/AdaptaGTK_colorpack.deb"
+    inform 'Color-Pack is being processed' "$LOG"
+    >/dev/null 2>>"${LOG}" sudo dpkg -i "${DIR}/../design/AdaptaGTK_colorpack.deb"
 fi
 
-echo ""
 succ 'Finished with actual script' "LOG"
 
 # ? Actual script finished
@@ -271,7 +271,7 @@ if [[ $R7 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R7 ]]; then
     >/dev/null 2>>"${LOG}" ${AI[@]} build-essential cmake
 fi
 
-if [[ $RC8 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RC8 ]]; then
+if [[ $R8 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R8 ]]; then
     echo -e 'Installing NeoVIM...' | ${WTL[@]}
     >/dev/null 2>>"${LOG}" sudo apt-get install neovim
     >/dev/null 2>>"${LOG}" curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -288,7 +288,7 @@ fi
 
 if [[ $RC1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RC1 ]]; then
     echo 'Installing Visual Studio Code Extensions' | ${WTL[@]}
-    &>>"${LOG}" "${DIR}/../resources/sys/vscode/extensions.sh"
+    &>>"${LOG}" "${DIR}/../sys/vscode/extensions.sh"
 fi
 
 if [[ $R10 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R10 ]]; then
@@ -305,7 +305,7 @@ if [[ $R11 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R11 ]]; then
     warn "Manual user-input may be requiered!\n" "$LOG"
     SH=$(readlink -m "${DIR}/../sys/docker/get_docker.sh")
     printf "\n"
-    $SH "$LOG"
+    $SH "$DIR"
 fi
 
 if [[ $R12 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $12 ]]; then
