@@ -21,7 +21,7 @@ If you chose the desktop version, you can remove GNOME packages, e.g. `gnome-des
 
 ``` BASH
 # update to the latest state, if possible
-sudo apt-get -y update && sudo apt-get -y upgrade
+sudo apt-get -y update && sudo apt-get -y dist-upgrade
 
 # get necessary tools to add an APT repository
 sudo apt-get install -y software-properties-common
