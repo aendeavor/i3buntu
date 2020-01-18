@@ -1,23 +1,23 @@
 # Installation
 
 [//]: # (Explains the installation process of i3buntu)
-[//]: # (version 0.9.3)
+[//]: # (version 1.0.0)
 
 ## Runlevel 0 - Acquiring an ISO
 
 #### Ubuntu 18.04.3 LTS Desktop & Server
 
-To get things started, you will need an Ubuntu ISO image. As of now, the latest LTS (Long Term Support) version of Ubuntu is 18.04.3 - the images for the desktop and server variant are found [here](http://releases.ubuntu.com/18.04/). The installation of these is straightforward as there is little to no difference between both versions. These images also support [UEFI](https://wiki.archlinux.org/index.php/Unified_Extensible_Firmware_Interface) right out of the box. You can then remove GNOME after you installed the desktop image and you are good to go.
+To get things started, you will need an Ubuntu ISO image. As of now, the latest LTS (Long Term Support) version of Ubuntu is 18.04.3 - the images for the desktop and server variant are found [here](http://releases.ubuntu.com/18.04/). The installation of these is straightforward. **We recommend using the server version** as it ships without unnecessary packages. These images also support [UEFI](https://wiki.archlinux.org/index.php/Unified_Extensible_Firmware_Interface) right out of the box.
 
 #### Ubuntu 18.04 LTS Minimal
 
 There is another option when it comes to choosing an Ubuntu flavour. There is a [minimal image](https://help.ubuntu.com/community/Installation/MinimalCD), containing only absolutely necessary packages. If you like it lean, chose this variant, but be aware that you will likely need to get some packages and dependencies yourself - this installation is going to be more difficult, as it becomes some sort of bootstrapping.
 
-This image does not support UEFI right out of the box. However, I created an ISO for you, which can be found [here](https://github.com/aendeavour/Ubuntu-18.04-LTS-Minimal-UEFI-NetInstaller). You can even create your own - just follow the instructions on this very page.
+This image does not support UEFI right out of the box. However, I created an ISO for you, which can be found [here](https://github.com/aendeavor/Ubuntu-18.04-LTS-Minimal-UEFI). You can even create your own - just follow the instructions on this very page.
 
 ## Runlevel 3 - Managing packages
 
-If you chose the desktop version, you can remove GNOME packages, e.g. `gnome-desktop*` and reboot. This is, however, not an absolute must, as some might prefer to have an alternative to i3. From hereon, update and grab mandatory ppa-repositories:
+If you chose the desktop version, you can remove GNOME packages, e.g. `gnome-desktop*` and reboot. This is, however, not an absolute must, as some might prefer to have an alternative to i3. From hereon, update the system and obtain GIT's and Mozialla's PPA-Repositories:
 
 ``` BASH
 # update to the latest state, if possible
@@ -35,26 +35,16 @@ Afterwards, download a release of i3buntu onto your system. You will need to ext
 
 ``` BASH
 # download the latest stable release
-cd && wget https://github.com/aendeavor/i3buntu/archive/v0.8.1-stable.tar.gz
-
-# or grab the latest unstable release
-cd && wget https://github.com/aendeavor/i3buntu/archive/v0.9.2-beta.3.tar.gz
+cd && wget https://github.com/aendeavor/i3buntu/archive/v0.9.2-stable.tar.gz
 
 # decompress the .tar.gz
-tar xvfz v0.8.1-stable.tar.gz && rm v0.8.1-stable.tar.gz
+tar xvfz v0.9.2-stable.tar.gz && rm v0.9.2-stable.tar.gz
 
 # rename the directory
 mv i3buntu* i3buntu
 ```
 
-_Before version v0.9.2-beta1_, you will need to execute the `packaging.sh` script. The script will install all needed packages and dependencies, it will let you make some choices and it will reboot your computer after everything is finished. If you are using a newer version, skip the next command and read on.
-
-``` BASH
-# version 0.8.1-stable and before - execute the packaging.sh script
-cd && ./i3buntu/scripts/packaging.sh
-```
-
-_From version v0.9.2-beta1 onwards_ however, there is a new and enhanced way. In the root of the i3buntu directory, right where this file is located, there is the new [`install.sh`](./install.sh) script. With this new script, you are able to install not only the desktop, but also a server version (mainly without graphical environment) or you can create a Docker container. This is how you use it:
+_From version v0.9.2-beta1 onwards_, there is a new and enhanced way of installing i3buntu. In the root of the i3buntu directory, right where this file is located, there is the new [`install.sh`](./install.sh) script. With this new script, you are able to install not only the desktop, but also a server version (mainly without graphical environment) or you can create a Docker container. This is how you use it:
 
 ``` BASH
 # For desktop installations, you will need
@@ -88,13 +78,7 @@ Paste your setup in these lines
 
 Afterwards, save the file and run your configuration script
 
-_Before version v0.9.2-beta1_, you will need to execute the `configuration.sh` script. Open the terminal by pressing _mod + Enter_ and execute it. It will setup all configuration-files and **will automatically replace** files which it is supposed to deploy. It also performs a backup which can be found in `~/i3buntu/backups/` containing `.bak`-files.
-
-``` BASH
-cd && ./i3buntu/scripts/configuration.sh
-```
-
-_From version v0.9.2-beta1 onwards_ however, [`install.sh`](./install.sh) also grants you the ability to configure i3buntu with necessary configuration files. It basically works just like the old `configuration.sh` with enhancements. A backup is performed, files are replaced, user-choices processed. The server-installation does this automatically, so you will not need to do this yourself if you install i3buntu as a server. There is also no separate configuration for the Docker container. This is how you invoke configuration:
+_From version v0.9.2-beta1 onwards_, [`install.sh`](./install.sh) also grants you the ability to configure i3buntu with necessary configuration files. A backup is performed, files are replaced, user-choices processed. The server-installation does this automatically, so you will not need to do this yourself if you install i3buntu as a server. There is also no separate configuration for the Docker container. This is how you invoke configuration:
 
 ``` BASH
 # For desktop installations, you will need
