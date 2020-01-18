@@ -198,12 +198,14 @@ done
 
 uninstall_and_log "${LOG}" suckless-tools
 
-inform 'Icon-Theme is being processed' "$LOG"
-(
-    cd "${DIR}/../icon_theme"
-    &>>"${LOG}" find . -maxdepth 1 -iregex "[a-z0-9_\.\/\ ]*\w\.sh" -type f -exec chmod +x {} \;
-    &>>"${LOG}" ./icon_theme.sh "$LOG"
-)
+if [[ ! -d "${HOME}/.local/share/icons/Tela" ]]; then
+    inform 'Icon-Theme is being processed' "$LOG"
+    (
+        cd "${DIR}/../icon_theme"
+        &>>"${LOG}" find . -maxdepth 1 -iregex "[a-z0-9_\.\/\ ]*\w\.sh" -type f -exec chmod +x {} \;
+        &>>"${LOG}" ./icon_theme.sh "$LOG"
+    )
+fi
 
 if ! dpkg -s adapta-gtk-theme-colorpack >/dev/null 2>&1; then
     inform 'Color-Pack is being processed ' "$LOG"
@@ -298,34 +300,38 @@ if [[ $R10 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R10 ]]; then
     >/dev/null 2>>"${LOG}" ${SI[@]} clion --classic
 fi
 
-if [[ $RC11 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RC11 ]]; then
+if [[ $R11 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R11 ]]; then
     echo -e 'Installing Docker' | ${WTL[@]}
-    warn "Manual user-input may be required!\n"
-    $(readlink -m "${DIR}/../sys/docker/get_docker.sh") $DIR
+    warn "Manual user-input may be requiered!\n" "$LOG"
+    SH=$(readlink -m "${DIR}/../sys/docker/get_docker.sh")
+    printf "\n"
+    $SH "$LOG"
 fi
 
-if [[ $R12 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R12 ]]; then
+if [[ $R12 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $12 ]]; then
     echo -e "Installing RUST" | ${WTL[@]}
-    warn "Manual user-input requiered!\n"
+    warn "Manual user-input requiered!\n" "$LOG"
 
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile complete
     
-    source "${HOME}/.cargo/env"
-    
-    mkdir -p "${HOME}/.local/share/bash-completion/completions"
-    touch "${HOME}/.local/share/bash-completion/completions/rustup"
-    rustup completions bash > "${HOME}/.local/share/bash-completion/completions/rustup"
+    if [[ -e "${HOME}/.cargo/env" ]]; then
+        source "${HOME}/.cargo/env"
 
-    COMPONENTS=( rust-docs rust-analysis rust-src rustfmt rls clippy )
-    for COMPONENT in ${COMPONENTS[@]}; do
-        &>>"${LOG}" rustup component add $COMPONENT
-    done
+        mkdir -p "${HOME}/.local/share/bash-completion/completions"
+        touch "${HOME}/.local/share/bash-completion/completions/rustup"
+        rustup completions bash > "${HOME}/.local/share/bash-completion/completions/rustup"
 
-    if [[ ! -z $(which code) ]]; then
-        code --install-extension rust-lang.rust >/dev/null 2>>${LOG}
+        COMPONENTS=( rust-docs rust-analysis rust-src rustfmt rls clippy )
+        for COMPONENT in ${COMPONENTS[@]}; do
+            &>>"${LOG}" rustup component add $COMPONENT
+        done
+
+        if [[ ! -z $(which code) ]]; then
+            code --install-extension rust-lang.rust >/dev/null 2>>${LOG}
+        fi
+
+        >/dev/null 2>>"${LOG}" rustup update
     fi
-
-    >/dev/null 2>>"${LOG}" rustup update
 fi
 
 succ 'Finished with processing user-choices' "$LOG"

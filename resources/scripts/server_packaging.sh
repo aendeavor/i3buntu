@@ -153,7 +153,7 @@ if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
     sleep 3s
 fi
 
-if [[ $RC4 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RC4 ]]; then
+if [[ $R4 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R4 ]]; then
     echo -e 'Installing Docker' | ${WTL[@]}
     warn "Manual user-input may be requiered!\n" "$LOG"
     SH=$(readlink -m "${DIR}/../sys/docker/get_docker.sh")

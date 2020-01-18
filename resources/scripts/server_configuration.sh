@@ -67,7 +67,7 @@ if [ -d "${HOME}/.config" ]; then
 fi
 
 ## deployment of configuration files
-inform "Proceeding to deploying config files:" "$LOG"
+inform "Proceeding to deploying config files" "$LOG"
 
 DEPLOY_IN_HOME=( sh/.bashrc sh/.bash_aliases vi/.vimrc vi/.viminfo )
 for sourceFile in "${DEPLOY_IN_HOME[@]}"; do
