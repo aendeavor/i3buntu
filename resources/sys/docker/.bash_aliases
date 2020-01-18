@@ -65,7 +65,7 @@ export -f warn
 succ()
 {
     local LOG=${2:-"/dev/null"}
-    echo -e "$(date '+%d.%m.%Y %H:%M:%S') \033[1;32mSUCCESS\033[0m\t$1" | tee -a "$LOG"
+    echo -e "$(date '+%d.%m.%Y %H:%M:%S') \033[1;32mSUCESS\033[0m\t$1" | tee -a "$LOG"
 }
 export -f succ
 
@@ -130,8 +130,8 @@ shutn () {
 export -f shutn
 
 update () {
-    local DIR="${HOME}/.update_log"
-    local OPTIONS=(--yes --assume-yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages)
+    DIR="${HOME}/.update_log"
+    OPTIONS=(--yes --assume-yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages)
 
     # ? Actual function begins
     sudo printf ""

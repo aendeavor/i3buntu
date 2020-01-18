@@ -3,11 +3,11 @@
 :toclevels: 2
 :showtitle:
 :homepage: https://github.com/Andevour/i3buntu
-:version: 0.0.4
+:version: 0.1.0
 
 == Overview
 
-This file exists to give you a comprehensive overview over all features _i3buntu_ either provides you with or improves upon. There are dozens of smaller improvements, which are going to be listed here as well. Make sure your read this page to know what you will get when using i3buntu.
+This file exists to give you a comprehensive overview over all features i3buntu either provides you with or improves upon. There are dozens of smaller improvements, which are going to be listed here as well. Make sure your read this page to know what you will get when using i3buntu.
 
 == Core features
 
@@ -15,7 +15,7 @@ This file exists to give you a comprehensive overview over all features _i3buntu
 
 ==== Window Manager
 
-The most obvious change, as it affects the design of your system, is the choice of _i3_. For itself, _i3_ is very ugly - but to be fair, this is where _i3buntu_ comes into play. The configuration has been done meticulously.
+The most obvious change, as it affects the design of your system, is the choice of i3. For itself, i3 is very ugly - but to be fair, this is where i3buntu comes into play. The configuration has been done meticulously.
 
 // [[i3]]
 // image::https://upload.wikimedia.org/wikipedia/commons/2/27/I3_window_manager_logo.svg[i3,500]
@@ -29,39 +29,29 @@ image::../design/color_palette.svg[color scheme]
 
 === Performance
 
-==== No GNOME or KDE
+==== No desktop environment
 
-While GNOME and KDE can be beautiful as well, they are nonetheless heavy on resources. Today, this may not seem like much of a problem, and indeed, it isn't, but for some, getting **the** best performance out of their system matters. After all, you don't want to be sitting around waiting for your computer to finish its work - you want your computer to wait for you.
-
-The window manager _i3_ is completely written in _C_.
+While GNOME and KDE can be beautiful as well, they are nonetheless heavier on resources. Today, this may not seem like much of a problem, and indeed, it isn't, but for some, getting the best performance out of their system matters. 
 
 ==== Low memory consumption
 
-When under idle, the system uses about 310+ MiB of RAM. That is roughly one tenth of what Windows 10 uses, and less than a third of _GNOME_. 
-
-=== Customizability
-
-For everyone familiar with the command line, there is nothing stopping you. Why do we mention this here? On any other distribution this is true as well? You are right, but then, firstly, it is correct for _i3buntu_ as well, and _i3buntu_ forces you to take the command line approach. Simply because there are no graphical programs preinstalled to aid you, you will need to make yourself comfortable with _BASH_.
-
-That is, for all of you new to Linux, a good thing. The struggle at first is real, to be honest, but after a while you will ask yourself how you could ever live without...
+When under idle, the system uses about 310+ MiB of RAM. That is roughly one tenth of what Windows 10 uses, and less than a third of GNOME. 
 
 == Developer features
 
-=== Native integration of IDEs
-
 ==== Visual Studio Code
 
-During the packaging stage, the user is offered a wide variety of choices, what to install and what not to install. From these many choices, _Visual Studio Code_ is one of them. One of the most popular and lightweight IDEs, _VS Code_ provides customizability and ease of use. This _electron_ wrapper is geared towards projects where heavy development environments would be overkill.
+During the packaging stage, the user is offered a wide variety of choices, what to install and what not to install. From these many choices, Visual Studio Code is one of them. One of the most popular and lightweight IDEs, VS Code provides customizability and ease of use.
 
-Moreover, if you chose to install _VS Code_, you will have to opportunity to pick up hand-selected extensions afterwards. The selection of these extensions can be found in this link:../sys/vscode/README.adoc[README] file.
+Moreover, if you chose to install VS Code, you will have the opportunity to pick up hand-selected extensions afterwards. The selection of these extensions can be found in this link:../sys/vscode/README.adoc[README] file.
 
 ==== JetBrains' IDEs
 
-However, if you need heave equipment, _JetBrains_'s got you covered. _IntelliJ_, _PyCharm_ and _CLion_ are automatically installed, next to _Kotlin_. As the go-to option for professional IDEs, large projects in _Java_, _Python_, _C_, _C++_, _RUST_ and many more are no match anymore. If you are interested in other languages, there sure is a specialized version in link:https://www.jetbrains.com/[JetBrains] homepage. With the link:https://education.github.com/[GitHub Students Developer Pack], these professional solutions are free of charge while you are studying.
+IntelliJ, PyCharm and CLion can be installed, next to Kotlin. These IDEs are the go-to option for workloads and large projects in Java, Python, C, C++, RUST. If you are interested in other languages, there sure is a specialized version in link:https://www.jetbrains.com/[JetBrains] homepage. With the link:https://education.github.com/[GitHub Students Developer Pack], these professional solutions are free of charge while you are studying.
 
-=== RUST out of the box
+==== Docker, RUST & NeoVIM
 
-The installation of _RUST_ is analogous to all the other installations mentioned. Just chose to install it, and `rustup` will serve you well.
+Since _v0.9.2-beta1_, Docker and NeoVIM can be chosen as an installation candidate. The installation of RUST is analogous to all the other installations mentioned.
 
 == Extension features
 
@@ -76,4 +66,4 @@ image::https://upload.wikimedia.org/wikipedia/commons/8/82/Gnu-bash-logo.svg[BAS
 
 The aliases file brings *a few* handy aliases and functions. The aliases list is rather long - you should see it yourself, but noteworthy would be `lsa` to list everything like `ls -lhs`, `...` to go two directories back or `sd` as in show disks (`blkid -o list`).
 
-Exported functions include `a` for `sudo apt-get $1 ...`, `sf` as in search file for  `ls -lha | grep $1`, `open`, to open the pdf viewer _evince_ from the command line. Most notably is the `update` function, which updated all components of your system, whether it be via _APT_, _snap_ or _rustup_.
+Exported functions include `a` for `sudo apt-get $1 ...`, `sf` as in search file for  `ls -lha | grep $1`, `open`, to open the pdf viewer evince from the command line. Most notably is the `update` function, which updated all components of your system, whether it be via APT, snap or rustup.

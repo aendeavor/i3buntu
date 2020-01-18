@@ -16,6 +16,7 @@ floating_modifier $mod
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
+## amixer -D pulse sset Master 100% unmute
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
@@ -79,7 +80,7 @@ bar {
 bindsym $mod+Return exec "urxvtcd"
 
 # lock the screen
-bindsym $mod+Shift+x exec i3lock -u -e -i ~/pictures/wallpapers/firewatch.png -t
+bindsym $mod+Shift+x exec i3lock -u -e -i ~/images/firewatch.png -t
 
 # application manager
 bindsym $mod+d exec rofi -show run
@@ -89,6 +90,9 @@ bindsym $mod+c exec code
 
 # nemo
 bindsym $mod+n exec nemo
+
+# ranger
+bindsym $mod+Ctrl+n exec --no-startup-id urxvt -e ranger
 
 # firefox
 bindsym $mod+f exec firefox
@@ -238,6 +242,7 @@ bindsym $mod+r mode "resize"
 
 # Startup of authentication agent, urxvt-deamon and compton compositor
 exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+exec nm-applet &
 exec urxvtd -q -o -f &
 exec compton &
 exec owncloud &
