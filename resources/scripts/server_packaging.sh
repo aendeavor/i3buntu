@@ -45,18 +45,7 @@ read -p "Would you like to execute ubuntu-driver autoinstall? [Y/n]" -r R1
 read -p "Would you like to install Build-Essentials? [Y/n]" -r R2
 read -p "Would you like to install NeoVIM? [Y/n]" -r R3
 read -p "Would you like to install Docker? [Y/n]" -r R4
-
-if [[ $R4 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R4 ]]; then
-    warn 'Docker has been chosen as an installation candidate. This may reqire manual user-input near the end of this script.'
-    sleep 1s
-fi
-
 read -p "Would you like to get RUST? [Y/n]" -r R5
-
-if [[ $R5 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R5 ]]; then
-    warn 'Rust has been chosen as an installation candidate. This reqires manual user-input at the end of this script.'
-    sleep 1s
-fi
 
 # ? User choices end
 # ? Init of package selection
@@ -163,9 +152,8 @@ fi
 
 if [[ $R5 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R5 ]]; then
     echo -e "Installing RUST" | ${WTL[@]}
-    warn "Manual user-input requiered!\n" "$LOG"
 
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile complete
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile complete -y &>/dev/null
     
     if [[ -e "${HOME}/.cargo/env" ]]; then
         source "${HOME}/.cargo/env"

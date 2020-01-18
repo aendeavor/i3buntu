@@ -18,14 +18,7 @@ RIP=$1
 # ? Checks
 
 if [[ -n $(which docker) ]]; then
-    warn 'Docker seems to be already installed'
-    read -p "Would you like to abort the installation of Docker? (This wont affect the calling script.) [Y/n]" -r R1
-    
-    if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
-        exit 0
-    fi
-
-    warn 'There is going to be a delay of approximately 20s. Hang on...'
+    warn 'Docker seems to be already installed. There is going to be a delay of approximately 20s due to how the script works. Hang on...'
 fi
 
 # ? Actual script
@@ -34,7 +27,7 @@ fi
 cd $SCR
 
 &>>/dev/null curl -sSL https://get.docker.com -o docker_installer.sh
-sh docker_installer.sh &>>/dev/null
+sh docker_installer.sh -y &>>/dev/null
 
 if (( $? == 0 )); then
     succ 'Docker successfully installed'
