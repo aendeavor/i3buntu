@@ -2,11 +2,11 @@
   <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
   <svg version="1.1" id="Level_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
   width="1024px" height="768px" viewBox="0 0 1024 768" enable-background="new 0 0 1024 768" xml:space="preserve">
-  <rect x="46"  y="44" fill="#1b202a" width="180" height="631"/>
-  <rect x="238" y="44" fill="#e84a5f" width="180" height="631"/>
-  <rect x="430" y="44" fill="#ff847c" width="180" height="631"/>
-  <rect x="622" y="44" fill="#feceab" width="180" height="631"/>
-  <rect x="814" y="44" fill="#9ab29a" width="180" height="631"/>
-  <!-- <text transform="matrix(1 0 0 1 44 725.8984)" fill="#8e98a7" font-family="'Helvetica'" font-size="12">Coolors Exported Palette - coolors.co/1b202a-e84a5f-ff847c-feceab-9ab29a</text> -->
+  <rect x="46"  y="44" fill="#010715" width="180" height="631"/>
+  <rect x="238" y="44" fill="#04264c" width="180" height="631"/>
+  <rect x="430" y="44" fill="#55c4cd" width="180" height="631"/>
+  <rect x="622" y="44" fill="#fdf4e0" width="180" height="631"/>
+  <rect x="814" y="44" fill="#e95167" width="180" height="631"/>
+  <text transform="matrix(1 0 0 1 44 725.8984)" fill="#8e98a7" font-family="'Helvetica'" font-size="12">Coolors Exported Palette - coolors.co/010715-04264c-55c4cd-fdf4e0-e95167</text>
   </svg>
   
