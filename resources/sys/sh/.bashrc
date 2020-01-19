@@ -56,12 +56,12 @@ fi
 if [ "$color_prompt" = yes ]; then
     PS1='${debian_chroot:+($debian_chroot)}'
 
-    PS1+='\[\e[38;5;194m\]'
+    PS1+='\[\e[38;5;110m\]'
     PS1+='[\u@\h]'
 
     PS1+='\[\e[0m\] : '
 
-    PS1+='\[\e[38;5;194m\]'
+    PS1+='\[\e[38;5;110m\]'
     PS1+='[ \w ]'
 
     PS1+='\[\e[0m\] \$ '
@@ -87,6 +87,5 @@ if ! shopt -oq posix; then
   fi
 fi
 
-echo ""
 neofetch --ascii --disable uptime packages resolution theme icons cpu gpu --gtk3 on --bar_border on --ascii_distro arch --underline_char \  --block_range 0 7 --block_width 4 --block_height 1 --gap 13
 echo ""

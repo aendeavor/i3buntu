@@ -144,7 +144,7 @@ update () {
     sudo apt-get ${OPTIONS[@]} autoremove &>> "$DIR"
 
     inform 'Clearing apt cache' "$DIR"
-    sudo apt-get ${OPTIONS[@]} autoremove &>> "$DIR"
+    sudo apt-get ${OPTIONS[@]} autoclean &>> "$DIR"
 
     inform 'Updating via SNAP' "$DIR"
     sudo snap refresh &>> "$DIR"
