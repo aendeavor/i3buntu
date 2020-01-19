@@ -246,7 +246,7 @@ if [[ $R4 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R4 ]]; then
 fi
 
 if [[ $R5 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R5 ]]; then
-    echo -e 'Installing LaTeX...' | ${WTL[@]}
+    echo -e 'Installing TeX...' | ${WTL[@]}
     >/dev/null 2>>"${LOG}" ${AI[@]} texlive-full
     >/dev/null 2>>"${LOG}" ${AI[@]} python3-pygments
 fi
@@ -257,7 +257,7 @@ if [[ $R6 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R6 ]]; then
 fi
 
 if [[ $R7 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R7 ]]; then
-    echo 'Installing build-essential & CMake' | ${WTL[@]}
+    echo 'Installing Build-Essential & CMake' | ${WTL[@]}
     >/dev/null 2>>"${LOG}" ${AI[@]} build-essential cmake
 fi
 
