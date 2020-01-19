@@ -11,18 +11,15 @@
 # check color support
 if [ -x /usr/bin/dircolors ]; then
     test -r "${HOME}/.dircolors" && eval "$(dircolors -b "${HOME}/.dircolors")" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto -lh'
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-else
-    alias ls='ls -lh'
 fi
 
 # ? Aliases
 
-alias ls='ls -lh'
-alias lsa='ls -lha'
+alias ls='ls -lh --color=auto'
+alias lsa='ls -lha --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
 alias datetime='date && cal'
 alias df='df -h'
 alias sd='blkid -o list'
@@ -115,8 +112,8 @@ sv () {
 export -f sv
 
 sf () {
-    SEARCH={$1:?Enter a search-regex}
-    MAXDEPTH={$2:-5}
+    SEARCH=${1:?Enter a search-regex}
+    MAXDEPTH=${2:-1}
     find . -maxdepth $MAXDEPTH -iregex "[a-z0-9_\.\/\ ]*${SEARCH}" -type f
     ls -lha | grep $1
     return
