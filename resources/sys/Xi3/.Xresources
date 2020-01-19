@@ -138,10 +138,10 @@ URxvt*scrollstyle:          plain
 URxvt.scrollWithBuffer:     true
 
 !! Dark Gunmetal (Legacy)
-!URxvt*background: rgba:0000/0000/0000/9999
+URxvt*background: rgba:0000/0000/0000/9999
 
 !! Platinum (Legacy)
-! URxvt*foreground: #E5E8E7
+URxvt*foreground: #E5E8E7
 
 ! Transparency - true or false (default)
 URxvt*transparent: true
