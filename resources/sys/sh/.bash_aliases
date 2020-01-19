@@ -141,7 +141,7 @@ update () {
     sudo apt-get update &>>"$DIR"
 
     inform 'Installing updates' "$DIR"
-    sudo apt-get ${OPTIONS[@]} upgrade &>> "$DIR"
+    sudo apt-get ${OPTIONS[@]} dist-upgrade &>> "$DIR"
 
     inform 'Removing orphaned packages' "$DIR"
     sudo apt-get ${OPTIONS[@]} autoremove &>> "$DIR"
