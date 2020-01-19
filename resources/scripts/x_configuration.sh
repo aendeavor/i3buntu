@@ -136,8 +136,7 @@ succ 'Finished with the actual script' "$LOG"
 # ? Actual script finished
 # ? Extra script begins
 
-echo ""
-inform "Processing user-choices\n" "$LOG"
+inform "Processing user-choices" "$LOG"
 
 if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
     inform 'Nemo is being configured...' "$LOG"
@@ -150,8 +149,6 @@ if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
     gsettings set org.nemo.desktop show-desktop-icons true
     mkdir -p "${HOME}/.local/share/nemo/actions"
     sudo cp -f "${RES}/sys/other_cfg/vscode-current-dir.nemo_action" "${HOME}/.local/share/nemo/actions/"
-
-    printf "\t finished.\n"
 fi
 
 if [[ $R2 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R2 ]]; then
@@ -172,7 +169,7 @@ if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
         ./fonts.sh | ${WTL[@]}
     )
 
-    echo -e "\n${INF}Renewing font cache" | ${WTL[@]}
+    inform "Renewing font cache" "$LOG"
     >/dev/null 2>>"${LOG}" fc-cache -f
 fi
 
