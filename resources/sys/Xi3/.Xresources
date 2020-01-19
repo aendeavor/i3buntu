@@ -1,4 +1,4 @@
-!! ~/.Xresorces
+! With the help of https://terminal.sexy/
 
 !################################### XFT
 
@@ -12,42 +12,82 @@ Xft.lcdfilter:              lcdfilter
 
 !################################### Colors
 
-! Dark Gunmetal
-*background: #2A363B
-*pointerColorBackground: #2A363B
+! special
+*.foreground:   #c5c8c6
+*.background:   #232527
+*.cursorColor:  #c5c8c6
 
-! Platinum
-*foreground: #E5E8E7
-*cursorColor: #E5E8E7
-*pointerColorForeground: #E5E8E7
+! black
+*.color0:       #282a2e
+*.color8:       #373b41
 
-! Paradise Pink
-*color0: #E84A5F
-*color8: #E84A5F
+! red
+*.color1:       #ce3f3f
+*.color9:       #cc6666
 
-*color1: #E84A5F
-*color9: #E84A5F
+! green
+*.color2:       #8c9440
+*.color10:      #b5bd68
 
-! Tea Rose
-*color2: #FF847C
-*color10: #FF847C
+! yellow
+*.color3:       #de935f
+*.color11:      #f0c674
 
-*color3: #FF847C
-*color11: #FF847C
+! blue
+*.color6:       #5f819d
+*.color14:      #81a2be
 
-! Apricot
-*color4: #FECEAB
-*color12: #FECEAB
+! magenta
+*.color5:       #85678f
+*.color13:      #b294bb
 
-*color5: #FECEAB
-*color13: #FECEAB
+! cyan
+*.color4:       #5e8d87
+*.color12:      #8abeb7
+
+! white
+*.color7:       #707880
+*.color15:      #c5c8c6
+
+
+!################################### Legacy Colors (disabled)
+
+!! Dark Gunmetal
+!*background: #2A363B
+!*pointerColorBackground: #2A363B
+
+!! Platinum
+!*foreground: #E5E8E7
+!*cursorColor: #E5E8E7
+!*pointerColorForeground: #E5E8E7
+
+!! Paradise Pink
+!*color0: #E84A5F
+!*color8: #E84A5F
+
+!*color1: #E84A5F
+!*color9: #E84A5F
+
+!! Tea Rose
+!*color2: #FF847C
+!*color10: #FF847C
+
+!*color3: #FF847C
+!*color11: #FF847C
+
+!! Apricot
+!*color4: #FECEAB
+!*color12: #FECEAB
+
+!*color5: #FECEAB
+!*color13: #FECEAB
 
 !! Laurel Green
-*color6: #9AB29A
-*color14: #9AB29A
+!*color6: #9AB29A
+!*color14: #9AB29A
 
-*color7: #9AB29A
-*color15: #9AB29A
+!*color7: #9AB29A
+!*color15: #9AB29A
 
 ############################################ ROFI
 
@@ -97,17 +137,17 @@ URxvt*scrollBar_right:      false
 URxvt*scrollstyle:          plain
 URxvt.scrollWithBuffer:     true
 
-! Dark Gunmetal
-URxvt*background: rgba:0000/0000/0000/9999
+!! Dark Gunmetal (Legacy)
+!URxvt*background: rgba:0000/0000/0000/9999
 
-! Platinum
-URxvt*foreground: #E5E8E7
+!! Platinum (Legacy)
+! URxvt*foreground: #E5E8E7
 
-! transparency - true or false (default)
-! URxvt*transparent: true
+! Transparency - true or false (default)
+URxvt*transparent: true
 
-! shading - 0 to 99 darkens, 101 to 200 lightens
-URxvt*shading: 25
+! Shading - 0 to 99 darkens, 101 to 200 lightens
+URxvt*shading: 40
 
 ! Roboto Mono Nerd Font
 URxvt*font: xft:RobotoMono NF:style=Regular:pixelsize=14, \
@@ -133,35 +173,3 @@ URxvt.clipboard.autocopy: true
 ! Matcher (clickable URLs)
 URxvt.url-launcher: /usr/bin/firefox
 URxvt.matcher.button: 1
-
-! Color for NVIM's color scheme Gruvbox
-URxvt.color24:  #076678
-URxvt.color66:  #427b58
-URxvt.color88:  #9d0006
-URxvt.color96:  #8f3f71
-URxvt.color100: #79740e
-URxvt.color108: #8ec07c
-URxvt.color109: #83a598
-URxvt.color130: #af3a03
-URxvt.color136: #b57614
-URxvt.color142: #b8bb26
-URxvt.color167: #fb4934
-URxvt.color175: #d3869b
-URxvt.color208: #fe8019
-URxvt.color214: #fabd2f
-URxvt.color223: #ebdbb2
-URxvt.color228: #f2e5bc
-URxvt.color229: #fbf1c7
-URxvt.color230: #f9f5d7
-URxvt.color234: #1d2021
-URxvt.color235: #282828
-URxvt.color236: #32302f
-URxvt.color237: #3c3836
-URxvt.color239: #504945
-URxvt.color241: #665c54
-URxvt.color243: #7c6f64
-URxvt.color244: #928374
-URxvt.color245: #928374
-URxvt.color246: #a89984
-URxvt.color248: #bdae93
-URxvt.color250: #d5c4a1
