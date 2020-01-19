@@ -39,7 +39,7 @@ set $INACTIVE-BG            #010715
 set $TEXT                   #FDF4E0
 set $INACTIVE-TEXT          #FDF4E0
 set $URGENT                 #E95167
-set $BAR                    #010715
+set $BAR                    #000204
 set $BTA                    #55C4CD
 set $BTIA                   #FDF4E0
 
