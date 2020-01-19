@@ -29,13 +29,6 @@ cd $SCR
 &>>/dev/null curl -sSL https://get.docker.com -o docker_installer.sh
 sh docker_installer.sh -y &>>/dev/null
 
-if (( $? == 0 )); then
-    succ 'Docker successfully installed'
-else
-    err 'Docker not successfully installed'
-    exit 1
-fi
-
 cd $SCR
 rm docker_installer.sh
 
