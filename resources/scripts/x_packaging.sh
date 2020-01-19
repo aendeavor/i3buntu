@@ -203,12 +203,12 @@ if ! dpkg -s adapta-gtk-theme-colorpack >/dev/null 2>&1; then
     >/dev/null 2>>"${LOG}" sudo dpkg -i "${DIR}/../design/AdaptaGTK_colorpack.deb"
 fi
 
-succ 'Finished with actual script' "LOG"
+succ 'Finished with actual script' "$LOG"
 
 # ? Actual script finished
 # ? Extra script begins
 
-inform "Processing user-choices\n" "LOG"
+inform "Processing user-choices\n" "$LOG"
 
 ## graphics driver
 if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
@@ -266,8 +266,8 @@ if [[ $R8 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R8 ]]; then
     >/dev/null 2>>"${LOG}" sudo apt-get install neovim
     >/dev/null 2>>"${LOG}" curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-    warn 'You will need to run :PlugInstall seperately in NeoVIM as you cannot execute this command in a shell.'
-    warn 'Thereafter, run ~/.config/nvim/plugged/YouCompleteMe/install.py --racer-completer --tern-completer.'
+    inform 'You will need to run :PlugInstall seperately in NeoVIM as you cannot execute this command in a shell.'
+    inform 'Thereafter, run ~/.config/nvim/plugged/YouCompleteMe/install.py --racer-completer --tern-completer.'
     sleep 3s
 fi
 
@@ -300,7 +300,7 @@ if [[ $R12 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z ${12} ]]; then
     echo -e "Installing RUST" | ${WTL[@]}
 
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile complete -y &>/dev/null
-    
+
     if [[ -e "${HOME}/.cargo/env" ]]; then
         source "${HOME}/.cargo/env"
 
