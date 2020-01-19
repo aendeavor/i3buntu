@@ -292,9 +292,7 @@ fi
 
 if [[ $R11 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R11 ]]; then
     echo -e 'Installing Docker' | ${WTL[@]}
-    warn "Manual user-input may be requiered!\n" "$LOG"
     SH=$(readlink -m "${DIR}/../sys/docker/get_docker.sh")
-    printf "\n"
     $SH "$DIR"
 fi
 

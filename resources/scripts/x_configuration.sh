@@ -140,7 +140,7 @@ echo ""
 inform "Processing user-choices\n" "$LOG"
 
 if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
-    printf "-> Nemo is being configured..."
+    inform 'Nemo is being configured...' "$LOG"
     
     xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search
     gsettings set org.cinnamon.desktop.default-applications.terminal exec 'urxvt'
@@ -155,14 +155,11 @@ if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
 fi
 
 if [[ $R2 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R2 ]]; then
-    printf "-> Grub is being configured..."
-
+    inform 'Grub is being configured...' "$LOG"
     &>/dev/null sudo cp /etc/default/grub "${BACK}"
     &>/dev/null sudo rm -f /etc/default/grub
     &>/dev/null sudo cp ${RES}/sys/other_cfg/grub /etc/default/
     >/dev/null 2>>"${LOG}" sudo update-grub
-
-    printf "\t finished.\n"
 fi
 
 ## deployment of fonts
