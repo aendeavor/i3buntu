@@ -1,7 +1,7 @@
 # Installation
 
 [//]: # (Explains the installation process of i3buntu)
-[//]: # (version 1.0.0)
+[//]: # (version 1.0.1)
 
 ## Runlevel 0 - Acquiring an ISO
 
@@ -38,7 +38,7 @@ Afterwards, download a release of i3buntu onto your system. You will need to ext
 cd && wget https://github.com/aendeavor/i3buntu/archive/v0.9.2-stable.tar.gz
 
 # decompress the .tar.gz
-tar xvfz v0.9.2-stable.tar.gz && rm v0.9.2-stable.tar.gz
+tar xvfz v0.9.3-stable.tar.gz && rm v0.9.3-stable.tar.gz
 
 # rename the directory
 mv i3buntu* i3buntu
