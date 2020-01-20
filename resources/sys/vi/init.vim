@@ -71,6 +71,7 @@ Plug 'vim-scripts/nginx.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'Quramy/tsuquyomi'
 Plug 'Shougo/vimproc.vim'
+Plug 'iCyMind/NeoSolarized'
 
 call plug#end()
 
