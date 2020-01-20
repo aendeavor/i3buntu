@@ -65,11 +65,6 @@ CRITICAL=(
 
     vim
     ranger
-
-    policykit-desktop-privileges
-    policykit-1-gnome
-    gnome-keyring*
-    libgnome-keyring0
 )
 
 ENV=(
