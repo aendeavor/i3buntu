@@ -147,7 +147,10 @@ URxvt*foreground: #E5E8E7
 URxvt*transparent: true
 
 ! Shading - 0 to 99 darkens, 101 to 200 lightens
-URxvt*shading: 40
+URxvt*shading: 55
+
+! Background blur - Higher = More
+URxvt*blurRadius: 7
 
 ! Roboto Mono Nerd Font
 URxvt*font: xft:RobotoMono NF:style=Regular:pixelsize=14, \
