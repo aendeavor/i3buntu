@@ -100,7 +100,7 @@ echo -e "-> Syncing lightdm-gtk-greeter.conf"  | ${WTL[@]}
 >/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/other_cfg/lightdm-gtk-greeter.conf" /etc/lightdm
 
 echo -e "-> Syncing lightdm wallpaper"  | ${WTL[@]}
->/dev/null 2>>"${LOG}" sudo ${RS[@]} "${RES}/images/firewatch.jpg" /usr/share/lightdm
+>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${RES}/images/dreamy.jpg" /usr/share/lightdm
 
 echo -e "-> Syncing URXVT resize-font extension"  | ${WTL[@]}
 >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/sh/resize-font" "${HOME}/.urxvt/ext"
