@@ -26,14 +26,13 @@ fi
 # Make VM Ware Workstation Player executable with sudo without
 # needing to enter the password of the current user
 
-if [[ ! -e "/etc/sudoers.d/vmware" ]]; then
-  sudo touch -p /etc/sudoers.d/vmware
-else
-  sudo echo '' | sudo tee /etc/sudoers.d/vmware &>/dev/null
+if [[ -e "/etc/sudoers.d/vmware" ]]; then
+  sudo mv /etc/sudoers.d/vmware /etc/sudoers.d/vmware_old
 fi
 
-echo '# Execute VM Ware Workstation Player as sudo without password' | (sudo su -c 'EDITOR="tee -a" visudo -f /etc/sudoers.d/vmware') &>/dev/null
+sudo touch -p /etc/sudoers.d/vmware
 
+echo '# Execute VM Ware Workstation Player as sudo without password' | (sudo su -c 'EDITOR="tee -a" visudo -f /etc/sudoers.d/vmware') &>/dev/null
 echo -e "$(whoami) ALL=NOPASSWD:/usr/bin/vmplayer" | (sudo su -c 'EDITOR="tee -a" visudo -f /etc/sudoers.d/vmware') &>/dev/null
 
 read -p "It is recommended to restart now. Would you like to restart? [Y/n]" -r RESTART
