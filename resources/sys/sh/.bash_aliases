@@ -25,6 +25,7 @@ alias df='df -h'
 alias sd='blkid -o list'
 alias sizeof='du -sh'
 alias evince='evince "$1" > /dev/null 2>&1 &'
+alias vmp='sudo vmplayer &>/dev/null &'
 
 alias v="nvim"
 
