@@ -87,7 +87,7 @@ let g:jsx_ext_required = 0
 let g:syntastic_check_on_open=1
 
 map <C-E> :NERDTreeToggle<CR>
-let NERDTreeQuitOnOpen=1
+let NERDTreeQuitOnOpen=0
 let NERDTreeShowHidden=1
 let NERDTreeIgnore = ['\.pyc$']
 let g:ycm_autoclose_preview_window_after_completion=1
