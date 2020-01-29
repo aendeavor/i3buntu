@@ -26,7 +26,8 @@ alias sd='blkid -o list'
 alias sizeof='du -sh'
 alias vmp='sudo vmplayer &>/dev/null &'
 
-alias v="nvim"
+alias v='nvim'
+alias sv='sudo neovim'
 
 alias ..='cd ..'
 alias ...='cd ../..'
