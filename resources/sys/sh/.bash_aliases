@@ -106,12 +106,6 @@ a () {
 }
 export -f a
 
-sv () {
-    sudo vi "$1"
-    return
-}
-export -f sv
-
 sf () {
     SEARCH=${1:?Enter a search-regex}
     MAXDEPTH=${2:-1}
