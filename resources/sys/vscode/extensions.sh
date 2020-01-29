@@ -69,6 +69,7 @@ EXT=(
     stayfool.vscode-asciidoc
     streetsidesoftware.code-spell-checker
     streetsidesoftware.code-spell-checker-german
+    vadimcn.vscode-lldb
     VisualStudioExptTeam.vscodeintellicode
     yzane.markdown-pdf
     yzhang.markdown-all-in-one
