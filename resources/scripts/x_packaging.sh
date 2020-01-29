@@ -105,12 +105,12 @@ ENV=(
     xbacklight
 
     lightdm
-    lightdm-gtk-greeter
-    lightdm-gtk-greeter-settings
-
-    i3
+	slick-greeter
+    
+	i3
     i3-gaps
     i3lock
+
     feh
     compton
     

@@ -85,7 +85,7 @@ for sourceFile in "${DEPLOY_IN_HOME[@]}"; do
 done
 
 mkdir -p "${HOME}/.config/i3" "${HOME}/.urxvt/extensions" "${HOME}/.config" "${HOME}/images"
-sudo mkdir -p /usr/share/lightdm /etc/lightdm
+sudo mkdir -p /usr/share/lightdm /etc/lightdm /usr/share/backgrounds
 
 echo -e "-> Syncing i3's config"  | ${WTL[@]}
 >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/Xi3/config" "${HOME}/.config/i3"
@@ -96,11 +96,12 @@ echo -e "-> Syncing i3's statusconfig"  | ${WTL[@]}
 echo -e "-> Syncing xorg.conf"  | ${WTL[@]}
 >/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/Xi3/xorg.conf" /etc/X11
 
-echo -e "-> Syncing lightdm-gtk-greeter.conf"  | ${WTL[@]}
->/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/other_cfg/lightdm-gtk-greeter.conf" /etc/lightdm
+echo -e "-> Syncing lightdm configuration"  | ${WTL[@]}
+>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/other_cfg/lightdm.conf" /etc/lightdm
+>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/other_cfg/slick-greeter.conf" /etc/lightdm
 
 echo -e "-> Syncing lightdm wallpaper"  | ${WTL[@]}
->/dev/null 2>>"${LOG}" sudo ${RS[@]} "${RES}/images/dreamy.jpg" /usr/share/lightdm
+>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${RES}/images/dreamy.png" /usr/share/backgrounds
 
 echo -e "-> Syncing URXVT resize-font extension"  | ${WTL[@]}
 >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/sh/resize-font" "${HOME}/.urxvt/ext"
