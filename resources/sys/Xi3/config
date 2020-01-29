@@ -33,6 +33,11 @@ exec_always feh --bg-scale $HOME/images/dreamy.jpg
 # Font
 font xft:Roboto:style=Regular:pixelsize=13
 
+# (Only for i3-gaps)
+# gaps inner 10 
+# gaps outer 10
+# for_window [class="^.*"] border pixel 2
+
 # Colours
 set $BG                     #010715
 set $INACTIVE-BG            #010715
