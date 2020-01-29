@@ -109,6 +109,7 @@ ENV=(
     lightdm-gtk-greeter-settings
 
     i3
+    i3-gaps
     i3lock
     feh
     compton
@@ -161,6 +162,16 @@ PACKAGES=( "${CRITICAL[@]}" "${ENV[@]}" "${MISC[@]}" )
 # ? Actual script begins
 
 echo ""
+inform 'Adding i3-gaps as PPA' "$LOG"
+sudo add-apt-repository -y ppa:kgilmer/speed-ricer &>>/dev/null
+
+if (( $? != 0 )); then
+    err 'Something went wrong adding the i3-gaps PPA' "$LOG"
+    inform 'You may try to add the PPA yourself (l. 169)'
+    err 'Aborting'
+    exit 2
+fi
+
 inform 'Initial update' "$LOG"
 update
 

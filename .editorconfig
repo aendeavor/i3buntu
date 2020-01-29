@@ -13,8 +13,6 @@ insert_final_newline = true
 # Set default charset
 charset = utf-8
 
-# Indentation override for all RUST
-# files under src directory
-[src/**.rs]
+# Indent style and size
 indent_style = tab
 indent_size = 4
