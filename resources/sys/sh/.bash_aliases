@@ -27,7 +27,7 @@ alias sizeof='du -sh'
 alias vmp='sudo vmplayer &>/dev/null &'
 
 alias v='nvim'
-alias sv='sudo neovim'
+alias sv='sudo nvim'
 
 alias ..='cd ..'
 alias ...='cd ../..'
