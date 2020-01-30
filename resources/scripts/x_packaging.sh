@@ -162,14 +162,18 @@ PACKAGES=( "${CRITICAL[@]}" "${ENV[@]}" "${MISC[@]}" )
 # ? Actual script begins
 
 echo ""
-inform 'Adding i3-gaps as PPA' "$LOG"
-sudo add-apt-repository -y ppa:kgilmer/speed-ricer &>>/dev/null
 
-if (( $? != 0 )); then
-    err 'Something went wrong adding the i3-gaps PPA' "$LOG"
-    inform 'You may try to add the PPA yourself (l. 169)'
-    err 'Aborting'
-    exit 2
+if [[ -z $(ls /etc/apt/sources.list.d | grep speed-ricer) ]]; then
+  inform 'Adding i3-gaps as PPA' "$LOG"
+
+  sudo add-apt-repository -y ppa:kgilmer/speed-ricer &>>/dev/null
+
+  if (( $? != 0 )); then
+      err 'Something went wrong adding the i3-gaps PPA' "$LOG"
+      inform 'You may try to add the PPA yourself (l. 169)'
+      err 'Aborting'
+      exit 2
+  fi
 fi
 
 inform 'Initial update' "$LOG"
