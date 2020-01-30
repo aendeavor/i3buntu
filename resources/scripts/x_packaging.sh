@@ -107,8 +107,8 @@ ENV=(
     lightdm
 	slick-greeter
     
-	i3
     i3-gaps
+	i3status
     i3lock
 
     feh
@@ -311,7 +311,7 @@ if [[ $R11 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R11 ]]; then
     $SH "$DIR"
 fi
 
-if [[ $R12 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R13 ]]; then
+if [[ $R12 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R12 ]]; then
     echo -e "Installing RUST" | ${WTL[@]}
 
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile complete -y &>/dev/null
