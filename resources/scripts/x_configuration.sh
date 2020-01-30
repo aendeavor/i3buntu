@@ -101,7 +101,7 @@ echo -e "-> Syncing lightdm configuration"  | ${WTL[@]}
 >/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/other_cfg/slick-greeter.conf" /etc/lightdm
 
 echo -e "-> Syncing lightdm wallpaper"  | ${WTL[@]}
->/dev/null 2>>"${LOG}" sudo ${RS[@]} "${RES}/images/dreamy.png" /usr/share/backgrounds
+>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${RES}/images/dreamy.png" /usr/share/lightdm
 
 echo -e "-> Syncing URXVT resize-font extension"  | ${WTL[@]}
 >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/sh/resize-font" "${HOME}/.urxvt/ext"
