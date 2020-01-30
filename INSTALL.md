@@ -92,6 +92,9 @@ cd && ./i3buntu/install.sh desktop
 
 ## Runlevel ∞ - Tweaks
 
-That's it. You may need to tweak Xorg (the config file can be found under `/etc/X11/xorg.conf`). Also, although unlikely, make sure to install the correct graphics driver, if none has been installed.
+That's it. You may need to tweak a few things to your liking. These are:
 
-As all functionality has been setup, open *LXappearance* by pressing _mod + d_. _Rofi_ will let you choose an application. Just type in 'lxappearance' and it should be there (you may need to hit return to open it). Choose your color theme, icon pack and font.
+* `xorg.conf` under `/etc/X11/` => Try to delete the defaults one by another if there is anything wrong with this file
+* `config` under `~/.config/i3/` => You may need to change pactl keybindings (ll. 16-17)
+* install a graphics driver if necessary
+* use _LXappearance_ to mod your color theme (Adapta Blue Nokto Eta) and your icon theme (Tela Black Dark) => open rofi with $mod + d and start typing the name of the desired application
