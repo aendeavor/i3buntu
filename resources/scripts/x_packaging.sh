@@ -5,7 +5,7 @@
 # Via APT, core utils, browser, graphical environment
 # and much more is being installed.
 #
-# version   1.0.2 stable
+# version   1.1.0 unstable
 # sources   https://afshinm.name/neovim/
 
 sudo printf ""
@@ -307,8 +307,7 @@ fi
 
 if [[ $R11 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R11 ]]; then
     echo -e 'Installing Docker' | ${WTL[@]}
-    SH=$(readlink -m "${DIR}/../sys/docker/get_docker.sh")
-    $SH "$DIR"
+    >/dev/null 2>>"${LOG}" ${AI[@]} docker.io
 fi
 
 if [[ $R12 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R12 ]]; then
