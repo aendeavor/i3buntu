@@ -78,6 +78,7 @@ MISC=(
     neofetch
 
     ncdu
+	#ripgrep #only available in 18.10 and later
 )
 
 PACKAGES=( "${CRITICAL[@]}" "${ENV[@]}" "${MISC[@]}" )
