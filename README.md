@@ -55,7 +55,7 @@ This guide relies on using the following sources.
 * [URXVT](https://wiki.archlinux.org/index.php/Rxvt-unicode) Terminal Emulator
 * [Aptitude](https://wiki.debian.org/Aptitude) (APT) Packaging Manager
 * [Snap](https://wiki.archlinux.org/index.php/Snap) Package Management
-* [i3](https://wiki.archlinux.org/index.php/I3) Tiling Window Manager
+* [i3-gaps](https://github.com/Airblader/i3) Tiling Window Manager
 * [Xorg](https://wiki.archlinux.org/index.php/Xorg) (X) Display server
 * [LightDM](https://wiki.archlinux.org/index.php/LightDM) Display Manager
 * [Nemo](https://wiki.archlinux.org/index.php/Nemo) File Manager
@@ -64,7 +64,7 @@ This guide relies on using the following sources.
 
 ##### Desktop Environment and Color Scheme
 
-The i3 window manager together with the X display server drive your Ubuntu desktop. There is no bloatware or unnecessary waste of screen-space.
+The i3wm window manager together with the X display server drive your Ubuntu desktop. There is no bloatware or unnecessary waste of screen-space.
 
 The color scheme has been carefully picked and almost all components that can be configured have adapted this theme. Through the use of applications like URXVT and i3, customizability is no problem.
 
