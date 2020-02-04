@@ -3,7 +3,7 @@
 # This script serves as the main installation script
 # for all neccessary packages for a server installation.
 # 
-# current version - 1.1.1 stable
+# current version - 1.2.0 unstable
 
 sudo printf ""
 
@@ -139,8 +139,7 @@ fi
 
 if [[ $R4 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R4 ]]; then
     echo -e 'Installing Docker' | ${WTL[@]}
-    SH=$(readlink -m "${DIR}/../sys/docker/get_docker.sh")
-    $SH "$LOG"
+    >/dev/null 2>>"${LOG}" ${AI[@]} docker.io
 fi
 
 if [[ $R5 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R5 ]]; then
