@@ -5,10 +5,7 @@
 # Via APT, core utils, browser, graphical environment
 # and much more is being installed.
 #
-# version   1.1.0 unstable
-# sources   https://afshinm.name/neovim/
-
-sudo printf ""
+# version   1.2.0 unstable
 
 # ? Preconfig
 
@@ -20,50 +17,51 @@ LOG="${BACK}/packaging_log"
 IF=( --yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages )
 AI=( sudo apt-get install ${IF[@]} )
 SI=( sudo snap install )
-
-# initiate aliases and functions
-. "${DIR}/../sys/sh/.bash_aliases"
-
-## init of backup-directory
-if [[ ! -d "$BACK" ]]; then
-    mkdir -p "$BACK"
-fi
-
-## init of logfile
-if [[ ! -f "$LOG" ]]; then
-    if [[ ! -w "$LOG" ]]; then
-        &>/dev/null sudo rm $LOG
-    fi
-    touch "$LOG"
-fi
 WTL=( tee -a "${LOG}" )
 
-# ? Preconfig finished
-# ? User-choices begin
+## initiate aliases and functions
+. "${DIR}/../sys/sh/.bash_aliases"
 
-inform 'Packaging has begun'
-inform "Please make your choices:\n"
+## init of backup-directory and logfile
+init() {
+	if [[ ! -d "$BACK" ]]; then
+	    mkdir -p "$BACK"
+	fi
 
-read -p "Would you like to execute ubuntu-driver autoinstall? [Y/n]" -r R1
-read -p "Would you like to install OpenJDK? [Y/n]" -r R2
-read -p "Would you like to install Cryptomator? [Y/n]" -r R3
-read -p "Would you like to install Balena Etcher? [Y/n]" -r R4
-read -p "Would you like to install TeX? [Y/n]" -r R5
-read -p "Would you like to install ownCloud? [Y/n]" -r R6
-read -p "Would you like to install Build-Essentials? [Y/n]" -r R7
-read -p "Would you like to install NeoVIM? [Y/n]" -r R8
-read -p "Would you like to install VS Code? [Y/n]" -r R9
+	## init of logfile
+	if [[ ! -f "$LOG" ]]; then
+	    if [[ ! -w "$LOG" ]]; then
+	        &>/dev/null sudo rm $LOG
+	    fi
+	    touch "$LOG"
+	fi
+}
 
-RC1="no"
-if [[ $R9 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R9 ]]; then
-    read -p "Would you like to install recommended VS Code extensions? [Y/n]" -r RC1
-fi
+# ? User-choices
 
-read -p "Would you like to install the JetBrains IDE suite? [Y/n]" -r R10
-read -p "Would you like to install Docker? [Y/n]" -r R11
-read -p "Would you like to install RUST? [Y/n]" -r R12
+choices() {
+	inform "Please make your choices:\n"
 
-# ? User choices end
+	read -p "Would you like to execute ubuntu-driver autoinstall? [Y/n]" -r R1
+	read -p "Would you like to install OpenJDK? [Y/n]" -r R2
+	read -p "Would you like to install Cryptomator? [Y/n]" -r R3
+	read -p "Would you like to install Balena Etcher? [Y/n]" -r R4
+	read -p "Would you like to install TeX? [Y/n]" -r R5
+	read -p "Would you like to install ownCloud? [Y/n]" -r R6
+	read -p "Would you like to install Build-Essentials? [Y/n]" -r R7
+	read -p "Would you like to install NeoVIM? [Y/n]" -r R8
+	read -p "Would you like to install VS Code? [Y/n]" -r R9
+
+	RC1="no"
+	if [[ $R9 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R9 ]]; then
+	    read -p "Would you like to install recommended VS Code extensions? [Y/n]" -r RC1
+	fi
+
+	read -p "Would you like to install the JetBrains IDE suite? [Y/n]" -r R10
+	read -p "Would you like to install Docker? [Y/n]" -r R11
+	read -p "Would you like to install RUST? [Y/n]" -r R12
+}
+
 # ? Init of package selection
 
 CRITICAL=(
@@ -154,15 +152,15 @@ MISC=(
     
     scrot
     qalculate
-	#ripgrep #only available in 18.10 and later
+	ripgrep 		# available in 18.10 and later
 )
 
 PACKAGES=( "${CRITICAL[@]}" "${ENV[@]}" "${MISC[@]}" )
 
-# ? End of init of package selection
-# ? Actual script begins
+# ? Actual script
 
-echo ""
+add_ppas() {
+
 
 if [[ -z $(ls /etc/apt/sources.list.d | grep speed-ricer) ]]; then
   inform 'Adding i3-gaps as PPA' "$LOG"
@@ -346,3 +344,9 @@ read -p "It is recommended to restart now. Would you like to restart? [Y/n]" -r 
 if [[ $RESTART =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RESTART ]]; then
     shutdown -r now
 fi
+
+sudo printf ""
+
+inform 'Packaging has begun'
+
+echo ""
