@@ -24,35 +24,37 @@ USAGE:
 	./install.sh [OPTIONS] COMMAND [FLAG]
 
 OPTIONS:
-	-h, --help		Shows help dialogue
-	-v, --version	Shows current version of i3buntu and of used scripts
+	-h, --help      Shows help dialogue
+	-v, --version   Shows current version of i3buntu and of used scripts
 
 COMMANDS:
-	desktop			Start installation for desktops (packaging or configuration)
-	server			Start installation for servers (packaging and configuration)
-	vmware			Start installation of VM Ware Workstation Player
+	 d, desktop     Start installation for desktops (packaging or configuration)
+	 s, server      Start installation for servers (packaging and configuration)
+	vm, vmware      Start installation of VM Ware Workstation Player
 
 FLAGS:
-	--pkg			For desktop installations; start packaging
-	--cfg			For desktop installations; start configuration
+	--pkg           For desktop installations; start packaging
+	--cfg           For desktop installations; start configuration
+
 EOF
 }
 
 version() {
 	cat 1>&2 <<EOF
-i3buntu					v0.9.2	stable
-install.sh				v0.4.0	unstable
+i3buntu                       v1.0.0   unstable
+install.sh                    v0.4.0   unstable
 
-x_packaging.sh			v1.1.0	unstable
-x_configuration			v0.9.1	stable
+x_packaging.sh                v1.2.0   unstable
+x_configuration.sh            v1.0.0   unstable
 
-server_packaging		v1.2.0	unstable
-server_configuration	v0.8.0	stable
+server_packaging.sh           v1.3.0   unstable
+server_configuration.sh       v0.9.0   unstable
 
-extensions				v0.2.1	stable
-fonts					v0.3.1	stable
+extensions.sh                 v0.4.0   unstable
+fonts.sh                      v0.3.1   stable
 
-vm.sh					v0.2.2	unstable
+vm.sh                         v0.2.4   unstable
+
 EOF
 }
 
@@ -94,7 +96,7 @@ main() {
 	        succ 'Server packaging and configuration started'
 	        "${SCR}/server_packaging.sh"
 	    ;;
-	    "vm" | "vmware")
+	    "vmware" | "vm")
 	        succ 'VM Ware Workstation player installation started'
 	        "${SCR}/vm.sh"
 	    ;;
