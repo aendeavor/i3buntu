@@ -4,7 +4,7 @@
 # of the VM Ware Workstation Player
 # for Linux maschines.
 #
-# version 0.2.2 unstable
+# version 0.2.4 unstable
 
 set -e
 
@@ -45,9 +45,7 @@ edit_sudoers() {
 }
 
 main() {
-	sudo printf ''
-	
-	install_vmware_player
+	sudo install_vmware_player
 	edit_sudoers
 }
 
