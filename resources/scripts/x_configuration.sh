@@ -133,8 +133,6 @@ deploy() {
 	>/dev/null 2>>"${LOG}" xrdb ${HOME}/.Xresources 
 }
 
-# ? Extra script
-
 ## processes user-choices from the beginning
 process_choices() {
 	inform "Processing user-choices" "$LOG"
@@ -179,7 +177,6 @@ process_choices() {
 
 ## postconfiguration
 post() {
-	inform 'The script has finished' "$LOG"
 	read -p "It is recommended to restart now. Would you like to restart? [Y/n]" -r RESTART
 	if [[ $RESTART =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RESTART ]]; then
 	    shutdown -r now

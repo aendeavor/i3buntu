@@ -7,35 +7,17 @@
 # installed extensions can be found under
 # ./README.adoc. 
 # 
-# current version - 0.3.1 stable
+# current version - 0.4.0 unstable
 
 # ? Preconfig
 
 ## directory of this file - absolute & normalized
 SCR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-## return pointer
-RIP=$1
 
 # initiate aliases and functions
 . "${SCR}/../sh/.bash_aliases"
 
-# ? Checks
-
-if [[ -z $(which code) ]] && [[ ! -e "/snap/bin/code" ]]; then
-    err 'VS Code is not installed. Aborting the installation of extensions'
-    exit 1
-fi
-
-CODE=$(which code)
-
-if [[ -z "${CODE}" ]]; then
-    CODE="/snap/bin/code"
-fi
-
-INSTALL=( ${CODE} --install-extension )
-
-# ? Preconfig finished
-# ? Selection of extions
+# ? Selection of extensions
 
 EXT=(
     2gua.rainbow-brackets
@@ -76,37 +58,62 @@ EXT=(
     jolaleye.horizon-theme-vscode
 )
 
-# ? Selection of extensions finished
-# ? Actual script begins
+# ? Actual script
 
-printf "%-40s | %-15s | %-15s" "EXTENSION" "STATUS" "EXIT CODE"
-printf "\n"
+check_code() {
+	if [[ -z $(which code) ]] && [[ ! -e "/snap/bin/code" ]]; then
+	    err 'VS Code is not installed. Aborting the installation of extensions'
+	    exit 1
+	fi
 
-for EXTENSION in ${EXT[@]}; do
-    &>>/dev/null ${INSTALL[@]} ${EXTENSION}
+	CODE=$(which code)
+	
+	if [[ -z "${CODE}" ]]; then
+    	CODE="/snap/bin/code"
+	fi
+	
+	INSTALL=( ${CODE} --install-extension )
+}
 
-    EC=$?
-    if (( $EC != 0 )); then
-        printf "%-40s | %-15s | %-15s" "${EXTENSION}" "Not Installed" "${EC}"
-    else
-        printf "%-40s | %-15s | %-15s" "${EXTENSION}" "Installed" "${EC}"
-        printf "\n"
-    fi
-done
+install_extensions() {
+	printf "%-40s | %-15s | %-15s" "EXTENSION" "STATUS" "EXIT CODE"
+	printf "\n"
 
-if [[ ! -z $(which rustup) ]]; then
-    &>>/dev/null ${INSTALL[@]} rust-lang.rust
+	for EXTENSION in ${EXT[@]}; do
+		&>>/dev/null ${INSTALL[@]} ${EXTENSION}
 
-    if (( $? == 0 )); then
-        inform 'As RUST is installed, we successfully installed rust-lang for VS Code too'
-    fi
-fi
+		EC=$?
+		if (( $EC != 0 )); then
+			printf "%-40s | %-15s | %-15s" "${EXTENSION}" "Not Installed" "${EC}"
+		else
+			printf "%-40s | %-15s | %-15s" "${EXTENSION}" "Installed" "${EC}"
+			printf "\n"
+		fi
+	done
 
-if [[ ! -z $(which gem) ]]; then
-     sudo gem install asciidoctor-pdf --pre
-fi
+	if [[ ! -z $(which rustup) ]]; then
+		&>>/dev/null ${INSTALL[@]} rust-lang.rust
 
-# ? Actual script finished
-# ? Postconfiguration
+		if (( $? == 0 )); then
+			inform 'As RUST is installed, we successfully installed rust-lang for VS Code too'
+		fi
+	fi
 
-inform 'Finished installing VS Code extensions'
+	if [[ ! -z $(which gem) ]]; then
+		sudo gem install asciidoctor-pdf --pre
+	fi
+	
+	inform 'Finished installing VS Code extensions'
+}
+
+# ! Main
+
+main() {
+	set -e
+	check_code
+	set +e
+
+	install_extensions
+}
+
+main "$@" || exit 1
