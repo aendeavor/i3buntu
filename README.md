@@ -15,25 +15,17 @@ Installation instructions are found [here](./INSTALL.md) or on the [wiki pages](
 
 ## Latest enhancements
 
-##### New build script
+##### Alacritty
 
-The build script has been reworked - now one single script distributes the installations. Further information is found in [INSTALL.md](./INSTALL.md).
+The terminal emulator _Alacritty_ has been integrated. It features true-color support, is written in _RUST_ and is GPU-accelerated.
 
-##### Two new build methods
+##### Build script with functions
 
-i3buntu now ships with a server and a docker version. The server version is like the desktop version, but without the graphical environment, the docker build script on the other hand builds a dedicated docker container.
+Bash scripts now properly work with functions. Further information is found in [INSTALL.md](./INSTALL.md).
 
-##### New way of logging
+##### NeoVIM reworked
 
-Logging has been reworked to show more color and coherent output.
-
-##### Docker integration
-
-Docker can now be installed during packaging. A dedicated docker image can now be automatically created. This image is also found on [i3buntu's packages site](https://github.com/aendeavor/i3buntu/packages).
-
-##### NeoVIM integration
-
-NeoVIM is now featured as a user-choice. Furthermore, it comes with VIM-plug as the standard plugin manager and a color theme (Gruvbox).
+NeoVim has been fully reworked to make use of a brand new theme, _OceanicNext_. TrueColors are now enabled, the configuration has been reworked and is now documented.
 
 ## About
 
