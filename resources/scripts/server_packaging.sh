@@ -41,6 +41,7 @@ CRITICAL=(
 
 ENV=(
     htop
+    tmux
 )
 
 MISC=(
