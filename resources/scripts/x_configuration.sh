@@ -111,10 +111,8 @@ deploy() {
 
 	if dpkg -s neovim &>/dev/null; then
 	    echo -e "-> Syncing NeoVim's config"  | ${WTL[@]}
-	    mkdir -p ~/.config/nvim/colors
     	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vi/init.vim" "${HOME}/.config/nvim"
 	fi
-
 
 	echo -e "-> Syncing images directory"  | ${WTL[@]}
 	>/dev/null 2>>"${LOG}" ${RS[@]} "${RES}/images" "${HOME}" 
