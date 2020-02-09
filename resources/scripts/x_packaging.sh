@@ -84,6 +84,8 @@ ENV=(
     gstreamer1.0-pulseaudio
     pulseaudio-module-raop
     pulseaudio-module-bluetooth
+    
+    tmux
 )
 
 MISC=(
