@@ -37,11 +37,11 @@
         }
     ],
 
-    // Editor
+    // Font
     "editor.fontFamily": "Fira Code Retina",
     "editor.fontLigatures": true,
-
-    // Font
+	
+    // Editor
     "editor.suggestSelection": "first",
     "editor.wordWrap": "bounded",
     "editor.wordWrapColumn": 130,
