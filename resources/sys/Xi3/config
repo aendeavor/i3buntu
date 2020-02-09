@@ -96,8 +96,11 @@ bar {
 
 ############################################################################### Keybindings
 
-# start a terminal
-bindsym $mod+Return exec "urxvtcd"
+# start urxvt deamonized
+bindsym $mod+Shift+Return exec "urxvtcd"
+
+# start alacritty
+bindsym $mod+Return exec alacritty --live-config-reload -qq --config-file $HOME/.config/alacritty/alacritty.yml
 
 # lock the screen
 bindsym $mod+Shift+x exec i3lock -u -e -i ~/images/dreamy.png -t
