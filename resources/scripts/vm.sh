@@ -38,9 +38,10 @@ edit_sudoers() {
 	echo '# Execute VM Ware Workstation Player as sudo without password' | (sudo su -c 'EDITOR="tee -a" visudo -f /etc/sudoers.d/	vmware') &>/dev/null
 	echo -e "$(whoami) ALL=NOPASSWD:/usr/bin/vmplayer" | (sudo su -c 'EDITOR="tee -a" visudo -f /etc/sudoers.d/vmware') &>/dev/null
 
-	read -p "It is recommended to restart now. Would you like to restart? [Y/n]" -r RESTART
+	read -p "It is recommended to restart. Would you like to schedule a restart? [Y/n]" -r RESTART
 	if [[ $RESTART =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RESTART ]]; then
-	    shutdown -r now
+	    shutdown --reboot 1 >/dev/null
+		inform 'Rebooting in one minute'
 	fi
 }
 

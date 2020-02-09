@@ -34,7 +34,6 @@ CRITICAL=(
     net-tools
     network-manager*
     
-    software-properties-common
     python3-distutils
     snapd
 
@@ -113,6 +112,8 @@ MISC=(
     scrot
     qalculate
 	ripgrep 		# available in 18.10 and later
+
+	alacritty
 )
 
 PACKAGES=( "${CRITICAL[@]}" "${ENV[@]}" "${MISC[@]}" )
@@ -160,18 +161,27 @@ choices() {
 
 ## adds PPAs if necessary
 add_ppas() {
-	if [[ -z $(ls /etc/apt/sources.list.d | grep speed-ricer) ]]; then
-	  inform 'Adding i3-gaps as PPA' "$LOG"
+	local ppas=(
+		ppa:git-core/ppa
+		ppa:ubuntu-mozilla-security/ppa
+		ppa:kgilmer/speed-ricer
+		ppa:mmstick76/alacritty
+	)
 
-	  sudo add-apt-repository -y ppa:kgilmer/speed-ricer &>>/dev/null
+	inform 'Adding necessary PPAs'
 
-	  if (( $? != 0 )); then
-	      warn 'Something went wrong adding the i3-gaps PPA' "$LOG"
-	      inform 'You may try to add the PPA yourself (l. 170)'
-	      err 'Aborting'
-	      exit 2
-	  fi
-	fi
+	&>>/dev/null ${AI[@]} software-properties-common
+
+	for PPA in ${ppas[@]}; do
+		sudo add-apt-repository -y "$PPA" &>/dev/null
+
+		if (( $? != 0 )); then
+	    	warn "Something went wrong adding '$PPA'" "$LOG"
+	    	inform 'You may try to add the PPA yourself (l. 170)'
+	    	err 'Aborting'
+	    	exit 2
+	 	fi
+	done
 }
 
 ## (un-)install all packages with APT
@@ -342,9 +352,10 @@ process_choices() {
 
 ## postconfiguration
 post() {
-	read -p "It is recommended to restart now. Would you like to restart? [Y/n]" -r RESTART
+	read -p "It is recommended to restart. Would you like to schedule a restart? [Y/n]" -r RESTART
 	if [[ $RESTART =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RESTART ]]; then
-	    shutdown -r now
+	    shutdown --reboot 1 >/dev/null
+		inform 'Rebooting in one minute'
 	fi
 }
 
