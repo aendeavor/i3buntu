@@ -3,6 +3,7 @@ set spell spelllang=en_us
 set undofile
 set encoding=utf-8
 
+" Copy & Waste
 if has('clipboard')
   if has('unnamedplus') " use + register for copy-paste
     set clipboard=unnamed,unnamedplus
@@ -11,69 +12,55 @@ if has('clipboard')
   endif
 endif
 
+" Text alignemnt metrics
 set ignorecase
-set number
 set conceallevel=1
 set expandtab
 set autoindent
 set softtabstop=4
-set shiftwidth=2
 set tabstop=4
+set shiftwidth=2
+set number
 
+" Miscellaneous
 set history=1000
+autocmd BufEnter * lcd %:p:h
+filetype plugin indent on
+set undodir=~/.config/nvim/undodir
 
-" visual shifting (does not exit Visual mode)
+" Visual shifting
 vnoremap < <gv
 vnoremap > >gv
 
-" allow using the repeat operator with a visual selection (!)
-" http://stackoverflow.com/a/8064607/127816
+" Allow using the repeat operator with a visual selection
 vnoremap . :normal .<CR>
 
-" let g:gruvbox_italic=1
-colorscheme NeoSolarized
-
-autocmd BufEnter * lcd %:p:h
-
-filetype plugin indent on
-
-set undodir=~/.config/nvim/undodir
-
-" plugins
+" Plugins
 call plug#begin()
+Plug 'scrooloose/nerdtree' 		" File explorer
+Plug 'itchyny/lightline.vim' 	" Status line
+Plug 'ctrlpvim/ctrlp.vim'		" Full path fuzzy file-, buffer-, ... finder
+Plug 'Raimondi/delimitMate'		" Automatic closing of parenthesis, etc.
+Plug 'mhinz/vim-startify'		" Fancy start screen
 
-Plug 'vim-scripts/Vimball'
-Plug 'godlygeek/tabular'
-Plug 'scrooloose/nerdtree'
-Plug 'tpope/vim-fugitive'
-Plug 'itchyny/lightline.vim'
-Plug 'junegunn/goyo.vim'
-Plug 'rust-lang/rust.vim'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'groenewege/vim-less'
-Plug 'tpope/vim-markdown'
+Plug 'rust-lang/rust.vim'		" RUST language extensions
+Plug 'tpope/vim-markdown'		" Markdown language extension
+Plug 'vim-syntastic/syntastic'	" Syntax check
+
+" Autocompletion
 Plug 'Valloric/YouCompleteMe'
-Plug 'michaeljsmith/vim-indent-object'
-Plug 'vim-syntastic/syntastic'
-Plug 'Shougo/neocomplcache.vim'
-Plug 'tpope/vim-surround'
-Plug 'airblade/vim-gitgutter'
-Plug 'Raimondi/delimitMate'
-Plug 'tmhedberg/SimpylFold'
-Plug 'Vimjas/vim-python-pep8-indent'
-Plug 'mhinz/vim-startify'
-Plug 'Quramy/tsuquyomi'
-Plug 'Shougo/vimproc.vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " Themes
 Plug 'mhartington/oceanic-next'
 Plug 'drewtempelmeyer/palenight.vim'
-
 call plug#end()
 
-let g:syntastic_check_on_open=1
+" Autocompletion & syntax metrics
+let g:deoplete#enable_at_startup = 1
+let g:syntastic_check_on_open = 1
 
+" NerdTree configuration
 map <C-E> :NERDTreeToggle<CR>
 let NERDTreeQuitOnOpen=0
 let NERDTreeShowHidden=1
@@ -83,12 +70,14 @@ autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd p
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-set foldmethod=indent
-set foldlevel=99
-
+" Mouse settings
 set mouse=a                 " Automatically enable mouse usage
 set mousehide               " Hide the mouse cursor while typing
 
 " Theming
 set background=dark
-
+set termguicolors
+syntax enable
+let g:oceanic_next_terminal_bold = 1
+let g:oceanic_next_terminal_italic = 1
+colorscheme OceanicNext
