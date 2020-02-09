@@ -5,35 +5,16 @@
 
 ## Runlevel 0 - Acquiring an ISO
 
-#### Ubuntu 18.04.3 LTS Desktop & Server
-
 To get things started, you will need an Ubuntu ISO image. As of now, the latest LTS (Long Term Support) version of Ubuntu is 18.04.3 - the images for the desktop and server variant are found [here](http://releases.ubuntu.com/18.04/). The installation of these is straightforward. **We recommend using the server version** as it ships without unnecessary packages. These images also support [UEFI](https://wiki.archlinux.org/index.php/Unified_Extensible_Firmware_Interface) right out of the box.
-
-#### Ubuntu 18.04 LTS Minimal
-
-There is another option when it comes to choosing an Ubuntu flavour. There is a [minimal image](https://help.ubuntu.com/community/Installation/MinimalCD), containing only absolutely necessary packages. If you like it lean, chose this variant, but be aware that you will likely need to get some packages and dependencies yourself - this installation is going to be more difficult, as it becomes some sort of bootstrapping.
-
-This image does not support UEFI right out of the box. However, I created an ISO for you, which can be found [here](https://github.com/aendeavor/Ubuntu-18.04-LTS-Minimal-UEFI). You can even create your own - just follow the instructions on this very page.
 
 ## Runlevel 3 - Managing packages
 
-If you chose the desktop version, you can remove GNOME packages, e.g. `gnome-desktop*` and reboot. This is, however, not an absolute must, as some might prefer to have an alternative to i3. From hereon, update the system and obtain GIT's and Mozialla's PPA-Repositories:
+If you chose the desktop version, you can remove GNOME packages, e.g. `gnome-desktop*` and reboot. This is, however, not an absolute must, as some might prefer to have an alternative to i3-gaps. From hereon, update the system. Afterwards, download a release of i3buntu onto your system. You will need to extract  it, and, if you like, you can rename it. The following commands accomplish just that.
 
 ``` BASH
-# update to the latest state, if possible
+# update the system
 sudo apt-get -y update && sudo apt-get -y dist-upgrade
 
-# get necessary tools to add an APT repository
-sudo apt-get install -y software-properties-common
-
-# add official GIT-Core and Mozilla APT repositories
-sudo add-apt-repository -y ppa:git-core/ppa
-sudo add-apt-repository -y ppa:ubuntu-mozilla-security/ppa
-```
-
-Afterwards, download a release of i3buntu onto your system. You will need to extract  it, and, if you like, you can rename it. The following commands accomplish just that.
-
-``` BASH
 # download the latest stable release
 cd && wget https://github.com/aendeavor/i3buntu/archive/v0.9.2-stable.tar.gz
 
@@ -51,15 +32,8 @@ _From version v0.9.2-beta1 onwards_, there is a new and enhanced way of installi
 # to execute the packaging and configuration separately.
 cd && ./i3buntu/install.sh desktop --pkg
 
-# You can also omit pkg - you will then be
-# prompted whether you want packaging or configuration to happen.
-cd && ./i3buntu/install.sh desktop
-
 # For server installations, run
 cd && ./i3buntu/install.sh server
-
-# To create and run a Docker container, run
-cd && ./i3buntu/install.sh docker
 ```
 
 ## Runlevel 5 - Configuration
@@ -84,17 +58,13 @@ _From version v0.9.2-beta1 onwards_, [`install.sh`](./install.sh) also grants yo
 # For desktop installations, you will need
 # to execute the packaging and configuration separately.
 cd && ./i3buntu/install.sh desktop --cfg
-
-# You can also omit cfg - you will then be
-# prompted whether you want packaging or configuration to happen.
-cd && ./i3buntu/install.sh desktop
 ```
 
 ## Runlevel ∞ - Tweaks
 
 That's it. You may need to tweak a few things to your liking. These are:
 
-* `xorg.conf` under `/etc/X11/` => Try to delete the defaults one by another if there is anything wrong with this file
-* `config` under `~/.config/i3/` => You may need to change pactl keybindings (ll. 16-17)
+* `xorg.conf` under `/etc/X11/` - Try deleting the defaults one by another if there is anything wrong with this file
+* `config` under `~/.config/i3/` - You may need to change pactl keybindings (ll. 16-17)
 * install a graphics driver if necessary
-* use _LXappearance_ to mod your color theme (Adapta Blue Nokto Eta) and your icon theme (Tela Black Dark) => open rofi with $mod + d and start typing the name of the desired application
+* use _LXappearance_ to mod your color theme (Adapta Blue Nokto Eta) and your icon theme (Tela Black Dark) - open rofi with $mod + d and start typing the name of the desired application
