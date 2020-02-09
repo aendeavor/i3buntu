@@ -109,14 +109,10 @@ deploy() {
 	echo -e "-> Syncing compton.conf"  | ${WTL[@]}
 	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/other_cfg/compton.conf" "${HOME}/	.config"
 
-	dpkg -s neovim >/dev/null 2>&1
-	EC=$?
-
-	if (( $EC == 0 )); then
+	if dpkg -s neovim &>/dev/null; then
 	    echo -e "-> Syncing NeoVim's config"  | ${WTL[@]}
 	    mkdir -p ~/.config/nvim/colors
     	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vi/init.vim" "${HOME}/.config/nvim"
-    	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vi/colors/" "${HOME}/.config/nvim/colors"
 	fi
 
 
