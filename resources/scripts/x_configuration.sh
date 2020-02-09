@@ -84,14 +84,14 @@ deploy() {
 	    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/${sourceFile}" "${HOME}"
 	done
 	
-	mkdir -p "${HOME}/.config/i3" "${HOME}/.urxvt/extensions" "${HOME}/	.config" "${HOME}/images"
-	sudo mkdir -p /usr/share/lightdm /etc/lightdm /usr/share/backgrounds
+	mkdir -p "${HOME}/.config/i3" "${HOME}/.urxvt/extensions" "${HOME}/.config" "${HOME}/images"
+	sudo mkdir -p /usr/share/lightdm /etc/lightdm /usr/share/backgrounds "$HOME"/.config/alacritty
 	
 	echo -e "-> Syncing i3's config"  | ${WTL[@]}
 	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/Xi3/config" "${HOME}/.config/i3"
 	
 	echo -e "-> Syncing i3's statusconfig"  | ${WTL[@]}
-	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/Xi3/i3statusconfig" "${HOME}/	.config/i3"
+	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/Xi3/i3statusconfig" "${HOME}/.config/i3"
 	
 	echo -e "-> Syncing xorg.conf"  | ${WTL[@]}
 	>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/Xi3/xorg.conf" /etc/X11
@@ -104,15 +104,18 @@ deploy() {
 	>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${RES}/images/dreamy.png" /usr/	share/lightdm
 
 	echo -e "-> Syncing URXVT resize-font extension"  | ${WTL[@]}
-	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/sh/resize-font" "${HOME}/.urxvt/	ext"
+	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/sh/resize-font" "${HOME}/.urxvt/ext"
 
 	echo -e "-> Syncing compton.conf"  | ${WTL[@]}
-	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/other_cfg/compton.conf" "${HOME}/	.config"
+	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/other_cfg/compton.conf" "${HOME}/.config"
 
 	if dpkg -s neovim &>/dev/null; then
 	    echo -e "-> Syncing NeoVim's config"  | ${WTL[@]}
     	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vi/init.vim" "${HOME}/.config/nvim"
 	fi
+
+	echo -e "-> Syncing alacritty.yml"  | ${WTL[@]}
+	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/sh/alacritty.yml" "${HOME}/.config/alacritty"
 
 	echo -e "-> Syncing images directory"  | ${WTL[@]}
 	>/dev/null 2>>"${LOG}" ${RS[@]} "${RES}/images" "${HOME}" 
