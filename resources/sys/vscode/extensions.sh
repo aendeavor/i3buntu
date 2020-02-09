@@ -26,7 +26,6 @@ EXT=(
     bungcip.better-toml
     bierner.markdown-preview-github-styles
     DavidAnson.vscode-markdownlint
-    eamodio.gitlens
     editorconfig.editorconfig
     Equinusocio.vsc-material-theme
     formulahendry.code-runner
@@ -53,7 +52,6 @@ EXT=(
     streetsidesoftware.code-spell-checker-german
     vadimcn.vscode-lldb
     VisualStudioExptTeam.vscodeintellicode
-    yzane.markdown-pdf
     yzhang.markdown-all-in-one
     jolaleye.horizon-theme-vscode
 )
