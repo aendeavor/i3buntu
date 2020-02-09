@@ -2,18 +2,16 @@
     "window.zoomLevel": 0,
     "telemetry.enableTelemetry": false,
 
-    // workbench
+	// Workbench
+	"workbench.editor.limit.enabled": true,
+    "workbench.editor.limit.perEditorGroup": true,
+    "workbench.editor.limit.value": 3,
     "workbench.startupEditor": "newUntitledFile",
     "workbench.sideBar.location": "right",
-    "workbench.colorTheme": "Material Theme Ocean High Contrast",
+    "workbench.colorTheme": "Gruvbox Material Dark",
     "workbench.iconTheme": "material-icon-theme",
-
-    // git
-    "git.enableSmartCommit": true,
-    "git.confirmSync": false,
-    "git.autofetch": true,
     
-    // latex
+    // LaTeX (XE-TeX)
     "latex-workshop.message.update.show": false,
     "latex-workshop.latex.build.clearLog.everyRecipeStep.enabled": false,
     "latex-workshop.view.pdf.viewer": "tab",
@@ -39,28 +37,31 @@
         }
     ],
 
-    // editor
+    // Editor
+    "editor.fontFamily": "Fira Code Retina",
     "editor.fontLigatures": true,
+
+    // Font
     "editor.suggestSelection": "first",
     "editor.wordWrap": "bounded",
     "editor.wordWrapColumn": 130,
 
-    // explorer
+    // Explorer
     "explorer.confirmDragAndDrop": false,
     "explorer.confirmDelete": false,
 
-    // asciidoc
+    // Asciidoc
     "asciidoc.use_asciidoctorpdf": true,
     "asciidoc.preview.useEditorStyle": false,
     "asciidoc.use_asciidoctor_js": true,
     
-    // intellicode
+    // VS IntelliCode
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
 
-    // python
+    // Python
     "python.jediEnabled": false,
 
-    // files
+    // Files
     "files.exclude": {
         "**/.classpath": true,
         "**/.project": true,
@@ -68,7 +69,7 @@
         "**/.factorypath": true
     },
 
-    // cspell
+    // cSpell
     "cSpell.language": "de,en",
     "cSpell.enabledLanguageIds": [
         "asciidoc",
@@ -105,6 +106,6 @@
         "yml"
     ],
 
-    // liveserver
+    // LiveServer
     "liveServer.settings.donotShowInfoMsg": true
 }
