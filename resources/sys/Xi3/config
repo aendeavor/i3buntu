@@ -55,8 +55,8 @@ client.urgent             $URGENT             $URGENT             $TEXT         
 ############################################################################### i3-gaps
 
 # Configure gaps around the windows
-gaps inner 5 
-gaps outer 5
+gaps inner 3
+gaps outer 4
 for_window [class="^.*"] border pixel 0
 
 # Only enable gaps on a workspace when there is at least one container
