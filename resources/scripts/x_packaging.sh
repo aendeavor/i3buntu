@@ -364,7 +364,8 @@ post() {
 # ! Main
 
 main() {
-	sudo inform 'Packaging has begun'
+    sudo printf ''
+	inform 'Packaging has begun'
 	init
 	choices
 

@@ -88,13 +88,14 @@ post() {
 # ! Main
 
 main() {
-	sudo inform "Configuration has begun\n"
+    sudo printf ''
+	inform "Configuration has begun\n"
 
 	init
 	backup
 	deploy
 
-	succ 'Finished' "$LOG"
+    echo -e "Finished configuration\n"
 	post
 }
 

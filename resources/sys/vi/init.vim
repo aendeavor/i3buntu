@@ -49,7 +49,7 @@ Plug 'vim-syntastic/syntastic'	" Syntax check
 
 " Autocompletion
 Plug 'Valloric/YouCompleteMe'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " Themes
 Plug 'mhartington/oceanic-next'
