@@ -20,7 +20,9 @@ SCR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # Insert something to test here
 run_test() {
+    echo 'Started Test'
 
+    echo 'Finished test'
 }
 
 # ! Main

@@ -174,7 +174,8 @@ next() {
 # ! Main
 
 main() {
-	sudo inform 'Packaging has begun'
+    sudo printf ''
+	inform 'Packaging has begun'
 	init
 	choices
 
@@ -184,7 +185,7 @@ main() {
 	packages
 	process_choices
 
-	succ 'Finished' "$LOG"
+	succ 'Finished packaging' "$LOG"
 	next
 }
 

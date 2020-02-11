@@ -78,7 +78,7 @@ backup() {
 deploy() {
 	inform 'Proceeding to deploying config files' "$LOG"
 	
-	DEPLOY_IN_HOME=( sh/.bashrc sh/.bash_aliases vi/.vimrc vi/.viminfo Xi3/	.Xresources )
+	DEPLOY_IN_HOME=( sh/.bashrc sh/.bash_aliases vi/.vimrc vi/.viminfo Xi3/.Xresources )
 	for sourceFile in "${DEPLOY_IN_HOME[@]}"; do
 	    echo -e "-> Syncing $(basename -- "${sourceFile}")"  | ${WTL[@]}
 	    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/${sourceFile}" "${HOME}"
@@ -87,41 +87,42 @@ deploy() {
 	mkdir -p "${HOME}/.config/i3" "${HOME}/.urxvt/extensions" "${HOME}/.config" "${HOME}/images"
 	sudo mkdir -p /usr/share/lightdm /etc/lightdm /usr/share/backgrounds "$HOME"/.config/alacritty
 	
-	echo -e "-> Syncing i3's config"  | ${WTL[@]}
+	echo -e "-> Syncing i3's config" | ${WTL[@]}
 	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/Xi3/config" "${HOME}/.config/i3"
 	
-	echo -e "-> Syncing i3's statusconfig"  | ${WTL[@]}
+	echo -e "-> Syncing i3's statusconfig" | ${WTL[@]}
 	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/Xi3/i3statusconfig" "${HOME}/.config/i3"
 	
-	echo -e "-> Syncing xorg.conf"  | ${WTL[@]}
+	echo -e "-> Syncing xorg.conf" | ${WTL[@]}
 	>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/Xi3/xorg.conf" /etc/X11
 	
-	echo -e "-> Syncing lightdm configuration"  | ${WTL[@]}
+	echo -e "-> Syncing lightdm configuration" | ${WTL[@]}
 	>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/other_cfg/lightdm.conf" /	etc/lightdm
 	>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/other_cfg/slick-greeter.conf" /etc/lightdm
 
-	echo -e "-> Syncing lightdm wallpaper"  | ${WTL[@]}
+	echo -e "-> Syncing lightdm wallpaper" | ${WTL[@]}
 	>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${RES}/images/dreamy.png" /usr/	share/lightdm
 
-	echo -e "-> Syncing URXVT resize-font extension"  | ${WTL[@]}
+	echo -e "-> Syncing URXVT resize-font extension" | ${WTL[@]}
 	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/sh/resize-font" "${HOME}/.urxvt/ext"
 
-	echo -e "-> Syncing compton.conf"  | ${WTL[@]}
+	echo -e "-> Syncing compton.conf" | ${WTL[@]}
 	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/other_cfg/compton.conf" "${HOME}/.config"
 
 	if dpkg -s neovim &>/dev/null; then
-	    echo -e "-> Syncing NeoVim's config"  | ${WTL[@]}
+	    echo -e "-> Syncing NeoVim's config" | ${WTL[@]}
     	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vi/init.vim" "${HOME}/.config/nvim"
+        curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >/dev/null
 	fi
 
-	echo -e "-> Syncing alacritty.yml"  | ${WTL[@]}
+	echo -e "-> Syncing alacritty.yml" | ${WTL[@]}
 	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/sh/alacritty.yml" "${HOME}/.config/alacritty"
 
-	echo -e "-> Syncing images directory"  | ${WTL[@]}
+	echo -e "-> Syncing images directory" | ${WTL[@]}
 	>/dev/null 2>>"${LOG}" ${RS[@]} "${RES}/images" "${HOME}" 
 
 	if [[ -d "${HOME}/.config/Code" ]]; then
-	    echo -e "-> Syncing VS Code settings"  | ${WTL[@]}
+	    echo -e "-> Syncing VS Code settings" | ${WTL[@]}
 	    sudo mkdir -p "${HOME}/.config/Code/User"
 	    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vscode/settings.json" "${HOME}/.config/Code/User"
 	fi
@@ -176,14 +177,16 @@ process_choices() {
 post() {
 	read -p "It is recommended to restart now. Would you like to restart? [Y/n]" -r RESTART
 	if [[ $RESTART =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RESTART ]]; then
-	    shutdown -r now
+	    shutdown --reboot 1 >/dev/null
+        inform 'Rebooting in one minute'
 	fi
 }
 
 # ! Main
 
 main() {
-	sudo inform 'Configuration has begun'
+    sudo printf ''
+	inform 'Configuration has begun'
 
 	init
 	choices
