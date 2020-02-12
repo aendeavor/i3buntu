@@ -16,7 +16,7 @@ If you chose the desktop version, you can remove GNOME packages, e.g. `gnome-des
 sudo apt-get -y update && sudo apt-get -y dist-upgrade
 
 # download the latest stable release
-cd && wget https://github.com/aendeavor/i3buntu/archive/v0.9.2-stable.tar.gz
+cd && wget https://github.com/aendeavor/i3buntu/archive/v0.9.3-stable.tar.gz
 
 # decompress the .tar.gz
 tar xvfz v0.9.3-stable.tar.gz && rm v0.9.3-stable.tar.gz
