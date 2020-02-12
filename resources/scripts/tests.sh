@@ -12,9 +12,9 @@
 set -e
 
 ## directory of this file - absolute & normalized
-SCR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-. "${SCR}/../sys/sh/.bash_aliases"
+. "${DIR}/../sys/sh/.bash_aliases"
 
 # ? Actual script
 

@@ -304,10 +304,11 @@ process_choices() {
 	fi
 
 	if [[ $RC1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RC1 ]]; then
-		echo 'Installing Visual Studio Code Extensions' | ${WTL[@]}
+		echo -e "Installing Visual Studio Code Extensions\n" | ${WTL[@]}
 		(
-			&>>"${LOG}" "${DIR}/../sys/vscode/extensions.sh"
+			"${DIR}/../sys/vscode/extensions.sh" | ${WTL[@]}
 		)
+        echo ''
 	fi
 
 	if [[ $R10 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R10 ]]; then
