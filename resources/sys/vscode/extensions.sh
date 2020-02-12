@@ -45,7 +45,7 @@ EXT=(
     redhat.vscode-yaml
     ritwickdey.LiveServer
     sainnhe.gruvbox-material
-    serayuzgur.crate
+    serayuzgur.crates
     shd101wyy.markdown-preview-enhanced
     stayfool.vscode-asciidoc
     streetsidesoftware.code-spell-checker
@@ -75,7 +75,7 @@ check_code() {
 
 install_extensions() {
 	printf "%-40s | %-15s | %-15s" "EXTENSION" "STATUS" "EXIT CODE"
-	printf "\n"
+    echo ''
 
 	for EXTENSION in ${EXT[@]}; do
 		&>>/dev/null ${INSTALL[@]} ${EXTENSION}
@@ -85,8 +85,9 @@ install_extensions() {
 			printf "%-40s | %-15s | %-15s" "${EXTENSION}" "Not Installed" "${EC}"
 		else
 			printf "%-40s | %-15s | %-15s" "${EXTENSION}" "Installed" "${EC}"
-			printf "\n"
 		fi
+		
+        echo ''
 	done
 
 	if [[ ! -z $(which rustup) ]]; then
