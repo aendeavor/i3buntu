@@ -21,6 +21,7 @@ set softtabstop=4
 set tabstop=4
 set shiftwidth=2
 set number
+set scrolloff=999
 
 " Miscellaneous
 set history=1000
@@ -82,27 +83,26 @@ syntax enable
 let g:oceanic_next_terminal_bold = 1
 let g:oceanic_next_terminal_italic = 1
 colorscheme OceanicNext
-
 let g:lightline = {
-  \   'colorscheme': 'palenight',
-  \   'active': {
-  \     'left':[ [ 'mode', 'paste' ],
-  \              [ 'gitbranch', 'readonly', 'filename', 'modified' ]
-  \     ]
-  \   },
-	\   'component': {
-	\     'lineinfo': '%3l:%-2v',
-	\   },
-  \   'component_function': {
-  \     'gitbranch': 'fugitive#head',
-  \   }
-  \ }
+\   'colorscheme': 'wombat',
+\   'active': {
+\     'left':[ [ 'mode', 'paste' ],
+\              [ 'gitbranch', 'readonly', 'filename', 'modified' ]
+\     ]
+\   },
+\   'component': {
+\     'lineinfo': '%3l:%-2v',
+\   },
+\   'component_function': {
+\     'gitbranch': 'fugitive#head',
+\   }
+\ }
 
 let g:lightline.separator = {
-	\   'left': '', 'right': ''
-  \}
+\   'left': '', 'right': ''
+\}
 
 let g:lightline.subseparator = {
-	\   'left': '', 'right': '' 
-  \}
+\   'left': '', 'right': '' 
+\}
 
