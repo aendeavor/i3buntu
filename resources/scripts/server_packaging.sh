@@ -3,9 +3,7 @@
 # This script serves as the main installation script
 # for all neccessary packages for a server installation.
 # 
-# current version - 1.1.1 stable
-
-sudo printf ""
+# current version - 1.3.0 unstable
 
 # ? Preconfig
 
@@ -17,37 +15,11 @@ LOG="${BACK}/packaging_log"
 IF=( --yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages )
 AI=( sudo apt-get install ${IF[@]} )
 SI=( sudo snap install )
+WTL=( tee -a "${LOG}" )
 
 # initiate aliases and functions
 . "${DIR}/../sys/sh/.bash_aliases"
 
-## init of backup-directory
-if [[ ! -d "$BACK" ]]; then
-    mkdir -p "$BACK"
-fi
-
-## init of logfile
-if [[ ! -f "$LOG" ]]; then
-    if [[ ! -w "$LOG" ]]; then
-        &>/dev/null sudo rm $LOG
-    fi
-    touch "$LOG"
-fi
-WTL=( tee -a "${LOG}" )
-
-# ? Preconfig finished
-# ? User-choices begin
-
-inform 'Packaging has begun'
-inform "Please make your choices:\n"
-
-read -p "Would you like to execute ubuntu-driver autoinstall? [Y/n]" -r R1
-read -p "Would you like to install Build-Essentials? [Y/n]" -r R2
-read -p "Would you like to install NeoVIM? [Y/n]" -r R3
-read -p "Would you like to install Docker? [Y/n]" -r R4
-read -p "Would you like to get RUST? [Y/n]" -r R5
-
-# ? User choices end
 # ? Init of package selection
 
 CRITICAL=(
@@ -69,6 +41,7 @@ CRITICAL=(
 
 ENV=(
     htop
+    tmux
 )
 
 MISC=(
@@ -78,98 +51,142 @@ MISC=(
     neofetch
 
     ncdu
+	ripgrep 	# available in 18.10 and later
 )
 
 PACKAGES=( "${CRITICAL[@]}" "${ENV[@]}" "${MISC[@]}" )
 
-# ? End of init of package selection
-# ? Actual script begins
+# ? Actual script
 
-echo ""
-inform "Initial update" "$LOG"
-update
+## init of backup-directory and logfile
+init() {
+	if [[ ! -d "$BACK" ]]; then
+	    mkdir -p "$BACK"
+	fi
+	
+	if [[ ! -f "$LOG" ]]; then
+	    if [[ ! -w "$LOG" ]]; then
+	        &>/dev/null sudo rm $LOG
+	    fi
+	    touch "$LOG"
+	fi
+}
 
-inform "Installing packages\n" "$LOG"
+## user-choices
+choices() {
+	inform "Please make your choices:\n"
 
-printf "%-35s | %-15s | %-15s" "PACKAGE" "STATUS" "EXIT CODE"
-printf "\n"
+	read -p "Would you like to execute ubuntu-driver autoinstall? [Y/n]" -r R1
+	read -p "Would you like to install Build-Essentials? [Y/n]" -r R2
+	read -p "Would you like to install NeoVIM? [Y/n]" -r R3
+	read -p "Would you like to install Docker? [Y/n]" -r R4
+	read -p "Would you like to get RUST? [Y/n]" -r R5
+}
 
-for PACKAGE in "${PACKAGES[@]}"; do
-    2>>"${LOG}" >>/dev/null ${AI[@]} ${PACKAGE}
+## (un-)install all packages with APT
+packages() {
+	inform "Installing packages\n" "$LOG"
 
-    EC=$?
-    if (( $EC != 0 )); then
-        printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Not Installed" "${EC}"
-    else
-        printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Installed" "${EC}"
-    fi
+	printf "%-35s | %-15s | %-15s" "PACKAGE" "STATUS" "EXIT CODE"
+	printf "\n"
 
-    printf "\n"
-    &>>"${LOG}" echo -e "${PACKAGE}\n\t -> EXIT CODE: ${EC}"
-done
+	for PACKAGE in "${PACKAGES[@]}"; do
+		2>>"${LOG}" >>/dev/null ${AI[@]} ${PACKAGE}
 
-echo ""
-succ "Finished with actual script" "$LOG"
+		EC=$?
+		if (( $EC != 0 )); then
+			printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Not Installed" "${EC}"
+		else
+			printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Installed" "${EC}"
+		fi
 
-# ? Actual script finished
-# ? Extra script begins
+		printf "\n"
+		&>>"${LOG}" echo -e "${PACKAGE}\n\t -> EXIT CODE: ${EC}"
+	done
 
-inform "Processing user-choices\n" "$LOG"
+	echo ""
+	succ "Finished with actual script" "$LOG"
+}
 
-## graphics driver
-if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
-    echo 'Enabling ubuntu-drivers autoinstall' | ${WTL[@]}
-    &>>"${LOG}" sudo ubuntu-drivers autoinstall
-fi
+## processes user-choices from the beginning
+process_choices() {
+	inform "Processing user-choices\n" "$LOG"
 
-if [[ $R2 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R2 ]]; then
-    echo 'Installing build-essential & CMake' | ${WTL[@]}
-    >/dev/null 2>>"${LOG}" ${AI[@]} build-essential cmake
-fi
+	## graphics driver
+	if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
+		echo 'Enabling ubuntu-drivers autoinstall' | ${WTL[@]}
+		&>>"${LOG}" sudo ubuntu-drivers autoinstall
+	fi
 
-if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
-    echo -e 'Installing NeoVIM...' | ${WTL[@]}
-    >/dev/null 2>>"${LOG}" sudo apt-get install neovim
-    >/dev/null 2>>"${LOG}" curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	if [[ $R2 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R2 ]]; then
+		echo 'Installing build-essential & CMake' | ${WTL[@]}
+		>/dev/null 2>>"${LOG}" ${AI[@]} build-essential cmake
+	fi
 
-    warn 'You will need to run :PlugInstall seperately in NeoVIM as you cannot execute this command in a shell.'
-    warn 'Thereafter, run ~/.config/nvim/plugged/YouCompleteMe/install.py --racer-completer --tern-completer.'
-    sleep 3s
-fi
+	if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
+		echo -e 'Installing NeoVIM...' | ${WTL[@]}
+		>/dev/null 2>>"${LOG}" sudo apt-get install neovim
+		>/dev/null 2>>"${LOG}" curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-if [[ $R4 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R4 ]]; then
-    echo -e 'Installing Docker' | ${WTL[@]}
-    SH=$(readlink -m "${DIR}/../sys/docker/get_docker.sh")
-    $SH "$LOG"
-fi
+  		warn 'You will need to run :PlugInstall seperately in NeoVIM as you cannot execute this command in a shell.'
+    	warn 'Thereafter, run ~/.config/nvim/plugged/YouCompleteMe/install.py --racer-completer --tern-completer.'
+    	sleep 3s
+	fi
 
-if [[ $R5 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R5 ]]; then
-    echo -e "Installing RUST" | ${WTL[@]}
+	if [[ $R4 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R4 ]]; then
+		echo -e 'Installing Docker' | ${WTL[@]}
+		>/dev/null 2>>"${LOG}" ${AI[@]} docker.io
+	fi
 
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile complete -y &>/dev/null
-    
-    if [[ -e "${HOME}/.cargo/env" ]]; then
-        source "${HOME}/.cargo/env"
+	if [[ $R5 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R5 ]]; then
+		echo -e "Installing RUST" | ${WTL[@]}
 
-        mkdir -p "${HOME}/.local/share/bash-completion/completions"
-        touch "${HOME}/.local/share/bash-completion/completions/rustup"
-        rustup completions bash > "${HOME}/.local/share/bash-completion/completions/rustup"
+		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile complete -y &>/dev/null
+		
+		if [[ -e "${HOME}/.cargo/env" ]]; then
+			source "${HOME}/.cargo/env"
 
-        COMPONENTS=( rust-docs rust-analysis rust-src rustfmt rls clippy )
-        for COMPONENT in ${COMPONENTS[@]}; do
-            &>>"${LOG}" rustup component add $COMPONENT
-        done
+			mkdir -p "${HOME}/.local/share/bash-completion/completions"
+			touch "${HOME}/.local/share/bash-completion/completions/rustup"
+			rustup completions bash > "${HOME}/.local/share/bash-completion/completions/rustup"
 
-        >/dev/null 2>>"${LOG}" rustup update
-    fi
-fi
+			COMPONENTS=( rust-docs rust-analysis rust-src rustfmt rls clippy )
+			for COMPONENT in ${COMPONENTS[@]}; do
+				&>>"${LOG}" rustup component add $COMPONENT
+			done
 
-succ 'Finished with processing user-choices' "$LOG"
+			>/dev/null 2>>"${LOG}" rustup update
+		fi
+	fi
 
-# ? Extra script finished
+	succ 'Finished with processing user-choices' "$LOG"
+}
+
 # ? Execution of next script
 
-inform 'This script has finished'
-inform 'Starting configuration-script now'
+next() {
+	inform 'This script has finished'
+	inform 'Starting configuration-script now'
 
-"${DIR}/server_configuration.sh"
+	"${DIR}/server_configuration.sh"
+}
+
+# ! Main
+
+main() {
+    sudo printf ''
+	inform 'Packaging has begun'
+	init
+	choices
+
+	inform 'Initial update' "$LOG"
+	update
+	
+	packages
+	process_choices
+
+	succ 'Finished packaging' "$LOG"
+	next
+}
+
+main "$@" || exit 1

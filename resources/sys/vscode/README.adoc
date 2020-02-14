@@ -83,6 +83,10 @@ This file provides an overview about all extensions that are to be deployed if y
 | Ritwick Dey
 | Launch a development local server with live reload features for static and dynamic content.
 
+| LLDB
+| vadimcn
+| Debug Rust and possibly C++
+
 | Markdown All in One
 | Yu Zhang
 | Provides Markdown support across the board with handy shortcuts and proper highlighting.

@@ -24,9 +24,10 @@ alias datetime='date && cal'
 alias df='df -h'
 alias sd='blkid -o list'
 alias sizeof='du -sh'
-alias evince='evince "$1" > /dev/null 2>&1 &'
+alias vmp='sudo vmplayer &>/dev/null &'
 
-alias v="nvim"
+alias v='nvim'
+alias sv='sudo nvim'
 
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -104,12 +105,6 @@ a () {
     return
 }
 export -f a
-
-sv () {
-    sudo vi "$1"
-    return
-}
-export -f sv
 
 sf () {
     SEARCH=${1:?Enter a search-regex}
