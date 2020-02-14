@@ -60,7 +60,7 @@ gaps outer 4
 for_window [class="^.*"] border pixel 0
 
 # Only enable gaps on a workspace when there is at least one container
-smart_gaps on
+# smart_gaps on
 
 # Activate smart borders (only when there are effectively no gaps)
 smart_borders no_gaps
