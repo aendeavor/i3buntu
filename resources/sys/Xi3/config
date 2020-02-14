@@ -13,8 +13,8 @@ set $mod Mod4
 floating_modifier $mod
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -5%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
 ## amixer -D pulse set Master 100% unmute
 
@@ -33,6 +33,8 @@ exec_always feh --bg-scale $HOME/images/dreamy.jpg
 # Font
 font xft:Roboto:style=Regular:pixelsize=13
 
+############################################################################### Colors
+
 # Colours
 set $BG                     #010715
 set $INACTIVE-BG            #010715
@@ -49,34 +51,56 @@ client.focused_inactive   $INACTIVE-BG        $INACTIVE-BG        $INACTIVE-TEXT
 client.unfocused          $INACTIVE-BG        $INACTIVE-BG        $INACTIVE-TEXT    $BAR               $BAR
 client.urgent             $URGENT             $URGENT             $TEXT             $BAR               $BAR
 
-hide_edge_borders both
+
+############################################################################### i3-gaps
+
+# Configure gaps around the windows
+gaps inner 3
+gaps outer 4
+for_window [class="^.*"] border pixel 0
+
+# Only enable gaps on a workspace when there is at least one container
+# smart_gaps on
+
+# Activate smart borders (only when there are effectively no gaps)
+smart_borders no_gaps
+
+# Hide edge borders only if there is one window with no gaps
+hide_edge_borders smart_no_gaps
+
+set $GAPSBG                 #00000000
 
 bar {
+  i3bar_command         i3bar --transparency
   status_command        i3status -c ~/.config/i3/i3statusconfig
+
+  font xft:Roboto 9
 
   position              bottom
   mode                  dock
-
-  tray_padding          0
-
-  font xft:Roboto 10
+  
+  tray_padding          3
+  tray_output           primary
 
   colors {
-    background          $BAR
-    statusline          $BTIA
+    background          $GAPSBG
+    statusline          $TEXT
 
     #                   border          background        text
-    focused_workspace   $BAR            $BAR              $BTA
-    active_workspace    $BAR            $BAR              $BTA
-    inactive_workspace  $BAR            $BAR              $BTIA
-    urgent_workspace    $BAR            $BAR              $URGENT
+    focused_workspace   $BAR            $GAPSBG           $BTA
+    active_workspace    $BAR            $GAPSBG           $BTA
+    inactive_workspace  $BAR            $GAPSBG           $BTIA
+    urgent_workspace    $BAR            $GAPSBG           $URGENT
   }
 }
 
 ############################################################################### Keybindings
 
-# start a terminal
-bindsym $mod+Return exec "urxvtcd"
+# start urxvt deamonized
+bindsym $mod+Shift+Return exec "urxvtcd"
+
+# start alacritty
+bindsym $mod+Return exec alacritty --live-config-reload -qq --config-file $HOME/.config/alacritty/alacritty.yml
 
 # lock the screen
 bindsym $mod+Shift+x exec i3lock -u -e -i ~/images/dreamy.png -t
@@ -151,7 +175,8 @@ bindsym $mod+a focus parent
 
 ############################################################################### Screen & Resolution
 
-exec_always xrandr --output VGA-1-1 --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-0 --primary --mode 1920x1080 --pos 1920x0 --rotate normal
+exec_always xrandr
+# --output VGA-1-1 --mode 1920x1080 --pos 0x0 --output HDMI-0 --primary --mode 1920x1080 --pos 1920x0
 
 ############################################################################### Workspaces
 

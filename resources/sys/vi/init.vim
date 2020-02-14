@@ -1,8 +1,9 @@
-" language and encoding
+" Language and Encoding
 set spell spelllang=en_us
 set undofile
 set encoding=utf-8
 
+" Copy & Waste
 if has('clipboard')
   if has('unnamedplus') " use + register for copy-paste
     set clipboard=unnamed,unnamedplus
@@ -11,94 +12,97 @@ if has('clipboard')
   endif
 endif
 
+" Text alignemnt metrics
 set ignorecase
-set number
 set conceallevel=1
-set background=dark
-
 set expandtab
 set autoindent
 set softtabstop=4
-set shiftwidth=2
 set tabstop=4
+set shiftwidth=2
+set number
+set scrolloff=999
 
+" Miscellaneous
 set history=1000
+autocmd BufEnter * lcd %:p:h
+filetype plugin indent on
+set undodir=~/.config/nvim/undodir
 
-" visual shifting (does not exit Visual mode)
+" Visual shifting
 vnoremap < <gv
 vnoremap > >gv
 
-" allow using the repeat operator with a visual selection (!)
-" http://stackoverflow.com/a/8064607/127816
+" Allow using the repeat operator with a visual selection
 vnoremap . :normal .<CR>
 
-let g:gruvbox_italic=1
-colorscheme gruvbox
-
-autocmd BufEnter * lcd %:p:h
-
-filetype plugin indent on
-
-set undodir=~/.config/nvim/undodir
-
-" plugins
+" Plugins
 call plug#begin()
+Plug 'scrooloose/nerdtree' 		" File explorer
+Plug 'itchyny/lightline.vim' 	" Status line
+Plug 'ctrlpvim/ctrlp.vim'		" Full path fuzzy file-, buffer-, ... finder
+Plug 'Raimondi/delimitMate'		" Automatic closing of parenthesis, etc.
+Plug 'mhinz/vim-startify'		" Fancy start screen
 
-Plug 'vim-scripts/Vimball'
-Plug 'godlygeek/tabular'
-Plug 'scrooloose/nerdtree'
-Plug 'tpope/vim-fugitive'
-Plug 'itchyny/lightline.vim'
-Plug 'junegunn/goyo.vim'
-Plug 'rust-lang/rust.vim'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'groenewege/vim-less'
-Plug 'tpope/vim-markdown'
-Plug 'vim-scripts/nginx.vim'
+Plug 'rust-lang/rust.vim'		" RUST language extensions
+Plug 'tpope/vim-markdown'		" Markdown language extension
+Plug 'vim-syntastic/syntastic'	" Syntax check
+
+" Autocompletion
 Plug 'Valloric/YouCompleteMe'
-Plug 'michaeljsmith/vim-indent-object'
-Plug 'vim-syntastic/syntastic'
-Plug 'Shougo/neocomplcache.vim'
-Plug 'tpope/vim-surround'
-Plug 'airblade/vim-gitgutter'
-Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'Raimondi/delimitMate'
-Plug 'tmhedberg/SimpylFold'
-Plug 'Vimjas/vim-python-pep8-indent'
-Plug 'mhinz/vim-startify'
-Plug 'vim-scripts/nginx.vim'
-Plug 'leafgarland/typescript-vim'
-Plug 'Quramy/tsuquyomi'
-Plug 'Shougo/vimproc.vim'
-Plug 'iCyMind/NeoSolarized'
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
+" Themes
+Plug 'mhartington/oceanic-next'
+Plug 'drewtempelmeyer/palenight.vim'
+Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
-let g:javascript_plugin_jsdoc           = 1
-let g:javascript_conceal_function       = "ƒ"
-let g:javascript_conceal_null           = "ø"
-let g:javascript_conceal_arrow_function = "⇒"
-let g:javascript_conceal_return         = "⇚"
+" Autocompletion & syntax metrics
+let g:deoplete#enable_at_startup = 1
+let g:syntastic_check_on_open = 1
 
-let g:jsx_ext_required = 0
-
-let g:syntastic_check_on_open=1
-
+" NerdTree configuration
 map <C-E> :NERDTreeToggle<CR>
-let NERDTreeQuitOnOpen=1
+let NERDTreeQuitOnOpen=0
 let NERDTreeShowHidden=1
 let NERDTreeIgnore = ['\.pyc$']
-
 let g:ycm_autoclose_preview_window_after_completion=1
+autocmd VimEnter * NERDTree
+autocmd VimEnter * wincmd p
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-set foldmethod=indent
-set foldlevel=99
-
-au BufRead,BufNewFile *.nginx set ft=nginx
-au BufRead,BufNewFile */etc/nginx/* set ft=nginx
-au BufRead,BufNewFile */usr/local/nginx/conf/* set ft=nginx
-au BufRead,BufNewFile nginx.conf set ft=nginx
-
+" Mouse settings
 set mouse=a                 " Automatically enable mouse usage
 set mousehide               " Hide the mouse cursor while typing
+
+" Theming
+set background=dark
+set termguicolors
+syntax enable
+let g:oceanic_next_terminal_bold = 1
+let g:oceanic_next_terminal_italic = 1
+colorscheme OceanicNext
+let g:lightline = {
+\   'colorscheme': 'wombat',
+\   'active': {
+\     'left':[ [ 'mode', 'paste' ],
+\              [ 'gitbranch', 'readonly', 'filename', 'modified' ]
+\     ]
+\   },
+\   'component': {
+\     'lineinfo': '%3l:%-2v',
+\   },
+\   'component_function': {
+\     'gitbranch': 'fugitive#head',
+\   }
+\ }
+
+let g:lightline.separator = {
+\   'left': '', 'right': ''
+\}
+
+let g:lightline.subseparator = {
+\   'left': '', 'right': '' 
+\}
+

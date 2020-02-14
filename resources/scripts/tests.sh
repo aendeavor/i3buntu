@@ -9,13 +9,27 @@
 
 # ? Preconfig
 
+set -e
+
 ## directory of this file - absolute & normalized
-SCR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-. "${SCR}/../sys/sh/.bash_aliases"
+. "${DIR}/../sys/sh/.bash_aliases"
 
-warn 'This is a test!'
+# ? Actual script
 
-succ "TEST"
-inform "TEST"
-err "TEST"
+# Insert something to test here
+run_test() {
+    echo 'Started Test'
+
+    echo 'Finished test'
+}
+
+# ! Main
+
+main() {
+	warn 'This is a test!'
+	run_test
+}
+
+main "$@" || exit 1
