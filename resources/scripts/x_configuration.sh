@@ -139,7 +139,7 @@ process_choices() {
 	    inform 'Nemo is being configured...' "$LOG"
 	
 	    xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search
-    	gsettings set org.cinnamon.desktop.default-applications.terminal exec 'urxvt'
+    	gsettings set org.cinnamon.desktop.default-applications.terminal exec 'alacritty'
     	gsettings set org.cinnamon.desktop.default-applications.terminal exec-arg -e
 
     	gsettings set org.gnome.desktop.background show-desktop-icons false
