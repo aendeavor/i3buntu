@@ -31,13 +31,11 @@ EXT=(
     formulahendry.code-runner
     James-Yu.latex-workshop
     joaompinto.asciidoctor-vscode
-    jolaleye.horizon-theme-vscode
     ms-azuretools.vscode-docker
     ms-python.python
     ms-vscode-remote.remote-containers
     ms-vscode-remote.remote-ssh
     ms-vscode-remote.remote-ssh-edit
-    ms-vscode-remote.remote-wsl
     ms-vscode-remote.vscode-remote-extensionpack
     ms-vscode.cpptools
     PKief.material-icon-theme
