@@ -1,11 +1,14 @@
-# ! CONFIGURATION FILE FOR BASH
-# ! ~/.bashrc - executed by bash for non-login shells
-
-# This bash script is executed on bash startup
-# to set the prompt, all neccessary parameters
-# and functionality.
+#        ____  ___   _____ __  ______  ______
+#       / __ )/   | / ___// / / / __ \/ ____/
+#      / __  / /| | \__ \/ /_/ / /_/ / /     
+#   _ / /_/ / ___ |___/ / __  / _, _/ /___   
+#  (_)_____/_/  |_/____/_/ /_/_/ |_|\____/   
+#
+# ! BASHRC - CONFIGURATION FILE FOR BASH
+# ! $HOME/.bashrc
 # 
-# Loads ~/.bash_aliases  
+# Executed by BASH for non-login shells
+# Loads $HOME/.bash_aliases.  
 #
 # version   0.6.4
 # author    aendeavor@Georg Lauterbach

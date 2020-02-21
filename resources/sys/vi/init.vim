@@ -1,3 +1,19 @@
+" 
+" ██╗███╗   ██╗██╗████████╗██╗   ██╗██╗███╗   ███╗
+" ██║████╗  ██║██║╚══██╔══╝██║   ██║██║████╗ ████║
+" ██║██╔██╗ ██║██║   ██║   ██║   ██║██║██╔████╔██║
+" ██║██║╚██╗██║██║   ██║   ╚██╗ ██╔╝██║██║╚██╔╝██║
+" ██║██║ ╚████║██║   ██║██╗ ╚████╔╝ ██║██║ ╚═╝ ██║
+" ╚═╝╚═╝  ╚═══╝╚═╝   ╚═╝╚═╝  ╚═══╝  ╚═╝╚═╝     ╚═╝
+"
+" ! INIT.VIM - CONFIGURATION FILE FOR NEOVIM
+" ! ~/.config/nvim/init.vim
+"
+" version   0.4.1
+" author    aendeavor@Georg Lauterbach
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Language and Encoding
 set spell spelllang=en_us
 set undofile
@@ -12,7 +28,7 @@ if has('clipboard')
   endif
 endif
 
-" Text alignemnt metrics
+" Text alignment metrics
 set ignorecase
 set conceallevel=1
 set expandtab
