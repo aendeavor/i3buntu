@@ -1,18 +1,24 @@
-# ! BASHRC - CONFIGURATION FILE FOR YOUR BASH
+# ! CONFIGURATION FILE FOR BASH
 # ! ~/.bashrc - executed by bash for non-login shells
 
 # This bash script is executed on bash startup
 # to set the prompt, all neccessary parameters
 # and functionality.
-# Moreover, it loads ~/.bash_aliases.  
+# 
+# Loads ~/.bash_aliases  
 #
-# current version - 0.6.4
+# version   0.6.4
+# author    aendeavor@Georg Lauterbach
+
+###########################################################
 
 # if not running interactively, don't do anything
-case $- in
-    *i*) ;;
-      *) return;;
-esac
+check_on_interactive() {
+  case $- in
+      *i*) ;;
+        *) exit;;
+  esac
+}
 
 HISTCONTROL=ignoreboth
 HISTSIZE=10000
@@ -89,3 +95,17 @@ fi
 
 neofetch --ascii --disable term uptime packages resolution theme icons cpu gpu --gtk3 on --bar_border on --ascii_distro arch --underline_char \  --block_range 0 7 --block_width 4 --block_height 1 --gap 13
 echo ""
+
+function _update_ps1() {
+  PS1="$(/bin/powerline-go-linux-amd64 -error $? -numeric-exit-codes -cwd-max-depth 4 -cwd-max-dir-size 9 -modules "ssh,cwd,git,hg,jobs,exit,root")"
+}
+
+if [ "$TERM" != "linux" ] && [ -f "/bin/powerline-go-linux-amd64" ]; then
+  PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+fi
+
+main() {
+  check_on_interactive  
+}
+
+main "$@" || exit 1
