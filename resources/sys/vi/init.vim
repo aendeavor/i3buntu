@@ -84,7 +84,7 @@ let NERDTreeQuitOnOpen=0
 let NERDTreeShowHidden=1
 let NERDTreeIgnore = ['\.pyc$']
 let g:ycm_autoclose_preview_window_after_completion=1
-autocmd VimEnter * NERDTree
+" autocmd VimEnter * NERDTree " open NerdTree automatically
 autocmd VimEnter * wincmd p
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
