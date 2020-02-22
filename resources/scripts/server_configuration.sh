@@ -74,6 +74,9 @@ deploy() {
 	    echo -e "-> Syncing $(basename -- "${sourceFile}")"  | ${WTL[@]}
 	    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/${sourceFile}" "${HOME}"
 	done
+
+    echo -e 'Copying PowerLine-Go to /bin'
+    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/sh/powerline-go-linux-amd64" "/bin"
 }
 
 ## postconfiguration

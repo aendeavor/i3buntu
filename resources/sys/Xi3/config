@@ -1,13 +1,20 @@
-# i3 config file (v4) under /$HOME/.config/i3/
+#      _ _____                     _____      
+#     (_)__  /   _________  ____  / __(_)___ _
+#    / / /_ <   / ___/ __ \/ __ \/ /_/ / __ `/
+#   / /___/ /  / /__/ /_/ / / / / __/ / /_/ / 
+#  /_//____/   \___/\____/_/ /_/_/ /_/\__, /  
+#                                    /____/
+# 
+# ! CONFIG - CONFIGURATION FILE FOR i3wm (i3-gaps)
+# ! $HOME/.config/i3/config
 #
-# See http://i3wm.org/docs/userguide.html for a complete reference
-#
-# Should you change your keyboard layout some time, delete this file
-# and re-run i3-config-wizard(1).
+# version	1.0.8
+# author	aendeavor@Georg Lauterbach
 
+###########################################################
+
+# set $mod key
 set $mod Mod4
-
-############################################################################### Laptop exclusive
 
 # use Mouse+Mod4 to drag floating windows to their wanted position
 floating_modifier $mod
@@ -16,26 +23,19 @@ floating_modifier $mod
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +5%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -5%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
-## amixer -D pulse set Master 100% unmute
 
-# Screen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
+# screen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10 
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10
 
-############################################################################### Design
+########################################################### Design
 
-# Miscellaneous
+# wallpaper & font
 new_window 1pixel
-
-# Wallpaper
 exec_always feh --bg-scale $HOME/images/dreamy.jpg
-
-# Font
 font xft:Roboto:style=Regular:pixelsize=13
 
-############################################################################### Colors
-
-# Colours
+# Colors
 set $BG                     #010715
 set $INACTIVE-BG            #010715
 set $TEXT                   #FDF4E0
@@ -45,30 +45,25 @@ set $BAR                    #000204
 set $BTA                    #55C4CD
 set $BTIA                   #FDF4E0
 
-# window colours          border              background          text              indicator          ?
-client.focused            $BG                 $BG                 $TEXT             $BAR               $BAR
-client.focused_inactive   $INACTIVE-BG        $INACTIVE-BG        $INACTIVE-TEXT    $BAR               $BAR
-client.unfocused          $INACTIVE-BG        $INACTIVE-BG        $INACTIVE-TEXT    $BAR               $BAR
-client.urgent             $URGENT             $URGENT             $TEXT             $BAR               $BAR
+# window colors         border       background   text           indicator ?
+client.focused          $BG          $BG          $TEXT          $BAR      $BAR
+client.focused_inactive $INACTIVE-BG $INACTIVE-BG $INACTIVE-TEXT $BAR      $BAR
+client.unfocused        $INACTIVE-BG $INACTIVE-BG $INACTIVE-TEXT $BAR      $BAR
+client.urgent           $URGENT      $URGENT      $TEXT          $BAR      $BAR
 
+########################################################### Gaps
 
-############################################################################### i3-gaps
-
-# Configure gaps around the windows
 gaps inner 3
 gaps outer 4
 for_window [class="^.*"] border pixel 0
 
-# Only enable gaps on a workspace when there is at least one container
 # smart_gaps on
-
-# Activate smart borders (only when there are effectively no gaps)
 smart_borders no_gaps
-
-# Hide edge borders only if there is one window with no gaps
 hide_edge_borders smart_no_gaps
 
 set $GAPSBG                 #00000000
+
+########################################################### Bar
 
 bar {
   i3bar_command         i3bar --transparency
@@ -94,13 +89,13 @@ bar {
   }
 }
 
-############################################################################### Keybindings
+########################################################### Keybindings
 
-# start urxvt deamonized
+# start URXVT deamonized
 bindsym $mod+Shift+Return exec "urxvtcd"
 
-# start alacritty
-bindsym $mod+Return exec alacritty --live-config-reload -qq --config-file $HOME/.config/alacritty/alacritty.yml
+# start Alacritty
+bindsym $mod+Return exec alacritty --live-config-reload -qq 
 
 # lock the screen
 bindsym $mod+Shift+x exec i3lock -u -e -i ~/images/dreamy.png -t
@@ -108,16 +103,16 @@ bindsym $mod+Shift+x exec i3lock -u -e -i ~/images/dreamy.png -t
 # application manager
 bindsym $mod+d exec rofi -show run
 
-# vs code
+# VS Code
 bindsym $mod+c exec code
 
-# nemo
+# Nemo
 bindsym $mod+n exec nemo
 
-# ranger
+# Ranger
 bindsym $mod+Ctrl+n exec --no-startup-id urxvt -e ranger
 
-# firefox
+# Firefox
 bindsym $mod+f exec firefox
 
 # kill focused window
@@ -171,70 +166,7 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # focus the child container
-#bindsym $mod+d focus child
-
-############################################################################### Screen & Resolution
-
-exec_always xrandr
-# --output VGA-1-1 --mode 1920x1080 --pos 0x0 --output HDMI-0 --primary --mode 1920x1080 --pos 1920x0
-
-############################################################################### Workspaces
-
-# Define names for default workspaces for which we configure key bindings later on.
-# We use variables to avoid repeating the names in multiple places.
-set $ws1 "1 Terminal"
-set $ws2 "2 Code"
-set $ws3 "3 FireFox"
-set $ws4 "4 FireFox"
-set $ws5 "5 Media"
-set $ws6 "6 Media"
-set $ws7 "7 Misc"
-set $ws8 "8 Misc"
-set $ws9 "9 IDE"
-set $ws10 "10 Music"
-
-# switch to workspace
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
-bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $ws5
-bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
-bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws10
-
-# move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3
-bindsym $mod+Shift+4 move container to workspace $ws4
-bindsym $mod+Shift+5 move container to workspace $ws5
-bindsym $mod+Shift+6 move container to workspace $ws6
-bindsym $mod+Shift+7 move container to workspace $ws7
-bindsym $mod+Shift+8 move container to workspace $ws8
-bindsym $mod+Shift+9 move container to workspace $ws9
-bindsym $mod+Shift+0 move container to workspace $ws10
-
-# Assign workspaces to programms
-assign [class="Code"] $ws2
-assign [class="Firefox"] $ws3
-assign [class="jetbrains-idea"] $ws9
-assign [class="jetbrains-pycharm"] $ws9
-assign [class="jetbrains-clion"] $ws9
-assign [class="java-lang-Thread"] $ws9
-assign [class="Spotify"] $ws10
-
-
-# reload the configuration file
-bindsym $mod+Shift+c reload
-
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
-
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+# bindsym $mod+d focus child
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -262,9 +194,67 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-############################################################################### Miscellaneous
+########################################################### Screen & Resolution
 
-# Startup of authentication agent, urxvt-deamon and compton compositor
+exec_always xrandr
+# --output VGA-1-1 --mode 1920x1080 --pos 0x0 --output HDMI-0 --primary --mode 1920x1080 --pos 1920x0
+
+########################################################### Workspaces
+
+set $ws1 "1 Terminal"
+set $ws2 "2 Code"
+set $ws3 "3 FireFox"
+set $ws4 "4 FireFox"
+set $ws5 "5 Media"
+set $ws6 "6 Media"
+set $ws7 "7 Misc"
+set $ws8 "8 Misc"
+set $ws9 "9 IDE"
+set $ws10 "10 Music"
+
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+# Assign workspaces to programs
+assign [class="Code"] $ws2
+assign [class="Firefox"] $ws3
+assign [class="jetbrains-idea"] $ws9
+assign [class="jetbrains-pycharm"] $ws9
+assign [class="jetbrains-clion"] $ws9
+assign [class="java-lang-Thread"] $ws9
+assign [class="Spotify"] $ws10
+
+########################################################### Misc
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# autostarts 
 exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 exec nm-applet &
 exec urxvtd -q -o -f &
