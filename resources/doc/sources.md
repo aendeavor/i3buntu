@@ -7,6 +7,7 @@
 3. [BASH colors](https://misc.flogisoft.com/bash/tip_colors_and_formatting)
 4. [2D Wallpapers](https://wallpaperaccess.com/2d)
 5. [Terminal colors](https://terminal.sexy/)
+6. [ASCII art](http://www.patorjk.com/software/taag/#p=display&f=Slant&t=Type%20Something%20)
 
 ## Configuration
 
