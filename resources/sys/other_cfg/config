@@ -1,0 +1,74 @@
+!      ____        _____                     _____      
+!     / __ \____  / __(_)  _________  ____  / __(_)___ _
+!    / /_/ / __ \/ /_/ /  / ___/ __ \/ __ \/ /_/ / __ `/
+!   / _, _/ /_/ / __/ /  / /__/ /_/ / / / / __/ / /_/ / 
+!  /_/ |_|\____/_/ /_/   \___/\____/_/ /_/_/ /_/\__, /  
+!                                              /____/ 
+!
+! ! CONFIG - CONFIGURATION FILE FOR ROFI
+! ! $HOME/.config/rofi/config
+!
+! version   0.1.0
+! author    aendeavor@Georg Lauterbach
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+rofi.color-enabled: true
+
+rofi.color-window:      #101010, #101010, #101010, #101010
+rofi.color-normal:      #101010, #E5E8E7, #101010, #101010, #E95167
+rofi.color-active:      #101010, #E5E8E7, #101010, #101010, #E95167
+rofi.color-urgent:      #101010, #E5E8E7, #101010, #101010, #E95167
+
+rofi.lines: 7
+rofi.columns: 1
+
+rofi.width: 42
+rofi.location: 0
+
+rofi.padding: 25
+rofi.opacity: 70
+
+rofi.border: 0px
+rofi.line-margin: 10
+
+rofi.bw: 4
+rofi.eh: 1
+
+rofi.auto-select: true
+rofi.hide-scrollbar: true
+
+rofi.terminal: "alacritty"
+rofi.separator-style: none
+rofi.async-pre-read: 10
+
+rofi.font: Roboto NF 14
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Legacy
+
+! rofi.fullscreen:        true
+! rofi.color-enabled:     true
+! 
+! rofi.color-window:      argb:e8080A0A,argb:00000000,#E95167
+! rofi.color-normal:      argb:02000000,#E5E8E7,argb:02000000,argb:02000000,#E95167
+! rofi.color-active:      argb:02000000,#E5E8E7,argb:02000000,argb:02000000,#E95167
+! rofi.color-urgent:      argb:02000000,#E5E8E7,argb:02000000,argb:02000000,#E95167
+! 
+! rofi.font:              RobotoMono NF 14
+! rofi.eh:                2
+! rofi.line-padding:      20
+! ! rofi.line-margin:       20
+! rofi.separator-style:   none
+! rofi.hide-scrollbar:    true
+! rofi.lines:             5
+! rofi.width:             100
+! rofi.padding:           200
+! rofi.bw:                0
+! rofi.show-icons:        true
+! 
+! rofi.threads:           0
+! rofi.terminal:          "urxvt"
+! rofi.no-plugins:        true
+! rofi.auto-select:       true
+! rofi.show-match:        true
+
