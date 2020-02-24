@@ -78,7 +78,7 @@ backup() {
 deploy() {
 	inform 'Proceeding to deploying config files' "$LOG"
 	
-	DEPLOY_IN_HOME=( sh/.bashrc sh/.bash_aliases vi/.vimrc vi/.viminfo Xi3/.Xresources )
+	DEPLOY_IN_HOME=( sh/.bashrc sh/.bash_aliases vi/.vimrc vi/.viminfo Xi3/.Xresources other_cfg/config.rasi )
 	for sourceFile in "${DEPLOY_IN_HOME[@]}"; do
 	    echo -e "-> Syncing $(basename -- "${sourceFile}")"  | ${WTL[@]}
 	    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/${sourceFile}" "${HOME}"
