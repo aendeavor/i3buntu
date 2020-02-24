@@ -101,7 +101,7 @@ bindsym $mod+Return exec alacritty --live-config-reload -qq
 bindsym $mod+Shift+x exec i3lock -u -e -i ~/images/dreamy.png -t
 
 # application manager
-bindsym $mod+d exec rofi -show drun
+bindsym $mod+d exec rofi -show drun -no-plugins
 
 # VS Code
 bindsym $mod+c exec code
