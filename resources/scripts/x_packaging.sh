@@ -54,6 +54,8 @@ CRITICAL=(
 
     firefox
     thunderbird
+    thunderbird-locale-de
+    thunderbird-locale-en
 )
 
 ENV=(
