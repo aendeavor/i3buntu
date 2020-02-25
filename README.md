@@ -44,7 +44,8 @@ It is recommended to be familiar with the linux environment and command line. Ab
 This guide relies on using the following sources.
 
 * [Ubuntu 18.04 LTS](http://releases.ubuntu.com/18.04/) Operating System
-* [URXVT](https://wiki.archlinux.org/index.php/Rxvt-unicode) Terminal Emulator
+* [Alacritty](https://github.com/alacritty/alacritty) Terminal Emulator (main)
+* [URXVT](https://wiki.archlinux.org/index.php/Rxvt-unicode) Terminal Emulator (fallback)
 * [Aptitude](https://wiki.debian.org/Aptitude) (APT) Packaging Manager
 * [Snap](https://wiki.archlinux.org/index.php/Snap) Package Management
 * [i3-gaps](https://github.com/Airblader/i3) Tiling Window Manager
