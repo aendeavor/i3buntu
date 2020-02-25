@@ -1,12 +1,19 @@
-# ! BASH ALIASES & FUNCTIONS
-# ! additional config file
-# ! extending and executed in ~/.bashrc
-
-# This bash script is executed on bash startup
-# from ~/.bashrc to load all aliases and
-# functions defined in this scope.
+#        ____  ___   _____ __  __     ___    __    _______   _____ ___________
+#       / __ )/   | / ___// / / /    /   |  / /   /  _/   | / ___// ____/ ___/
+#      / __  / /| | \__ \/ /_/ /    / /| | / /    / // /| | \__ \/ __/  \__ \ 
+#   _ / /_/ / ___ |___/ / __  /    / ___ |/ /____/ // ___ |___/ / /___ ___/ / 
+#  (_)_____/_/  |_/____/_/ /_/____/_/  |_/_____/___/_/  |_/____/_____//____/  
+#                           /_____/
 #
-# current version - 0.9.1
+# ! BASH_ALIASES - ADDITIONAL CONFIGURATION FILE FOR BASH
+# ! $HOME/.bash_aliases
+#
+# Executed from $HOME/.bashrc
+#
+# version   1.0.1
+# author    aendeavor@Georg Lauterbach
+
+###########################################################
 
 # check color support
 if [ -x /usr/bin/dircolors ]; then

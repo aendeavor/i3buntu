@@ -71,10 +71,6 @@ This file provides an overview about all extensions that are to be deployed if y
 | sainnhe
 | Gruvbox theme with material palette
 
-| Horizon
-| jolaleye
-| Warm dual theme for VS Code
-
 | LaTeX Workshop
 | James Yu
 | Preview, compile and autocompletion. Everything you need for LaTeX in VS Code

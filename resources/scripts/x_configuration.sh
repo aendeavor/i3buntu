@@ -78,7 +78,7 @@ backup() {
 deploy() {
 	inform 'Proceeding to deploying config files' "$LOG"
 	
-	DEPLOY_IN_HOME=( sh/.bashrc sh/.bash_aliases vi/.vimrc vi/.viminfo Xi3/.Xresources )
+	DEPLOY_IN_HOME=( sh/.bashrc sh/.bash_aliases vi/.vimrc vi/.viminfo Xi3/.Xresources other_cfg/config.rasi )
 	for sourceFile in "${DEPLOY_IN_HOME[@]}"; do
 	    echo -e "-> Syncing $(basename -- "${sourceFile}")"  | ${WTL[@]}
 	    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/${sourceFile}" "${HOME}"
@@ -127,6 +127,9 @@ deploy() {
 	    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vscode/settings.json" "${HOME}/.config/Code/User"
 	fi
 
+    echo -e 'Copying PowerLine-Go to /bin'
+    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/sh/powerline-go-linux-amd64" "/bin"
+
 	inform 'Reloading X-services'
 	>/dev/null 2>>"${LOG}" xrdb ${HOME}/.Xresources 
 }
@@ -139,7 +142,7 @@ process_choices() {
 	    inform 'Nemo is being configured...' "$LOG"
 	
 	    xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search
-    	gsettings set org.cinnamon.desktop.default-applications.terminal exec 'urxvt'
+    	gsettings set org.cinnamon.desktop.default-applications.terminal exec 'alacritty'
     	gsettings set org.cinnamon.desktop.default-applications.terminal exec-arg -e
 
     	gsettings set org.gnome.desktop.background show-desktop-icons false
