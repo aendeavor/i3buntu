@@ -220,11 +220,18 @@ packages() {
 icons_and_colors() {
 	if [[ ! -d "${HOME}/.local/share/icons/Tela" ]]; then
 	    inform 'Icon-Theme is being processed' "$LOG"
-	    (
-	        cd "${DIR}/../icon_theme"
-	        &>>"${LOG}" find . -maxdepth 1 -iregex "[a-z0-9_\.\/\ ]*\w\.sh" -type f -exec chmod +x {} \;
-	        &>>"${LOG}" ./icon_theme.sh "$LOG"
-	    )
+        (
+          cd /tmp 
+          wget\
+            -O tela.tar.gz\
+            "https://github.com/vinceliuice/Tela-icon-theme/archive/2020-02-21.tar.gz"\
+            &>>/dev/null
+
+          tar -xvzf "tela.tar.gz" &>>/dev/null
+          mv Tela* tela
+          cd /tmp/tela/
+          ./install.sh -a >> "${LOG}" 
+        )
 	fi
 
 	if ! dpkg -s adapta-gtk-theme-colorpack &>/dev/null; then
