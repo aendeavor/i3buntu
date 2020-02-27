@@ -275,7 +275,7 @@ process_choices() {
 			sudo touch /etc/apt/sources.list.d/balena-etcher.list
 		fi
 
-		echo "deb https://deb.etcher.io stable etcher" | >/dev/null sudo tee /etc/apt/sources.list.d/balena-etcher.list
+		echo "deb https://deb.etcher.io stable etcher" | >>/dev/null sudo tee /etc/apt/sources.list.d/balena-etcher.list
 		&>>"${LOG}" sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 379CE192D401AB61
 		&>>/dev/null sudo apt update
 		>/dev/null 2>>"${LOG}" ${AI[@]} balena-etcher-electron
