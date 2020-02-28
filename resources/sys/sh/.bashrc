@@ -110,8 +110,8 @@ update_ps1() {
   PS1="$(/bin/powerline-go-linux-amd64\
     -error $?\
     -numeric-exit-codes\
-    -cwd-max-depth 4\
-    -cwd-max-dir-size 9\
+    -cwd-max-depth 7\
+    -cwd-max-dir-size 11\
     -modules "ssh,cwd,git,hg,jobs,exit,root"\
   )"
 }
@@ -130,7 +130,7 @@ main() {
   aliases
   programmable_completion
   neofetch_parameterized
-  powerline
+  #powerline
 }
 
 main "$@" || exit 1
