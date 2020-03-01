@@ -82,10 +82,10 @@ bar {
     statusline          $TEXT
 
     #                   border          background        text
-    focused_workspace   $BAR            $GAPSBG           $BTA
-    active_workspace    $BAR            $GAPSBG           $BTA
-    inactive_workspace  $BAR            $GAPSBG           $BTIA
-    urgent_workspace    $BAR            $GAPSBG           $URGENT
+    focused_workspace   $GAPSBG         $GAPSBG           $BTA
+    active_workspace    $GAPSBG         $GAPSBG           $BTA
+    inactive_workspace  $GAPSBG         $GAPSBG           $BTIA
+    urgent_workspace    $GAPSBG         $GAPSBG           $URGENT
   }
 }
 
