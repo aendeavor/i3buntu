@@ -112,7 +112,7 @@ deploy() {
 	if dpkg -s neovim &>/dev/null; then
 	    echo -e "-> Syncing NeoVim's config" | ${WTL[@]}
     	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vi/init.vim" "${HOME}/.config/nvim"
-        curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >/dev/null
+        >/dev/null 2>>"${LOG}" url -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >/dev/null
 	fi
 
 	echo -e "-> Syncing alacritty.yml" | ${WTL[@]}
@@ -148,7 +148,7 @@ process_choices() {
     	gsettings set org.gnome.desktop.background show-desktop-icons false
     	gsettings set org.nemo.desktop show-desktop-icons true
     	mkdir -p "${HOME}/.local/share/nemo/actions"
-    	sudo cp -f "${RES}/sys/other_cfg/vscode-current-dir.nemo_action" "$	{HOME}/.local/share/nemo/actions/"
+    	sudo cp -f "${SYS}/other_cfg/vscode-current-dir.nemo_action" "${HOME}/.local/share/nemo/actions/"
 	fi
 
 	if [[ $R2 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R2 ]]; then
