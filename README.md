@@ -5,7 +5,7 @@
 
 ## Preamble
 
-This repository aims at providing you with a set of instructions to create your own minimal Ubuntu installation with the i3[-gaps](https://github.com/Airblader/i3) window manager. The latest release of i3buntu is [v1.0.0-unstable](https://github.com/aendeavor/i3buntu/releases/tag/v1.0.0-unstable), the latest stable release is [v0.9.3-stable](https://github.com/aendeavor/i3buntu/releases/tag/v0.9.3-stable).
+This repository aims at providing you with a set of instructions to create your own minimal Ubuntu installation with the i3[-gaps](https://github.com/Airblader/i3) window manager. The latest release of i3buntu is [v1.0.13-beta.2](https://github.com/aendeavor/i3buntu/releases/tag/v1.0.13-beta.2), the latest stable release is [v0.9.3-stable](https://github.com/aendeavor/i3buntu/releases/tag/v0.9.3-stable).
 
 [![Desktop Theme](resources/doc/desktop_theme.png)](https://reddit.com/r/unixporn/)
 
@@ -41,7 +41,7 @@ The terminal emulator _Alacritty_ has been integrated. It features true-color su
 
 ### Dependencies
 
-* [Ubuntu 18.04 LTS](http://releases.ubuntu.com/18.04/) Operating System
+* [Ubuntu 18.04 LTS](https://en.wikipedia.org/wiki/Ubuntu) Operating System
 * [i3-gaps](https://github.com/Airblader/i3) Tiling Window Manager
 * [Alacritty](https://github.com/alacritty/alacritty) Main Terminal Emulator
 * [URXVT](https://wiki.archlinux.org/index.php/Rxvt-unicode) Fallback Terminal Emulator

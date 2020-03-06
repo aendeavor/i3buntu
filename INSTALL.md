@@ -1,7 +1,7 @@
 # Installation
 
 [//]: # (Explains the installation process of i3buntu)
-[//]: # (version 1.0.1)
+[//]: # (version 1.0.13)
 
 ## Runlevel 0 - Installing the operating system
 
@@ -15,15 +15,16 @@ If you chose the desktop version, you can remove GNOME packages and reboot. This
 # (Optional) Remove GNOME
 sudo apt-get purge gnome-desktop*
 
-# (Optional) Update the system
+# (Optional) Update the system and install curl
 sudo apt-get -y update && sudo apt-get -y dist-upgrade
+sudo apt-get install curl
 
 # Execute the bootstrap script
 curl \
   --proto '=https'\
   --tlsv1.2\
   -sSf\
-  https://raw.githubusercontent.com/aendeavor/i3buntu/1.0.7_testing/resources/scripts/i3buntu_init.sh | bash
+  https://raw.githubusercontent.com/aendeavor/i3buntu/development/resources/scripts/i3buntu_init.sh | bash
 ```
 
 The `curl` command will create an i3buntu directory and execute the [install.sh](./install.sh) script. If you would like to start an installation manually, you can do so:
