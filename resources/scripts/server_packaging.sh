@@ -3,7 +3,7 @@
 # This script serves as the main installation script
 # for all neccessary packages for a server installation.
 # 
-# current version - 1.3.0 unstable
+# current version - 1.3.2 stable
 
 # ? Preconfig
 
@@ -51,7 +51,7 @@ MISC=(
     neofetch
 
     ncdu
-	ripgrep 	# available in 18.10 and later
+	ripgrep
 )
 
 PACKAGES=( "${CRITICAL[@]}" "${ENV[@]}" "${MISC[@]}" )
@@ -80,7 +80,8 @@ choices() {
 	read -p "Would you like to install Build-Essentials? [Y/n]" -r R2
 	read -p "Would you like to install NeoVIM? [Y/n]" -r R3
 	read -p "Would you like to install Docker? [Y/n]" -r R4
-	read -p "Would you like to get RUST? [Y/n]" -r R5
+	read -p "Would you like to install RUST? [Y/n]" -r R5
+	echo ''
 }
 
 ## (un-)install all packages with APT
@@ -125,12 +126,11 @@ process_choices() {
 
 	if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
 		echo -e 'Installing NeoVIM...' | ${WTL[@]}
-		>/dev/null 2>>"${LOG}" sudo apt-get install neovim
+		>/dev/null 2>>"${LOG}" ${AI[@]} neovim
 		>/dev/null 2>>"${LOG}" curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
   		warn 'You will need to run :PlugInstall seperately in NeoVIM as you cannot execute this command in a shell.'
-    	warn 'Thereafter, run ~/.config/nvim/plugged/YouCompleteMe/install.py --racer-completer --tern-completer.'
-    	sleep 3s
+    	warn "Thereafter, run ~/.config/nvim/plugged/YouCompleteMe/install.py --racer-completer.\n"
 	fi
 
 	if [[ $R4 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R4 ]]; then
@@ -180,7 +180,7 @@ main() {
 	choices
 
 	inform 'Initial update' "$LOG"
-	update
+	update &>${LOG}
 	
 	packages
 	process_choices

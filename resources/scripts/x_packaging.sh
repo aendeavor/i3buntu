@@ -63,7 +63,7 @@ ENV=(
     xserver-xorg
     xbacklight
 
-    lightdm
+	lightdm
 	slick-greeter
     
     i3-gaps
@@ -107,7 +107,6 @@ MISC=(
     gparted
 
     fontconfig
-    compton-conf
     
     evince
     gedit
@@ -130,7 +129,6 @@ init() {
 	    mkdir -p "$BACK"
 	fi
 
-	## init of logfile
 	if [[ ! -f "$LOG" ]]; then
 	    if [[ ! -w "$LOG" ]]; then
 	        &>/dev/null sudo rm $LOG
@@ -139,31 +137,28 @@ init() {
 	fi
 }
 
-## user-choices
 choices() {
 	inform "Please make your choices:\n"
 
-	read -p "Would you like to execute ubuntu-driver autoinstall? [Y/n]" -r R1
-	read -p "Would you like to install OpenJDK? [Y/n]" -r R2
-	read -p "Would you like to install Cryptomator? [Y/n]" -r R3
-	read -p "Would you like to install Balena Etcher? [Y/n]" -r R4
-	read -p "Would you like to install TeX? [Y/n]" -r R5
-	read -p "Would you like to install ownCloud? [Y/n]" -r R6
-	read -p "Would you like to install Build-Essentials? [Y/n]" -r R7
-	read -p "Would you like to install NeoVIM? [Y/n]" -r R8
-	read -p "Would you like to install VS Code? [Y/n]" -r R9
+	read -p "Would you like to execute ubuntu-driver autoinstall? [Y/n]" -r UDA
+	read -p "Would you like to install OpenJDK? [Y/n]" -r OJDK
+	read -p "Would you like to install Cryptomator? [Y/n]" -r CR
+	read -p "Would you like to install TeX? [Y/n]" -r TEX
+	read -p "Would you like to install ownCloud? [Y/n]" -r OC
+	read -p "Would you like to install Build-Essentials? [Y/n]" -r BE
+	read -p "Would you like to install NeoVIM? [Y/n]" -r NVIM
+	read -p "Would you like to install VS Code? [Y/n]" -r VSC
 
-	RC1="no"
-	if [[ $R9 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R9 ]]; then
-	    read -p "Would you like to install recommended VS Code extensions? [Y/n]" -r RC1
+	VSCE="no"
+	if [[ $VSC =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $VSC ]]; then
+	    read -p "Would you like to install recommended VS Code extensions? [Y/n]" -r VSCE
 	fi
 
-	read -p "Would you like to install the JetBrains IDE suite? [Y/n]" -r R10
-	read -p "Would you like to install Docker? [Y/n]" -r R11
-	read -p "Would you like to install RUST? [Y/n]" -r R12
+	read -p "Would you like to install the JetBrains IDE suite? [Y/n]" -r JBIDE
+	read -p "Would you like to install Docker? [Y/n]" -r DOCK
+	read -p "Would you like to install RUST? [Y/n]" -r RUST
 }
 
-## adds PPAs if necessary
 add_ppas() {
 	local ppas=(
 		ppa:git-core/ppa
@@ -179,7 +174,8 @@ add_ppas() {
 	for PPA in ${ppas[@]}; do
 		sudo add-apt-repository -y "$PPA" &>/dev/null
 
-		if (( $? != 0 )); then
+		local EC=$?
+		if [[ $EC -ne 0 ]] && [[ $EC -ne 100 ]]; then
 	    	warn "Something went wrong adding '$PPA'" "$LOG"
 	    	inform 'You may try to add the PPA yourself (l. 170)'
 	    	err 'Aborting'
@@ -188,7 +184,6 @@ add_ppas() {
 	done
 }
 
-## (un-)install all packages with APT
 packages() {
 	inform "Installing packages\n" "$LOG"
 
@@ -196,12 +191,12 @@ packages() {
 	printf "\n"
 
 	## needs to be checked first, as LightDM conflicts with these packages
-	uninstall_and_log "${LOG}" liblightdm-gobject* liblightdm-qt*
+	uninstall_and_log "${LOG}" liblightdm-gobject* liblightdm-qt* gdm3* gnome*
 
 	for PACKAGE in "${PACKAGES[@]}"; do
 	    >/dev/null 2>>"${LOG}" ${AI[@]} ${PACKAGE}
 
-	    EC=$?
+	    local EC=$?
 	    if (( $EC != 0 )); then
 	        printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Not Installed" "${EC}"
 	    else
@@ -230,7 +225,7 @@ icons_and_colors() {
           tar -xvzf "tela.tar.gz" &>>/dev/null
           mv Tela* tela
           cd /tmp/tela/
-          ./install.sh -a >> "${LOG}" 
+          ./install.sh -a &>> "${LOG}" 
         )
 	fi
 
@@ -247,12 +242,12 @@ process_choices() {
 	inform "Processing user-choices\n" "$LOG"
 
 	## graphics driver
-	if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
+	if [[ $UDA =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $UDA ]]; then
 		echo 'Enabling ubuntu-drivers autoinstall' | ${WTL[@]}
 		&>>"${LOG}" sudo ubuntu-drivers autoinstall
 	fi
 
-	if [[ $R2 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R2 ]]; then
+	if [[ $OJDK =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $OJDK ]]; then
 		if [[ $(lsb_release -r) == *"18.04"* ]]; then
 			echo 'Installing OpenJDK 11' | ${WTL[@]}
 			>/dev/null 2>>"${LOG}" ${AI[@]} openjdk-11-jdk openjdk-11-demo openjdk-11-doc openjdk-11-jre-headless openjdk-11-source
@@ -262,57 +257,46 @@ process_choices() {
 		fi
 	fi
 
-	if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
+	if [[ $CR =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $CR ]]; then
 		echo 'Installing Cryptomator' | ${WTL[@]}
 		&>>"${LOG}" sudo add-apt-repository -y ppa:sebastian-stenzel/cryptomator
 		&>>/dev/null sudo apt update
 		>/dev/null 2>>"${LOG}" ${AI[@]} cryptomator
 	fi
 
-	if [[ $R4 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R4 ]]; then
-		echo 'Installing Etcher Electron' | ${WTL[@]}
-		if [[ ! -e /etc/apt/sources.list.d/balena-etcher.list ]]; then
-			sudo touch /etc/apt/sources.list.d/balena-etcher.list
-		fi
-
-		echo "deb https://deb.etcher.io stable etcher" | >>/dev/null sudo tee /etc/apt/sources.list.d/balena-etcher.list
-		&>>"${LOG}" sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 379CE192D401AB61
-		&>>/dev/null sudo apt update
-		>/dev/null 2>>"${LOG}" ${AI[@]} balena-etcher-electron
-	fi
-
-	if [[ $R5 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R5 ]]; then
+	if [[ $TEX =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $TEX ]]; then
 		echo -e 'Installing TeX...' | ${WTL[@]}
 		>/dev/null 2>>"${LOG}" ${AI[@]} texlive-full
 		>/dev/null 2>>"${LOG}" ${AI[@]} python3-pygments
 	fi
 
-	if [[ $R6 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R6 ]]; then
+	if [[ $OC =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $OC ]]; then
 		echo 'Installing ownCloud' | ${WTL[@]}
 		>/dev/null 2>>"${LOG}" ${AI[@]} owncloud-client
 	fi
 
-	if [[ $R7 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R7 ]]; then
+	if [[ $BE =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $BE ]]; then
 		echo 'Installing Build-Essential & CMake' | ${WTL[@]}
 		>/dev/null 2>>"${LOG}" ${AI[@]} build-essential cmake
 	fi
 
-	if [[ $R8 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R8 ]]; then
+	if [[ $NVIM =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $NVIM ]]; then
 		echo -e 'Installing NeoVIM...' | ${WTL[@]}
-		>/dev/null 2>>"${LOG}" sudo apt-get install neovim
+		>/dev/null 2>>"${LOG}" ${AI[@]} neovim
 		>/dev/null 2>>"${LOG}" curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
+		echo ''
 		inform 'You will need to run :PlugInstall seperately in NeoVIM as you cannot execute this command in a shell.'
 		inform 'Thereafter, run ~/.config/nvim/plugged/YouCompleteMe/install.py --racer-completer --tern-completer.'
-		sleep 3s
+		echo 'n'
 	fi
 
-	if [[ $R9 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R9 ]]; then
+	if [[ $VSC =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $VSC ]]; then
 		echo 'Installing Visual Studio Code' | ${WTL[@]}
 		>/dev/null 2>>"${LOG}" ${SI[@]} code --classic
 	fi
 
-	if [[ $RC1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RC1 ]]; then
+	if [[ $VSCE =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $VSCE ]]; then
 		echo -e "Installing Visual Studio Code Extensions\n" | ${WTL[@]}
 		(
 			"${DIR}/../sys/vscode/extensions.sh" | ${WTL[@]}
@@ -320,7 +304,7 @@ process_choices() {
         echo ''
 	fi
 
-	if [[ $R10 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R10 ]]; then
+	if [[ $JBIDE =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $JBIDE ]]; then
 		echo "Installing JetBrains' IDE suite" | ${WTL[@]}
 		>/dev/null 2>>"${LOG}" ${SI[@]} intellij-idea-ultimate --classic
 		>/dev/null 2>>"${LOG}" ${SI[@]} kotlin --classic
@@ -329,12 +313,12 @@ process_choices() {
 		>/dev/null 2>>"${LOG}" ${SI[@]} clion --classic
 	fi
 
-	if [[ $R11 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R11 ]]; then
+	if [[ $DOCK =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $DOCK ]]; then
 		echo -e 'Installing Docker' | ${WTL[@]}
 		>/dev/null 2>>"${LOG}" ${AI[@]} docker.io
 	fi
 
-	if [[ $R12 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R12 ]]; then
+	if [[ $RUST =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RUST ]]; then
 		echo -e "Installing RUST" | ${WTL[@]}
 
 		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile complete -y &>/dev/null
@@ -362,11 +346,10 @@ process_choices() {
 	succ 'Finished with processing user-choices' "$LOG"
 }
 
-## postconfiguration
 post() {
 	read -p "It is recommended to restart. Would you like to schedule a restart? [Y/n]" -r RESTART
 	if [[ $RESTART =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RESTART ]]; then
-	    shutdown --reboot 1 >/dev/null
+	    shutdown --reboot 1 &>/dev/null
 		inform 'Rebooting in one minute'
 	fi
 }
@@ -383,7 +366,7 @@ main() {
 	add_ppas
 
 	inform 'Initial update' "$LOG"
-	update
+	update &>${LOG}
 	
 	packages
 	icons_and_colors

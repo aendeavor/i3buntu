@@ -8,7 +8,7 @@
 # by the sever_packaging.sh script after it has
 # run.
 # 
-# current version - 0.9.0 unstable
+# current version - 0.9.2 stable
 
 # ? Preconfig
 
@@ -67,6 +67,7 @@ backup() {
 
 ## deployment of configuration files
 deploy() {
+	echo ''
 	inform "Proceeding to deploying config files" "$LOG"
 
 	DEPLOY_IN_HOME=( sh/.bashrc sh/.bash_aliases vi/.vimrc vi/.viminfo )
@@ -83,7 +84,7 @@ deploy() {
 post() {
 	read -p "It is recommended to restart. Would you like to schedule a restart? [Y/n]" -r RESTART
 	if [[ $RESTART =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RESTART ]]; then
-	    shutdown --reboot 1 >/dev/null
+	    shutdown --reboot 1 &>/dev/null
 		inform 'Rebooting in one minute'
 	fi
 }
@@ -92,13 +93,13 @@ post() {
 
 main() {
     sudo printf ''
-	inform "Configuration has begun\n"
+	inform "Configuration has begun"
 
 	init
 	backup
 	deploy
 
-    echo -e "Finished configuration\n"
+    succ "Finished configuration\n"
 	post
 }
 
