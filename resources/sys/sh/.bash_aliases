@@ -25,8 +25,6 @@ fi
 alias ls='ls -lh --color=auto'
 alias lsa='ls -lha --color=auto'
 alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
 alias datetime='date && cal'
 alias df='df -h'
 alias sd='blkid -o list'
@@ -129,10 +127,10 @@ shutn () {
 export -f shutn
 
 update () {
+	set -e
     local DIR="${HOME}/.update_log"
     local OPTIONS=(--yes --assume-yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages)
 
-    # ? Actual function begins
     sudo printf ""
     inform 'New update started' "$DIR"
 
@@ -156,6 +154,7 @@ update () {
         rustup update &>>"$DIR"
     fi
 
+	set +e
     succ 'Completed update' "$DIR"
     return
 }
