@@ -6,7 +6,7 @@
 
 function version() {
 	cat 1>&2 <<EOF
-i3buntu-init                  v0.1.0   unstable
+i3buntu-init                  v0.1.4   unstable
 
 EOF
 }
@@ -56,7 +56,7 @@ function check_on_present() {
 		abort 1
 	fi
 
-	if [[ -e 'v1.0.13-unstable.tar.gz' ]]; then
+	if [[ -e 'v1.0.13-beta.2.tar.gz' ]]; then
 		inform 'The latest version is already present and will not be downloaded again'
 		return
 	fi
@@ -67,7 +67,7 @@ function check_on_present() {
 function download() {
 	inform 'Downloading latest stable version of i3buntu'
 	
-	wget https://github.com/aendeavor/i3buntu/archive/v1.0.13-unstable.tar.gz &>/dev/null
+	wget https://github.com/aendeavor/i3buntu/archive/v1.0.13-beta.2.tar.gz &>/dev/null
 	local RESPONSE=$?
 	if [[ RESPONSE -ne 0 ]]; then
 		warn "Could not download latest stable version\n\
@@ -77,7 +77,7 @@ function download() {
 }
 
 function decompress() {
-	tar xvfz v1.0.13-unstable.tar.gz >/dev/null
+	tar xvfz v1.0.13-beta.2.tar.gz >/dev/null
 	mv i3buntu* i3buntu
 	cd i3buntu
 }
