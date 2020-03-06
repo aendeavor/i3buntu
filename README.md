@@ -17,13 +17,13 @@ Installation instructions are found [here](./INSTALL.md) or on the [wiki pages](
 
 ### Line of Reasoning
 
-This project is all about improving your Linux experience and working environment. Linux powerusers may find this way of bootstrapping the system helpful. Therefore, _i3-gaps_ has been chosen as the window manager of choice. Tiling window managers improve or modify all areas of workflow, from design to efficiency. With _i3buntu_, _i3_ has been configuration meticulously. Moreover, _i3_ and _X_ are much more lightweight compared to _GNOME_ or _KDE_. As a result, everything is faster.
+This project is all about improving your Linux experience and working environment. Linux powerusers may find this way of bootstrapping the system helpful. Therefore, _i3-gaps_ has been chosen as the window manager of choice. Tiling window managers improve or modify all areas of workflow, from design to efficiency. With _i3buntu_, _i3_ has been configured meticulously. Moreover, _i3_ and _X_ are much more lightweight compared to _GNOME_ or _KDE_. As a result, everything is faster.
 
 The color scheme has been carefully chosen to implement into the system seamlessly. Every program, from the shell to your browser have adapted these changes. They are reflected in the choice of icons, backgrounds and windows. The _Adapta GTK_ color theme enhances this experience.
 
 ![Color scheme](resources/design/color_palette.svg)
 
-During the packaging stage, the user is offered a variety of packages to install. These packages are all completely optional. For developers and command line users, _[BASH](https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29)_ has been configured and extended with aliases functions and parameters. In addition, the prompt has been reworked. If you like Powerline, you can enable it in `${HOME}/.bashrc`.
+During the packaging stage, the user is offered a variety of packages to install. These packages are all completely optional. For developers and command line users, _[BASH](https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29)_ has been configured and extended with aliases, functions and parameters. In addition, the prompt has been reworked. If you like _Powerline_, you can enable it in `${HOME}/.bashrc`.
 
 ### Compatibility & Why Ubuntu
 
