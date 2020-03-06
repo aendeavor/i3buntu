@@ -93,8 +93,10 @@ deploy() {
 	echo -e "-> Syncing i3's statusconfig" | ${WTL[@]}
 	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/Xi3/i3statusconfig" "${HOME}/.config/i3"
 	
-	echo -e "-> Syncing xorg.conf" | ${WTL[@]}
-	>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/Xi3/xorg.conf" /etc/X11
+	echo -e "-> Modifying xorg.conf" | ${WTL[@]}
+	if [[ $(cat /etc/X11/xorg.conf) != *$(cat "${DIR}/../sys/Xi3/xorg.conf")* ]]; then
+		cat "${DIR}/../sys/Xi3/xorg.conf" >> /etc/X11/xorg.conf
+	fi
 	
 	echo -e "-> Syncing lightdm configuration" | ${WTL[@]}
 	>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/other_cfg/lightdm.conf" /	etc/lightdm
@@ -112,7 +114,7 @@ deploy() {
 	if dpkg -s neovim &>/dev/null; then
 	    echo -e "-> Syncing NeoVim's config" | ${WTL[@]}
     	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vi/init.vim" "${HOME}/.config/nvim"
-        curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >/dev/null
+        >/dev/null 2>>"${LOG}" url -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >/dev/null
 	fi
 
 	echo -e "-> Syncing alacritty.yml" | ${WTL[@]}
@@ -148,7 +150,7 @@ process_choices() {
     	gsettings set org.gnome.desktop.background show-desktop-icons false
     	gsettings set org.nemo.desktop show-desktop-icons true
     	mkdir -p "${HOME}/.local/share/nemo/actions"
-    	sudo cp -f "${RES}/sys/other_cfg/vscode-current-dir.nemo_action" "$	{HOME}/.local/share/nemo/actions/"
+    	sudo cp -f "${SYS}/other_cfg/vscode-current-dir.nemo_action" "${HOME}/.local/share/nemo/actions/"
 	fi
 
 	if [[ $R2 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R2 ]]; then

@@ -87,10 +87,10 @@ URxvt*transparent: true
 URxvt*shading: 55
 URxvt*blurRadius: 7
 
-URxvt*font: xft:RobotoMono NF:style=Regular:pixelsize=14, \
-            xft:Iosevka Nerd Font Mono:style=Regular:pixelsize=14
-URxvt*boldFont: xft:RobotoMono NF:style=Bold:pixelsize=14, \
-                xft:Iosevka Nerd Font Mono:style=Bold:pixelsize=14
+URxvt*font: xft:RobotoMono NF:style=Regular:pixelsize=11, \
+            xft:Iosevka Nerd Font Mono:style=Regular:pixelsize=11
+URxvt*boldFont: xft:RobotoMono NF:style=Bold:pixelsize=11, \
+                xft:Iosevka Nerd Font Mono:style=Bold:pixelsize=11
 
 !! Extensions
 URxvt.perl-ext-common: default,selection-to-clipboard,resize-font,matcher
