@@ -41,8 +41,9 @@ EOF
 
 function version() {
 	cat 1>&2 <<EOF
-i3buntu                       v1.0.0   unstable
+i3buntu                       v1.0.13  unstable
 install.sh                    v0.4.0   unstable
+i3buntu-init.sh               v0.1.4   unstable
 
 x_packaging.sh                v1.2.0   unstable
 x_configuration.sh            v1.0.0   unstable
@@ -58,8 +59,13 @@ vm.sh                         v0.2.4   unstable
 EOF
 }
 
+function say() {
+	printf "$2"
+	echo -e "		$1"
+}
+
 function desktop() {
-	case "$2" in
+	case "$1" in
 		"--pkg")
 	    	succ 'Packaging for desktops started'
 	        "${SCR}/x_packaging.sh"
@@ -80,32 +86,53 @@ function desktop() {
 function main() {
 	case "$1" in 
 	    "desktop" | "d")
-	        desktop
-	    ;;
+	        desktop $2
+	    	;;
 	    "server" | "s")
 	        succ 'Server packaging and configuration started'
 	        "${SCR}/server_packaging.sh"
-	    ;;
+	    	;;
 	    "vmware" | "vm")
 	        succ 'VM Ware Workstation player installation started'
 	        "${SCR}/vm.sh"
-	    ;;
+	    	;;
 	    "--version" | "-v")
 	        version
-	    ;;
+	    	;;
 	    "--help" | "-h")
 	        usage
-	    ;;
+	    	;;
+		"-i")
+			say "Please choose whether your want a desktop or" "\n"
+			say "server installation to happen [d/S]. If you"
+			say "would like to stop here, type stop."
+			read -p "		> " -r IC
+			
+			case $IC in
+				"stop")
+					echo ''
+					exit
+					;;
+			
+				"desktop" | "Desktop" | "d")
+					./install.sh desktop --pkg < /dev/tty
+					;;
+			
+				*)
+					./install.sh server
+					;;
+			esac
+			;;
 		"")
 			echo -e "i3buntu: You must provide a command"
 	        echo -e "See './install --help'"
 	        exit 1
-		;;
+			;;
 	    *)
 	        echo -e "i3buntu: '$1' is not a command."
 	        echo -e "See './install --help'"
 	        exit 10
-	    ;;
+	    	;;
 	esac
 }
 
