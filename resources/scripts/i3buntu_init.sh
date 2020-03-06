@@ -71,16 +71,18 @@ function download() {
 	local RESPONSE=$?
 	if [[ RESPONSE -ne 0 ]]; then
 		warn "Could not download latest stable version\n\
-		\t\t\t\t\tWGET exit code was: $RESPONSE"
+		wget exit code was: $RESPONSE"
 		abort 100
 	fi
 }
 
 function decompress() {
-	tar xvfz v1.0.13-beta.2.tar.gz >/dev/null
+	tar xvfz v1.0.13-beta.2.tar.gz &>/dev/null
 	mv i3buntu* i3buntu
 	cd i3buntu
 }
+
+# ! Main
 
 function main() {
 	case $1 in

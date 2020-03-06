@@ -4,7 +4,7 @@
 # all other scripts, i.e. the desktop or server
 # installation of i3buntu.
 #
-# current version - 0.4.0 unstable
+# current version - 0.4.2 unstable
 
 # ? Preconfig
 
@@ -18,7 +18,7 @@ SCR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/resources
 function usage() {
 	cat 1>&2 <<EOF
 Main install script for i3buntu 
-version 1.0.0
+version 1.0.13
 
 USAGE:
 	./install.sh [OPTIONS] COMMAND [FLAG]
@@ -42,14 +42,14 @@ EOF
 function version() {
 	cat 1>&2 <<EOF
 i3buntu                       v1.0.13  unstable
-install.sh                    v0.4.0   unstable
+install.sh                    v0.4.2   stable
 i3buntu-init.sh               v0.1.4   unstable
 
 x_packaging.sh                v1.2.0   unstable
 x_configuration.sh            v1.0.0   unstable
 
-server_packaging.sh           v1.3.0   unstable
-server_configuration.sh       v0.9.0   unstable
+server_packaging.sh           v1.3.2   stable
+server_configuration.sh       v0.9.2   stable
 
 extensions.sh                 v0.4.0   unstable
 fonts.sh                      v0.3.1   stable
@@ -105,7 +105,7 @@ function main() {
 		"-i")
 			say "Please choose whether your want a desktop or" "\n"
 			say "server installation to happen [d/S]. If you"
-			say "would like to stop here, type stop."
+			say "would like to stop here, type stop.\n"
 			read -p "		> " -r IC
 			
 			case $IC in

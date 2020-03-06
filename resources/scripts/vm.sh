@@ -45,6 +45,8 @@ edit_sudoers() {
 	fi
 }
 
+# ! Main
+
 main() {
 	sudo install_vmware_player
 	edit_sudoers
