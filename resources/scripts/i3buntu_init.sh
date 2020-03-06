@@ -2,7 +2,7 @@
 
 # Downloads i3buntu and starts installation
 #
-# current version - 0.1.0 unstable
+# current version - 0.1.4 unstable
 
 function version() {
 	cat 1>&2 <<EOF
@@ -56,7 +56,7 @@ function check_on_present() {
 		abort 1
 	fi
 
-	if [[ -e 'v0.9.3-stable.tar.gz' ]]; then
+	if [[ -e 'v1.0.13-unstable.tar.gz' ]]; then
 		inform 'The latest version is already present and will not be downloaded again'
 		return
 	fi
@@ -67,7 +67,7 @@ function check_on_present() {
 function download() {
 	inform 'Downloading latest stable version of i3buntu'
 	
-	wget https://github.com/aendeavor/i3buntu/archive/v0.9.3-stable.tar.gz &>/dev/null
+	wget https://github.com/aendeavor/i3buntu/archive/v1.0.13-unstable.tar.gz &>/dev/null
 	local RESPONSE=$?
 	if [[ RESPONSE -ne 0 ]]; then
 		warn "Could not download latest stable version\n\
@@ -77,31 +77,9 @@ function download() {
 }
 
 function decompress() {
-	tar xvfz v0.9.3-stable.tar.gz >/dev/null
+	tar xvfz v1.0.13-unstable.tar.gz >/dev/null
 	mv i3buntu* i3buntu
 	cd i3buntu
-}
-
-function select_version() {
-	say "Please choose whether your want a desktop or" "\n"
-	say "server installation to happen [d/S]. If you"
-	say "would like to stop here, type stop."
-
-	read -p "		> " -r IC
-
-	case $IC in
-		"stop")
-			return
-			;;
-
-		"desktop" | "Desktop" | "d")
-			./install.sh desktop --pkg
-			;;
-		
-		*)
-			./install.sh server
-			;;
-	esac
 }
 
 function main() {
@@ -123,13 +101,14 @@ function main() {
 			;;
 	esac
 
-	say "Welcome to \e[1mi3buntu\e[21m!\n" "\n"
+	say "Welcome to \e[1mi3buntu\033[0m!\n" "\n"
 	say "This will download and start the installation of i3buntu"
 	say "on your system.\n"
 
 	check_on_present
 	decompress
-	select_version
+
+	./install.sh -i < /dev/tty
 }
 
 main "$@" || exit 1
