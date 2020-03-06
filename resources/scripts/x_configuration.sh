@@ -93,8 +93,10 @@ deploy() {
 	echo -e "-> Syncing i3's statusconfig" | ${WTL[@]}
 	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/Xi3/i3statusconfig" "${HOME}/.config/i3"
 	
-	echo -e "-> Syncing xorg.conf" | ${WTL[@]}
-	>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/Xi3/xorg.conf" /etc/X11
+	echo -e "-> Modifying xorg.conf" | ${WTL[@]}
+	if [[ $(cat /etc/X11/xorg.conf) != *$(cat "${DIR}/../sys/Xi3/xorg.conf")* ]]; then
+		cat "${DIR}/../sys/Xi3/xorg.conf" >> /etc/X11/xorg.conf
+	fi
 	
 	echo -e "-> Syncing lightdm configuration" | ${WTL[@]}
 	>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/other_cfg/lightdm.conf" /	etc/lightdm
