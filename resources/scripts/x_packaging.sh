@@ -229,10 +229,12 @@ icons_and_colors() {
         )
 	fi
 
-	if ! dpkg -s adapta-gtk-theme-colorpack &>/dev/null; then
-	    inform 'Color-Pack is being processed' "$LOG"
-	    >/dev/null 2>>"${LOG}" sudo dpkg -i "${DIR}/../design/AdaptaGTK_colorpack.deb"
-	fi
+	(
+		&>/dev/null mkdir -p "${HOME}/.themes"
+		cp "${DIR}/../ant_dracula.tar" "${HOME}/.themes"
+		cd "${HOME}/.themes"
+		tar -xvf ant_dracula.tar &>/dev/null
+	)
 
 	succ 'Finished with actual script' "$LOG"
 }

@@ -90,8 +90,8 @@ deploy() {
 	    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/${sourceFile}" "${HOME}"
 	done
 	
-	mkdir -p "${HOME}/.config/i3" "${HOME}/.urxvt/extensions" "${HOME}/.config" "${HOME}/images"
-	sudo mkdir -p /usr/share/lightdm /etc/lightdm /usr/share/backgrounds "$HOME"/.config/alacritty
+	mkdir -p "${HOME}/.config/i3" "${HOME}/.urxvt/extensions" "${HOME}/.config" "${HOME}/images" "${HOME}/.config/alacritty"
+	sudo mkdir -p /usr/share/lightdm /etc/lightdm /usr/share/backgrounds
 	
 	echo -e "-> Syncing i3's config" | ${WTL[@]}
 	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/Xi3/config" "${HOME}/.config/i3"

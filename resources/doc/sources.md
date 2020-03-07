@@ -8,6 +8,7 @@
 4. [2D Wallpapers](https://wallpaperaccess.com/2d)
 5. [Terminal colors](https://terminal.sexy/)
 6. [ASCII art](http://www.patorjk.com/software/taag/#p=display&f=Slant&t=Type%20Something%20)
+7. [Color Theme](https://www.gnome-look.org/p/1099856/#files)
 
 ## Configuration
 
