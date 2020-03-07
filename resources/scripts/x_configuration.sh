@@ -30,9 +30,8 @@ WTL=( tee -a "${LOG}" )
 choices() {
 	inform "Please make your choices:\n"
 
-	read -p "Would you like to edit nemo accordingly to your system? [Y/n]" -r R1
-	read -p "Would you like to edit /etc/default/grub? [Y/n]" -r R2
-	read -p "Would you like to sync fonts? [Y/n]" -r R3
+	read -p "Would you like to edit /etc/default/grub? [Y/n]" -r GRUB
+	read -p "Would you like to sync fonts? [Y/n]" -r FONTS
 	echo ''
 }
 
@@ -90,7 +89,7 @@ deploy() {
 	    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/${sourceFile}" "${HOME}"
 	done
 	
-	mkdir -p "${HOME}/.config/i3" "${HOME}/.urxvt/extensions" "${HOME}/.config" "${HOME}/images" "${HOME}/.config/alacritty"
+	mkdir -p "${HOME}/.config/i3" "${HOME}/.urxvt/extensions" "${HOME}/.config" "${HOME}/images" "${HOME}/.config/alacritty" "${HOME}/.local/share/nemo/actions"
 	sudo mkdir -p /usr/share/lightdm /etc/lightdm /usr/share/backgrounds
 	
 	echo -e "-> Syncing i3's config" | ${WTL[@]}
@@ -143,7 +142,18 @@ deploy() {
 
 	echo ''
 	inform 'Reloading X-services'
-	>/dev/null 2>>"${LOG}" xrdb ${HOME}/.Xresources 
+	>/dev/null 2>>"${LOG}" xrdb ${HOME}/.Xresources
+
+    inform 'Nemo is being configured...' "$LOG"
+    xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search
+   	gsettings set org.cinnamon.desktop.default-applications.terminal exec 'alacritty'
+   	gsettings set org.cinnamon.desktop.default-applications.terminal exec-arg -e
+   	gsettings set org.gnome.desktop.background show-desktop-icons false
+   	gsettings set org.nemo.desktop show-desktop-icons true
+	
+   	cp -f "${SYS}/filemanagers/vscode-current-dir.nemo_action" "${HOME}/.local/share/nemo/actions/"
+	cp -f "${SYS}/filemanagers/nautilus-terminal.py" "${HOME}/.local/share/nautilus-python/extensions/"
+	cp -f "${SYS}/filemanagers/nautilus-code.py" "${HOME}/.local/share/nautilus-python/extensions/"
 }
 
 ## processes user-choices from the beginning
@@ -160,10 +170,10 @@ process_choices() {
     	gsettings set org.gnome.desktop.background show-desktop-icons false
     	gsettings set org.nemo.desktop show-desktop-icons true
     	mkdir -p "${HOME}/.local/share/nemo/actions"
-    	sudo cp -f "${SYS}/other_cfg/vscode-current-dir.nemo_action" "${HOME}/.local/share/nemo/actions/"
+    	sudo cp -f "${SYS}/filemanagers/vscode-current-dir.nemo_action" "${HOME}/.local/share/nemo/actions/"
 	fi
 
-	if [[ $R2 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R2 ]]; then
+	if [[ $GRUB =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $GRUB ]]; then
 	    inform 'Grub is being configured...' "$LOG"
 	    &>/dev/null sudo cp /etc/default/grub "${BACK}"
 	    &>/dev/null sudo rm -f /etc/default/grub
@@ -171,7 +181,7 @@ process_choices() {
 	    >/dev/null 2>>"${LOG}" sudo update-grub
 	fi
 
-	if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
+	if [[ $FONTS =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $FONTS ]]; then
 	    inform "Fonts are processed\n" "$LOG"
 	    "${DIR}/fonts.sh"
 	    >/dev/null 2>>"${LOG}" fc-cache -f
