@@ -58,12 +58,12 @@ prompt() {
   if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
     PS1='${debian_chroot:+($debian_chroot)}'
   
-    PS1+='\[\e[38;5;110m\]'
+    PS1+='\[\e[38;5;11m\]'
     PS1+='[\u@\h]'
   
     PS1+='\[\e[0m\] : '
   
-    PS1+='\[\e[38;5;110m\]'
+    PS1+='\[\e[38;5;11m\]'
     PS1+='[ \w ]'
   
     PS1+='\[\e[0m\] \$ '

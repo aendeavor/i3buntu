@@ -25,17 +25,17 @@ Xft.lcdfilter:              lcdfilter
 ! Colors
 
 !! special
-*.foreground:   #c5c8c6
-*.background:   #232527
-*.cursorColor:  #c5c8c6
+*.foreground:   #f3eff5
+*.background:   #1e1f29
+*.cursorColor:  #f3eff5
 
 !! black
-*.color0:       #282a2e
-*.color8:       #373b41
+*.color0:       #202125
+*.color8:       #3d4146
 
 !! red
-*.color1:       #ce3f3f
-*.color9:       #cc6666
+*.color1:       #ef3b3b
+*.color9:       #ed5d5d
 
 !! green
 *.color2:       #8c9440
@@ -46,20 +46,20 @@ Xft.lcdfilter:              lcdfilter
 *.color11:      #f0c674
 
 !! blue
-*.color6:       #5f819d
-*.color14:      #81a2be
+*.color4:       #5f819d
+*.color12:      #81a2be
 
 !! magenta
 *.color5:       #85678f
 *.color13:      #b294bb
 
 !! cyan
-*.color4:       #5e8d87
-*.color12:      #8abeb7
+*.color6:       #5e8d87
+*.color14:      #8abeb7
 
 !! white
 *.color7:       #707880
-*.color15:      #c5c8c6
+*.color15:      #c7c3c9
 
 ! URXVT
 

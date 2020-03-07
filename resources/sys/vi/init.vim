@@ -96,11 +96,10 @@ set mousehide               " Hide the mouse cursor while typing
 set background=dark
 set termguicolors
 syntax enable
-let g:oceanic_next_terminal_bold = 1
-let g:oceanic_next_terminal_italic = 1
-colorscheme OceanicNext
+let g:palenight_terminal_italics=1
+colorscheme palenight
 let g:lightline = {
-\   'colorscheme': 'wombat',
+\   'colorscheme': 'palenight',
 \   'active': {
 \     'left':[ [ 'mode', 'paste' ],
 \              [ 'gitbranch', 'readonly', 'filename', 'modified' ]
