@@ -32,18 +32,18 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 10
 
 # wallpaper & font
 new_window 1pixel
-exec_always feh --bg-scale $HOME/images/dreamy.jpg
+exec_always feh --bg-scale $HOME/images/macOS_HighSierra.jpg
 font xft:Roboto:style=Regular:pixelsize=13
 
 # Colors
-set $BG                     #010715
-set $INACTIVE-BG            #010715
-set $TEXT                   #FDF4E0
-set $INACTIVE-TEXT          #FDF4E0
-set $URGENT                 #E95167
-set $BAR                    #000204
-set $BTA                    #55C4CD
-set $BTIA                   #FDF4E0
+set $BG                     #1E1F29
+set $INACTIVE-BG            #282A36
+set $TEXT                   #F3EFF5
+set $INACTIVE-TEXT          #F3EFF5
+set $URGENT                 #EF3B3B
+set $BAR                    #1E1F29
+set $BTA                    #FF8ECE
+set $BTIA                   #F3EFF5
 
 # window colors         border       background   text           indicator ?
 client.focused          $BG          $BG          $TEXT          $BAR      $BAR
