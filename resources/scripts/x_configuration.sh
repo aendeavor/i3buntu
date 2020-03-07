@@ -8,7 +8,7 @@
 # user-choices are handled, including the
 # installation of chosen fonts.
 # 
-# current version - 1.0.0 unstable
+# current version - 1.1.12 unstable
 
 # ? Preconfig
 
@@ -108,11 +108,11 @@ deploy() {
 	fi
 	
 	echo -e "-> Syncing lightdm configuration" | ${WTL[@]}
-	>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/other_cfg/lightdm.conf" /	etc/lightdm
+	>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/other_cfg/lightdm.conf" /etc/lightdm
 	>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/other_cfg/slick-greeter.conf" /etc/lightdm
 
 	echo -e "-> Syncing lightdm wallpaper" | ${WTL[@]}
-	>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${RES}/images/dreamy.png" /usr/	share/lightdm
+	>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${RES}/images/dreamy.png" /usr/share/lightdm
 
 	echo -e "-> Syncing URXVT resize-font extension" | ${WTL[@]}
 	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/sh/resize-font" "${HOME}/.urxvt/ext"
