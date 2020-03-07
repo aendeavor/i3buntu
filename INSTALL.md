@@ -42,7 +42,7 @@ The `curl` command will create an i3buntu directory and execute the [install.sh]
 
 On desktops, you should be greeted on a graphical interface after a reboot. During login, i3 will ask you whether you would like to create an i3 config file, which you will answer with yes. For your _mod key_, choose the _Super_ key.
 
-You will now need to create the fitting _xrander_ settings so your screens are displayed the way they should. Open `arandr`, either by command line or through rofi, which is invoked with _mod + d_. `arandr` will assist you with the setup of multiple monitors. When you are done, save these setting in a file of your choice, open this file and copy the content. Next, open i3's `config`-file in this repository
+You will now need to create the fitting _xrander_ settings so your screens are displayed the way they should. Open `arandr`, either by command line or through rofi, which is invoked with _mod + d_. `arandr` will assist you with the setup of multiple monitors. When you are done, save these setting in a file of your choice, open this file and copy the content. Next, open i3's `config`-file in this repository on the command line wit _mod + Return_
 
 ``` BASH
 cd i3buntu && vi resources/sys/Xi3/config
