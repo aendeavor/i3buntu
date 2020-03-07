@@ -15,11 +15,11 @@ Installation instructions are found [here](./INSTALL.md) or on the [wiki pages](
 
 ## About
 
-### Line of Reasoning
+### Background
 
 This project is all about improving your Linux experience and working environment. Linux powerusers may find this way of bootstrapping the system helpful. Therefore, _i3-gaps_ has been chosen as the window manager of choice. Tiling window managers improve or modify all areas of workflow, from design to efficiency. With _i3buntu_, _i3_ has been configured meticulously. Moreover, _i3_ and _X_ are much more lightweight compared to _GNOME_ or _KDE_. As a result, everything is faster.
 
-The color scheme has been carefully chosen to implement into the system seamlessly. Every program, from the shell to your browser have adapted these changes. They are reflected in the choice of icons, backgrounds and windows. The _Adapta GTK_ color theme enhances this experience.
+The color scheme has been carefully chosen to implement into the system seamlessly. Every program, from the shell to your browser have adapted these changes. They are reflected in the choice of icons, backgrounds and windows.
 
 ![Color scheme](resources/design/color_palette.svg)
 

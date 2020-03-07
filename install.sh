@@ -42,19 +42,19 @@ EOF
 function version() {
 	cat 1>&2 <<EOF
 i3buntu                       v1.0.13  unstable
-install.sh                    v0.4.2   stable
-i3buntu-init.sh               v0.1.4   unstable
+install.sh                    v0.4.02  stable
+i3buntu-init.sh               v0.1.04  unstable
 
-x_packaging.sh                v1.2.0   unstable
-x_configuration.sh            v1.0.0   unstable
+x_packaging.sh                v1.2.00  stable
+x_configuration.sh            v1.1.12  stable
 
-server_packaging.sh           v1.3.2   stable
-server_configuration.sh       v0.9.2   stable
+server_packaging.sh           v1.3.20  stable
+server_configuration.sh       v0.9.20  stable
 
-extensions.sh                 v0.4.0   unstable
-fonts.sh                      v0.4.0   unstable
+extensions.sh                 v0.5.00  stable
+fonts.sh                      v0.4.01  stable
 
-vm.sh                         v0.2.4   unstable
+vm.sh                         v0.3.00  stable
 
 EOF
 }

@@ -30,6 +30,7 @@ EXT=(
     Equinusocio.vsc-material-theme
     formulahendry.code-runner
     James-Yu.latex-workshop
+	jolaleye.horizon-theme-vscode
     ms-azuretools.vscode-docker
     ms-python.python
     ms-vscode-remote.remote-containers

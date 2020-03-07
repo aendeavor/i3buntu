@@ -24,7 +24,7 @@ curl \
   --proto '=https'\
   --tlsv1.2\
   -sSf\
-  https://raw.githubusercontent.com/aendeavor/i3buntu/development/resources/scripts/i3buntu_init.sh | bash
+  https://raw.githubusercontent.com/aendeavor/i3buntu/development/resources/scripts/init.sh | bash
 ```
 
 The `curl` command will create an i3buntu directory and execute the [install.sh](./install.sh) script. If you would like to start an installation manually, you can do so:
