@@ -33,6 +33,7 @@ choices() {
 	read -p "Would you like to edit nemo accordingly to your system? [Y/n]" -r R1
 	read -p "Would you like to edit /etc/default/grub? [Y/n]" -r R2
 	read -p "Would you like to sync fonts? [Y/n]" -r R3
+	echo ''
 }
 
 ## init of backup-directory
@@ -52,31 +53,36 @@ init() {
 
 ##backup of configuration files
 backup() {
-	inform "Checkig for existing files" "$LOG"
+	inform "Checkig for existing files\n" "$LOG"
 	HOME_FILES=( "${HOME}/.bash_aliases" "${HOME}/.bashrc" "${HOME}/.vimrc" "${HOME}/.Xresources" )
-	for FILE in ${HOME_FILES[@]}; do
-		if [[ -f "$FILE" ]]; then
-			backupFile="${BACK}${FILE#~}.bak"
-			echo -e "-> Found ${FILE}\n\tBacking up to ${backupFile}" | ${WTL[@]}
-			>/dev/null 2>>"${LOG}" sudo ${RS[@]} "$FILE" "$backupFile"
+	for _file in ${HOME_FILES[@]}; do
+		if [[ -f "$_file" ]]; then
+			_backup_file="${BACK}${_file#~}.bak"
+			echo -e "-> Found ${_file}... backing up" | ${WTL[@]}
+			# echo -e "\tBacking up to ${_backup_file}"
+			>/dev/null 2>>"${LOG}" sudo ${RS[@]} "$_file" "$_backup_file"
 		fi
 	done
 
 	if [[ -d "${HOME}/.vim" ]]; then
-		echo -e "-> Found ~/.vim directory!\n\tBacking up to ${BACK}/.vim" | ${WTL[@]}
+		echo -e "-> Found ~/.vim directory... backing up" | ${WTL[@]}
+		# echo -e "Backing up to ${BACK}/.vim"
 		>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${HOME}/.vim" "${BACK}"
 		rm -rf "${HOME}/.vim"
 	fi
 
 	if [ -d "${HOME}/.config" ]; then
-		echo -e "-> Found ~/.config directory!\n\tBacking up to ${BACK}/.config" | ${WTL[@]}
+		echo -e "-> Found ~/.config directory... backing up" | ${WTL[@]}
+		# echo -e "Backing up to ${BACK}/.config"
+		Backing up to ${BACK}/.config
 		>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${HOME}/.config/i3" "${BACK}"
 	fi
 }
 
 ## deployment of configuration files
 deploy() {
-	inform 'Proceeding to deploying config files' "$LOG"
+	echo ''
+	inform "Proceeding to deploying config files" "$LOG"
 	
 	DEPLOY_IN_HOME=( sh/.bashrc sh/.bash_aliases vi/.vimrc vi/.viminfo Xi3/.Xresources other_cfg/config.rasi )
 	for sourceFile in "${DEPLOY_IN_HOME[@]}"; do
@@ -94,8 +100,11 @@ deploy() {
 	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/Xi3/i3statusconfig" "${HOME}/.config/i3"
 	
 	echo -e "-> Modifying xorg.conf" | ${WTL[@]}
+	if [[ ! -e /etc/X11/xorg ]]; then
+		sudo touch /etc/X11/xorg.conf
+	fi
 	if [[ $(cat /etc/X11/xorg.conf) != *$(cat "${DIR}/../sys/Xi3/xorg.conf")* ]]; then
-		cat "${DIR}/../sys/Xi3/xorg.conf" >> /etc/X11/xorg.conf
+		cat "${DIR}/../sys/Xi3/xorg.conf" | sudo tee -a /etc/X11/xorg.conf >/dev/null
 	fi
 	
 	echo -e "-> Syncing lightdm configuration" | ${WTL[@]}
@@ -129,9 +138,10 @@ deploy() {
 	    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vscode/settings.json" "${HOME}/.config/Code/User"
 	fi
 
-    echo -e 'Copying PowerLine-Go to /bin'
+    echo -e '-> Copying PowerLine-Go to /bin'
     >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/sh/powerline-go-linux-amd64" "/bin"
 
+	echo ''
 	inform 'Reloading X-services'
 	>/dev/null 2>>"${LOG}" xrdb ${HOME}/.Xresources 
 }
@@ -161,17 +171,9 @@ process_choices() {
 	    >/dev/null 2>>"${LOG}" sudo update-grub
 	fi
 
-	## deployment of fonts
 	if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
 	    inform "Fonts are processed\n" "$LOG"
-
-	    find "${RES}/fonts/" -maxdepth 1 -iregex "[a-z0-9_\.\/\ ]*\w\.sh" -type f -exec chmod +x {} \;
-	    (
-	        cd "${RES}/fonts/"
-	        ./fonts.sh | ${WTL[@]}
-	    )
-
-	    inform "Renewing font cache" "$LOG"
+	    "${DIR}/fonts.sh"
 	    >/dev/null 2>>"${LOG}" fc-cache -f
 	fi
 

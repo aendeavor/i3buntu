@@ -52,7 +52,7 @@ server_packaging.sh           v1.3.2   stable
 server_configuration.sh       v0.9.2   stable
 
 extensions.sh                 v0.4.0   unstable
-fonts.sh                      v0.3.1   stable
+fonts.sh                      v0.4.0   unstable
 
 vm.sh                         v0.2.4   unstable
 
