@@ -106,8 +106,11 @@ bindsym $mod+d exec rofi -show drun -no-plugins
 # VS Code
 bindsym $mod+c exec code
 
+# Nautilus
+bindsym $mod+n exec nautilus
+
 # Nemo
-bindsym $mod+n exec nemo
+bindsym $mod+Shift+n exec nemo
 
 # Ranger
 bindsym $mod+Ctrl+n exec --no-startup-id urxvt -e ranger

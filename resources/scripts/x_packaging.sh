@@ -41,7 +41,10 @@ CRITICAL=(
     vim
 
     nemo
-    ranger
+	nautilus
+	python-nautilus
+	nautilus-admin
+
     file-roller
     p7zip-full
 
