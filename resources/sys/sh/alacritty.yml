@@ -123,48 +123,48 @@ custom_cursor_colors: true
 colors:
   # Default colours
   primary:
-    background: '0x1e1f29'
+    background: '0x1E1F29'
     # background: '0x0c0c0c'
-    foreground: '0xf3eff5'
+    foreground: '0xF3EFF5'
 
   # Colors that should be used to draw the terminal cursor. If these are unset,
   # the cursor colour will be the inverse of the cell colour.
   cursor:
   #   text: '0x2e2e2d'
-    cursor: '0xf3eff5'
+    cursor: '0xF3EFF5'
 
   # Normal colors
   normal:
     black:   '0x202125'
-    red:     '0xef3b3b'
-    green:   '0x8c9440'
-    yellow:  '0xde935f'
-    blue:    '0x5f819d'
-    magenta: '0x85678f'
-    cyan:    '0x5e8d87'
+    red:     '0xEF3B3B'
+    green:   '0x8C9440'
+    yellow:  '0xDE935F'
+    blue:    '0x5F819D'
+    magenta: '0x85678F'
+    cyan:    '0x5E8D87'
     white:   '0x707880'
 
   # Bright colors
   bright:
-    black:   '0x3d4146'
-    red:     '0xed5d5d'
-    green:   '0xb5bd68'
-    yellow:  '0xf0c674'
-    blue:    '0x81a2be'
-    magenta: '0xb294bb'
-    cyan:    '0x8abeb7'
-    white:   '0xc7c3c9'
+    black:   '0x3D4146'
+    red:     '0xED5D5D'
+    green:   '0xB5BD68'
+    yellow:  '0xF0C674'
+    blue:    '0x81A2BE'
+    magenta: '0xB294BB'
+    cyan:    '0xFF8CEC'
+    white:   '0xC7C3C9'
 
   # Dim colors (Optional)
   dim:
-    black:   '0x0f0f11'
+    black:   '0x0F0F11'
     red:     '0x571616'
-    green:   '0x4d5123'
-    yellow:  '0x8e5e3d'
-    blue:    '0x232f3a'
-    magenta: '0x3d2f41'
-    cyan:    '0x3c5a56'
-    white:   '0x484d52'
+    green:   '0x4D5123'
+    yellow:  '0x8E5E3D'
+    blue:    '0x232F3A'
+    magenta: '0x3D2F41'
+    cyan:    '0x3C5A56'
+    white:   '0x484D52'
 
   # Indexed Colors
   #
