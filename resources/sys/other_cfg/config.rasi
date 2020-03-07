@@ -18,8 +18,8 @@
 
 * {
     background-color:   rgba(1,1,1,0);
-    border-color:       rgba(1,1,1,1);
-    text-color:         rgba(253, 244, 224, 1);
+    border-color:       rgba(1,1,1,0);
+    text-color:         rgba(243, 239, 245, 1);
     font:               "Roboto NF 9";
 }
 
@@ -57,7 +57,7 @@ configuration {
 
 #element selected {
     background-color: rgba(0,0,0,0);
-    text-color: SteelBlue;
+    text-color: rgba(255, 142, 206,1);
 }
 
 /* vim:ft=css
