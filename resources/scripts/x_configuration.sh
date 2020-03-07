@@ -89,7 +89,7 @@ deploy() {
 	    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/${sourceFile}" "${HOME}"
 	done
 	
-	mkdir -p "${HOME}/.config/i3" "${HOME}/.urxvt/extensions" "${HOME}/.config" "${HOME}/images" "${HOME}/.config/alacritty" "${HOME}/.local/share/nemo/actions"
+	mkdir -p "${HOME}/.config/i3" "${HOME}/.urxvt/extensions" "${HOME}/.config" "${HOME}/images" "${HOME}/.config/alacritty" "${HOME}/.local/share/nemo/actions" "${HOME}/images"
 	sudo mkdir -p /usr/share/lightdm /etc/lightdm /usr/share/backgrounds
 	
 	echo -e "-> Syncing i3's config" | ${WTL[@]}
@@ -111,7 +111,7 @@ deploy() {
 	>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/other_cfg/slick-greeter.conf" /etc/lightdm
 
 	echo -e "-> Syncing lightdm wallpaper" | ${WTL[@]}
-	>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${RES}/images/dreamy.png" /usr/share/lightdm
+	>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${RES}/images/macOS_HighSierra.png" /usr/share/lightdm
 
 	echo -e "-> Syncing URXVT resize-font extension" | ${WTL[@]}
 	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/sh/resize-font" "${HOME}/.urxvt/ext"
@@ -128,8 +128,8 @@ deploy() {
 	echo -e "-> Syncing alacritty.yml" | ${WTL[@]}
 	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/sh/alacritty.yml" "${HOME}/.config/alacritty"
 
-	echo -e "-> Syncing images directory" | ${WTL[@]}
-	>/dev/null 2>>"${LOG}" ${RS[@]} "${RES}/images" "${HOME}" 
+	echo -e "-> Syncing wallpaper" | ${WTL[@]}
+	>/dev/null 2>>"${LOG}" ${RS[@]} "${RES}/design/macOS_HighSierra.jpg" "${HOME}/images"
 
 	if [[ -d "${HOME}/.config/Code" ]]; then
 	    echo -e "-> Syncing VS Code settings" | ${WTL[@]}
@@ -159,19 +159,6 @@ deploy() {
 ## processes user-choices from the beginning
 process_choices() {
 	inform "Processing user-choices" "$LOG"
-
-	if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
-	    inform 'Nemo is being configured...' "$LOG"
-	
-	    xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search
-    	gsettings set org.cinnamon.desktop.default-applications.terminal exec 'alacritty'
-    	gsettings set org.cinnamon.desktop.default-applications.terminal exec-arg -e
-
-    	gsettings set org.gnome.desktop.background show-desktop-icons false
-    	gsettings set org.nemo.desktop show-desktop-icons true
-    	mkdir -p "${HOME}/.local/share/nemo/actions"
-    	sudo cp -f "${SYS}/filemanagers/vscode-current-dir.nemo_action" "${HOME}/.local/share/nemo/actions/"
-	fi
 
 	if [[ $GRUB =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $GRUB ]]; then
 	    inform 'Grub is being configured...' "$LOG"
