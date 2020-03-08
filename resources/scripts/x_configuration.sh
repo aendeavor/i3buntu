@@ -89,7 +89,7 @@ deploy() {
 	    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/${sourceFile}" "${HOME}"
 	done
 	
-	mkdir -p "${HOME}/.config/i3" "${HOME}/.urxvt/extensions" "${HOME}/images" "${HOME}/.config/alacritty" "${HOME}/.local/share/nemo/actions" "${HOME}/images" "${HOME}/.config/rofi"
+	mkdir -p "${HOME}/.config/i3" "${HOME}/.urxvt/ext" "${HOME}/images" "${HOME}/.config/alacritty" "${HOME}/.local/share/nemo/actions" "${HOME}/images" "${HOME}/.config/rofi"
 	sudo mkdir -p /usr/share/lightdm /etc/lightdm /usr/share/backgrounds
 	
 	echo -e "-> Syncing i3's config" | ${WTL[@]}
@@ -111,7 +111,7 @@ deploy() {
 	>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/other_cfg/slick-greeter.conf" /etc/lightdm
 
 	echo -e "-> Syncing lightdm wallpaper" | ${WTL[@]}
-	>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${RES}/images/macOS_HighSierra.png" /usr/share/lightdm
+	>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${RES}/design/macOS_HighSierra.png" /usr/share/lightdm
 
 	echo -e "-> Syncing Rofi's configuration" | ${WTL[@]}
 	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/other_cfg/config.rasi" "${HOME}/.config/rofi"
