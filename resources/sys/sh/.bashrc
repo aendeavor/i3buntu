@@ -97,7 +97,8 @@ neofetch_parameterized() {
     --disable term uptime packages resolution theme icons cpu gpu\
     --gtk3 on\
     --bar_border on\
-    --ascii_distro arch --underline_char \ \
+    --ascii_distro arch\
+	--underline_char \ \
     --block_range 0 7\
     --block_width 4\
     --block_height 1\
