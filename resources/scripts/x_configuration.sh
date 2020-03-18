@@ -53,8 +53,8 @@ init() {
 ##backup of configuration files
 backup() {
 	inform "Checkig for existing files\n" "$LOG"
-	HOME_FILES=( "${HOME}/.bash_aliases" "${HOME}/.bashrc" "${HOME}/.vimrc" "${HOME}/.Xresources" )
-	for _file in ${HOME_FILES[@]}; do
+	_home_files=( "${HOME}/.bash_aliases" "${HOME}/.bashrc" "${HOME}/.vimrc" "${HOME}/.Xresources" )
+	for _file in ${_home_files[@]}; do
 		if [[ -f "$_file" ]]; then
 			_backup_file="${BACK}${_file#~}.bak"
 			echo -e "-> Found ${_file}... backing up" | ${WTL[@]}
@@ -124,7 +124,7 @@ deploy() {
 	if dpkg -s neovim &>/dev/null; then
 	    echo -e "-> Syncing NeoVim's config" | ${WTL[@]}
     	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vi/init.vim" "${HOME}/.config/nvim"
-        >/dev/null 2>>"${LOG}" url -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >/dev/null
+        >/dev/null 2>>"${LOG}" curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >/dev/null
 	fi
 
 	echo -e "-> Syncing alacritty.yml" | ${WTL[@]}
