@@ -66,7 +66,6 @@ ENV=(
     xserver-xorg
     xbacklight
 
-	lightdm
 	slick-greeter
     
     i3-gaps
@@ -127,7 +126,7 @@ PACKAGES=( "${CRITICAL[@]}" "${ENV[@]}" "${MISC[@]}" )
 # ? Actual script
 
 ## init of backup-directory and logfile
-init() {
+function init() {
 	if [[ ! -d "$BACK" ]]; then
 	    mkdir -p "$BACK"
 	fi
@@ -140,7 +139,7 @@ init() {
 	fi
 }
 
-choices() {
+function choices() {
 	inform "Please make your choices:\n"
 
 	read -p "Would you like to execute ubuntu-driver autoinstall? [Y/n]" -r UDA
@@ -162,7 +161,29 @@ choices() {
 	read -p "Would you like to install RUST? [Y/n]" -r RUST
 }
 
-add_ppas() {
+function prechecks() {
+	_programs=( apt dpkg apt-get )
+	for _program in "${_programs[@]}"; do
+		if [[ -z $(which "${_program}") ]]; then
+			err "Could not find program ${_program}\n\t\t\t\t\t\t\tAborting"
+			exit 100
+		fi
+	done
+
+	if [[ -z $(which gdm3) ]]; then
+		warn 'It seems like GNOME (Display Manager 3) is installed. This would later conflict with LightDM and require user input'
+		read 'Would you like to uninstall it? [y/N]' -p _uninstall_gnome
+
+		if [[ $_uninstall_gnome =~ ^(yes|Yes|y|Y) ]]; then
+			$_uninstall_gnome='true'
+		else
+			$_uninstall_gnome='false'
+			warn 'This will require user input later'
+		fi
+	fi
+}
+
+function add_ppas() {
 	local ppas=(
 		ppa:git-core/ppa
 		ppa:ubuntu-mozilla-security/ppa
@@ -187,14 +208,51 @@ add_ppas() {
 	done
 }
 
-packages() {
+function packages() {
 	inform "Installing packages\n" "$LOG"
 
 	printf "%-35s | %-15s | %-15s" "PACKAGE" "STATUS" "EXIT CODE"
 	printf "\n"
 
 	## needs to be checked first, as LightDM conflicts with these packages
-	uninstall_and_log "${LOG}" liblightdm-gobject* liblightdm-qt* gdm3* gnome*
+	uninstall_and_log "${LOG}" liblightdm-gobject* liblightdm-qt*
+
+	#! TESTING STARt
+
+	case $_uninstall_gnome in
+		'true')
+			# gnome*
+			uninstall_and_log "${LOG}" gdm3*
+			>/dev/null 2>>"${LOG}" ${AI[@]} lightdm
+
+			local EC=$?
+	    	if (( $EC != 0 )); then
+	        	printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Not Installed" "${EC}"
+	    	else
+	        	printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Installed" "${EC}"
+	    	fi
+	
+	    	printf "\n"
+	    	&>>"${LOG}" echo -e "${PACKAGE}\t -> EXIT CODE: ${EC}"
+			;;
+		'false')
+			inform "Installing LightDM. Verbose output and user input necessarry\n"
+			${AI[@]} lightdm
+
+			echo ''
+			local EC=$?
+	    	if (( $EC != 0 )); then
+	        	printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Not Installed" "${EC}"
+	    	else
+	        	printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Installed" "${EC}"
+	    	fi
+	
+	    	printf "\n"
+	    	&>>"${LOG}" echo -e "${PACKAGE}\t -> EXIT CODE: ${EC}"
+			;;
+	esac
+
+	#! TESTING END
 
 	for PACKAGE in "${PACKAGES[@]}"; do
 	    >/dev/null 2>>"${LOG}" ${AI[@]} ${PACKAGE}
@@ -207,7 +265,7 @@ packages() {
 	    fi
 	
 	    printf "\n"
-	    &>>"${LOG}" echo -e "${PACKAGE}\n\t -> EXIT CODE: ${EC}"
+	    &>>"${LOG}" echo -e "${PACKAGE}\t -> EXIT CODE: ${EC}"
 	done
 
 	uninstall_and_log "${LOG}" suckless-tools
@@ -215,7 +273,7 @@ packages() {
 }
 
 ## installs icon theme and colorpack
-icons_and_colors() {
+function icons_and_colors() {
 	if [[ ! -d "${HOME}/.local/share/icons/Tela" ]]; then
 	    inform 'Icon-Theme is being processed' "$LOG"
         (
@@ -243,7 +301,7 @@ icons_and_colors() {
 }
 
 ## processes user-choices from the beginning
-process_choices() {
+function process_choices() {
 	inform "Processing user-choices\n" "$LOG"
 
 	## graphics driver
@@ -351,7 +409,7 @@ process_choices() {
 	succ 'Finished with processing user-choices' "$LOG"
 }
 
-post() {
+function post() {
 	read -p "It is recommended to restart. Would you like to schedule a restart? [Y/n]" -r RESTART
 	if [[ $RESTART =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RESTART ]]; then
 	    shutdown --reboot 1 &>/dev/null
@@ -361,7 +419,7 @@ post() {
 
 # ! Main
 
-main() {
+function main() {
     sudo printf ''
 	inform 'Packaging has begun'
 	init
