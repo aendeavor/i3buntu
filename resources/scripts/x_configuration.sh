@@ -73,7 +73,6 @@ backup() {
 	if [ -d "${HOME}/.config" ]; then
 		echo -e "-> Found ~/.config directory... backing up" | ${WTL[@]}
 		# echo -e "Backing up to ${BACK}/.config"
-		Backing up to ${BACK}/.config
 		>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${HOME}/.config/i3" "${BACK}"
 	fi
 }
@@ -89,7 +88,7 @@ deploy() {
 	    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/${sourceFile}" "${HOME}"
 	done
 	
-	mkdir -p "${HOME}/.config/i3" "${HOME}/.urxvt/ext" "${HOME}/images" "${HOME}/.config/alacritty" "${HOME}/.local/share/nemo/actions" "${HOME}/images" "${HOME}/.config/rofi"
+	mkdir -p "${HOME}/.config/i3" "${HOME}/.urxvt/ext" "${HOME}/images" "${HOME}/.config/alacritty" "${HOME}/.local/share/nemo/actions" "${HOME}/images" "${HOME}/.config/rofi" "${HOME}/.local/share/nautilus-python/extensions"
 	sudo mkdir -p /usr/share/lightdm /etc/lightdm /usr/share/backgrounds
 	
 	echo -e "-> Syncing i3's config" | ${WTL[@]}
