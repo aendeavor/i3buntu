@@ -96,7 +96,7 @@ function get_font() {
 
 function test_on_success() {
 	if "$@" &>/dev/null; then
-	    printf 'success.\n'
+	    printf 'successfull.\n'
 	else
 	    printf 'unsuccessfull.\n'
 	fi

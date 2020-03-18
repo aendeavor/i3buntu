@@ -45,8 +45,8 @@ i3buntu                       v1.0.13  unstable
 install.sh                    v0.4.02  stable
 i3buntu-init.sh               v0.1.04  unstable
 
-x_packaging.sh                v1.2.00  stable
-x_configuration.sh            v1.1.12  stable
+x_packaging.sh                v1.3.02  stable
+x_configuration.sh            v1.1.13  stable
 
 server_packaging.sh           v1.3.20  stable
 server_configuration.sh       v0.9.20  stable

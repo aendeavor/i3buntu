@@ -133,6 +133,7 @@ function ensure() {
 		exit 1
 	fi
 }
+export -f ensure
 
 function update () {
 	set -e
@@ -144,6 +145,7 @@ function update () {
 	if [[ $? -ne 0 ]]; then
 		echo ''
 		err 'User input invalid. Aborting.'
+		exit 1
 	fi
 
     inform 'New update started' "$DIR"
