@@ -10,7 +10,7 @@
 #
 # Executed from $HOME/.bashrc
 #
-# version   1.0.1
+# version   1.1.3
 # author    aendeavor@Georg Lauterbach
 
 ###########################################################
