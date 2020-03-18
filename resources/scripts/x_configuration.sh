@@ -185,8 +185,12 @@ process_choices() {
 	succ 'Finished with processing user-choices' "$LOG"
 }
 
-## postconfiguration
 post() {
+	if [[ -z $(which shutdown) ]]; then
+		warn 'Altough recommended, could not find shutdown to restart'
+		return 1
+	fi
+
 	read -p "It is recommended to restart now. Would you like to restart? [Y/n]" -r RESTART
 	if [[ $RESTART =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RESTART ]]; then
 	    shutdown --reboot 1 >/dev/null
