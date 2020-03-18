@@ -10,7 +10,7 @@
 #
 # Executed from $HOME/.bashrc
 #
-# version   1.1.3
+# version   1.1.4
 # author    aendeavor@Georg Lauterbach
 
 ###########################################################
@@ -129,7 +129,7 @@ export -f shutn
 function ensure() {
     if ! "$@"; then
 		echo ''
-		err "Command failed: $*\n\t\t\t\t\t\t\tAborting."
+		err "Command failed: $*\n\t\t\t\t\t\t\tAborting"
 		exit 1
 	fi
 }
