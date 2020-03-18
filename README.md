@@ -21,8 +21,6 @@ This project is all about improving your Linux experience and working environmen
 
 The color scheme has been carefully chosen to implement into the system seamlessly. Every program, from the shell to your browser have adapted these changes. They are reflected in the choice of icons, backgrounds and windows.
 
-![Color scheme](resources/design/color_palette.svg)
-
 During the packaging stage, the user is offered a variety of packages to install. These packages are all completely optional. For developers and command line users, _[BASH](https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29)_ has been configured and extended with aliases, functions and parameters. In addition, the prompt has been reworked. If you like _Powerline_, you can enable it in `${HOME}/.bashrc`.
 
 ### Compatibility & Why Ubuntu

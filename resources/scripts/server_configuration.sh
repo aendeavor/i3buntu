@@ -8,7 +8,7 @@
 # by the sever_packaging.sh script after it has
 # run.
 # 
-# current version - 0.9.2 stable
+# current version - 0.9.3 unstable
 
 # ? Preconfig
 
