@@ -234,7 +234,7 @@ icons_and_colors() {
 
 	(
 		&>/dev/null mkdir -p "${HOME}/.themes"
-		cp "${DIR}/../ant_dracula.tar" "${HOME}/.themes"
+		cp "${DIR}/../design/ant_dracula.tar" "${HOME}/.themes"
 		cd "${HOME}/.themes"
 		tar -xvf ant_dracula.tar &>/dev/null
 	)
