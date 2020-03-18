@@ -139,14 +139,6 @@ function init() {
 	fi
 }
 
-function test_on_success() {
-	if "$@" &>/dev/null; then
-	    printf 'success.\n'
-	else
-	    printf 'unsuccessfull.\n'
-	fi
-}
-
 function choices() {
 	inform "Please make your choices:\n"
 
@@ -173,7 +165,7 @@ function prechecks() {
 	_programs=( apt dpkg apt-get )
 	for _program in "${_programs[@]}"; do
 		if [[ -z $(which "${_program}") ]]; then
-			err "Could not find program ${_program}\n\t\t\t\t\t\t\tAborting"
+			err "Could not find command ${_program}\n\t\t\t\t\t\t\tAborting"
 			exit 100
 		fi
 	done
@@ -296,8 +288,6 @@ function icons_and_colors() {
 		cd "${HOME}/.themes"
 		tar -xvf ant_dracula.tar &>/dev/null
 	)
-
-	succ 'Finished with actual script' "$LOG"
 }
 
 ## processes user-choices from the beginning
@@ -356,8 +346,8 @@ function process_choices() {
 		test_on_success curl -fLo "${HOME}/.local/share/nvim/site/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim "2>>${LOG}" 
 
 		echo ''
-		inform 'You will need to run :PlugInstall seperately in NeoVIM as you cannot execute this command in a shell.'
-		inform "Thereafter, run ~/.config/nvim/plugged/YouCompleteMe/install.py.\n"
+		inform 'You will need to run :PlugInstall seperately in NeoVIM as you cannot execute this command in a shell'
+		inform "Thereafter, run ~/.config/nvim/plugged/YouCompleteMe/install.py\n"
 	fi
 
 	if [[ $VSC =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $VSC ]]; then
@@ -418,10 +408,7 @@ function process_choices() {
 			fi
 			printf "successfull.\n"
 		fi
-
 	fi
-
-	succ 'Finished with processing user-choices' "$LOG"
 }
 
 function post() {
@@ -459,11 +446,15 @@ function main() {
 	add_ppas
 
 	inform 'Initial update' "$LOG"
-	update &>${LOG}
+	update &>>${LOG}
 	
 	packages
+	succ 'Finished with packaging' "$LOG"
+
 	icons_and_colors
+
 	process_choices
+	succ 'Finished with processing user-choices' "$LOG"
 
 	succ 'Finished' "$LOG"
 	post

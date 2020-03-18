@@ -135,6 +135,15 @@ function ensure() {
 }
 export -f ensure
 
+function test_on_success() {
+	if "$@" &>/dev/null; then
+	    printf 'success.\n'
+	else
+	    printf 'unsuccessfull.\n'
+	fi
+}
+export -f test_on_success
+
 function update () {
 	set -e
     local DIR="${HOME}/.update_log"
