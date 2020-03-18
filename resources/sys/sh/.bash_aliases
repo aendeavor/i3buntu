@@ -44,28 +44,28 @@ alias ......='cd ../../../../..'
 
 ## ? Logger
 
-inform()
+function inform()
 {
     local LOG=${2:-"/dev/null"}
     echo -e "$(date '+%d.%m.%Y %H:%M:%S') \033[1;34mINFO\033[0m\t$1" | tee -a "$LOG"
 }
 export -f inform
 
-err()
+function err()
 {
     local LOG=${2:-"/dev/null"}
     echo -e "$(date '+%d.%m.%Y %H:%M:%S') \033[0;31mERROR\033[0m\t$1" | tee -a "$LOG"
 }
 export -f err
 
-warn()
+function warn()
 {
     local LOG=${2:-"/dev/null"}
     echo -e "$(date '+%d.%m.%Y %H:%M:%S') \033[1;33mWARNING\033[0m\t$1" | tee -a "$LOG"
 }
 export -f warn
 
-succ()
+function succ()
 {
     local LOG=${2:-"/dev/null"}
     echo -e "$(date '+%d.%m.%Y %H:%M:%S') \033[1;32mSUCCESS\033[0m\t$1" | tee -a "$LOG"
@@ -73,7 +73,7 @@ succ()
 export -f succ
 
 # uninstall a package and log the uninstall-process
-uninstall_and_log()
+function uninstall_and_log()
 {
     local LOG=${1:-"/dev/null"}
     shift
@@ -105,13 +105,13 @@ uninstall_and_log()
 
 ## ? Non-Logger
 
-a () {
-    sudo apt-get "$1" "$2" "$3" "$4" "$5"
+function a () {
+    ensure sudo apt-get "$*"
     return
 }
 export -f a
 
-sf () {
+function sf () {
     SEARCH=${1:?Enter a search-regex}
     MAXDEPTH=${2:-1}
     find . -maxdepth $MAXDEPTH -iregex "[a-z0-9_\.\/\ ]*${SEARCH}" -type f
@@ -120,38 +120,52 @@ sf () {
 }
 export -f sf
 
-shutn () {
+function shutn () {
     shutdown now
     return
 }
 export -f shutn
 
-update () {
+function ensure() {
+    if ! "$@"; then
+		echo ''
+		err "Command failed: $*\n\t\t\t\t\t\t\tAborting."
+		exit 1
+	fi
+}
+
+function update () {
 	set -e
     local DIR="${HOME}/.update_log"
     local OPTIONS=(--yes --assume-yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages)
 
     sudo printf ""
+
+	if [[ $? -ne 0 ]]; then
+		echo ''
+		err 'User input invalid. Aborting.'
+	fi
+
     inform 'New update started' "$DIR"
 
     inform 'Checking for updates' "$DIR"
-    sudo apt-get update &>>"$DIR"
+    ensure sudo apt-get update "&>>${DIR}"
 
     inform 'Installing updates' "$DIR"
-    sudo apt-get ${OPTIONS[@]} upgrade &>> "$DIR"
+    ensure sudo apt-get ${OPTIONS[@]} upgrade "&>>${DIR}"
 
     inform 'Removing orphaned packages' "$DIR"
-    sudo apt-get ${OPTIONS[@]} autoremove &>> "$DIR"
+    ensure sudo apt-get ${OPTIONS[@]} autoremove "&>>${DIR}"
 
     inform 'Clearing apt cache' "$DIR"
-    sudo apt-get ${OPTIONS[@]} autoclean &>> "$DIR"
+    ensure sudo apt-get ${OPTIONS[@]} autoclean "&>>${DIR}"
 
     inform 'Updating via SNAP' "$DIR"
-    sudo snap refresh &>> "$DIR"
+    ensure sudo snap refresh "&>>${DIR}"
 
     if [[ ! -z $(which rustup) ]]; then
         inform 'Updating RUST via rustup' "$DIR"
-        rustup update &>>"$DIR"
+        ensure rustup update "&>>${DIR}"
     fi
 
 	set +e
