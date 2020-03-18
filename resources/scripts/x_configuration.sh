@@ -8,7 +8,7 @@
 # user-choices are handled, including the
 # installation of chosen fonts.
 # 
-# current version - 1.1.12 unstable
+# current version - 1.1.13 unstable
 
 # ? Preconfig
 
@@ -122,9 +122,15 @@ deploy() {
 	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/other_cfg/compton.conf" "${HOME}/.config"
 
 	if dpkg -s neovim &>/dev/null; then
-	    echo -e "-> Syncing NeoVim's config" | ${WTL[@]}
-    	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vi/init.vim" "${HOME}/.config/nvim"
-        >/dev/null 2>>"${LOG}" curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >/dev/null
+	    echo -e "-> Syncing NeoVIM's configuration"
+		>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vi/.vimrc" "${HOME}"
+		>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/vi/.vimrc" "/root"
+
+		>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/vi/init.vim" "/root/.config/nvim"
+		>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vi/init.vim" "${HOME}/.config/nvim"
+
+    	>/dev/null 2>>"${LOG}" curl -fLo "${HOME}/.local/share/nvim/site/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >/dev/null
+    	>/dev/null 2>>"${LOG}" curl -fLo '/root/.local/share/nvim/site/autoload/plug.vim' --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >/dev/null
 	fi
 
 	echo -e "-> Syncing alacritty.yml" | ${WTL[@]}

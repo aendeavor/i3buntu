@@ -5,7 +5,7 @@
 # Via APT, core utils, browser, graphical environment
 # and much more is being installed.
 #
-# version   1.2.0 unstable
+# version   1.3.02 unstable
 
 # ? Preconfig
 
@@ -139,6 +139,14 @@ function init() {
 	fi
 }
 
+function test_on_success() {
+	if "$@" &>/dev/null; then
+	    printf 'success.\n'
+	else
+	    printf 'unsuccessfull.\n'
+	fi
+}
+
 function choices() {
 	inform "Please make your choices:\n"
 
@@ -184,7 +192,7 @@ function prechecks() {
 }
 
 function add_ppas() {
-	local ppas=(
+	local _ppas=(
 		ppa:git-core/ppa
 		ppa:ubuntu-mozilla-security/ppa
 		ppa:kgilmer/speed-ricer
@@ -193,18 +201,10 @@ function add_ppas() {
 
 	inform 'Adding necessary PPAs'
 
-	&>>/dev/null ${AI[@]} software-properties-common
+	ensure ${AI[@]} software-properties-common "&>>/dev/null"
 
-	for PPA in ${ppas[@]}; do
-		sudo add-apt-repository -y "$PPA" &>/dev/null
-
-		local EC=$?
-		if [[ $EC -ne 0 ]] && [[ $EC -ne 100 ]]; then
-	    	warn "Something went wrong adding '$PPA'" "$LOG"
-	    	inform 'You may try to add the PPA yourself (l. 170)'
-	    	err 'Aborting'
-	    	exit 2
-	 	fi
+	for _ppa in ${_ppas[@]}; do
+		ensure sudo add-apt-repository -y "$_ppa" "&>/dev/null"
 	done
 }
 
@@ -215,57 +215,57 @@ function packages() {
 	printf "\n"
 
 	## needs to be checked first, as LightDM conflicts with these packages
-	uninstall_and_log "${LOG}" liblightdm-gobject* liblightdm-qt*
+	ensure uninstall_and_log "${LOG}" liblightdm-gobject* liblightdm-qt*
 
-	#! TESTING STARt
+	#! UNSTABLE
 
 	case $_uninstall_gnome in
 		'true')
 			# gnome*
-			uninstall_and_log "${LOG}" gdm3*
-			>/dev/null 2>>"${LOG}" ${AI[@]} lightdm
+			ensure uninstall_and_log "${LOG}" gdm3*
+			ensure ${AI[@]} lightdm ">/dev/null" "2>>${LOG}"
 
 			local EC=$?
 	    	if (( $EC != 0 )); then
-	        	printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Not Installed" "${EC}"
+	        	printf "%-35s | %-15s | %-15s" "lightdm" "Not Installed" "${EC}"
 	    	else
-	        	printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Installed" "${EC}"
+	        	printf "%-35s | %-15s | %-15s" "lightdm" "Installed" "${EC}"
 	    	fi
 	
 	    	printf "\n"
-	    	&>>"${LOG}" echo -e "${PACKAGE}\t -> EXIT CODE: ${EC}"
+	    	&>>"${LOG}" echo -e "lightdm\t -> EXIT CODE: ${EC}"
 			;;
 		'false')
-			inform "Installing LightDM. Verbose output and user input necessarry\n"
-			${AI[@]} lightdm
+			inform "Installing LightDM. Verbose output and user input neccessarry\n"
+			ensure ${AI[@]} lightdm
 
 			echo ''
 			local EC=$?
 	    	if (( $EC != 0 )); then
-	        	printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Not Installed" "${EC}"
+	        	printf "%-35s | %-15s | %-15s" "lightdm" "Not Installed" "${EC}"
 	    	else
-	        	printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Installed" "${EC}"
+	        	printf "%-35s | %-15s | %-15s" "lightdm" "Installed" "${EC}"
 	    	fi
 	
 	    	printf "\n"
-	    	&>>"${LOG}" echo -e "${PACKAGE}\t -> EXIT CODE: ${EC}"
+	    	&>>"${LOG}" echo -e "lightdm\t -> EXIT CODE: ${EC}"
 			;;
 	esac
 
-	#! TESTING END
+	#! UNSTABLE END
 
-	for PACKAGE in "${PACKAGES[@]}"; do
-	    >/dev/null 2>>"${LOG}" ${AI[@]} ${PACKAGE}
+	for _package in "${PACKAGES[@]}"; do
+	    >/dev/null 2>>"${LOG}" ${AI[@]} ${_package}
 
 	    local EC=$?
 	    if (( $EC != 0 )); then
-	        printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Not Installed" "${EC}"
+	        printf "%-35s | %-15s | %-15s" "${_package}" "Not Installed" "${EC}"
 	    else
-	        printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Installed" "${EC}"
+	        printf "%-35s | %-15s | %-15s" "${_package}" "Installed" "${EC}"
 	    fi
 	
 	    printf "\n"
-	    &>>"${LOG}" echo -e "${PACKAGE}\t -> EXIT CODE: ${EC}"
+	    &>>"${LOG}" echo -e "${_package}\t -> EXIT CODE: ${EC}"
 	done
 
 	uninstall_and_log "${LOG}" suckless-tools
@@ -278,7 +278,7 @@ function icons_and_colors() {
 	    inform 'Icon-Theme is being processed' "$LOG"
         (
           cd /tmp 
-          wget\
+          ensure wget\
             -O tela.tar.gz\
             "https://github.com/vinceliuice/Tela-icon-theme/archive/2020-02-21.tar.gz"\
             &>>/dev/null
@@ -286,7 +286,7 @@ function icons_and_colors() {
           tar -xvzf "tela.tar.gz" &>>/dev/null
           mv Tela* tela
           cd /tmp/tela/
-          ./install.sh -a &>> "${LOG}" 
+          ensure ./install.sh -a "&>>${LOG}" 
         )
 	fi
 
@@ -306,110 +306,130 @@ function process_choices() {
 
 	## graphics driver
 	if [[ $UDA =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $UDA ]]; then
-		echo 'Enabling ubuntu-drivers autoinstall' | ${WTL[@]}
-		&>>"${LOG}" sudo ubuntu-drivers autoinstall
+		printf 'Enabling ubuntu-drivers autoinstall... ' | ${WTL[@]}
+		test_on_success sudo ubuntu-drivers autoinstall "2>>${LOG}"
 	fi
 
 	if [[ $OJDK =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $OJDK ]]; then
 		if [[ $(lsb_release -r) == *"18.04"* ]]; then
-			echo 'Installing OpenJDK 11' | ${WTL[@]}
-			>/dev/null 2>>"${LOG}" ${AI[@]} openjdk-11-jdk openjdk-11-demo openjdk-11-doc openjdk-11-jre-headless openjdk-11-source
+			printf 'Installing OpenJDK 11... ' | ${WTL[@]}
+			test_on_success ${AI[@]} openjdk-11-jdk openjdk-11-doc openjdk-11-jre-headless openjdk-11-source "2>>${LOG}"
 		else
-			echo 'Installing OpenJDK 12' | ${WTL[@]}
-			>/dev/null 2>>"${LOG}" ${AI[@]} openjdk-12-jdk openjdk-12-demo openjdk-12-doc openjdk-12-jre-headless openjdk-12-source
+			printf 'Installing OpenJDK 12... ' | ${WTL[@]}
+			test_on_success ${AI[@]} openjdk-12-jdk openjdk-12-doc openjdk-12-jre-headless openjdk-12-source "2>>${LOG}"
 		fi
 	fi
 
 	if [[ $CR =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $CR ]]; then
-		echo 'Installing Cryptomator' | ${WTL[@]}
+		printf 'Installing Cryptomator... ' | ${WTL[@]}
 		&>>"${LOG}" sudo add-apt-repository -y ppa:sebastian-stenzel/cryptomator
-		&>>/dev/null sudo apt update
-		>/dev/null 2>>"${LOG}" ${AI[@]} cryptomator
+		
+		if [[ $? -ne 0 ]]; then
+			warn "Could not add Cryptomator PPA\t\t\t\t\t\t\tSkipping"
+		else
+			&>>/dev/null sudo apt update
+			>/dev/null "2>>${LOG}" ${AI[@]} cryptomator
+		fi
 	fi
 
 	if [[ $TEX =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $TEX ]]; then
-		echo -e 'Installing TeX...' | ${WTL[@]}
-		>/dev/null 2>>"${LOG}" ${AI[@]} texlive-full
-		>/dev/null 2>>"${LOG}" ${AI[@]} python3-pygments
+		printf 'Installing TeX... ' | ${WTL[@]}
+		test_on_success ${AI[@]} texlive-full "2>>${LOG}"
+		test_on_success ${AI[@]} python3-pygments "2>>${LOG}"
 	fi
 
 	if [[ $OC =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $OC ]]; then
-		echo 'Installing ownCloud' | ${WTL[@]}
-		>/dev/null 2>>"${LOG}" ${AI[@]} owncloud-client
+		printf 'Installing ownCloud... ' | ${WTL[@]}
+		test_on_success ${AI[@]} owncloud-client "2>>${LOG}"
 	fi
 
 	if [[ $BE =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $BE ]]; then
-		echo 'Installing Build-Essential & CMake' | ${WTL[@]}
-		>/dev/null 2>>"${LOG}" ${AI[@]} build-essential cmake
+		printf 'Installing Build-Essential & CMake... ' | ${WTL[@]}
+		test_on_success ${AI[@]} build-essential cmake "2>>${LOG}"
 	fi
 
 	if [[ $NVIM =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $NVIM ]]; then
-		echo -e 'Installing NeoVIM...' | ${WTL[@]}
-		>/dev/null 2>>"${LOG}" ${AI[@]} neovim
-		>/dev/null 2>>"${LOG}" curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+		printf 'Installing NeoVIM... ' | ${WTL[@]}
+		test_on_success ${AI[@]} neovim "2>>${LOG}" 
+
+		printf 'Installing VimPlug for NeoVIM... '
+		test_on_success curl -fLo "${HOME}/.local/share/nvim/site/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim "2>>${LOG}" 
 
 		echo ''
 		inform 'You will need to run :PlugInstall seperately in NeoVIM as you cannot execute this command in a shell.'
-		inform 'Thereafter, run ~/.config/nvim/plugged/YouCompleteMe/install.py --racer-completer --tern-completer.'
-		echo 'n'
+		inform "Thereafter, run ~/.config/nvim/plugged/YouCompleteMe/install.py.\n"
 	fi
 
 	if [[ $VSC =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $VSC ]]; then
-		echo 'Installing Visual Studio Code' | ${WTL[@]}
-		>/dev/null 2>>"${LOG}" ${SI[@]} code --classic
+		printf 'Installing Visual Studio Code... ' | ${WTL[@]}
+		test_on_success ${SI[@]} code --classic "2>>${LOG}" 
 	fi
 
 	if [[ $VSCE =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $VSCE ]]; then
-		echo -e "Installing Visual Studio Code Extensions\n" | ${WTL[@]}
+		printf "Installing Visual Studio Code Extensions... " | ${WTL[@]}
 		(
-			"${DIR}/../sys/vscode/extensions.sh" | ${WTL[@]}
+			test_on_success "${DIR}/../sys/vscode/extensions.sh" | ${WTL[@]}
 		)
         echo ''
 	fi
 
 	if [[ $JBIDE =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $JBIDE ]]; then
-		echo "Installing JetBrains' IDE suite" | ${WTL[@]}
-		>/dev/null 2>>"${LOG}" ${SI[@]} intellij-idea-ultimate --classic
-		>/dev/null 2>>"${LOG}" ${SI[@]} kotlin --classic
-		>/dev/null 2>>"${LOG}" ${SI[@]} kotlin-native --classic
-		>/dev/null 2>>"${LOG}" ${SI[@]} pycharm-professional --classic
-		>/dev/null 2>>"${LOG}" ${SI[@]} clion --classic
+		printf "Installing JetBrains' IDE suite\n" | ${WTL[@]}
+		printf '  –> IntelliJ Ultimate... '
+		test_on_success ${SI[@]} intellij-idea-ultimate --classic "2>>${LOG}"
+		
+		printf '  –> PyCharm Professional... '
+		test_on_success ${SI[@]} pycharm-professional --classic "2>>${LOG}"
+
+		printf '  –> CLion... '
+		test_on_success ${SI[@]} clion --classic "2>>${LOG}"
 	fi
 
 	if [[ $DOCK =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $DOCK ]]; then
-		echo -e 'Installing Docker' | ${WTL[@]}
-		>/dev/null 2>>"${LOG}" ${AI[@]} docker.io
+		printf 'Installing Docker... ' | ${WTL[@]}
+		test_on_success ${AI[@]} docker.io "2>>${LOG}"
 	fi
 
 	if [[ $RUST =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RUST ]]; then
-		echo -e "Installing RUST" | ${WTL[@]}
+		printf "Installing RUST" | ${WTL[@]}
 
 		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile complete -y &>/dev/null
 
-		if [[ -e "${HOME}/.cargo/env" ]]; then
-			source "${HOME}/.cargo/env"
+		if [[ $? -ne 0 ]]; then
+			printf "unsuccessfull.\n"
+		else
+			if [[ -e "${HOME}/.cargo/env" ]]; then
+				source "${HOME}/.cargo/env"
 
-			mkdir -p "${HOME}/.local/share/bash-completion/completions"
-			touch "${HOME}/.local/share/bash-completion/completions/rustup"
-			rustup completions bash > "${HOME}/.local/share/bash-completion/completions/rustup"
+				mkdir -p "${HOME}/.local/share/bash-completion/completions"
+				touch "${HOME}/.local/share/bash-completion/completions/rustup"
+				rustup completions bash > "${HOME}/.local/share/bash-completion/completions/rustup"
 
-			COMPONENTS=( rust-docs rust-analysis rust-src rustfmt rls clippy )
-			for COMPONENT in ${COMPONENTS[@]}; do
-				&>>"${LOG}" rustup component add $COMPONENT
-			done
+				COMPONENTS=( rust-docs rust-analysis rust-src rustfmt rls clippy )
+				for COMPONENT in ${COMPONENTS[@]}; do
+					&>>"${LOG}" rustup component add $COMPONENT
+				done
 
-			if [[ ! -z $(which code) ]]; then
-				code --install-extension rust-lang.rust >/dev/null 2>>${LOG}
+				if [[ ! -z $(which code) ]]; then
+					code --install-extension rust-lang.rust >/dev/null 2>>${LOG}
+				fi
+
+				>/dev/null "2>>${LOG}" rustup update
 			fi
-
-			>/dev/null 2>>"${LOG}" rustup update
+			printf "successfull.\n"
 		fi
+
 	fi
 
 	succ 'Finished with processing user-choices' "$LOG"
 }
 
 function post() {
+	if [[ -z $(which shutdown) ]]; then
+		warn 'Altough recommended, could not find shutdown to restart'
+		return 1
+	fi
+
 	read -p "It is recommended to restart. Would you like to schedule a restart? [Y/n]" -r RESTART
 	if [[ $RESTART =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RESTART ]]; then
 	    shutdown --reboot 1 &>/dev/null
@@ -421,11 +441,21 @@ function post() {
 
 function main() {
     sudo printf ''
+
+	if [[ $? -ne 0 ]]; then
+		echo ''
+		err 'User input invalid. Aborting.'
+		exit 1
+	fi
+
 	inform 'Packaging has begun'
 	init
 	choices
 
-	echo ""
+	echo ''
+	prechecks
+
+	echo ''
 	add_ppas
 
 	inform 'Initial update' "$LOG"
