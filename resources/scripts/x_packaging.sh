@@ -5,7 +5,7 @@
 # Via APT, core utils, browser, graphical environment
 # and much more is being installed.
 #
-# version   1.3.02 unstable
+# version   1.3.08 unstable
 
 # ? Preconfig
 
@@ -38,6 +38,7 @@ CRITICAL=(
     snapd
 
     rxvt-unicode
+	alacritty
     vim
 
     nemo
@@ -116,9 +117,7 @@ MISC=(
     
     scrot
     qalculate
-	ripgrep 		# available in 18.10 and later
-
-	alacritty
+	ripgrep
 )
 
 PACKAGES=( "${CRITICAL[@]}" "${ENV[@]}" "${MISC[@]}" )
@@ -159,6 +158,8 @@ function choices() {
 	read -p "Would you like to install the JetBrains IDE suite? [Y/n]" -r JBIDE
 	read -p "Would you like to install Docker? [Y/n]" -r DOCK
 	read -p "Would you like to install RUST? [Y/n]" -r RUST
+
+	echo ''
 }
 
 function prechecks() {
@@ -225,7 +226,7 @@ function packages() {
 	    	fi
 	
 	    	printf "\n"
-	    	&>>"${LOG}" echo -e "lightdm\t -> EXIT CODE: ${EC}"
+	    	&>>"${LOG}" echo -e "lightdm (${EC})"
 			;;
 		'false')
 			inform "Installing LightDM. Verbose output and user input neccessarry\n"
@@ -240,7 +241,7 @@ function packages() {
 	    	fi
 	
 	    	printf "\n"
-	    	&>>"${LOG}" echo -e "lightdm\t -> EXIT CODE: ${EC}"
+	    	&>>"${LOG}" echo -e "lightdm (${EC})"
 			;;
 	esac
 
@@ -257,11 +258,12 @@ function packages() {
 	    fi
 	
 	    printf "\n"
-	    &>>"${LOG}" echo -e "${_package}\t -> EXIT CODE: ${EC}"
+	    &>>"${LOG}" echo -e "${_package} (${EC})"
 	done
 
 	uninstall_and_log "${LOG}" suckless-tools
-	echo ""
+	echo "" | ${WTL[@]}
+	succ "Finished with packaging" "$LOG"
 }
 
 ## installs icon theme and colorpack
@@ -294,28 +296,27 @@ function icons_and_colors() {
 function process_choices() {
 	inform "Processing user-choices\n" "$LOG"
 
-	## graphics driver
 	if [[ $UDA =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $UDA ]]; then
 		printf 'Enabling ubuntu-drivers autoinstall... ' | ${WTL[@]}
-		test_on_success sudo ubuntu-drivers autoinstall "2>>${LOG}"
+		test_on_success "$LOG" sudo ubuntu-drivers autoinstall
 	fi
 
 	if [[ $OJDK =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $OJDK ]]; then
 		if [[ $(lsb_release -r) == *"18.04"* ]]; then
 			printf 'Installing OpenJDK 11... ' | ${WTL[@]}
-			test_on_success ${AI[@]} openjdk-11-jdk openjdk-11-doc openjdk-11-jre-headless openjdk-11-source "2>>${LOG}"
+			test_on_success "$LOG" ${AI[@]} openjdk-11-jdk openjdk-11-doc openjdk-11-jre-headless openjdk-11-source
 		else
 			printf 'Installing OpenJDK 12... ' | ${WTL[@]}
-			test_on_success ${AI[@]} openjdk-12-jdk openjdk-12-doc openjdk-12-jre-headless openjdk-12-source "2>>${LOG}"
+			test_on_success "$LOG" ${AI[@]} openjdk-12-jdk openjdk-12-doc openjdk-12-jre-headless openjdk-12-source
 		fi
 	fi
 
 	if [[ $CR =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $CR ]]; then
 		printf 'Installing Cryptomator... ' | ${WTL[@]}
-		&>>"${LOG}" sudo add-apt-repository -y ppa:sebastian-stenzel/cryptomator
+		&>>/dev/null sudo add-apt-repository -y ppa:sebastian-stenzel/cryptomator
 		
 		if [[ $? -ne 0 ]]; then
-			warn "Could not add Cryptomator PPA\t\t\t\t\t\t\tSkipping"
+			err "Could not add Cryptomator PPA\t\t\t\t\t\t\tSkipping"
 		else
 			&>>/dev/null sudo apt update
 			>/dev/null "2>>${LOG}" ${AI[@]} cryptomator
@@ -324,69 +325,60 @@ function process_choices() {
 
 	if [[ $TEX =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $TEX ]]; then
 		printf 'Installing TeX... ' | ${WTL[@]}
-		test_on_success ${AI[@]} texlive-full "2>>${LOG}"
-		test_on_success ${AI[@]} python3-pygments "2>>${LOG}"
+		test_on_success "$LOG" ${AI[@]} texlive-full
+		test_on_success "$LOG" ${AI[@]} python3-pygments
 	fi
 
 	if [[ $OC =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $OC ]]; then
 		printf 'Installing ownCloud... ' | ${WTL[@]}
-		test_on_success ${AI[@]} owncloud-client "2>>${LOG}"
+		test_on_success "$LOG" ${AI[@]} owncloud-client
 	fi
 
 	if [[ $BE =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $BE ]]; then
 		printf 'Installing Build-Essential & CMake... ' | ${WTL[@]}
-		test_on_success ${AI[@]} build-essential cmake "2>>${LOG}"
+		test_on_success "$LOG" ${AI[@]} build-essential cmake
 	fi
 
 	if [[ $NVIM =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $NVIM ]]; then
 		printf 'Installing NeoVIM... ' | ${WTL[@]}
-		test_on_success ${AI[@]} neovim "2>>${LOG}" 
-
-		printf 'Installing VimPlug for NeoVIM... '
-		test_on_success curl -fLo "${HOME}/.local/share/nvim/site/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim "2>>${LOG}" 
-
-		echo ''
-		inform 'You will need to run :PlugInstall seperately in NeoVIM as you cannot execute this command in a shell'
-		inform "Thereafter, run ~/.config/nvim/plugged/YouCompleteMe/install.py\n"
+		test_on_success "$LOG" ${AI[@]} neovim
 	fi
 
 	if [[ $VSC =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $VSC ]]; then
 		printf 'Installing Visual Studio Code... ' | ${WTL[@]}
-		test_on_success ${SI[@]} code --classic "2>>${LOG}" 
+		test_on_success "$LOG" ${SI[@]} code --classic
 	fi
 
 	if [[ $VSCE =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $VSCE ]]; then
 		printf "Installing Visual Studio Code Extensions... " | ${WTL[@]}
-		(
-			test_on_success "${DIR}/../sys/vscode/extensions.sh" | ${WTL[@]}
-		)
+		test_on_success "$LOG" "${DIR}/../sys/vscode/extensions.sh"
         echo ''
 	fi
 
 	if [[ $JBIDE =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $JBIDE ]]; then
 		printf "Installing JetBrains' IDE suite\n" | ${WTL[@]}
 		printf '  –> IntelliJ Ultimate... '
-		test_on_success ${SI[@]} intellij-idea-ultimate --classic "2>>${LOG}"
+		test_on_success "$LOG" ${SI[@]} intellij-idea-ultimate --classic
 		
 		printf '  –> PyCharm Professional... '
-		test_on_success ${SI[@]} pycharm-professional --classic "2>>${LOG}"
+		test_on_success "$LOG" ${SI[@]} pycharm-professional --classic
 
 		printf '  –> CLion... '
-		test_on_success ${SI[@]} clion --classic "2>>${LOG}"
+		test_on_success "$LOG" ${SI[@]} clion --classic
 	fi
 
 	if [[ $DOCK =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $DOCK ]]; then
 		printf 'Installing Docker... ' | ${WTL[@]}
-		test_on_success ${AI[@]} docker.io "2>>${LOG}"
+		test_on_success "$LOG" ${AI[@]} docker.io
 	fi
 
 	if [[ $RUST =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RUST ]]; then
-		printf "Installing RUST" | ${WTL[@]}
+		printf 'Installing RUST... ' | ${WTL[@]}
 
 		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile complete -y &>/dev/null
-
+		
 		if [[ $? -ne 0 ]]; then
-			printf "unsuccessfull.\n"
+			printf "unsuccessful\n" | ${WTL[@]}
 		else
 			if [[ -e "${HOME}/.cargo/env" ]]; then
 				source "${HOME}/.cargo/env"
@@ -397,18 +389,18 @@ function process_choices() {
 
 				COMPONENTS=( rust-docs rust-analysis rust-src rustfmt rls clippy )
 				for COMPONENT in ${COMPONENTS[@]}; do
-					&>>"${LOG}" rustup component add $COMPONENT
+					&>>/dev/null rustup component add $COMPONENT
 				done
 
 				if [[ ! -z $(which code) ]]; then
-					code --install-extension rust-lang.rust >/dev/null 2>>${LOG}
+					code --install-extension rust-lang.rust &>/dev/null
 				fi
-
-				>/dev/null "2>>${LOG}" rustup update
 			fi
-			printf "successfull.\n"
+			printf "successful\n" | ${WTL[@]}
 		fi
 	fi
+	echo ''
+	succ 'Finished with processing user-choices' "$LOG"
 }
 
 function post() {
@@ -435,29 +427,25 @@ function main() {
 		exit 1
 	fi
 
-	inform 'Packaging has begun'
-	init
-	choices
-
-	echo ''
 	prechecks
+	init
+
+	warn 'Packaging has begun'
+
+	choices
 
 	echo ''
 	add_ppas
 
 	inform 'Initial update' "$LOG"
-	update &>>${LOG}
+	script_update "$LOG"
 	
 	packages
-	succ 'Finished with packaging' "$LOG"
-
 	icons_and_colors
-
 	process_choices
-	succ 'Finished with processing user-choices' "$LOG"
 
-	succ 'Finished' "$LOG"
+	succ 'Finished packaging stage' "$LOG"
 	post
 }
 
-main "$@" || exit 1
+main "$@"

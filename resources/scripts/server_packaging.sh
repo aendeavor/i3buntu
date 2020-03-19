@@ -3,7 +3,7 @@
 # This script serves as the main installation script
 # for all neccessary packages for a server installation.
 # 
-# current version - 1.4.12 unstable
+# current version - 1.4.12 stable
 
 # ? Preconfig
 
@@ -72,7 +72,6 @@ function init() {
 	fi
 }
 
-## user-choices
 function choices() {
 	inform "Please make your choices:\n"
 
@@ -85,7 +84,6 @@ function choices() {
 	echo ''
 }
 
-## makes sure 
 function prechecks() {
 	_programs=( apt dpkg apt-get )
 	for _program in "${_programs[@]}"; do
@@ -125,7 +123,6 @@ function packages() {
 function process_choices() {
 	inform "Processing user-choices\n" "$LOG"
 
-	## graphics driver
 	if [[ $UDA =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $UDA ]]; then
 		printf 'Enabling ubuntu-drivers autoinstall... ' | ${WTL[@]}
 		test_on_success "$LOG" sudo ubuntu-drivers autoinstall
@@ -139,12 +136,6 @@ function process_choices() {
 	if [[ $NVIM =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $NVIM ]]; then
 		printf 'Installing NeoVIM... ' | ${WTL[@]}
 		test_on_success "$LOG" ${AI[@]} neovim
-
-		printf 'Installing VimPlug for NeoVIM... ' | ${WTL[@]}
-		test_on_success "$LOG" curl -fLo "${HOME}/.local/share/nvim/site/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-		echo ''
-  		warn 'You will need to run :PlugInstall seperately in NeoVIM as\n\t\t\t\t\t\t\tyou cannot execute this command in a shell\n\t\t\t\t\t\t\tThereafter, run ~/.config/nvim/plugged/YouCompleteMe/install.py\n'
 	fi
 
 	if [[ $DOCK =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $DOCK ]]; then
@@ -207,6 +198,11 @@ post() {
 
 function main() {
     sudo printf ''
+	if [[ $? -ne 0 ]]; then
+		echo ''
+		err 'User input invalid. Aborting.'
+		exit 1
+	fi
 	
 	prechecks
 	init

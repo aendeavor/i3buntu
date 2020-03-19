@@ -5,10 +5,9 @@
 # backups existing config files and deploys new
 # and correct version from this repository.
 # This sctipt is not executed by hand, but rather
-# by the sever_packaging.sh script after it has
-# run.
+# by the sever_packaging.sh script.
 # 
-# current version - 0.9.05 unstable
+# current version - 0.9.05 stable
 
 # ? Preconfig
 
@@ -73,8 +72,8 @@ deploy() {
 	echo ''
 	inform "Proceeding to deploying config files\n" "$LOG"
 
-	DEPLOY_IN_HOME=( sh/.bashrc sh/.bash_aliases vi/.vimrc )
-	for sourceFile in "${DEPLOY_IN_HOME[@]}"; do
+	local _deploy_in_home=( sh/.bashrc sh/.bash_aliases vi/.vimrc )
+	for sourceFile in "${_deploy_in_home[@]}"; do
 	    echo -e "-> Syncing $(basename -- "${sourceFile}")"  | ${WTL[@]}
 	    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/${sourceFile}" "${HOME}"
 	done
@@ -82,10 +81,9 @@ deploy() {
 	>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/sh/.bashrc" "/root"
 	>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/sh/.bash_aliases" "/root"
 
-	mkdir -p "${HOME}/.config/nvim"
-	sudo mkdir -p "/root/.config/nvim"
-
 	if dpkg -s neovim &>/dev/null; then
+		mkdir -p "${HOME}/.config/nvim"
+		sudo mkdir -p "/root/.config/nvim"
 		echo -e "-> Syncing NeoVIM's configuration"
 		>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vi/.vimrc" "${HOME}"
 		>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/vi/.vimrc" "/root"
@@ -95,6 +93,10 @@ deploy() {
 
     	>/dev/null 2>>"${LOG}" curl -fLo "${HOME}/.local/share/nvim/site/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >/dev/null
     	>/dev/null 2>>"${LOG}" curl -fLo '/root/.local/share/nvim/site/autoload/plug.vim' --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >/dev/null
+
+		echo ''
+		inform 'You will need to run :PlugInstall seperately in NeoVIM as you cannot execute this command in a shell'
+		inform "Thereafter, run ~/.config/nvim/plugged/YouCompleteMe/install.py\n"
 	fi
 
     echo -e "-> Copying PowerLine-Go to /bin\n"

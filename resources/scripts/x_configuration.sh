@@ -80,10 +80,10 @@ backup() {
 ## deployment of configuration files
 deploy() {
 	echo ''
-	inform "Proceeding to deploying config files" "$LOG"
+	inform "Proceeding to deploying config files\n" "$LOG"
 	
-	DEPLOY_IN_HOME=( sh/.bashrc sh/.bash_aliases vi/.vimrc vi/.viminfo Xi3/.Xresources )
-	for sourceFile in "${DEPLOY_IN_HOME[@]}"; do
+	local _deploy_in_home=( sh/.bashrc sh/.bash_aliases vi/.vimrc vi/.viminfo Xi3/.Xresources )
+	for sourceFile in "${_deploy_in_home[@]}"; do
 	    echo -e "-> Syncing $(basename -- "${sourceFile}")"  | ${WTL[@]}
 	    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/${sourceFile}" "${HOME}"
 	done
@@ -122,7 +122,9 @@ deploy() {
 	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/other_cfg/compton.conf" "${HOME}/.config"
 
 	if dpkg -s neovim &>/dev/null; then
-	    echo -e "-> Syncing NeoVIM's configuration"
+		mkdir -p "${HOME}/.config/nvim"
+		sudo mkdir -p "/root/.config/nvim"
+		echo -e "-> Syncing NeoVIM's configuration"
 		>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vi/.vimrc" "${HOME}"
 		>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/vi/.vimrc" "/root"
 
@@ -131,6 +133,10 @@ deploy() {
 
     	>/dev/null 2>>"${LOG}" curl -fLo "${HOME}/.local/share/nvim/site/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >/dev/null
     	>/dev/null 2>>"${LOG}" curl -fLo '/root/.local/share/nvim/site/autoload/plug.vim' --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >/dev/null
+
+		echo ''
+		inform 'You will need to run :PlugInstall seperately in NeoVIM as you cannot execute this command in a shell'
+		inform "Thereafter, run ~/.config/nvim/plugged/YouCompleteMe/install.py\n"
 	fi
 
 	echo -e "-> Syncing alacritty.yml" | ${WTL[@]}
@@ -150,7 +156,7 @@ deploy() {
 
 	echo ''
 	inform 'Reloading X-services'
-	>/dev/null 2>>"${LOG}" xrdb ${HOME}/.Xresources
+	&>/dev/null xrdb ${HOME}/.Xresources
 
     inform 'Nemo is being configured...' "$LOG"
     xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search
@@ -211,8 +217,8 @@ main() {
 	deploy
 	process_choices
 
-	succ 'Finished' "$LOG"
+	succ 'Finished configuraton stage' "$LOG"
 	post
 }
 
-main "$@" || exit
+main "$@"
