@@ -47,28 +47,28 @@ alias ......='cd ../../../../..'
 function inform()
 {
     local LOG=${2:-"/dev/null"}
-    echo -e "$(date '+%d.%m.%Y %H:%M:%S') \033[1;34mINFO\033[0m\t$1" | tee -a "$LOG"
+    echo -e "$(date '%H:%M:%S') \033[1;34mINFO\033[0m\t$1" | tee -a "$LOG" # +%d.%m.%Y
 }
 export -f inform
 
 function err()
 {
     local LOG=${2:-"/dev/null"}
-    echo -e "$(date '+%d.%m.%Y %H:%M:%S') \033[0;31mERROR\033[0m\t$1" | tee -a "$LOG"
+    echo -e "$(date '%H:%M:%S') \033[0;31mERROR\033[0m\t$1" | tee -a "$LOG"
 }
 export -f err
 
 function warn()
 {
     local LOG=${2:-"/dev/null"}
-    echo -e "$(date '+%d.%m.%Y %H:%M:%S') \033[1;33mWARNING\033[0m\t$1" | tee -a "$LOG"
+    echo -e "$(date '%H:%M:%S') \033[1;33mWARNING\033[0m\t$1" | tee -a "$LOG"
 }
 export -f warn
 
 function succ()
 {
     local LOG=${2:-"/dev/null"}
-    echo -e "$(date '+%d.%m.%Y %H:%M:%S') \033[1;32mSUCCESS\033[0m\t$1" | tee -a "$LOG"
+    echo -e "$(date '%H:%M:%S') \033[1;32mSUCCESS\033[0m\t$1" | tee -a "$LOG"
 }
 export -f succ
 
@@ -99,7 +99,7 @@ function uninstall_and_log()
         fi
         printf "\n"
         
-        &>>"$LOG" echo -e "${PACKAGE}\n\t -> EXIT CODE: ${EC}"
+        &>>"$LOG" echo -e "${PACKAGE} (${EC})"
     done
 }
 
