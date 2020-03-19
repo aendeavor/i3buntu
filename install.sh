@@ -48,8 +48,8 @@ i3buntu-init.sh               v0.1.04  stable
 x_packaging.sh                v1.3.02  unstable
 x_configuration.sh            v1.1.13  unstable
 
-server_packaging.sh           v1.4.01  unstable
-server_configuration.sh       v0.9.03  unstable
+server_packaging.sh           v1.4.12  stable
+server_configuration.sh       v0.9.05  stable
 
 extensions.sh                 v0.5.00  stable
 fonts.sh                      v0.4.01  stable

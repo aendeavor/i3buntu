@@ -3,7 +3,7 @@
 # This script serves as the main installation script
 # for all neccessary packages for a server installation.
 # 
-# current version - 1.4.1 unstable
+# current version - 1.4.12 unstable
 
 # ? Preconfig
 
@@ -81,8 +81,11 @@ function choices() {
 	read -p "Would you like to install NeoVIM? [Y/n]" -r NVIM
 	read -p "Would you like to install Docker? [Y/n]" -r DOCK
 	read -p "Would you like to install RUST? [Y/n]" -r RUST
+
+	echo ''
 }
 
+## makes sure 
 function prechecks() {
 	_programs=( apt dpkg apt-get )
 	for _program in "${_programs[@]}"; do
@@ -111,10 +114,11 @@ function packages() {
 		fi
 
 		printf "\n"
-		&>>"${LOG}" echo -e "${PACKAGE}\n\t -> EXIT CODE: ${EC}"
+		&>>"${LOG}" echo -e "${PACKAGE} (${EC})"
 	done
 
-	echo ""
+	echo "" | ${WTL[@]}
+	succ "Finished with packaging" "$LOG"
 }
 
 ## processes user-choices from the beginning
@@ -124,38 +128,37 @@ function process_choices() {
 	## graphics driver
 	if [[ $UDA =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $UDA ]]; then
 		printf 'Enabling ubuntu-drivers autoinstall... ' | ${WTL[@]}
-		test_on_success sudo ubuntu-drivers autoinstall "2>>${LOG}"
+		test_on_success "$LOG" sudo ubuntu-drivers autoinstall
 	fi
 
 	if [[ $BE =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $BE ]]; then
 		printf 'Installing build-essential & CMake... ' | ${WTL[@]}
-		test_on_success ${AI[@]} build-essential cmake "2>>${LOG}"
+		test_on_success "$LOG" ${AI[@]} build-essential cmake
 	fi
 
 	if [[ $NVIM =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $NVIM ]]; then
 		printf 'Installing NeoVIM... ' | ${WTL[@]}
-		test_on_success ${AI[@]} neovim "2>>${LOG}"
+		test_on_success "$LOG" ${AI[@]} neovim
 
-		printf 'Installing VimPlug for NeoVIM... '
-		test_on_success curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim "2>>${LOG}"
+		printf 'Installing VimPlug for NeoVIM... ' | ${WTL[@]}
+		test_on_success "$LOG" curl -fLo "${HOME}/.local/share/nvim/site/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 		echo ''
-  		warn 'You will need to run :PlugInstall seperately in NeoVIM as you cannot execute this command in a shell'
-    	warn "Thereafter, run ~/.config/nvim/plugged/YouCompleteMe/install.py\n"
+  		warn 'You will need to run :PlugInstall seperately in NeoVIM as\n\t\t\t\t\t\t\tyou cannot execute this command in a shell\n\t\t\t\t\t\t\tThereafter, run ~/.config/nvim/plugged/YouCompleteMe/install.py\n'
 	fi
 
 	if [[ $DOCK =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $DOCK ]]; then
 		printf 'Installing Docker... ' | ${WTL[@]}
-		test_on_success ${AI[@]} docker.io "2>>${LOG}"
+		test_on_success "$LOG" ${AI[@]} docker.io
 	fi
 
 	if [[ $RUST =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RUST ]]; then
-		printf "Installing RUST" | ${WTL[@]}
+		printf 'Installing RUST... ' | ${WTL[@]}
 
 		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile complete -y &>/dev/null
 		
 		if [[ $? -ne 0 ]]; then
-			printf "unsuccessfull.\n"
+			printf "unsuccessful\n" | ${WTL[@]}
 		else
 			if [[ -e "${HOME}/.cargo/env" ]]; then
 				source "${HOME}/.cargo/env"
@@ -166,50 +169,60 @@ function process_choices() {
 
 				COMPONENTS=( rust-docs rust-analysis rust-src rustfmt rls clippy )
 				for COMPONENT in ${COMPONENTS[@]}; do
-					&>>"${LOG}" rustup component add $COMPONENT
+					&>>/dev/null rustup component add $COMPONENT
 				done
 
 				if [[ ! -z $(which code) ]]; then
-					code --install-extension rust-lang.rust >/dev/null 2>>${LOG}
+					code --install-extension rust-lang.rust &>/dev/null
 				fi
-
-				>/dev/null "2>>${LOG}" rustup update
 			fi
-			printf "successfull.\n"
+			printf "successful\n" | ${WTL[@]}
 		fi
 	fi
+	echo ''
+	succ 'Finished with processing user-choices' "$LOG"
 }
 
-# ? Execution of next script
-
+# execution of next script
 function next() {
-	inform 'Packaging stage finished'
-	inform 'Starting configuration stage'
+	succ 'Packaging stage finished'
 
 	"${DIR}/server_configuration.sh"
+}
+
+post() {
+	if [[ -z $(which shutdown) ]]; then
+		warn 'Altough recommended, could not find shutdown command to restart'
+		return 1
+	fi
+
+	read -p "It is recommended to restart now. Would you like to restart? [Y/n]" -r RESTART
+	if [[ $RESTART =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RESTART ]]; then
+	    shutdown --reboot 1 >/dev/null
+        inform 'Rebooting in one minute'
+	fi
 }
 
 # ! Main
 
 function main() {
     sudo printf ''
-	inform 'Packaging has begun'
+	
+	prechecks
 	init
+	
+	warn "Packaging has begun" | ${WTL[@]}
+
 	choices
 
-	echo ''
-	prechecks
-
 	inform 'Initial update' "$LOG"
-	update &>>${LOG}
+	script_update "$LOG"
 	
 	packages
-	succ "Finished with packaging" "$LOG"
-
 	process_choices
-	succ 'Finished with processing user-choices' "$LOG"
 
 	next
+	post
 }
 
-main "$@" || exit 1
+main "$@"
