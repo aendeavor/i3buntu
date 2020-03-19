@@ -208,7 +208,7 @@ post() {
 
 main() {
     sudo printf ''
-	inform 'Configuration has begun'
+	inform 'Desktop configuration has begun'
 
 	init
 	choices

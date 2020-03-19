@@ -72,6 +72,9 @@ deploy() {
 	echo ''
 	inform "Proceeding to deploying config files\n" "$LOG"
 
+    echo -e "-> Copying PowerLine-Go to /bin"
+    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/sh/powerline-go-linux-amd64" "/bin"
+
 	local _deploy_in_home=( sh/.bashrc sh/.bash_aliases vi/.vimrc )
 	for sourceFile in "${_deploy_in_home[@]}"; do
 	    echo -e "-> Syncing $(basename -- "${sourceFile}")"  | ${WTL[@]}
@@ -95,19 +98,15 @@ deploy() {
     	>/dev/null 2>>"${LOG}" curl -fLo '/root/.local/share/nvim/site/autoload/plug.vim' --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >/dev/null
 
 		echo ''
-		inform 'You will need to run :PlugInstall seperately in NeoVIM as you cannot execute this command in a shell'
-		inform "Thereafter, run ~/.config/nvim/plugged/YouCompleteMe/install.py\n"
+		warn "You will need to run :PlugInstall seperately in NeoVIM\n\t\t\t\t\tas you cannot execute this command in a shell.\n\t\t\t\t\tThereafter, run ~/.config/nvim/plugged/YouCompleteMe/install.py"
 	fi
-
-    echo -e "-> Copying PowerLine-Go to /bin\n"
-    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/sh/powerline-go-linux-amd64" "/bin"
 }
 
 # ! Main
 
 main() {
     sudo printf ''
-	inform "Configuration has begun"
+	inform "Server configuration has begun"
 
 	init
 	backup

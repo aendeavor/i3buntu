@@ -44,31 +44,27 @@ alias ......='cd ../../../../..'
 
 ## ? Logger
 
-function inform()
-{
+function inform() {
     local LOG=${2:-"/dev/null"}
-    echo -e "$(date '%H:%M:%S') \033[1;34mINFO\033[0m\t$1" | tee -a "$LOG" # +%d.%m.%Y
+    echo -e "$(date '+%H:%M:%S') \033[1;34mINFO\033[0m\t\t$1" | tee -a "$LOG" # +%d.%m.%Y
 }
 export -f inform
 
-function err()
-{
+function err() {
     local LOG=${2:-"/dev/null"}
-    echo -e "$(date '%H:%M:%S') \033[0;31mERROR\033[0m\t$1" | tee -a "$LOG"
+    echo -e "$(date '+%H:%M:%S') \033[0;31mERROR\033[0m\t$1" | tee -a "$LOG"
 }
 export -f err
 
-function warn()
-{
+function warn() {
     local LOG=${2:-"/dev/null"}
-    echo -e "$(date '%H:%M:%S') \033[1;33mWARNING\033[0m\t$1" | tee -a "$LOG"
+    echo -e "$(date '+%H:%M:%S') \033[1;33mWARNING\033[0m\t$1" | tee -a "$LOG"
 }
 export -f warn
 
-function succ()
-{
+function succ() {
     local LOG=${2:-"/dev/null"}
-    echo -e "$(date '%H:%M:%S') \033[1;32mSUCCESS\033[0m\t$1" | tee -a "$LOG"
+    echo -e "$(date '+%H:%M:%S') \033[1;32mSUCCESS\033[0m\t$1" | tee -a "$LOG"
 }
 export -f succ
 
@@ -132,9 +128,9 @@ function test_on_success() {
 	local LOG=$1
 	shift
 	if "$@" &>/dev/null; then
-	    printf 'successful.\n' | tee -a $LOG
+	    printf 'successful.' | tee -a $LOG
 	else
-	    printf 'unsuccessful.\n' | tee -a $LOG
+	    printf 'unsuccessful.' | tee -a $LOG
 	fi
 }
 export -f test_on_success
@@ -148,7 +144,8 @@ function ensure() {
 }
 export -f ensure
 
-function script_update() {
+function script_update()
+{
 	set -u
     local LOG=$1
 
@@ -186,7 +183,8 @@ export -f script_update
 
 ## ? Update function
 
-function update() {
+function update()
+{
     local LOG="${HOME}/.update_log"
 	touch $LOG
 
