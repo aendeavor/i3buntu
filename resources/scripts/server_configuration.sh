@@ -8,7 +8,7 @@
 # by the sever_packaging.sh script after it has
 # run.
 # 
-# current version - 0.9.3 unstable
+# current version - 0.9.05 unstable
 
 # ? Preconfig
 
@@ -71,7 +71,7 @@ backup() {
 ## deployment of configuration files
 deploy() {
 	echo ''
-	inform "Proceeding to deploying config files" "$LOG"
+	inform "Proceeding to deploying config files\n" "$LOG"
 
 	DEPLOY_IN_HOME=( sh/.bashrc sh/.bash_aliases vi/.vimrc )
 	for sourceFile in "${DEPLOY_IN_HOME[@]}"; do
@@ -101,15 +101,6 @@ deploy() {
     >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/sh/powerline-go-linux-amd64" "/bin"
 }
 
-## postconfiguration
-post() {
-	read -p "It is recommended to restart. Would you like to schedule a restart? [Y/n]" -r RESTART
-	if [[ $RESTART =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RESTART ]]; then
-	    shutdown --reboot 1 &>/dev/null
-		inform 'Rebooting in one minute'
-	fi
-}
-
 # ! Main
 
 main() {
@@ -120,8 +111,7 @@ main() {
 	backup
 	deploy
 
-    succ "Finished configuration\n"
-	post
+    succ "Configuration stage finished\n"
 }
 
 main "$@" || exit 1
