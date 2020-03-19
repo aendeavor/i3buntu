@@ -121,35 +121,35 @@ function packages() {
 
 ## processes user-choices from the beginning
 function process_choices() {
-	inform "Processing user-choices\n" "$LOG"
+	inform "Processing user-choices" "$LOG"
 
 	if [[ $UDA =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $UDA ]]; then
-		printf 'Enabling ubuntu-drivers autoinstall... ' | ${WTL[@]}
+		printf '\nEnabling ubuntu-drivers autoinstall... ' | ${WTL[@]}
 		test_on_success "$LOG" sudo ubuntu-drivers autoinstall
 	fi
 
 	if [[ $BE =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $BE ]]; then
-		printf 'Installing build-essential & CMake... ' | ${WTL[@]}
+		printf '\nInstalling build-essential & CMake... ' | ${WTL[@]}
 		test_on_success "$LOG" ${AI[@]} build-essential cmake
 	fi
 
 	if [[ $NVIM =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $NVIM ]]; then
-		printf 'Installing NeoVIM... ' | ${WTL[@]}
+		printf '\nInstalling NeoVIM... ' | ${WTL[@]}
 		test_on_success "$LOG" ${AI[@]} neovim
 	fi
 
 	if [[ $DOCK =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $DOCK ]]; then
-		printf 'Installing Docker... ' | ${WTL[@]}
+		printf '\nInstalling Docker... ' | ${WTL[@]}
 		test_on_success "$LOG" ${AI[@]} docker.io
 	fi
 
 	if [[ $RUST =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RUST ]]; then
-		printf 'Installing RUST... ' | ${WTL[@]}
+		printf '\nInstalling RUST... ' | ${WTL[@]}
 
 		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile complete -y &>/dev/null
 		
 		if [[ $? -ne 0 ]]; then
-			printf "unsuccessful\n" | ${WTL[@]}
+			printf "unsuccessful" | ${WTL[@]}
 		else
 			if [[ -e "${HOME}/.cargo/env" ]]; then
 				source "${HOME}/.cargo/env"
@@ -167,10 +167,11 @@ function process_choices() {
 					code --install-extension rust-lang.rust &>/dev/null
 				fi
 			fi
-			printf "successful\n" | ${WTL[@]}
+			printf "successful." | ${WTL[@]}
 		fi
 	fi
-	echo ''
+
+	printf "\n\n" | ${WTL[@]}
 	succ 'Finished with processing user-choices' "$LOG"
 }
 
@@ -207,7 +208,7 @@ function main() {
 	prechecks
 	init
 	
-	warn "Packaging has begun" | ${WTL[@]}
+	warn "Server packaging has begun" | ${WTL[@]}
 
 	choices
 

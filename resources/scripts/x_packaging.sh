@@ -430,7 +430,7 @@ function main() {
 	prechecks
 	init
 
-	warn 'Packaging has begun'
+	warn 'Desktop packaging has begun'
 
 	choices
 
