@@ -4,7 +4,7 @@
 # all other scripts, i.e. the desktop or server
 # installation of i3buntu.
 #
-# current version - 0.4.2 unstable
+# current version - 0.4.2 stable
 
 # ? Preconfig
 
@@ -18,7 +18,7 @@ SCR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/resources
 function usage() {
 	cat 1>&2 <<EOF
 Main install script for i3buntu 
-version 1.0.13
+version 1.0.22
 
 USAGE:
 	./install.sh [OPTIONS] COMMAND [FLAG]
@@ -41,15 +41,15 @@ EOF
 
 function version() {
 	cat 1>&2 <<EOF
-i3buntu                       v1.0.13  unstable
+i3buntu                       v1.0.22  stable
 install.sh                    v0.4.02  stable
-i3buntu-init.sh               v0.1.04  unstable
+i3buntu-init.sh               v0.1.04  stable
 
-x_packaging.sh                v1.3.02  stable
-x_configuration.sh            v1.1.13  stable
+x_packaging.sh                v1.3.12  stable
+x_configuration.sh            v1.1.17  stable
 
-server_packaging.sh           v1.3.20  stable
-server_configuration.sh       v0.9.20  stable
+server_packaging.sh           v1.4.12  stable
+server_configuration.sh       v0.9.06  stable
 
 extensions.sh                 v0.5.00  stable
 fonts.sh                      v0.4.01  stable
@@ -61,18 +61,16 @@ EOF
 
 function say() {
 	printf "$2"
-	echo -e "		$1"
+	echo -e "		 $1"
 }
 
 function desktop() {
 	case "$1" in
 		"--pkg")
-	    	succ 'Packaging for desktops started'
 	        "${SCR}/x_packaging.sh"
 		;;
 	    
 		"--cfg")
-	        succ 'Configuration for desktops started'
 	        "${SCR}/x_configuration.sh"
 	    ;;
 	    
@@ -89,11 +87,9 @@ function main() {
 	        desktop $2
 	    	;;
 	    "server" | "s")
-	        succ 'Server packaging and configuration started'
 	        "${SCR}/server_packaging.sh"
 	    	;;
 	    "vmware" | "vm")
-	        succ 'VM Ware Workstation player installation started'
 	        "${SCR}/vm.sh"
 	    	;;
 	    "--version" | "-v")
@@ -106,7 +102,8 @@ function main() {
 			say "Please choose whether your want a desktop or" "\n"
 			say "server installation to happen [d/S]. If you"
 			say "would like to stop here, type stop.\n"
-			read -p "		> " -r IC
+			read -p "		 > " -r IC
+			echo ''
 			
 			case $IC in
 				"stop")

@@ -24,7 +24,7 @@ curl \
   --proto '=https'\
   --tlsv1.2\
   -sSf\
-  https://raw.githubusercontent.com/aendeavor/i3buntu/development/resources/scripts/init.sh | bash
+  https://raw.githubusercontent.com/aendeavor/i3buntu/master/resources/scripts/init.sh | bash
 ```
 
 The `curl` command will create an i3buntu directory and execute the [install.sh](./install.sh) script. If you would like to start an installation manually, you can do so:
@@ -62,6 +62,6 @@ cd && ./i3buntu/install.sh desktop --cfg
 
 Now, use _LXappearance_ to mod your color and icon theme. Open rofi with _mod + d_ and start typing the name of the desired application and hit enter. Choose _Ant-Dracula_ as your color theme. For _Tela_'s icon theme, pick what you like best.
 
-You can edit `~/.config/i3/config` to customize your keybindings and to edit the pactl binds if audio volume control will not work.
+You can edit `~/.config/i3/config` to customize your keybindings and to edit the pactl binds if audio volume control does not work.
 
 That's it.
