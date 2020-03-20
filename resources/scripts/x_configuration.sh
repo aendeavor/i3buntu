@@ -8,7 +8,7 @@
 # user-choices are handled, including the
 # installation of chosen fonts.
 # 
-# current version - 1.1.13 unstable
+# current version - 1.1.14 unstable
 
 # ? Preconfig
 
@@ -136,7 +136,7 @@ deploy() {
 
 		echo ''
 		inform 'You will need to run :PlugInstall seperately in NeoVIM as you cannot execute this command in a shell'
-		inform "Thereafter, run ~/.config/nvim/plugged/YouCompleteMe/install.py\n"
+		inform "Thereafter, run pyrhon3 ~/.config/nvim/plugged/YouCompleteMe/install.py\n"
 	fi
 
 	echo -e "-> Syncing alacritty.yml" | ${WTL[@]}

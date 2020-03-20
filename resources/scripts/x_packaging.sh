@@ -5,7 +5,7 @@
 # Via APT, core utils, browser, graphical environment
 # and much more is being installed.
 #
-# version   1.3.08 unstable
+# version   1.3.14 stable
 
 # ? Preconfig
 
@@ -141,23 +141,23 @@ function init() {
 function choices() {
 	inform "Please make your choices:\n"
 
-	read -p "Would you like to execute ubuntu-driver autoinstall? [Y/n]" -r UDA
-	read -p "Would you like to install OpenJDK? [Y/n]" -r OJDK
-	read -p "Would you like to install Cryptomator? [Y/n]" -r CR
-	read -p "Would you like to install TeX? [Y/n]" -r TEX
-	read -p "Would you like to install ownCloud? [Y/n]" -r OC
-	read -p "Would you like to install Build-Essentials? [Y/n]" -r BE
-	read -p "Would you like to install NeoVIM? [Y/n]" -r NVIM
-	read -p "Would you like to install VS Code? [Y/n]" -r VSC
+	read -p 'Would you like to execute ubuntu-driver autoinstall? [Y/n]' -r UDA
+	read -p 'Would you like to install OpenJDK? [Y/n]' -r OJDK
+	read -p 'Would you like to install Cryptomator? [Y/n]' -r CR
+	read -p 'Would you like to install TeX? [Y/n]' -r TEX
+	read -p 'Would you like to install ownCloud? [Y/n]' -r OC
+	read -p 'Would you like to install Build-Essentials? [Y/n]' -r BE
+	read -p 'Would you like to install NeoVIM? [Y/n]' -r NVIM
+	read -p 'Would you like to install VS Code? [Y/n]' -r VSC
 
 	VSCE="no"
 	if [[ $VSC =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $VSC ]]; then
-	    read -p "Would you like to install recommended VS Code extensions? [Y/n]" -r VSCE
+	    read -p 'Would you like to install recommended VS Code extensions? [Y/n]' -r VSCE
 	fi
 
-	read -p "Would you like to install the JetBrains IDE suite? [Y/n]" -r JBIDE
-	read -p "Would you like to install Docker? [Y/n]" -r DOCK
-	read -p "Would you like to install RUST? [Y/n]" -r RUST
+	read -p 'Would you like to install the JetBrains IDE suite? [Y/n]' -r JBIDE
+	read -p 'Would you like to install Docker? [Y/n]' -r DOCK
+	read -p 'Would you like to install RUST? [Y/n]' -r RUST
 
 	echo ''
 }
@@ -166,20 +166,23 @@ function prechecks() {
 	_programs=( apt dpkg apt-get )
 	for _program in "${_programs[@]}"; do
 		if [[ -z $(which "${_program}") ]]; then
-			err "Could not find command ${_program}\n\t\t\t\t\t\t\tAborting"
+			err "Could not find command ${_program}\n\t\t\t\t\tAborting" | ${WTL[@]}
 			exit 100
 		fi
 	done
+}
 
+function check_lightdm() {
 	if [[ -z $(which gdm3) ]]; then
-		warn 'It seems like GNOME (Display Manager 3) is installed. This would later conflict with LightDM and require user input'
-		read 'Would you like to uninstall it? [y/N]' -p _uninstall_gnome
+		warn 'It seems like GNOME (GDM3) is installed.\n\t\t\t\t\tThis can later conflict with LightDM and require user input.\n'
+		read -p 'Would you like to uninstall it? [y/N]' -r _uninstall_gnome
 
+		echo ''
 		if [[ $_uninstall_gnome =~ ^(yes|Yes|y|Y) ]]; then
-			$_uninstall_gnome='true'
+			_uninstall_gnome='true'
 		else
-			$_uninstall_gnome='false'
-			warn 'This will require user input later'
+			_uninstall_gnome='false'
+			warn 'This could require user input later'
 		fi
 	fi
 }
@@ -192,12 +195,12 @@ function add_ppas() {
 		ppa:mmstick76/alacritty
 	)
 
-	inform 'Adding necessary PPAs'
+	inform 'Adding necessary PPAs' | ${WTL[@]}
 
-	ensure ${AI[@]} software-properties-common "&>>/dev/null"
+	ensure &>/dev/null ${AI[@]} software-properties-common
 
 	for _ppa in ${_ppas[@]}; do
-		ensure sudo add-apt-repository -y "$_ppa" "&>/dev/null"
+		ensure &>/dev/null sudo add-apt-repository -y "$_ppa"
 	done
 }
 
@@ -210,13 +213,11 @@ function packages() {
 	## needs to be checked first, as LightDM conflicts with these packages
 	ensure uninstall_and_log "${LOG}" liblightdm-gobject* liblightdm-qt*
 
-	#! UNSTABLE
-
 	case $_uninstall_gnome in
 		'true')
 			# gnome*
 			ensure uninstall_and_log "${LOG}" gdm3*
-			ensure ${AI[@]} lightdm ">/dev/null" "2>>${LOG}"
+			ensure >/dev/null 2>>${LOG} ${AI[@]} lightdm
 
 			local EC=$?
 	    	if (( $EC != 0 )); then
@@ -229,6 +230,7 @@ function packages() {
 	    	&>>"${LOG}" echo -e "lightdm (${EC})"
 			;;
 		'false')
+			echo ''
 			inform "Installing LightDM. Verbose output and user input neccessarry\n"
 			ensure ${AI[@]} lightdm
 
@@ -244,8 +246,6 @@ function packages() {
 	    	&>>"${LOG}" echo -e "lightdm (${EC})"
 			;;
 	esac
-
-	#! UNSTABLE END
 
 	for _package in "${PACKAGES[@]}"; do
 	    >/dev/null 2>>"${LOG}" ${AI[@]} ${_package}
@@ -294,86 +294,86 @@ function icons_and_colors() {
 
 ## processes user-choices from the beginning
 function process_choices() {
-	inform "Processing user-choices\n" "$LOG"
+	inform "Processing user-choices" "$LOG"
 
 	if [[ $UDA =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $UDA ]]; then
-		printf 'Enabling ubuntu-drivers autoinstall... ' | ${WTL[@]}
+		printf '\nEnabling ubuntu-drivers autoinstall... ' | ${WTL[@]}
 		test_on_success "$LOG" sudo ubuntu-drivers autoinstall
 	fi
 
 	if [[ $OJDK =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $OJDK ]]; then
 		if [[ $(lsb_release -r) == *"18.04"* ]]; then
-			printf 'Installing OpenJDK 11... ' | ${WTL[@]}
+			printf '\nInstalling OpenJDK 11... ' | ${WTL[@]}
 			test_on_success "$LOG" ${AI[@]} openjdk-11-jdk openjdk-11-doc openjdk-11-jre-headless openjdk-11-source
 		else
-			printf 'Installing OpenJDK 12... ' | ${WTL[@]}
+			printf '\nInstalling OpenJDK 12... ' | ${WTL[@]}
 			test_on_success "$LOG" ${AI[@]} openjdk-12-jdk openjdk-12-doc openjdk-12-jre-headless openjdk-12-source
 		fi
 	fi
 
 	if [[ $CR =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $CR ]]; then
-		printf 'Installing Cryptomator... ' | ${WTL[@]}
+		printf '\nInstalling Cryptomator... ' | ${WTL[@]}
 		&>>/dev/null sudo add-apt-repository -y ppa:sebastian-stenzel/cryptomator
 		
 		if [[ $? -ne 0 ]]; then
-			err "Could not add Cryptomator PPA\t\t\t\t\t\t\tSkipping"
+			err "Could not add Cryptomator PPA\n\t\t\t\t\tSkipping"
 		else
 			&>>/dev/null sudo apt update
-			>/dev/null "2>>${LOG}" ${AI[@]} cryptomator
+			>/dev/null 2>>${LOG} ${AI[@]} cryptomator
 		fi
 	fi
 
 	if [[ $TEX =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $TEX ]]; then
-		printf 'Installing TeX... ' | ${WTL[@]}
+		printf '\nInstalling TeX... ' | ${WTL[@]}
 		test_on_success "$LOG" ${AI[@]} texlive-full
 		test_on_success "$LOG" ${AI[@]} python3-pygments
 	fi
 
 	if [[ $OC =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $OC ]]; then
-		printf 'Installing ownCloud... ' | ${WTL[@]}
+		printf '\nInstalling ownCloud... ' | ${WTL[@]}
 		test_on_success "$LOG" ${AI[@]} owncloud-client
 	fi
 
 	if [[ $BE =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $BE ]]; then
-		printf 'Installing Build-Essential & CMake... ' | ${WTL[@]}
+		printf '\nInstalling Build-Essential & CMake... ' | ${WTL[@]}
 		test_on_success "$LOG" ${AI[@]} build-essential cmake
 	fi
 
 	if [[ $NVIM =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $NVIM ]]; then
-		printf 'Installing NeoVIM... ' | ${WTL[@]}
+		printf '\nInstalling NeoVIM... ' | ${WTL[@]}
 		test_on_success "$LOG" ${AI[@]} neovim
 	fi
 
 	if [[ $VSC =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $VSC ]]; then
-		printf 'Installing Visual Studio Code... ' | ${WTL[@]}
+		printf '\nInstalling Visual Studio Code... ' | ${WTL[@]}
 		test_on_success "$LOG" ${SI[@]} code --classic
 	fi
 
 	if [[ $VSCE =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $VSCE ]]; then
-		printf "Installing Visual Studio Code Extensions... " | ${WTL[@]}
+		printf '\nInstalling Visual Studio Code Extensions... ' | ${WTL[@]}
 		test_on_success "$LOG" "${DIR}/../sys/vscode/extensions.sh"
         echo ''
 	fi
 
 	if [[ $JBIDE =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $JBIDE ]]; then
-		printf "Installing JetBrains' IDE suite\n" | ${WTL[@]}
-		printf '  –> IntelliJ Ultimate... '
+		printf "\nInstalling JetBrains' IDE suite" | ${WTL[@]}
+		printf '\n  –> IntelliJ Ultimate... '
 		test_on_success "$LOG" ${SI[@]} intellij-idea-ultimate --classic
 		
-		printf '  –> PyCharm Professional... '
+		printf '\n  –> PyCharm Professional... '
 		test_on_success "$LOG" ${SI[@]} pycharm-professional --classic
 
-		printf '  –> CLion... '
+		printf '\n  –> CLion... '
 		test_on_success "$LOG" ${SI[@]} clion --classic
 	fi
 
 	if [[ $DOCK =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $DOCK ]]; then
-		printf 'Installing Docker... ' | ${WTL[@]}
-		test_on_success "$LOG" ${AI[@]} docker.io
+		printf '\nInstalling Docker... ' | ${WTL[@]}
+		test_on_success "$LOG" ${AI[@]} docker.io docker-containerd docker-compose
 	fi
 
 	if [[ $RUST =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RUST ]]; then
-		printf 'Installing RUST... ' | ${WTL[@]}
+		printf '\nInstalling RUST... ' | ${WTL[@]}
 
 		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile complete -y &>/dev/null
 		
@@ -399,7 +399,8 @@ function process_choices() {
 			printf "successful\n" | ${WTL[@]}
 		fi
 	fi
-	echo ''
+	
+	printf '\n\n' | ${WTL[@]}
 	succ 'Finished with processing user-choices' "$LOG"
 }
 
@@ -423,18 +424,18 @@ function main() {
 
 	if [[ $? -ne 0 ]]; then
 		echo ''
-		err 'User input invalid. Aborting.'
+		err 'User input invalid. Aborting.' | ${WTL[@]}
 		exit 1
 	fi
 
 	prechecks
 	init
 
-	warn 'Desktop packaging has begun'
+	warn 'Desktop packaging has begun' | ${WTL[@]}
 
 	choices
+	check_lightdm
 
-	echo ''
 	add_ppas
 
 	inform 'Initial update' "$LOG"
