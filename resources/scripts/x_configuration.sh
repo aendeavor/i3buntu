@@ -8,7 +8,7 @@
 # user-choices are handled, including the
 # installation of chosen fonts.
 # 
-# current version - 1.1.14 unstable
+# current version - 1.1.17 stable
 
 # ? Preconfig
 
@@ -71,7 +71,7 @@ backup() {
 	fi
 
 	if [ -d "${HOME}/.config" ]; then
-		echo -e "-> Found ~/.config directory... backing up" | ${WTL[@]}
+		echo -e "-> Found ${HOME}/.config directory... backing up" | ${WTL[@]}
 		# echo -e "Backing up to ${BACK}/.config"
 		>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${HOME}/.config/i3" "${BACK}"
 	fi
@@ -121,24 +121,6 @@ deploy() {
 	echo -e "-> Syncing compton.conf" | ${WTL[@]}
 	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/other_cfg/compton.conf" "${HOME}/.config"
 
-	if dpkg -s neovim &>/dev/null; then
-		mkdir -p "${HOME}/.config/nvim"
-		sudo mkdir -p "/root/.config/nvim"
-		echo -e "-> Syncing NeoVIM's configuration"
-		>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vi/.vimrc" "${HOME}"
-		>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/vi/.vimrc" "/root"
-
-		>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/vi/init.vim" "/root/.config/nvim"
-		>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vi/init.vim" "${HOME}/.config/nvim"
-
-    	>/dev/null 2>>"${LOG}" curl -fLo "${HOME}/.local/share/nvim/site/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >/dev/null
-    	>/dev/null 2>>"${LOG}" curl -fLo '/root/.local/share/nvim/site/autoload/plug.vim' --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >/dev/null
-
-		echo ''
-		inform 'You will need to run :PlugInstall seperately in NeoVIM as you cannot execute this command in a shell'
-		inform "Thereafter, run pyrhon3 ~/.config/nvim/plugged/YouCompleteMe/install.py\n"
-	fi
-
 	echo -e "-> Syncing alacritty.yml" | ${WTL[@]}
 	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/sh/alacritty.yml" "${HOME}/.config/alacritty"
 
@@ -153,8 +135,26 @@ deploy() {
 
     echo -e '-> Copying PowerLine-Go to /bin'
     >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/sh/powerline-go-linux-amd64" "/bin"
+	
+	if dpkg -s neovim &>/dev/null; then
+		mkdir -p "${HOME}/.config/nvim"
+		sudo mkdir -p "/root/.config/nvim"
+		echo -e "-> Syncing NeoVIM's configuration"
+		>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vi/.vimrc" "${HOME}"
+		>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/vi/.vimrc" "/root"
 
-	echo ''
+		>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/vi/init.vim" "/root/.config/nvim"
+		>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vi/init.vim" "${HOME}/.config/nvim"
+
+    	>/dev/null 2>>"${LOG}" curl -fLo "${HOME}/.local/share/nvim/site/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >/dev/null
+    	>/dev/null 2>>"${LOG}" curl -fLo '/root/.local/share/nvim/site/autoload/plug.vim' --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >/dev/null
+
+		echo ''
+		warn "You will need to run :PlugInstall seperately in NeoVIM\n\t\t\t\t\tas you cannot execute this command in a shell.\n\t\t\t\t\tThereafter, run python3 ~/.config/nvim/plugged/YouCompleteMe/install.py"
+	else
+		echo ''
+	fi
+
 	inform 'Reloading X-services'
 	&>/dev/null xrdb ${HOME}/.Xresources
 
@@ -197,6 +197,7 @@ post() {
 		return 1
 	fi
 
+	echo ''
 	read -p "It is recommended to restart now. Would you like to restart? [Y/n]" -r RESTART
 	if [[ $RESTART =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RESTART ]]; then
 	    shutdown --reboot 1 >/dev/null

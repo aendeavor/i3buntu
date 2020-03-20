@@ -61,7 +61,7 @@ backup() {
 	fi
 
 	if [ -d "${HOME}/.config" ]; then
-	    echo -e "-> Found ~/.config directory... backing up" | ${WTL[@]}
+	    echo -e "-> Found ${HOME}/.config directory... backing up" | ${WTL[@]}
 		# echo -e "\tBacking up to ${BACK}/.config"
 	    >/dev/null 2>>"${LOG}" sudo ${RS[@]} "${HOME}/.config/i3" "${BACK}"
 	fi

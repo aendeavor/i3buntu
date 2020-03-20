@@ -188,6 +188,7 @@ post() {
 		return 1
 	fi
 
+	echo ''
 	read -p "It is recommended to restart now. Would you like to restart? [Y/n]" -r RESTART
 	if [[ $RESTART =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RESTART ]]; then
 	    shutdown --reboot 1 >/dev/null
