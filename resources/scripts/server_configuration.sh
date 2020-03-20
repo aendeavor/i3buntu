@@ -7,7 +7,7 @@
 # This sctipt is not executed by hand, but rather
 # by the sever_packaging.sh script.
 # 
-# current version - 0.9.05 stable
+# current version - 0.9.06 stable
 
 # ? Preconfig
 
@@ -98,7 +98,7 @@ deploy() {
     	>/dev/null 2>>"${LOG}" curl -fLo '/root/.local/share/nvim/site/autoload/plug.vim' --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >/dev/null
 
 		echo ''
-		warn "You will need to run :PlugInstall seperately in NeoVIM\n\t\t\t\t\tas you cannot execute this command in a shell.\n\t\t\t\t\tThereafter, run ~/.config/nvim/plugged/YouCompleteMe/install.py"
+		warn "You will need to run :PlugInstall seperately in NeoVIM\n\t\t\t\t\tas you cannot execute this command in a shell.\n\t\t\t\t\tThereafter, run python3 ~/.config/nvim/plugged/YouCompleteMe/install.py"
 	fi
 }
 

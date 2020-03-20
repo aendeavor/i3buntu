@@ -140,7 +140,7 @@ function process_choices() {
 
 	if [[ $DOCK =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $DOCK ]]; then
 		printf '\nInstalling Docker... ' | ${WTL[@]}
-		test_on_success "$LOG" ${AI[@]} docker.io
+		test_on_success "$LOG" ${AI[@]} docker.io docker-containerd docker-compose
 	fi
 
 	if [[ $RUST =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RUST ]]; then
