@@ -3,7 +3,7 @@
 # This script serves as the main installation script
 # for all neccessary packages for a server installation.
 # 
-# current version - 1.3.0 unstable
+# current version - 1.4.12 stable
 
 # ? Preconfig
 
@@ -51,7 +51,7 @@ MISC=(
     neofetch
 
     ncdu
-	ripgrep 	# available in 18.10 and later
+	ripgrep
 )
 
 PACKAGES=( "${CRITICAL[@]}" "${ENV[@]}" "${MISC[@]}" )
@@ -59,7 +59,7 @@ PACKAGES=( "${CRITICAL[@]}" "${ENV[@]}" "${MISC[@]}" )
 # ? Actual script
 
 ## init of backup-directory and logfile
-init() {
+function init() {
 	if [[ ! -d "$BACK" ]]; then
 	    mkdir -p "$BACK"
 	fi
@@ -72,19 +72,30 @@ init() {
 	fi
 }
 
-## user-choices
-choices() {
+function choices() {
 	inform "Please make your choices:\n"
 
-	read -p "Would you like to execute ubuntu-driver autoinstall? [Y/n]" -r R1
-	read -p "Would you like to install Build-Essentials? [Y/n]" -r R2
-	read -p "Would you like to install NeoVIM? [Y/n]" -r R3
-	read -p "Would you like to install Docker? [Y/n]" -r R4
-	read -p "Would you like to get RUST? [Y/n]" -r R5
+	read -p "Would you like to execute ubuntu-driver autoinstall? [Y/n]" -r UDA
+	read -p "Would you like to install Build-Essentials? [Y/n]" -r BE
+	read -p "Would you like to install NeoVIM? [Y/n]" -r NVIM
+	read -p "Would you like to install Docker? [Y/n]" -r DOCK
+	read -p "Would you like to install RUST? [Y/n]" -r RUST
+
+	echo ''
+}
+
+function prechecks() {
+	_programs=( apt dpkg apt-get )
+	for _program in "${_programs[@]}"; do
+		if [[ -z $(which "${_program}") ]]; then
+			err "Could not find command ${_program}\n\t\t\t\t\t\t\tAborting"
+			exit 100
+		fi
+	done
 }
 
 ## (un-)install all packages with APT
-packages() {
+function packages() {
 	inform "Installing packages\n" "$LOG"
 
 	printf "%-35s | %-15s | %-15s" "PACKAGE" "STATUS" "EXIT CODE"
@@ -101,92 +112,115 @@ packages() {
 		fi
 
 		printf "\n"
-		&>>"${LOG}" echo -e "${PACKAGE}\n\t -> EXIT CODE: ${EC}"
+		&>>"${LOG}" echo -e "${PACKAGE} (${EC})"
 	done
 
-	echo ""
-	succ "Finished with actual script" "$LOG"
+	echo "" | ${WTL[@]}
+	succ "Finished with packaging" "$LOG"
 }
 
 ## processes user-choices from the beginning
-process_choices() {
-	inform "Processing user-choices\n" "$LOG"
+function process_choices() {
+	inform "Processing user-choices" "$LOG"
 
-	## graphics driver
-	if [[ $R1 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R1 ]]; then
-		echo 'Enabling ubuntu-drivers autoinstall' | ${WTL[@]}
-		&>>"${LOG}" sudo ubuntu-drivers autoinstall
+	if [[ $UDA =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $UDA ]]; then
+		printf '\nEnabling ubuntu-drivers autoinstall... ' | ${WTL[@]}
+		test_on_success "$LOG" sudo ubuntu-drivers autoinstall
 	fi
 
-	if [[ $R2 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R2 ]]; then
-		echo 'Installing build-essential & CMake' | ${WTL[@]}
-		>/dev/null 2>>"${LOG}" ${AI[@]} build-essential cmake
+	if [[ $BE =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $BE ]]; then
+		printf '\nInstalling build-essential & CMake... ' | ${WTL[@]}
+		test_on_success "$LOG" ${AI[@]} build-essential cmake
 	fi
 
-	if [[ $R3 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R3 ]]; then
-		echo -e 'Installing NeoVIM...' | ${WTL[@]}
-		>/dev/null 2>>"${LOG}" sudo apt-get install neovim
-		>/dev/null 2>>"${LOG}" curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-  		warn 'You will need to run :PlugInstall seperately in NeoVIM as you cannot execute this command in a shell.'
-    	warn 'Thereafter, run ~/.config/nvim/plugged/YouCompleteMe/install.py --racer-completer --tern-completer.'
-    	sleep 3s
+	if [[ $NVIM =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $NVIM ]]; then
+		printf '\nInstalling NeoVIM... ' | ${WTL[@]}
+		test_on_success "$LOG" ${AI[@]} neovim
 	fi
 
-	if [[ $R4 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R4 ]]; then
-		echo -e 'Installing Docker' | ${WTL[@]}
-		>/dev/null 2>>"${LOG}" ${AI[@]} docker.io
+	if [[ $DOCK =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $DOCK ]]; then
+		printf '\nInstalling Docker... ' | ${WTL[@]}
+		test_on_success "$LOG" ${AI[@]} docker.io docker-containerd docker-compose
 	fi
 
-	if [[ $R5 =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $R5 ]]; then
-		echo -e "Installing RUST" | ${WTL[@]}
+	if [[ $RUST =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RUST ]]; then
+		printf '\nInstalling RUST... ' | ${WTL[@]}
 
 		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile complete -y &>/dev/null
 		
-		if [[ -e "${HOME}/.cargo/env" ]]; then
-			source "${HOME}/.cargo/env"
+		if [[ $? -ne 0 ]]; then
+			printf "unsuccessful" | ${WTL[@]}
+		else
+			if [[ -e "${HOME}/.cargo/env" ]]; then
+				source "${HOME}/.cargo/env"
 
-			mkdir -p "${HOME}/.local/share/bash-completion/completions"
-			touch "${HOME}/.local/share/bash-completion/completions/rustup"
-			rustup completions bash > "${HOME}/.local/share/bash-completion/completions/rustup"
+				mkdir -p "${HOME}/.local/share/bash-completion/completions"
+				touch "${HOME}/.local/share/bash-completion/completions/rustup"
+				rustup completions bash > "${HOME}/.local/share/bash-completion/completions/rustup"
 
-			COMPONENTS=( rust-docs rust-analysis rust-src rustfmt rls clippy )
-			for COMPONENT in ${COMPONENTS[@]}; do
-				&>>"${LOG}" rustup component add $COMPONENT
-			done
+				COMPONENTS=( rust-docs rust-analysis rust-src rustfmt rls clippy )
+				for COMPONENT in ${COMPONENTS[@]}; do
+					&>>/dev/null rustup component add $COMPONENT
+				done
 
-			>/dev/null 2>>"${LOG}" rustup update
+				if [[ ! -z $(which code) ]]; then
+					code --install-extension rust-lang.rust &>/dev/null
+				fi
+			fi
+			printf "successful." | ${WTL[@]}
 		fi
 	fi
 
+	printf "\n\n" | ${WTL[@]}
 	succ 'Finished with processing user-choices' "$LOG"
 }
 
-# ? Execution of next script
-
-next() {
-	inform 'This script has finished'
-	inform 'Starting configuration-script now'
+# execution of next script
+function next() {
+	succ 'Packaging stage finished'
 
 	"${DIR}/server_configuration.sh"
 }
 
+post() {
+	if [[ -z $(which shutdown) ]]; then
+		warn 'Altough recommended, could not find shutdown command to restart'
+		return 1
+	fi
+
+	echo ''
+	read -p "It is recommended to restart now. Would you like to restart? [Y/n]" -r RESTART
+	if [[ $RESTART =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RESTART ]]; then
+	    shutdown --reboot 1 >/dev/null
+        inform 'Rebooting in one minute'
+	fi
+}
+
 # ! Main
 
-main() {
+function main() {
     sudo printf ''
-	inform 'Packaging has begun'
+	if [[ $? -ne 0 ]]; then
+		echo ''
+		err 'User input invalid. Aborting.'
+		exit 1
+	fi
+	
+	prechecks
 	init
+	
+	warn "Server packaging has begun" | ${WTL[@]}
+
 	choices
 
 	inform 'Initial update' "$LOG"
-	update
+	script_update "$LOG"
 	
 	packages
 	process_choices
 
-	succ 'Finished packaging' "$LOG"
 	next
+	post
 }
 
-main "$@" || exit 1
+main "$@"

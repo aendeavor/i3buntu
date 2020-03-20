@@ -7,7 +7,7 @@
 # installed extensions can be found under
 # ./README.adoc. 
 # 
-# current version - 0.4.0 unstable
+# current version - 0.5.0 unstable
 
 # ? Preconfig
 
@@ -30,15 +30,12 @@ EXT=(
     Equinusocio.vsc-material-theme
     formulahendry.code-runner
     James-Yu.latex-workshop
-    joaompinto.asciidoctor-vscode
-    jolaleye.horizon-theme-vscode
+	jolaleye.horizon-theme-vscode
     ms-azuretools.vscode-docker
     ms-python.python
     ms-vscode-remote.remote-containers
     ms-vscode-remote.remote-ssh
     ms-vscode-remote.remote-ssh-edit
-    ms-vscode-remote.remote-wsl
-    ms-vscode-remote.vscode-remote-extensionpack
     ms-vscode.cpptools
     PKief.material-icon-theme
     redhat.vscode-xml
@@ -47,13 +44,11 @@ EXT=(
     sainnhe.gruvbox-material
     serayuzgur.crates
     shd101wyy.markdown-preview-enhanced
-    stayfool.vscode-asciidoc
     streetsidesoftware.code-spell-checker
     streetsidesoftware.code-spell-checker-german
     vadimcn.vscode-lldb
     VisualStudioExptTeam.vscodeintellicode
     yzhang.markdown-all-in-one
-    jolaleye.horizon-theme-vscode
 )
 
 # ? Actual script
@@ -96,10 +91,6 @@ install_extensions() {
 		if (( $? == 0 )); then
 			inform 'As RUST is installed, we successfully installed rust-lang for VS Code too'
 		fi
-	fi
-
-	if [[ ! -z $(which gem) ]]; then
-		sudo gem install asciidoctor-pdf --pre
 	fi
 	
 	inform 'Finished installing VS Code extensions'
