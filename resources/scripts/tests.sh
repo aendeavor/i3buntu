@@ -19,17 +19,18 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 # ? Actual script
 
 # Insert something to test here
-run_test() {
-    echo 'Started Test'
-
-    echo 'Finished test'
+function run_test() {
+	
 }
 
 # ! Main
 
-main() {
+function main() {
 	warn 'This is a test!'
+	inform "Starting test\n"
 	run_test
+	echo ''
+	inform 'Finished test'
 }
 
 main "$@" || exit 1

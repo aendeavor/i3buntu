@@ -8,7 +8,7 @@
     "workbench.editor.limit.value": 3,
     "workbench.startupEditor": "newUntitledFile",
     "workbench.sideBar.location": "right",
-    "workbench.colorTheme": "Gruvbox Material Dark",
+    "workbench.colorTheme": "Horizon",
     "workbench.iconTheme": "material-icon-theme",
     
     // LaTeX (XE-TeX)
@@ -49,11 +49,6 @@
     // Explorer
     "explorer.confirmDragAndDrop": false,
     "explorer.confirmDelete": false,
-
-    // Asciidoc
-    "asciidoc.use_asciidoctorpdf": true,
-    "asciidoc.preview.useEditorStyle": false,
-    "asciidoc.use_asciidoctor_js": true,
     
     // VS IntelliCode
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",

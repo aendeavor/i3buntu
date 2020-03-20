@@ -1,3 +1,19 @@
+" 
+" ██╗███╗   ██╗██╗████████╗██╗   ██╗██╗███╗   ███╗
+" ██║████╗  ██║██║╚══██╔══╝██║   ██║██║████╗ ████║
+" ██║██╔██╗ ██║██║   ██║   ██║   ██║██║██╔████╔██║
+" ██║██║╚██╗██║██║   ██║   ╚██╗ ██╔╝██║██║╚██╔╝██║
+" ██║██║ ╚████║██║   ██║██╗ ╚████╔╝ ██║██║ ╚═╝ ██║
+" ╚═╝╚═╝  ╚═══╝╚═╝   ╚═╝╚═╝  ╚═══╝  ╚═╝╚═╝     ╚═╝
+"
+" ! INIT.VIM - CONFIGURATION FILE FOR NEOVIM
+" ! ~/.config/nvim/init.vim
+"
+" version   0.4.1
+" author    aendeavor@Georg Lauterbach
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Language and Encoding
 set spell spelllang=en_us
 set undofile
@@ -12,7 +28,7 @@ if has('clipboard')
   endif
 endif
 
-" Text alignemnt metrics
+" Text alignment metrics
 set ignorecase
 set conceallevel=1
 set expandtab
@@ -68,7 +84,7 @@ let NERDTreeQuitOnOpen=0
 let NERDTreeShowHidden=1
 let NERDTreeIgnore = ['\.pyc$']
 let g:ycm_autoclose_preview_window_after_completion=1
-autocmd VimEnter * NERDTree
+" autocmd VimEnter * NERDTree " open NerdTree automatically
 autocmd VimEnter * wincmd p
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
@@ -80,11 +96,10 @@ set mousehide               " Hide the mouse cursor while typing
 set background=dark
 set termguicolors
 syntax enable
-let g:oceanic_next_terminal_bold = 1
-let g:oceanic_next_terminal_italic = 1
-colorscheme OceanicNext
+let g:palenight_terminal_italics=1
+colorscheme palenight
 let g:lightline = {
-\   'colorscheme': 'wombat',
+\   'colorscheme': 'palenight',
 \   'active': {
 \     'left':[ [ 'mode', 'paste' ],
 \              [ 'gitbranch', 'readonly', 'filename', 'modified' ]

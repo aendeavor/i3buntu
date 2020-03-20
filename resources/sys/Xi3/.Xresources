@@ -1,6 +1,18 @@
-! With the help of https://terminal.sexy/
+!       _  __                                               
+!      | |/ /________  _________  __  _______________  _____
+!      |   // ___/ _ \/ ___/ __ \/ / / / ___/ ___/ _ \/ ___/
+!   _ /   |/ /  /  __(__  ) /_/ / /_/ / /  / /__/  __(__  ) 
+!  (_)_/|_/_/   \___/____/\____/\__,_/_/   \___/\___/____/  
+!                                                         
+! ! XRESOURCES - CONFIGURATION FOR X(org)
+! ! $HOME/.Xresources
+!
+! version   0.2.11
+! author    aendeavor@Georg Lauterbach
 
-!################################### XFT
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+! XFT
 
 Xft.dpi:                    96
 Xft.antialias:              true
@@ -10,114 +22,46 @@ Xft.autohint:               true
 Xft.hintstyle:              hintfull
 Xft.lcdfilter:              lcdfilter
 
-!################################### Colors
+! Colors
 
-! special
-*.foreground:   #c5c8c6
-*.background:   #232527
-*.cursorColor:  #c5c8c6
+!! special
+*.foreground:   #f3eff5
+*.background:   #1e1f29
+*.cursorColor:  #f3eff5
 
-! black
-*.color0:       #282a2e
-*.color8:       #373b41
+!! black
+*.color0:       #202125
+*.color8:       #3d4146
 
-! red
-*.color1:       #ce3f3f
-*.color9:       #cc6666
+!! red
+*.color1:       #ef3b3b
+*.color9:       #ed5d5d
 
-! green
+!! green
 *.color2:       #8c9440
 *.color10:      #b5bd68
 
-! yellow
+!! yellow
 *.color3:       #de935f
 *.color11:      #f0c674
 
-! blue
-*.color6:       #5f819d
-*.color14:      #81a2be
+!! blue
+*.color4:       #5f819d
+*.color12:      #81a2be
 
-! magenta
+!! magenta
 *.color5:       #85678f
 *.color13:      #b294bb
 
-! cyan
-*.color4:       #5e8d87
-*.color12:      #8abeb7
+!! cyan
+*.color6:       #5e8d87
+*.color14:      #8abeb7
 
-! white
+!! white
 *.color7:       #707880
-*.color15:      #c5c8c6
+*.color15:      #c7c3c9
 
-
-!################################### Legacy Colors (disabled)
-
-!! Dark Gunmetal
-!*background: #2A363B
-!*pointerColorBackground: #2A363B
-
-!! Platinum
-!*foreground: #E5E8E7
-!*cursorColor: #E5E8E7
-!*pointerColorForeground: #E5E8E7
-
-!! Paradise Pink
-!*color0: #E84A5F
-!*color8: #E84A5F
-
-!*color1: #E84A5F
-!*color9: #E84A5F
-
-!! Tea Rose
-!*color2: #FF847C
-!*color10: #FF847C
-
-!*color3: #FF847C
-!*color11: #FF847C
-
-!! Apricot
-!*color4: #FECEAB
-!*color12: #FECEAB
-
-!*color5: #FECEAB
-!*color13: #FECEAB
-
-!! Laurel Green
-!*color6: #9AB29A
-!*color14: #9AB29A
-
-!*color7: #9AB29A
-!*color15: #9AB29A
-
-############################################ ROFI
-
-rofi.fullscreen:        true
-rofi.color-enabled:     true
-
-rofi.color-window:      argb:e8080A0A,argb:00000000,#E95167
-rofi.color-normal:      argb:02000000,#E5E8E7,argb:02000000,argb:02000000,#E95167
-rofi.color-active:      argb:02000000,#E5E8E7,argb:02000000,argb:02000000,#E95167
-rofi.color-urgent:      argb:02000000,#E5E8E7,argb:02000000,argb:02000000,#E95167
-
-rofi.font:              RobotoMono NF 14
-rofi.eh:                2
-rofi.line-padding:      20
-! rofi.line-margin:       20
-rofi.separator-style:   none
-rofi.hide-scrollbar:    true
-rofi.lines:             5
-rofi.width:             100
-rofi.padding:           200
-rofi.bw:                0
-rofi.show-icons:        true
-
-rofi.threads:           0
-rofi.terminal:          "urxvt"
-rofi.no-plugins:        true
-rofi.auto-select:       true
-rofi.show-match:        true
-
-############################################ URXVT
+! URXVT
 
 URxvt*imLocale:             de_DE.UTF-8
 
@@ -131,48 +75,39 @@ URxvt.cursorBlink:          0
 
 URxvt*saveLines: 12000
 
-! scrolling
 URxvt*scrollBar:            false
 URxvt*scrollBar_right:      false
 URxvt*scrollstyle:          plain
 URxvt.scrollWithBuffer:     true
 
-!! Dark Gunmetal (Legacy)
 URxvt*background: rgba:0000/0000/0000/9999
-
-!! Platinum (Legacy)
 URxvt*foreground: #E5E8E7
 
-! Transparency - true or false (default)
 URxvt*transparent: true
-
-! Shading - 0 to 99 darkens, 101 to 200 lightens
 URxvt*shading: 55
-
-! Background blur - Higher = More
 URxvt*blurRadius: 7
 
-! Roboto Mono Nerd Font
-URxvt*font: xft:RobotoMono NF:style=Regular:pixelsize=14, \
-            xft:Iosevka Nerd Font Mono:style=Regular:pixelsize=14
-URxvt*boldFont: xft:RobotoMono NF:style=Bold:pixelsize=14, \
-                xft:Iosevka Nerd Font Mono:style=Bold:pixelsize=14
+URxvt*font: xft:RobotoMono NF:style=Regular:pixelsize=13, \
+            xft:Iosevka Nerd Font Mono:style=Regular:pixelsize=13
+URxvt*boldFont: xft:RobotoMono NF:style=Bold:pixelsize=13, \
+                xft:Iosevka Nerd Font Mono:style=Bold:pixelsize=13
 
-! Extensions
+!! Extensions
 URxvt.perl-ext-common: default,selection-to-clipboard,resize-font,matcher
 URxvt.perl-ext:
 
-! Disable ISO 14755 unicode input so we can use Ctrl-Shift bindings
+!! Disable ISO 14755 unicode input so we can use Ctrl-Shift bindings
 URxvt.iso14755:        false
 URxvt.iso14755_52:     false
 
-! Disable Ctrl-Alt-c & Ctrl-Alt-v bindings (optional)
+!! Disable Ctrl-Alt-c & Ctrl-Alt-v bindings (optional)
 URxvt.keysym.C-M-c:    builtin-string:
 URxvt.keysym.C-M-v:    builtin-string:
 
-! Copy & Paste with Control-Shift-c/v
+!! Copy & Paste with Control-Shift-c/v
 URxvt.clipboard.autocopy: true
 
-! Matcher (clickable URLs)
+!! Matcher (clickable URLs)
 URxvt.url-launcher: /usr/bin/firefox
 URxvt.matcher.button: 1
+
