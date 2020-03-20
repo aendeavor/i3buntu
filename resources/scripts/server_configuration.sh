@@ -5,10 +5,9 @@
 # backups existing config files and deploys new
 # and correct version from this repository.
 # This sctipt is not executed by hand, but rather
-# by the sever_packaging.sh script after it has
-# run.
+# by the sever_packaging.sh script.
 # 
-# current version - 0.9.2 stable
+# current version - 0.9.06 stable
 
 # ? Preconfig
 
@@ -62,7 +61,7 @@ backup() {
 	fi
 
 	if [ -d "${HOME}/.config" ]; then
-	    echo -e "-> Found ~/.config directory... backing up" | ${WTL[@]}
+	    echo -e "-> Found ${HOME}/.config directory... backing up" | ${WTL[@]}
 		# echo -e "\tBacking up to ${BACK}/.config"
 	    >/dev/null 2>>"${LOG}" sudo ${RS[@]} "${HOME}/.config/i3" "${BACK}"
 	fi
@@ -71,10 +70,13 @@ backup() {
 ## deployment of configuration files
 deploy() {
 	echo ''
-	inform "Proceeding to deploying config files" "$LOG"
+	inform "Proceeding to deploying config files\n" "$LOG"
 
-	DEPLOY_IN_HOME=( sh/.bashrc sh/.bash_aliases vi/.vimrc )
-	for sourceFile in "${DEPLOY_IN_HOME[@]}"; do
+    echo -e "-> Copying PowerLine-Go to /bin"
+    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/sh/powerline-go-linux-amd64" "/bin"
+
+	local _deploy_in_home=( sh/.bashrc sh/.bash_aliases vi/.vimrc )
+	for sourceFile in "${_deploy_in_home[@]}"; do
 	    echo -e "-> Syncing $(basename -- "${sourceFile}")"  | ${WTL[@]}
 	    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/${sourceFile}" "${HOME}"
 	done
@@ -82,10 +84,9 @@ deploy() {
 	>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/sh/.bashrc" "/root"
 	>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/sh/.bash_aliases" "/root"
 
-	mkdir -p "${HOME}/.config/nvim"
-	sudo mkdir -p "/root/.config/nvim"
-
 	if dpkg -s neovim &>/dev/null; then
+		mkdir -p "${HOME}/.config/nvim"
+		sudo mkdir -p "/root/.config/nvim"
 		echo -e "-> Syncing NeoVIM's configuration"
 		>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vi/.vimrc" "${HOME}"
 		>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/vi/.vimrc" "/root"
@@ -95,18 +96,9 @@ deploy() {
 
     	>/dev/null 2>>"${LOG}" curl -fLo "${HOME}/.local/share/nvim/site/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >/dev/null
     	>/dev/null 2>>"${LOG}" curl -fLo '/root/.local/share/nvim/site/autoload/plug.vim' --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >/dev/null
-	fi
 
-    echo -e "-> Copying PowerLine-Go to /bin\n"
-    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/sh/powerline-go-linux-amd64" "/bin"
-}
-
-## postconfiguration
-post() {
-	read -p "It is recommended to restart. Would you like to schedule a restart? [Y/n]" -r RESTART
-	if [[ $RESTART =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RESTART ]]; then
-	    shutdown --reboot 1 &>/dev/null
-		inform 'Rebooting in one minute'
+		echo ''
+		warn "You will need to run :PlugInstall seperately in NeoVIM\n\t\t\t\t\tas you cannot execute this command in a shell.\n\t\t\t\t\tThereafter, run python3 ~/.config/nvim/plugged/YouCompleteMe/install.py"
 	fi
 }
 
@@ -114,14 +106,13 @@ post() {
 
 main() {
     sudo printf ''
-	inform "Configuration has begun"
+	inform "Server configuration has begun"
 
 	init
 	backup
 	deploy
 
-    succ "Finished configuration\n"
-	post
+    succ "Configuration stage finished\n"
 }
 
 main "$@" || exit 1

@@ -8,7 +8,7 @@
 # user-choices are handled, including the
 # installation of chosen fonts.
 # 
-# current version - 1.1.13 unstable
+# current version - 1.1.17 stable
 
 # ? Preconfig
 
@@ -71,7 +71,7 @@ backup() {
 	fi
 
 	if [ -d "${HOME}/.config" ]; then
-		echo -e "-> Found ~/.config directory... backing up" | ${WTL[@]}
+		echo -e "-> Found ${HOME}/.config directory... backing up" | ${WTL[@]}
 		# echo -e "Backing up to ${BACK}/.config"
 		>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${HOME}/.config/i3" "${BACK}"
 	fi
@@ -80,10 +80,10 @@ backup() {
 ## deployment of configuration files
 deploy() {
 	echo ''
-	inform "Proceeding to deploying config files" "$LOG"
+	inform "Proceeding to deploying config files\n" "$LOG"
 	
-	DEPLOY_IN_HOME=( sh/.bashrc sh/.bash_aliases vi/.vimrc vi/.viminfo Xi3/.Xresources )
-	for sourceFile in "${DEPLOY_IN_HOME[@]}"; do
+	local _deploy_in_home=( sh/.bashrc sh/.bash_aliases vi/.vimrc vi/.viminfo Xi3/.Xresources )
+	for sourceFile in "${_deploy_in_home[@]}"; do
 	    echo -e "-> Syncing $(basename -- "${sourceFile}")"  | ${WTL[@]}
 	    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/${sourceFile}" "${HOME}"
 	done
@@ -121,18 +121,6 @@ deploy() {
 	echo -e "-> Syncing compton.conf" | ${WTL[@]}
 	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/other_cfg/compton.conf" "${HOME}/.config"
 
-	if dpkg -s neovim &>/dev/null; then
-	    echo -e "-> Syncing NeoVIM's configuration"
-		>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vi/.vimrc" "${HOME}"
-		>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/vi/.vimrc" "/root"
-
-		>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/vi/init.vim" "/root/.config/nvim"
-		>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vi/init.vim" "${HOME}/.config/nvim"
-
-    	>/dev/null 2>>"${LOG}" curl -fLo "${HOME}/.local/share/nvim/site/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >/dev/null
-    	>/dev/null 2>>"${LOG}" curl -fLo '/root/.local/share/nvim/site/autoload/plug.vim' --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >/dev/null
-	fi
-
 	echo -e "-> Syncing alacritty.yml" | ${WTL[@]}
 	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/sh/alacritty.yml" "${HOME}/.config/alacritty"
 
@@ -147,10 +135,28 @@ deploy() {
 
     echo -e '-> Copying PowerLine-Go to /bin'
     >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/sh/powerline-go-linux-amd64" "/bin"
+	
+	if dpkg -s neovim &>/dev/null; then
+		mkdir -p "${HOME}/.config/nvim"
+		sudo mkdir -p "/root/.config/nvim"
+		echo -e "-> Syncing NeoVIM's configuration"
+		>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vi/.vimrc" "${HOME}"
+		>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/vi/.vimrc" "/root"
 
-	echo ''
+		>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/vi/init.vim" "/root/.config/nvim"
+		>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vi/init.vim" "${HOME}/.config/nvim"
+
+    	>/dev/null 2>>"${LOG}" curl -fLo "${HOME}/.local/share/nvim/site/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >/dev/null
+    	>/dev/null 2>>"${LOG}" curl -fLo '/root/.local/share/nvim/site/autoload/plug.vim' --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >/dev/null
+
+		echo ''
+		warn "You will need to run :PlugInstall seperately in NeoVIM\n\t\t\t\t\tas you cannot execute this command in a shell.\n\t\t\t\t\tThereafter, run python3 ~/.config/nvim/plugged/YouCompleteMe/install.py"
+	else
+		echo ''
+	fi
+
 	inform 'Reloading X-services'
-	>/dev/null 2>>"${LOG}" xrdb ${HOME}/.Xresources
+	&>/dev/null xrdb ${HOME}/.Xresources
 
     inform 'Nemo is being configured...' "$LOG"
     xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search
@@ -191,6 +197,7 @@ post() {
 		return 1
 	fi
 
+	echo ''
 	read -p "It is recommended to restart now. Would you like to restart? [Y/n]" -r RESTART
 	if [[ $RESTART =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RESTART ]]; then
 	    shutdown --reboot 1 >/dev/null
@@ -202,7 +209,7 @@ post() {
 
 main() {
     sudo printf ''
-	inform 'Configuration has begun'
+	inform 'Desktop configuration has begun'
 
 	init
 	choices
@@ -211,8 +218,8 @@ main() {
 	deploy
 	process_choices
 
-	succ 'Finished' "$LOG"
+	succ 'Finished configuraton stage' "$LOG"
 	post
 }
 
-main "$@" || exit
+main "$@"
