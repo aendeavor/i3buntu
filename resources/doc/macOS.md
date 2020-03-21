@@ -4,7 +4,7 @@
 
 ## _BASH 5_
 
-After installing macOS and setting everything up via a graphical user interface, we need to setup _bash_ properly. As _macOS_ ships with bash 3.2_ because of licensing issues, we will download, compile and install _bash 5.0.x_ ourselves.
+After installing _macOS_ and setting everything up via a graphical user interface, we need to setup _bash_ properly. As _macOS_ ships with _bash 3.2_ because of licensing issues, we will download, compile and install _bash 5.0.x_ ourselves.
 
 ``` BASH
 # this is BASH3
@@ -14,9 +14,8 @@ tar xvzf bash-5.0.tar.gz
 cd bash-5.0
 
 # check how many patches are currently available
-# if not working, download and patch separately with `patch -p0 -i patches/bash50-0XX`
+# if this does not work, download and patch separately with `patch -p0 -i patches/bash50-0XX`
 curl 'https://ftp.gnu.org/gnu/bash/bash-5.0-patches/bash50-[001-016]' | patch -p0
-
 
 # configure and build BASH5
 ./configure
@@ -53,13 +52,14 @@ These should all show version 5. You can now, if you like, turn SIP back on, by 
 # Install Homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
-# If there are errors install with brew, execute this
+# If there are errors installing programs
+# with brew, execute this
 cd /usr/local/share/man
 sudo chmod -R 775 *
 cd /usr/local/share/locale
 sudo chmod -R 775 *
 
-# Install other programs with Homebrew
+# Install other programs
 brew install neofetch
 brew install neovim
 brew install python3
@@ -75,7 +75,7 @@ brew cask install font-fira-code
 
 ## Configuration
 
-You can download a patched version of `.bashrc` and `.bash_aliases` into `$HOME`. These will work with _bash5_. They will source a correct `$PATH`.
+You can download a patched version of `.bashrc` and `.bash_aliases` into `$HOME`. These will work with _bash5_. All other configuration can be downloaded and used with the command given below.
 
 ``` BASH
 # BASH
@@ -88,7 +88,7 @@ cd ${HOME}/.config/alacritty
 curl https://raw.githubusercontent.com/aendeavor/i3buntu/master/resources/sys/sh/macOS/alacritty.yml > alacritty.yml
 curl https://raw.githubusercontent.com/alacritty/alacritty/master/extra/alacritty.info > alacritty.info
 curl https://raw.githubusercontent.com/alacritty/alacritty/master/extra/completions/alacritty.bash > alacritty.bash
-sudo tic -xe alacritty,alacritty-direct extra/alacritty.info
+sudo tic -xe alacritty,alacritty-direct alacritty.info
 
 # VS Code
 _extensions=(
