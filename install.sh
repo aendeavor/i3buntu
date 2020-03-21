@@ -61,7 +61,7 @@ EOF
 
 function say() {
 	printf "$2"
-	echo -e "		 $1"
+	echo -e "	    $1"
 }
 
 function desktop() {
