@@ -64,6 +64,7 @@ brew install neofetch
 brew install neovim
 brew install python3
 brew install cmake
+brew install htop
 
 brew cask install visual-studio-code
 brew cask install alacritty
