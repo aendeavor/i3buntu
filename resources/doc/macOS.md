@@ -91,7 +91,7 @@ curl https://raw.githubusercontent.com/alacritty/alacritty/master/extra/completi
 sudo tic -xe alacritty,alacritty-direct extra/alacritty.info
 
 # VS Code
-EXT=(
+_extensions=(
     2gua.rainbow-brackets
     aaron-bond.better-comments
     alefragnani.Bookmarks
@@ -125,13 +125,13 @@ EXT=(
 
 printf "%-40s | %-15s | %-15s" "EXTENSION" "STATUS" "EXIT CODE"
 echo ''
-for EXTENSION in ${EXT[@]}; do
-  &>>/dev/null ${INSTALL[@]} ${EXTENSION}
+for _extension in ${_extensions[@]}; do
+  &>>/dev/null code --install-extension ${_extension}
   EC=$?
   if (( $EC != 0 )); then
-    printf "%-40s | %-15s | %-15s" "${EXTENSION}" "Not Installed""${EC}"
+    printf "%-40s | %-15s | %-15s" "${_extension}" "Not Installed""${EC}"
   else
-    printf "%-40s | %-15s | %-15s" "${EXTENSION}" "Installed" "{EC}"
+    printf "%-40s | %-15s | %-15s" "${_extension}" "Installed" "{EC}"
   fi
   echo ''
 done
@@ -150,7 +150,3 @@ curl https://raw.githubusercontent.com/aendeavor/i3buntu/master/resources/sys/vi
 cd ${HOME}/.config/nvim/plugged/YouCompleteMe
 python3.X install.py
 ```
-
-## Fonts
-
-Download [FiraCode NF](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip) and [FiraMono NF](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraMono.zip). The installation is straightforward.
