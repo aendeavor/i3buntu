@@ -98,6 +98,18 @@ neofetch_parameterized() {
   echo '' 
 }
 
+path() {
+	PATH="$PATH:/Applications/Visual Studio \
+	Code.app/Contents/Resources/app/bin"
+	PATH="$PATH:/usr/local/Homebrew/bin"
+	PATH="$PATH:${HOME}/.cargo/bin"
+
+	PATH="$PATH:/usr/local/bin"
+	PATH="$PATH:/usr/sbin"
+
+	export PATH
+}
+
 main() {
   check_on_interactive  
   history_parameters
@@ -106,6 +118,7 @@ main() {
   aliases
   programmable_completion
   neofetch_parameterized
+  path
 }
 
 main "$@" || exit 1
