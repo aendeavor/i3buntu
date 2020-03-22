@@ -9,7 +9,7 @@ After installing and configuring _macOS_, we need to setup _Bash_ properly. As _
 ``` BASH
 # Currently in Bash v3
 cd ${HOME}/Downloads
-wget https://ftp.gnu.org/gnu/bash/bash-5.0.tar.gz
+curl https://ftp.gnu.org/gnu/bash/bash-5.0.tar.gz -o bash-5.0.tar.gz
 tar xvzf bash-5.0.tar.gz
 cd bash-5.0
 
@@ -62,7 +62,7 @@ sudo chmod -R 775 *
 
 # Install other programs
 brew install neofetch neovim python3 firefox
-brew install cmake htop git
+brew install cmake htop git wget
 
 brew cask install visual-studio-code
 brew cask install alacritty
