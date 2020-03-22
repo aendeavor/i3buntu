@@ -62,7 +62,7 @@ sudo chmod -R 775 *
 
 # Install other programs
 brew install neofetch neovim python3 firefox
-brew install cmake htop git
+brew install cmake htop git gpg
 
 brew cask install thunderbird firefox visual-studio-code alacritty
 
