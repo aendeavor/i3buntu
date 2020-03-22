@@ -64,8 +64,7 @@ sudo chmod -R 775 *
 brew install neofetch neovim python3 firefox
 brew install cmake htop git
 
-brew cask install visual-studio-code
-brew cask install alacritty
+brew cask install thunderbird firefox visual-studio-code alacritty
 
 brew tap homebrew/cask-fonts
 brew cask install font-fira-code
