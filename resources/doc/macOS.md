@@ -63,10 +63,38 @@ cd /usr/local/share/locale
 sudo chmod -R 775 *
 
 # Install other programs
-brew install neofetch neovim python3 firefox
-brew install cmake htop git gpg pinentry-mac
+_brew_install=(
+    neofetch
+    neovim
+    python3
+    firefox
+    cmake
+    htop
+    git
+    gpg
+    pinentry-mac
+)
 
-brew cask install thunderbird firefox visual-studio-code alacritty cryptomator owncloud libreoffice teamviewer balenaetcher
+for _candidate in ${_brew_install[@]}; do
+  brew install $_candidate
+done
+
+_bci=(
+    thunderbird
+    firefox
+    visual-studio-code
+    alacritty
+    cryptomator
+    owncloud
+    libreoffice
+    teamviewer
+    balenaetcher
+    gitkraken
+)
+
+for _candidate in ${_bci[@]}; do
+  brew cask install $_candidate
+done
 
 brew tap homebrew/cask-fonts
 brew cask install font-fira-code
@@ -141,9 +169,9 @@ for _extension in ${_extensions[@]}; do
   &>>/dev/null code --install-extension ${_extension}
   EC=$?
   if (( $EC != 0 )); then
-    printf "%-40s | %-15s | %-15s" "${_extension}" "Not Installed""${EC}"
+    printf "%-40s | %-15s | %-15s" "${_extension}" "Not Installed" "${EC}"
   else
-    printf "%-40s | %-15s | %-15s" "${_extension}" "Installed" "{EC}"
+    printf "%-40s | %-15s | %-15s" "${_extension}" "Installed" "${EC}"
   fi
   echo ''
 done
