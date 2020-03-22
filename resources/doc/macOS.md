@@ -193,6 +193,6 @@ We already downloaded `pinentry-mac` to serve as a graphical interface for _GnuP
 
 ```BASH
 cd .gnupg
-touch gpg-agent.cong
+touch gpg-agent.conf
 echo "pinentry-program /usr/local/bin/pinentry-mac" >> gpg-agent.conf
 ```
