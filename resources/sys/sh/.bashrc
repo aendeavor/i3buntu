@@ -127,6 +127,7 @@ main() {
   check_on_interactive  
   history_parameters
   shopts
+  misc
   prompt
   aliases
   programmable_completion
@@ -134,4 +135,4 @@ main() {
   #powerline
 }
 
-main "$@" || exit 1
+main "$@"

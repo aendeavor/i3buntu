@@ -39,8 +39,8 @@ shopts() {
 
 misc() {
   stty -ixon
-
-  export VISUAL=vim
+ 
+  export VISUAL=nvim
   export EDITOR="$VISUAL"
 
   # more friendly less for non-text input files
@@ -114,6 +114,7 @@ main() {
   check_on_interactive  
   history_parameters
   shopts
+  misc
   prompt
   aliases
   programmable_completion
@@ -121,4 +122,5 @@ main() {
   path
 }
 
-main "$@" || exit 1
+main "$@"
+
