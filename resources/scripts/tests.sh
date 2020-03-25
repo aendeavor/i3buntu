@@ -34,3 +34,4 @@ function main() {
 }
 
 main "$@" || exit 1
+

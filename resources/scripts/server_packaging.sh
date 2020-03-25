@@ -223,4 +223,5 @@ function main() {
 	post
 }
 
-main "$@"
+main "$@" || exit 1
+
