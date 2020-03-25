@@ -29,6 +29,7 @@ EXT=(
     editorconfig.editorconfig
     Equinusocio.vsc-material-theme
     formulahendry.code-runner
+    karunamurti.tera
     James-Yu.latex-workshop
 	jolaleye.horizon-theme-vscode
     ms-azuretools.vscode-docker
