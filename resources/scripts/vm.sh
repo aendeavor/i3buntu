@@ -33,7 +33,7 @@ function edit_sudoers() {
 
 	sudo touch /etc/sudoers.d/vmware
 
-	echo '# Execute VM Ware Workstation Player as sudo without password' | (sudo su -c 'EDITOR="tee -a" visudo -f /etc/sudoers.d/	vmware') &>/dev/null
+	echo '# Execute VM Ware Workstation Player as sudo without password' | (sudo su -c 'EDITOR="tee -a" visudo -f /etc/sudoers.d/vmware') &>/dev/null
 	echo -e "$(whoami) ALL=NOPASSWD:/usr/bin/vmplayer" | (sudo su -c 'EDITOR="tee -a" visudo -f /etc/sudoers.d/vmware') &>/dev/null
 
 	succ 'VM Ware Workstation Player installed'
