@@ -50,6 +50,8 @@ These should all show version 5. Now, turn SIP back on, by following the steps t
 
 With _[Homebrew](https://brew.sh/)_, we can install all other programs we need, i.e. _Visual Studio Code_, _Git_, _NeoVim_, etc. Furthermore, we will be installing _FiraCode_, a special coding font.
 
+[//]: # (cask sources https://formulae.brew.sh/cask/)
+
 ``` BASH
 # Install Homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
@@ -61,11 +63,38 @@ cd /usr/local/share/locale
 sudo chmod -R 775 *
 
 # Install other programs
-brew install neofetch neovim python3 firefox
-brew install cmake htop git wget
+_brew_install=(
+    neofetch
+    neovim
+    python3
+    firefox
+    cmake
+    htop
+    git
+    gpg
+    pinentry-mac
+)
 
-brew cask install visual-studio-code
-brew cask install alacritty
+for _candidate in ${_brew_install[@]}; do
+  brew install $_candidate
+done
+
+_bci=(
+    thunderbird
+    firefox
+    visual-studio-code
+    alacritty
+    cryptomator
+    owncloud
+    libreoffice
+    teamviewer
+    balenaetcher
+    gitkraken
+)
+
+for _candidate in ${_bci[@]}; do
+  brew cask install $_candidate
+done
 
 brew tap homebrew/cask-fonts
 brew cask install font-fira-code
@@ -140,9 +169,9 @@ for _extension in ${_extensions[@]}; do
   &>>/dev/null code --install-extension ${_extension}
   EC=$?
   if (( $EC != 0 )); then
-    printf "%-40s | %-15s | %-15s" "${_extension}" "Not Installed""${EC}"
+    printf "%-40s | %-15s | %-15s" "${_extension}" "Not Installed" "${EC}"
   else
-    printf "%-40s | %-15s | %-15s" "${_extension}" "Installed" "{EC}"
+    printf "%-40s | %-15s | %-15s" "${_extension}" "Installed" "${EC}"
   fi
   echo ''
 done
@@ -156,4 +185,14 @@ curl https://raw.githubusercontent.com/aendeavor/i3buntu/master/resources/sys/vi
 # next, compile YouCompleteMe with python3.X
 cd ${HOME}/.config/nvim/plugged/YouCompleteMe
 python3.7 install.py
+```
+
+### Thunderbird
+
+We already downloaded `pinentry-mac` to serve as a graphical interface for _GnuPG_ when we want to sign and encrypt E-Mails with _Thunderbird_. We have to make sure this program is used when signing and encrypting.
+
+```BASH
+cd .gnupg
+touch gpg-agent.conf
+echo "pinentry-program /usr/local/bin/pinentry-mac" >> gpg-agent.conf
 ```
