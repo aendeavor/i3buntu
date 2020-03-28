@@ -35,6 +35,11 @@ alias vmp='sudo vmplayer &>/dev/null &'
 alias v='nvim'
 alias sv='sudo nvim'
 
+alias d='docker'
+alias dc='docker-compose'
+alias dcu='docker-compose up'
+alias dcd='docker-compose down'
+
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'

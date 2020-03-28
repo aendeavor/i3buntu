@@ -36,7 +36,7 @@ CRITICAL=(
     snapd
 
     vim
-    ranger
+    git
 )
 
 ENV=(
@@ -99,6 +99,7 @@ function prechecks() {
 
 ## (un-)install all packages with APT
 function packages() {
+    &>/dev/null sudo add-apt-repository -y ppa:git-core/ppa
 	inform "Installing packages\n" "$LOG"
 
 	printf "%-35s | %-15s | %-15s" "PACKAGE" "STATUS" "EXIT CODE"
