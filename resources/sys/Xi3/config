@@ -207,9 +207,9 @@ exec_always xrandr
 set $ws1 "1 Terminal"
 set $ws2 "2 Code"
 set $ws3 "3 FireFox"
-set $ws4 "4 FireFox"
-set $ws5 "5 Media"
-set $ws6 "6 Media"
+set $ws4 "4 Terminal"
+set $ws5 "5 Terminal"
+set $ws6 "6 Git"
 set $ws7 "7 Misc"
 set $ws8 "8 Misc"
 set $ws9 "9 IDE"
@@ -240,6 +240,7 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 # Assign workspaces to programs
 assign [class="Code"] $ws2
 assign [class="Firefox"] $ws3
+assign [class="GitKraken"] $ws6
 assign [class="jetbrains-idea"] $ws9
 assign [class="jetbrains-pycharm"] $ws9
 assign [class="jetbrains-clion"] $ws9
