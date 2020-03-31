@@ -49,5 +49,5 @@ class NautilusCode(Nautilus.MenuProvider, GObject.GObject):
 		return item
 
 	def _terminal_run(self, menu, file):
-		execute = '/snap/bin/code ' + str(urllib.unquote(file.get_uri()[7:])) + ' &'
+		execute = "/snap/bin/code '" + str(urllib.unquote(file.get_uri()[7:])) + "' &"
 		os.system(execute)
