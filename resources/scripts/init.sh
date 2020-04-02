@@ -49,6 +49,27 @@ function say() {
 	echo -e "		$1"
 }
 
+function check_wget() {
+	[ -n $(which wget) ] || sudo apt-get install -y wget &>/dev/null
+
+	if (( $? != 0 )); then
+		warn 'Could not find or install wget'
+		abort 100
+	fi
+}
+
+function download() {
+	inform 'Downloading latest stable version of i3buntu'
+	
+	wget "https://github.com/aendeavor/i3buntu/archive/${LATEST}" &>/dev/null
+	local RESPONSE=$?
+	if [[ RESPONSE -ne 0 ]]; then
+		warn "Could not download latest stable version\n\
+		curl exit code was: $RESPONSE"
+		abort 100
+	fi
+}
+
 # Checks whether a directory called i3buntu is already present (aborts if this is the case)
 # and checks if there is a tar with this name (which will be be reused)
 function check_on_present() {
@@ -63,19 +84,8 @@ function check_on_present() {
 		return
 	fi
 
+	check_wget
 	download	
-}
-
-function download() {
-	inform 'Downloading latest stable version of i3buntu'
-	
-	curl -o "https://github.com/aendeavor/i3buntu/archive/${LATEST}" -o $LATEST &>/dev/null
-	local RESPONSE=$?
-	if [[ RESPONSE -ne 0 ]]; then
-		warn "Could not download latest stable version\n\
-		curl exit code was: $RESPONSE"
-		abort 100
-	fi
 }
 
 function decompress() {
