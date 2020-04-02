@@ -38,7 +38,7 @@
     ],
 
     // Font
-    "editor.fontFamily": "Fira Code Retina",
+    "editor.fontFamily": "Fira Code Retina", // "FiraCode-Retina" if macOS
     "editor.fontLigatures": true,
 	
     // Editor

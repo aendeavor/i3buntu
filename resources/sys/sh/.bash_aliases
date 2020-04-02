@@ -34,6 +34,11 @@ alias vmp='sudo vmplayer &>/dev/null &'
 alias v='nvim'
 alias sv='sudo nvim'
 
+alias d='docker'
+alias dc='docker-compose'
+alias dcu='docker-compose up'
+alias dcd='docker-compose down'
+
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
@@ -110,7 +115,7 @@ export -f a
 function sf () {
     SEARCH=${1:?Enter a search-regex}
     MAXDEPTH=${2:-1}
-    find . -maxdepth $MAXDEPTH -iregex "[a-z0-9_\.\/\ ]*${SEARCH}" -type f
+    find . -maxdepth $MAXDEPTH -iregex "[a-z0-9_\.\/\ ]*${SEARCH}[a-z0-9_\.\/\ ]*" -type f
     ls -lha | grep $1
     return
 }
