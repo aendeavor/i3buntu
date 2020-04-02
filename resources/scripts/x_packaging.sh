@@ -156,7 +156,10 @@ function choices() {
 	fi
 
 	read -p 'Would you like to install the JetBrains IDE suite? [Y/n]' -r JBIDE
-	read -p 'Would you like to install Docker? [Y/n]' -r DOCK
+	
+	DOCK="n"
+	[ -z $(which docker) ] && read -p "Would you like to install Docker? [Y/n]" -r DOCK
+
 	read -p 'Would you like to install RUST? [Y/n]' -r RUST
 
 	echo ''
@@ -369,7 +372,15 @@ function process_choices() {
 
 	if [[ $DOCK =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $DOCK ]]; then
 		printf '\nInstalling Docker... ' | ${WTL[@]}
-		test_on_success "$LOG" ${AI[@]} docker.io docker-containerd docker-compose
+		
+		curl -fsSL https://get.docker.com -o get-docker.sh &>/dev/null
+		sudo sh get-docker.sh &>/dev/null
+		sudo usermod -aG docker "$(whoami)" &>/dev/null
+
+		sudo curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose &>/dev/null
+		sudo chmod +x /usr/local/bin/docker-compose &>/dev/null
+
+		 sudo curl -L https://raw.githubusercontent.com/docker/compose/1.25.4/contrib/completion/bash/docker-compose -o /etc/bash_completion.d/docker-compose &>/dev/null
 	fi
 
 	if [[ $RUST =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RUST ]]; then
@@ -449,4 +460,5 @@ function main() {
 	post
 }
 
-main "$@"
+main "$@" || exit 1
+

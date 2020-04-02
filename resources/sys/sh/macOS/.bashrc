@@ -9,8 +9,9 @@
 # 
 # Executed by BASH for non-login shells
 # Loads $HOME/.bash_aliases
+# Patched for macOS and BASH5
 #
-# version   0.6.4
+# version   0.6.4+
 # author    aendeavor@Georg Lauterbach
 
 ###########################################################
@@ -38,8 +39,8 @@ shopts() {
 
 misc() {
   stty -ixon
-
-  export VISUAL=vim
+ 
+  export VISUAL=nvim
   export EDITOR="$VISUAL"
 
   # more friendly less for non-text input files
@@ -47,23 +48,13 @@ misc() {
 
   # colored GCC warnings and errors
   export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+  source ${HOME}/.config/alacritty/alacritty.bash
 }
 
 prompt() {
-  # set variable identifying chroot you work in
-  if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-      debian_chroot=$(cat /etc/debian_chroot)
-  fi
-  
   if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-    PS1='${debian_chroot:+($debian_chroot)}'
-  
-    # PS1+='\[\e[38;5;11m\]'
-    # PS1+='[\u@\h]'
-  
-    # PS1+='\[\e[0m\] : '
-  
-    PS1+='\[\e[38;5;72m\]'
+    PS1='\[\e[38;5;72m\]'
     PS1+='[ \w ]'
   
     PS1+='\[\e[0m\] \$ '
@@ -94,10 +85,9 @@ programmable_completion() {
 neofetch_parameterized() {
   neofetch\
     --ascii\
-    --disable term uptime packages resolution theme icons cpu gpu\
+    --disable term uptime packages resolution theme icons cpu gpu wm de\
     --gtk3 on\
     --bar_border on\
-    --ascii_distro arch\
 	--underline_char \ \
     --block_range 0 7\
     --block_width 4\
@@ -107,20 +97,16 @@ neofetch_parameterized() {
   echo '' 
 }
 
-update_ps1() {
-  PS1="$(/bin/powerline-go-linux-amd64\
-    -error $?\
-    -numeric-exit-codes\
-    -cwd-max-depth 7\
-    -cwd-max-dir-size 11\
-    -modules "ssh,cwd,git,hg,jobs,exit,root"\
-  )"
-}
+path() {
+	PATH="$PATH:/Applications/Visual Studio \
+	Code.app/Contents/Resources/app/bin"
+	PATH="$PATH:/usr/local/Homebrew/bin"
+	PATH="$PATH:${HOME}/.cargo/bin"
 
-powerline() {
-  if [ "$TERM" != "linux" ] && [ -f "/bin/powerline-go-linux-amd64" ]; then
-    PROMPT_COMMAND="update_ps1; $PROMPT_COMMAND"
-  fi
+	PATH="$PATH:/usr/local/bin"
+	PATH="$PATH:/usr/sbin"
+
+	export PATH
 }
 
 main() {
@@ -132,7 +118,8 @@ main() {
   aliases
   programmable_completion
   neofetch_parameterized
-  #powerline
+  path
 }
 
 main "$@"
+

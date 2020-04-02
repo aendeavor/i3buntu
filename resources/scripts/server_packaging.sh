@@ -36,7 +36,7 @@ CRITICAL=(
     snapd
 
     vim
-    ranger
+    git
 )
 
 ENV=(
@@ -78,7 +78,10 @@ function choices() {
 	read -p "Would you like to execute ubuntu-driver autoinstall? [Y/n]" -r UDA
 	read -p "Would you like to install Build-Essentials? [Y/n]" -r BE
 	read -p "Would you like to install NeoVIM? [Y/n]" -r NVIM
-	read -p "Would you like to install Docker? [Y/n]" -r DOCK
+
+	DOCK="n"
+	[ -z $(which docker) ] && read -p "Would you like to install Docker? [Y/n]" -r DOCK
+	
 	read -p "Would you like to install RUST? [Y/n]" -r RUST
 
 	echo ''
@@ -96,6 +99,7 @@ function prechecks() {
 
 ## (un-)install all packages with APT
 function packages() {
+    &>/dev/null sudo add-apt-repository -y ppa:git-core/ppa
 	inform "Installing packages\n" "$LOG"
 
 	printf "%-35s | %-15s | %-15s" "PACKAGE" "STATUS" "EXIT CODE"
@@ -140,7 +144,15 @@ function process_choices() {
 
 	if [[ $DOCK =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $DOCK ]]; then
 		printf '\nInstalling Docker... ' | ${WTL[@]}
-		test_on_success "$LOG" ${AI[@]} docker.io docker-containerd docker-compose
+		
+		curl -fsSL https://get.docker.com -o get-docker.sh &>/dev/null
+		sudo sh get-docker.sh &>/dev/null
+		sudo usermod -aG docker "$(whoami)" &>/dev/null
+
+		sudo curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose &>/dev/null
+		sudo chmod +x /usr/local/bin/docker-compose &>/dev/null
+
+		 sudo curl -L https://raw.githubusercontent.com/docker/compose/1.25.4/contrib/completion/bash/docker-compose -o /etc/bash_completion.d/docker-compose &>/dev/null
 	fi
 
 	if [[ $RUST =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RUST ]]; then
@@ -223,4 +235,5 @@ function main() {
 	post
 }
 
-main "$@"
+main "$@" || exit 1
+
