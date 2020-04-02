@@ -25,8 +25,8 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -5%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
 
 # screen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 10 
-bindsym XF86MonBrightnessDown exec xbacklight -dec 10
+bindsym XF86MonBrightnessUp exec xbacklight -inc 5
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 
 ########################################################### Design
 
@@ -101,7 +101,7 @@ bindsym $mod+Return exec alacritty --live-config-reload -qq
 bindsym $mod+Shift+x exec i3lock -u -e -i ~/images/dreamy.png -t
 
 # application manager
-bindsym $mod+d exec rofi -show drun -no-plugins
+bindsym $mod+space exec rofi -show drun -no-plugins
 
 # VS Code
 bindsym $mod+c exec code
@@ -163,7 +163,7 @@ bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+bindsym $mod+d focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -207,9 +207,9 @@ exec_always xrandr
 set $ws1 "1 Terminal"
 set $ws2 "2 Code"
 set $ws3 "3 FireFox"
-set $ws4 "4 FireFox"
-set $ws5 "5 Media"
-set $ws6 "6 Media"
+set $ws4 "4 Terminal"
+set $ws5 "5 Terminal"
+set $ws6 "6 Git"
 set $ws7 "7 Misc"
 set $ws8 "8 Misc"
 set $ws9 "9 IDE"
@@ -240,6 +240,7 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 # Assign workspaces to programs
 assign [class="Code"] $ws2
 assign [class="Firefox"] $ws3
+assign [class="GitKraken"] $ws6
 assign [class="jetbrains-idea"] $ws9
 assign [class="jetbrains-pycharm"] $ws9
 assign [class="jetbrains-clion"] $ws9
