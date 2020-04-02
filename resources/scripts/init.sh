@@ -7,14 +7,14 @@
 LATEST='v1.0.26-beta.4.tar.gz'
 
 function version() {
-	cat 1>&2 <<EOF
+	cat 1>&2 << EOF
 i3buntu-init                  v0.1.4   unstable
 
 EOF
 }
 
 function usage() {
-	cat 1>&2 <<EOF
+	cat 1>&2 << EOF
 Download wrapper for i3buntu 
 
 USAGE:
@@ -115,9 +115,12 @@ function main() {
 			;;
 	esac
 
-	say "Welcome to \e[1mi3buntu\033[0m!\n" "\n"
-	say "This will download and start the installation of i3buntu"
-	say "on your system.\n"
+cat 1>&2 << EOF
+
+Welcome to \e[1mi3buntu\033[0m!
+This will download and start the installation
+of i3buntu on your system.
+EOF
 
 	check_on_present
 	decompress
