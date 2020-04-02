@@ -2,9 +2,9 @@
 
 # Downloads i3buntu and starts installation
 #
-# current version - 0.1.4 unstable
+# current version - 0.1.5 unstable
 
-LATEST='v1.0.22-beta.3.tar.gz'
+LATEST='v1.0.26-beta.4.tar.gz'
 
 function version() {
 	cat 1>&2 <<EOF
@@ -69,11 +69,11 @@ function check_on_present() {
 function download() {
 	inform 'Downloading latest stable version of i3buntu'
 	
-	wget "https://github.com/aendeavor/i3buntu/archive/${LATEST}" &>/dev/null
+	curl -o "https://github.com/aendeavor/i3buntu/archive/${LATEST}" -o $LATEST &>/dev/null
 	local RESPONSE=$?
 	if [[ RESPONSE -ne 0 ]]; then
 		warn "Could not download latest stable version\n\
-		wget exit code was: $RESPONSE"
+		curl exit code was: $RESPONSE"
 		abort 100
 	fi
 }
@@ -116,3 +116,4 @@ function main() {
 }
 
 main "$@" || exit 1
+
