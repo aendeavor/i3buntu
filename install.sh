@@ -61,7 +61,7 @@ EOF
 
 function say() {
 	printf "$2"
-	echo -e "	    $1"
+	echo -e "$1"
 }
 
 function desktop() {
@@ -102,7 +102,7 @@ function main() {
 			say "Please choose whether your want a desktop or" "\n"
 			say "server installation to happen [d/S]. If you"
 			say "would like to stop here, type stop.\n"
-			read -p "		> " -r IC
+			read -p "> " -r IC
 			echo ''
 			
 			case $IC in
