@@ -52,6 +52,7 @@ MISC=(
 
     ncdu
 	ripgrep
+    python3-dev
 )
 
 PACKAGES=( "${CRITICAL[@]}" "${ENV[@]}" "${MISC[@]}" )

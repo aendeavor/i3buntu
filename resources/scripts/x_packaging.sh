@@ -98,7 +98,7 @@ MISC=(
     xclip
 
     ruby
-    python2.7-dev
+    python3-dev
 
     neofetch
     htop
