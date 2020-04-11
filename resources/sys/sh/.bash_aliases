@@ -23,7 +23,7 @@ fi
 # ? Aliases
 
 alias ls='ls -lh --color=auto'
-alias lsa='ls -lha --color=auto'
+alias lsa='ls -lhA --color=auto'
 alias grep='grep --color=auto'
 alias datetime='date && cal'
 alias df='df -h'
@@ -86,7 +86,7 @@ function uninstall_and_log()
         --allow-remove-essential
         --allow-change-held-packages
     )
-    
+
     # cannot just use $*, because when logging, we need to do
     # it iteratively, so we use $@
     for PACKAGE in $@; do
@@ -99,7 +99,7 @@ function uninstall_and_log()
             printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Removed" "${EC}"
         fi
         printf "\n"
-        
+
         &>>"$LOG" echo -e "${PACKAGE} (${EC})"
     done
 }
@@ -107,7 +107,7 @@ function uninstall_and_log()
 ## ? Non-Logger
 
 function a () {
-    ensure sudo apt-get "$*"
+    sudo apt-get "$@"
     return
 }
 export -f a

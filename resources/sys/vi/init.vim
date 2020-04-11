@@ -9,13 +9,13 @@
 " ! INIT.VIM - CONFIGURATION FILE FOR NEOVIM
 " ! ~/.config/nvim/init.vim
 "
-" version   0.4.1
+" version   0.4.4
 " author    aendeavor@Georg Lauterbach
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Language and Encoding
-set spell spelllang=en_us
+" set spell spelllang=en_us
 set undofile
 set encoding=utf-8
 
@@ -37,7 +37,11 @@ set softtabstop=4
 set tabstop=4
 set shiftwidth=2
 set number
-set scrolloff=999
+set scrolloff=25
+
+" Line numbering
+:set number relativenumber
+:set nu rnu
 
 " Miscellaneous
 set history=1000
@@ -64,9 +68,11 @@ Plug 'rust-lang/rust.vim'		" RUST language extensions
 Plug 'tpope/vim-markdown'		" Markdown language extension
 Plug 'vim-syntastic/syntastic'	" Syntax check
 
-" Autocompletion
-Plug 'Valloric/YouCompleteMe'
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'majutsushi/tagbar'        " Tagbar creates an outline
+Plug 'luochen1990/rainbow'      " Rainbow brackets
+Plug 'preservim/nerdcommenter'  " Fast commenting
+
+Plug 'Valloric/YouCompleteMe'   " Autocompletion
 
 " Themes
 Plug 'mhartington/oceanic-next'
@@ -75,16 +81,19 @@ Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 " Autocompletion & syntax metrics
-let g:deoplete#enable_at_startup = 1
 let g:syntastic_check_on_open = 1
+let g:ycm_autoclose_preview_window_after_completion=1
+let g:rainbow_active = 1
+
+" Autoformatting
+augroup autoformat_settings
+  autocmd FileType python AutoFormatBuffer yapf
+augroup END
 
 " NerdTree configuration
-map <C-E> :NERDTreeToggle<CR>
-let NERDTreeQuitOnOpen=0
+let NERDTreeQuitOnOpen=1
 let NERDTreeShowHidden=1
 let NERDTreeIgnore = ['\.pyc$']
-let g:ycm_autoclose_preview_window_after_completion=1
-" autocmd VimEnter * NERDTree " open NerdTree automatically
 autocmd VimEnter * wincmd p
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
@@ -121,3 +130,12 @@ let g:lightline.subseparator = {
 \   'left': '', 'right': '' 
 \}
 
+" Keymappings for plugins
+nmap <F8> :TagbarToggle<CR>
+nmap <F7> :NERDTreeToggle<CR>
+
+" Automaticall Open these pluins
+autocmd VimEnter * Tagbar
+
+" README
+" The following needs to be installed for TagBar to work: https://github.com/universal-ctags/ctags/blob/master/docs/autotools.rst
