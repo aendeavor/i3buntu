@@ -14,7 +14,13 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 BACK="$(readlink -m "${DIR}/../../backups/packaging/$(date '+%d-%m-%Y--%H-%M-%S')")"
 LOG="${BACK}/packaging_log"
 
-IF=( --yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages )
+IF=(
+  --yes
+  --allow-unauthenticated
+  --allow-downgrades
+  --allow-remove-essential
+  --allow-change-held-packages
+)
 AI=( sudo apt-get install ${IF[@]} )
 SI=( sudo snap install )
 WTL=( tee -a "${LOG}" )
