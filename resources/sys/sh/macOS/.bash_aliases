@@ -24,7 +24,7 @@ fi
 # ? Aliases
 
 alias ls='ls -lhG'
-alias lsa='ls -lhaG'
+alias lsa='ls -lhAG'
 alias grep='grep --color=auto'
 alias datetime='date && cal'
 alias df='df -h'
