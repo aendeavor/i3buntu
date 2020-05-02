@@ -115,12 +115,7 @@ function main() {
 			;;
 	esac
 
-cat 1>&2 << EOF
-
-Welcome to \e[1mi3buntu\033[0m!
-This will download and start the installation
-of i3buntu on your system.
-EOF
+    echo -e "Welcome to \e[1mi3buntu\033[0m!\nThis will download and start the installation\nof i3buntu on your system.\n"
 
 	check_on_present
 	decompress

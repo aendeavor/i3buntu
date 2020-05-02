@@ -44,7 +44,7 @@ After opening a new shell, we can check whether we now use _bash5_.
 bash --version
 ```
 
-These should all show version 5. Now, turn SIP back on, by following the steps to turning it of, just use `enable` instead of `disable` - then reboot.
+These should all show version 5. While SIP is disabled, we should get rid of preinstalled applications we do not need, like chess, etc. Then, turn SIP back on, by following the steps to turning it of, just use `enable` instead of `disable` - then reboot.
 
 ## _Homebrew_ & Programs
 
