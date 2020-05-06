@@ -43,7 +43,7 @@ function version() {
 	cat 1>&2 <<EOF
 i3buntu                       v1.0.26  stable
 install.sh                    v0.4.02  stable
-i3buntu-init.sh               v0.1.04  stable
+init.sh                       v0.1.06  stable
 
 x_packaging.sh                v1.3.12  stable
 x_configuration.sh            v1.1.17  stable

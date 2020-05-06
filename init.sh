@@ -2,9 +2,9 @@
 
 # Downloads i3buntu and starts installation
 #
-# current version - 0.1.5 unstable
+# current version - 0.1.6 stable
 
-LATEST='v1.0.26-beta.4.tar.gz'
+LATEST='v1.1.0-stable.tar.gz'
 
 function version() {
 	cat 1>&2 << EOF
