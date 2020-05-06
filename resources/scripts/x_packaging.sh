@@ -124,6 +124,9 @@ MISC=(
     scrot
     qalculate
 	ripgrep
+
+	usb-creator-common
+	usb-creator-gtk
 )
 
 PACKAGES=( "${CRITICAL[@]}" "${ENV[@]}" "${MISC[@]}" )
@@ -295,7 +298,7 @@ function icons_and_colors() {
 
 	(
 		&>/dev/null mkdir -p "${HOME}/.themes"
-		cp "${DIR}/../design/ant_dracula.tar" "${HOME}/.themes"
+		cp "${DIR}/../design/ant.tar" "${HOME}/.themes"
 		cd "${HOME}/.themes"
 		tar -xvf ant_dracula.tar &>/dev/null
 	)
