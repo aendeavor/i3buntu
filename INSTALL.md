@@ -20,7 +20,7 @@ sudo apt-get -y update && sudo apt-get -y dist-upgrade
 sudo apt-get install curl
 
 # Execute the bootstrap script
-curl --proto '=https' --tlsv1.3 -sSf\
+curl --proto '=https' --tlsv1.2 -sSf\
   https://raw.githubusercontent.com/aendeavor/i3buntu/master/init.sh | bash
 ```
 
