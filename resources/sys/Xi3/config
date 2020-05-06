@@ -32,7 +32,7 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 
 # wallpaper & font
 new_window 1pixel
-exec_always feh --bg-scale $HOME/images/macOS_HighSierra.jpg
+exec_always feh --bg-scale $HOME/images/background.jpg
 font xft:Roboto:style=Regular:pixelsize=13
 
 # Colors
@@ -42,7 +42,7 @@ set $TEXT                   #F3EFF5
 set $INACTIVE-TEXT          #F3EFF5
 set $URGENT                 #EF3B3B
 set $BAR                    #1E1F29
-set $BTA                    #FF8ECE
+set $BTA                    #FDB491
 set $BTIA                   #F3EFF5
 
 # window colors         border       background   text           indicator ?

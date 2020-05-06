@@ -110,7 +110,7 @@ deploy() {
 	>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/other_cfg/slick-greeter.conf" /etc/lightdm
 
 	echo -e "-> Syncing lightdm wallpaper" | ${WTL[@]}
-	>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${RES}/design/macOS_HighSierra.png" /usr/share/lightdm
+	>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${RES}/design/background.png" /usr/share/lightdm
 
 	echo -e "-> Syncing Rofi's configuration" | ${WTL[@]}
 	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/other_cfg/config.rasi" "${HOME}/.config/rofi"
@@ -125,7 +125,7 @@ deploy() {
 	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/sh/alacritty.yml" "${HOME}/.config/alacritty"
 
 	echo -e "-> Syncing wallpaper" | ${WTL[@]}
-	>/dev/null 2>>"${LOG}" ${RS[@]} "${RES}/design/macOS_HighSierra.jpg" "${HOME}/images"
+	>/dev/null 2>>"${LOG}" ${RS[@]} "${RES}/design/background.jpg" "${HOME}/images"
 
 	if [[ -d "${HOME}/.config/Code" ]]; then
 	    echo -e "-> Syncing VS Code settings" | ${WTL[@]}

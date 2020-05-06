@@ -1,11 +1,11 @@
 # Ubuntu Minimal & i3
 
 [//]: # (Serves an overview of i3buntu)
-[//]: # (version 1.1.14)
+[//]: # (version 1.2.0)
 
 ## Preamble
 
-This repository aims at providing you with a set of instructions to create your own minimal Ubuntu installation with the i3[-gaps](https://github.com/Airblader/i3) window manager. The latest release of i3buntu is [v1.0.26-beta.4](https://github.com/aendeavor/i3buntu/releases/tag/v1.0.26-beta.4), the latest stable release is [v0.9.3-stable](https://github.com/aendeavor/i3buntu/releases/tag/v0.9.3-stable).
+This repository aims at providing you with a set of instructions to create your own minimal _Ubuntu_ installation with the _i3_[_-gaps_](https://github.com/Airblader/i3) window manager. The latest release of i3buntu is [v1.1.0-stable](https://github.com/aendeavor/i3buntu/releases/tag/v1.1.0-stable), the latest stable release is [v1.1.0-stable](https://github.com/aendeavor/i3buntu/releases/tag/v1.1.0-stable).
 
 [![Desktop Theme](resources/doc/desktop_theme.png)](https://reddit.com/r/unixporn/)
 
@@ -17,7 +17,7 @@ Installation instructions are found [here](./INSTALL.md) or on the [wiki pages](
 
 ### Reasoning
 
-This project is all about improving your Linux experience and working environment. Linux powerusers may find this way of bootstrapping the system helpful. Therefore, _i3-gaps_ has been chosen as the window manager of choice. Tiling window managers improve or modify all areas of workflow, from design to efficiency. With _i3buntu_, _i3_ has been configured meticulously. Moreover, _i3_ and _X_ are much more lightweight compared to _GNOME_ or _KDE_. As a result, everything is faster.
+This project is all about improving your Linux experience and working environment. Therefore, _i3-gaps_ has been chosen as the window manager of choice. Tiling window managers improve or modify all areas of workflow, from design to efficiency. With _i3buntu_, _i3_ has been configured meticulously. Moreover, _i3_ and _X_ are much more lightweight compared to _GNOME_ or _KDE_. As a result, everything is faster.
 
 The color scheme has been carefully chosen to implement into the system seamlessly. Every program, from the shell to your browser have adapted these changes. They are reflected in the choice of icons, backgrounds and windows.
 
@@ -29,13 +29,9 @@ The following instructions are made for [Ubuntu](https://wiki.archlinux.org/inde
 
 Systems not based on Ubuntu, including but not limited to those using package-managers differing from APT or not supporting Snap, are not officially supported by this guide.
 
-### Difficulty
+### Prerequisites
 
 It is recommended to be familiar with the Linux environment, the command line and to have a basic knowledge about the file system structure. You should know what you are doing when working with administrator-privileges.
-
-### Latest enhancements
-
-The terminal emulator _Alacritty_ has been integrated. It features true-color support, is written in _RUST_ and is GPU-accelerated. _Bash_ scripts now properly work with functions. _NeoVim_ configuration has been fully reworked to make use of a brand new themes, _OceanicNext_ and _Palenight_. These themes go hand in hand with the newly supported TrueColor.
 
 ### Dependencies
 
