@@ -15,7 +15,7 @@ function install_vmware_player() {
 		sudo apt update &>/dev/null
 		sudo apt install build-essential linux-headers-generic &>/dev/null	
 		
-		cd /tmp
+		cd /tmp || return 1
 		wget --user-agent="Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/70.0" https://www.vmware.com/go/getplayer-linux -qy
 		
 		chmod a+x getplayer-linux &>/dev/null
@@ -39,7 +39,7 @@ function edit_sudoers() {
 	succ 'VM Ware Workstation Player installed'
 
 	read -p "It is recommended to restart. Would you like to schedule a restart? [Y/n]" -r RESTART
-	if [[ $RESTART =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RESTART ]]; then
+	if [[ $RESTART =~ ^(yes|Yes|y|Y| ) ]] || [ -z "$RESTART" ]; then
 	    shutdown --reboot 1 &>/dev/null
 		inform 'Rebooting in one minute'
 	fi
@@ -54,4 +54,3 @@ function main() {
 }
 
 main "$@" || exit 1
-
