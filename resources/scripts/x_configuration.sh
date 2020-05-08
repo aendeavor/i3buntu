@@ -8,7 +8,7 @@
 # user-choices are handled, including the
 # installation of chosen fonts.
 # 
-# current version - 1.1.17 stable
+# current version - 1.2.0 stable
 
 # ? Preconfig
 
@@ -21,7 +21,7 @@ LOG="${BACK}/configuration_log"
 RS=( rsync -ahq --delete )
 WTL=( tee -a "${LOG}" )
 
-# initiate aliases and functions
+# shellcheck source=../sys/sh/.bash_aliases
 . "${SYS}/sh/.bash_aliases"
 
 # ? Actual script
@@ -44,7 +44,7 @@ init() {
 	## init of logfile
 	if [[ ! -f "$LOG" ]]; then
 		if [[ ! -w "$LOG" ]]; then
-			&>/dev/null sudo rm $LOG
+			&>/dev/null sudo rm "$LOG"
 		fi
 		touch "$LOG"
 	fi
@@ -54,26 +54,26 @@ init() {
 backup() {
 	inform "Checkig for existing files\n" "$LOG"
 	_home_files=( "${HOME}/.bash_aliases" "${HOME}/.bashrc" "${HOME}/.vimrc" "${HOME}/.Xresources" )
-	for _file in ${_home_files[@]}; do
+	for _file in "${_home_files[@]}"; do
 		if [[ -f "$_file" ]]; then
 			_backup_file="${BACK}${_file#~}.bak"
-			echo -e "-> Found ${_file}... backing up" | ${WTL[@]}
+			echo -e "-> Found ${_file}... backing up" | "${WTL[@]}"
 			# echo -e "\tBacking up to ${_backup_file}"
-			>/dev/null 2>>"${LOG}" sudo ${RS[@]} "$_file" "$_backup_file"
+			>/dev/null 2>>"${LOG}" sudo "${RS[@]}" "$_file" "$_backup_file"
 		fi
 	done
 
 	if [[ -d "${HOME}/.vim" ]]; then
-		echo -e "-> Found ~/.vim directory... backing up" | ${WTL[@]}
+		echo -e "-> Found ~/.vim directory... backing up" | "${WTL[@]}"
 		# echo -e "Backing up to ${BACK}/.vim"
-		>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${HOME}/.vim" "${BACK}"
+		>/dev/null 2>>"${LOG}" sudo "${RS[@]}" "${HOME}/.vim" "${BACK}"
 		rm -rf "${HOME}/.vim"
 	fi
 
 	if [ -d "${HOME}/.config" ]; then
-		echo -e "-> Found ${HOME}/.config directory... backing up" | ${WTL[@]}
+		echo -e "-> Found ${HOME}/.config directory... backing up" | "${WTL[@]}"
 		# echo -e "Backing up to ${BACK}/.config"
-		>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${HOME}/.config/i3" "${BACK}"
+		>/dev/null 2>>"${LOG}" sudo "${RS[@]}" "${HOME}/.config/i3" "${BACK}"
 	fi
 }
 
@@ -84,79 +84,81 @@ deploy() {
 	
 	local _deploy_in_home=( sh/.bashrc sh/.bash_aliases vi/.vimrc vi/.viminfo Xi3/.Xresources )
 	for sourceFile in "${_deploy_in_home[@]}"; do
-	    echo -e "-> Syncing $(basename -- "${sourceFile}")"  | ${WTL[@]}
-	    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/${sourceFile}" "${HOME}"
+	    echo -e "-> Syncing $(basename -- "${sourceFile}")"  | "${WTL[@]}"
+	    >/dev/null 2>>"${LOG}" "${RS[@]}" "${SYS}/${sourceFile}" "${HOME}"
 	done
 	
 	mkdir -p "${HOME}/.config/i3" "${HOME}/.urxvt/ext" "${HOME}/images" "${HOME}/.config/alacritty" "${HOME}/.local/share/nemo/actions" "${HOME}/images" "${HOME}/.config/rofi" "${HOME}/.local/share/nautilus-python/extensions"
 	sudo mkdir -p /usr/share/lightdm /etc/lightdm /usr/share/backgrounds
 	
-	echo -e "-> Syncing i3's config" | ${WTL[@]}
-	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/Xi3/config" "${HOME}/.config/i3"
+	echo -e "-> Syncing i3's config" | "${WTL[@]}"
+	>/dev/null 2>>"${LOG}" "${RS[@]}" "${SYS}/Xi3/config" "${HOME}/.config/i3"
 	
-	echo -e "-> Syncing i3's statusconfig" | ${WTL[@]}
-	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/Xi3/i3statusconfig" "${HOME}/.config/i3"
+	echo -e "-> Syncing i3's statusconfig" | "${WTL[@]}"
+	>/dev/null 2>>"${LOG}" "${RS[@]}" "${SYS}/Xi3/i3statusconfig" "${HOME}/.config/i3"
 	
-	echo -e "-> Modifying xorg.conf" | ${WTL[@]}
+	echo -e "-> Modifying xorg.conf" | "${WTL[@]}"
 	if [[ ! -e /etc/X11/xorg ]]; then
 		sudo touch /etc/X11/xorg.conf
 	fi
 	if [[ $(cat /etc/X11/xorg.conf) != *$(cat "${DIR}/../sys/Xi3/xorg.conf")* ]]; then
-		cat "${DIR}/../sys/Xi3/xorg.conf" | sudo tee -a /etc/X11/xorg.conf >/dev/null
+		< "${DIR}/../sys/Xi3/xorg.conf" cat | sudo tee -a /etc/X11/xorg.conf >/dev/null
 	fi
 	
-	echo -e "-> Syncing lightdm configuration" | ${WTL[@]}
-	>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/other_cfg/lightdm.conf" /etc/lightdm
-	>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/other_cfg/slick-greeter.conf" /etc/lightdm
+	echo -e "-> Syncing lightdm configuration" | "${WTL[@]}"
+	>/dev/null 2>>"${LOG}" sudo "${RS[@]}" "${SYS}/other_cfg/lightdm.conf" /etc/lightdm
+	>/dev/null 2>>"${LOG}" sudo "${RS[@]}" "${SYS}/other_cfg/slick-greeter.conf" /etc/lightdm
 
-	echo -e "-> Syncing lightdm wallpaper" | ${WTL[@]}
-	>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${RES}/design/background.png" /usr/share/lightdm
+	echo -e "-> Syncing lightdm wallpaper" | "${WTL[@]}"
+	>/dev/null 2>>"${LOG}" sudo "${RS[@]}" "${RES}/design/background.png" /usr/share/lightdm
 
-	echo -e "-> Syncing Rofi's configuration" | ${WTL[@]}
-	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/other_cfg/config.rasi" "${HOME}/.config/rofi"
+	echo -e "-> Syncing Rofi's configuration" | "${WTL[@]}"
+	>/dev/null 2>>"${LOG}" "${RS[@]}" "${SYS}/other_cfg/config.rasi" "${HOME}/.config/rofi"
 
-	echo -e "-> Syncing URXVT resize-font extension" | ${WTL[@]}
-	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/sh/resize-font" "${HOME}/.urxvt/ext"
+	echo -e "-> Syncing URXVT resize-font extension" | "${WTL[@]}"
+	>/dev/null 2>>"${LOG}" "${RS[@]}" "${SYS}/sh/resize-font" "${HOME}/.urxvt/ext"
 
-	echo -e "-> Syncing compton.conf" | ${WTL[@]}
-	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/other_cfg/compton.conf" "${HOME}/.config"
+	echo -e "-> Syncing compton.conf" | "${WTL[@]}"
+	>/dev/null 2>>"${LOG}" "${RS[@]}" "${SYS}/other_cfg/compton.conf" "${HOME}/.config"
 
-	echo -e "-> Syncing alacritty.yml" | ${WTL[@]}
-	>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/sh/alacritty.yml" "${HOME}/.config/alacritty"
+	echo -e "-> Syncing alacritty.yml" | "${WTL[@]}"
+	>/dev/null 2>>"${LOG}" "${RS[@]}" "${SYS}/sh/alacritty.yml" "${HOME}/.config/alacritty"
 
-	echo -e "-> Syncing wallpaper" | ${WTL[@]}
-	>/dev/null 2>>"${LOG}" ${RS[@]} "${RES}/design/background.jpg" "${HOME}/images"
+	echo -e "-> Syncing wallpaper" | "${WTL[@]}"
+	>/dev/null 2>>"${LOG}" "${RS[@]}" "${RES}/design/background.jpg" "${HOME}/images"
 
 	if [[ -d "${HOME}/.config/Code" ]]; then
-	    echo -e "-> Syncing VS Code settings" | ${WTL[@]}
+	    echo -e "-> Syncing VS Code settings" | "${WTL[@]}"
 	    sudo mkdir -p "${HOME}/.config/Code/User"
-	    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vscode/settings.json" "${HOME}/.config/Code/User"
+	    >/dev/null 2>>"${LOG}" "${RS[@]}" "${SYS}/vscode/settings.json" "${HOME}/.config/Code/User"
 	fi
 
     echo -e '-> Copying PowerLine-Go to /bin'
-    >/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/sh/powerline-go-linux-amd64" "/bin"
+    >/dev/null 2>>"${LOG}" "${RS[@]}" "${SYS}/sh/powerline-go-linux-amd64" "/bin"
 	
 	if dpkg -s neovim &>/dev/null; then
 		mkdir -p "${HOME}/.config/nvim"
 		sudo mkdir -p "/root/.config/nvim"
 		echo -e "-> Syncing NeoVIM's configuration"
-		>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vi/.vimrc" "${HOME}"
-		>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/vi/.vimrc" "/root"
+		{
+			"${RS[@]}" "${SYS}/vi/.vimrc" "${HOME}"
+			sudo "${RS[@]}" "${SYS}/vi/.vimrc" "/root"
 
-		>/dev/null 2>>"${LOG}" sudo ${RS[@]} "${SYS}/vi/init.vim" "/root/.config/nvim"
-		>/dev/null 2>>"${LOG}" ${RS[@]} "${SYS}/vi/init.vim" "${HOME}/.config/nvim"
-
-    	>/dev/null 2>>"${LOG}" curl -fLo "${HOME}/.local/share/nvim/site/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    	>/dev/null 2>>"${LOG}" curl -fLo '/root/.local/share/nvim/site/autoload/plug.vim' --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+			sudo "${RS[@]}" "${SYS}/vi/init.vim" "/root/.config/nvim"
+			"${RS[@]}" "${SYS}/vi/init.vim" "${HOME}/.config/nvim"
+    	
+			curl -fLo "${HOME}/.local/share/nvim/site/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    		curl -fLo '/root/.local/share/nvim/site/autoload/plug.vim' --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+		} >/dev/null 2>>"${LOG}"
 
 		echo ''
-		warn "You will need to run :PlugInstall seperately in NeoVIM\n\t\t\t\t\tas you cannot execute this command in a shell.\n\t\t\t\t\tThereafter, run python3 ~/.config/nvim/plugged/YouCompleteMe/install.py"
+		warn "You will need to run :PlugInstall seperately in NeoVIM\n\t\t\tas you cannot execute this command in a shell.\n\t\t\tThereafter, run python3 ~/.config/nvim/plugged/YouCompleteMe/install.py"
 	else
 		echo ''
 	fi
 
 	inform 'Reloading X-services'
-	&>/dev/null xrdb ${HOME}/.Xresources
+	xrdb "${HOME}/.Xresources" &>/dev/null
 
     inform 'Nemo is being configured...' "$LOG"
     xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search
@@ -176,9 +178,11 @@ process_choices() {
 
 	if [[ $GRUB =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $GRUB ]]; then
 	    inform 'Grub is being configured...' "$LOG"
-	    &>/dev/null sudo cp /etc/default/grub "${BACK}"
-	    &>/dev/null sudo rm -f /etc/default/grub
-	    &>/dev/null sudo cp ${RES}/sys/other_cfg/grub /etc/default/
+	    {
+			sudo cp /etc/default/grub "${BACK}"
+	    	sudo rm -f /etc/default/grub
+	    	sudo cp "${RES}/sys/other_cfg/grub" /etc/default/
+		} &>/dev/null
 	    >/dev/null 2>>"${LOG}" sudo update-grub
 	fi
 

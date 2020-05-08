@@ -103,5 +103,8 @@
     ],
 
     // LiveServer
-    "liveServer.settings.donotShowInfoMsg": true
+	"liveServer.settings.donotShowInfoMsg": true,
+
+    // ShellCheck
+    "shellcheck.customArgs": ["-x"]
 }

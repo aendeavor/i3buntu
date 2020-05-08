@@ -4,13 +4,14 @@
 # all other scripts, i.e. the desktop or server
 # installation of i3buntu.
 #
-# current version - 0.4.2 stable
+# current version - 0.5.0 unstable
 
 # ? Preconfig
 
 ## directory of this file - absolute & normalized
 SCR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/resources/scripts"
 
+# shellcheck source=resources/sys/sh/.bash_aliases
 . "${SCR}/../sys/sh/.bash_aliases"
 
 # ? Actual script
@@ -18,7 +19,7 @@ SCR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/resources
 function usage() {
 	cat 1>&2 <<EOF
 Main install script for i3buntu 
-version 1.0.22
+version 1.2.0 unstable
 
 USAGE:
 	./install.sh [OPTIONS] COMMAND [FLAG]
@@ -41,18 +42,18 @@ EOF
 
 function version() {
 	cat 1>&2 <<EOF
-i3buntu                       v1.0.26  stable
-install.sh                    v0.4.02  stable
-init.sh                       v0.1.06  stable
+i3buntu                       v1.2.00  unstable
+install.sh                    v0.5.00  unstable
+init.sh                       v0.1.07  unstable
 
-x_packaging.sh                v1.3.12  stable
-x_configuration.sh            v1.1.17  stable
+x_packaging.sh                v1.4.00  unstable
+x_configuration.sh            v1.2.00  unstable
 
-server_packaging.sh           v1.4.12  stable
-server_configuration.sh       v0.9.06  stable
+server_packaging.sh           v1.5.00  unstable
+server_configuration.sh       v1.0.00  unstable
 
-extensions.sh                 v0.5.00  stable
-fonts.sh                      v0.4.01  stable
+extensions.sh                 v0.6.00  unstable
+fonts.sh                      v0.5.00  unstable
 
 vm.sh                         v0.3.00  stable
 
@@ -60,7 +61,7 @@ EOF
 }
 
 function say() {
-	printf "$2"
+	printf "%s" "$2"
 	echo -e "$1"
 }
 
@@ -84,7 +85,7 @@ function desktop() {
 function main() {
 	case "$1" in 
 	    "desktop" | "d")
-	        desktop $2
+	        desktop "$2"
 	    	;;
 	    "server" | "s")
 	        "${SCR}/server_packaging.sh"

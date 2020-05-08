@@ -3,7 +3,7 @@
 # This script serves as the main installation script
 # for all neccessary packages for a server installation.
 # 
-# current version - 1.4.12 stable
+# current version - 1.5.0 stable
 
 # ? Preconfig
 
@@ -13,11 +13,10 @@ BACK="$(readlink -m "${DIR}/../../backups/packaging/$(date '+%d-%m-%Y--%H-%M-%S'
 LOG="${BACK}/packaging_log"
 
 IF=( --yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages )
-AI=( sudo apt-get install ${IF[@]} )
-SI=( sudo snap install )
+AI=( sudo apt-get install "${IF[@]}" )
 WTL=( tee -a "${LOG}" )
 
-# initiate aliases and functions
+# shellcheck source=../sys/sh/.bash_aliases
 . "${DIR}/../sys/sh/.bash_aliases"
 
 # ? Init of package selection
@@ -67,7 +66,7 @@ function init() {
 	
 	if [[ ! -f "$LOG" ]]; then
 	    if [[ ! -w "$LOG" ]]; then
-	        &>/dev/null sudo rm $LOG
+	        &>/dev/null sudo rm "$LOG"
 	    fi
 	    touch "$LOG"
 	fi
@@ -81,7 +80,7 @@ function choices() {
 	read -p "Would you like to install NeoVIM? [Y/n]" -r NVIM
 
 	DOCK="n"
-	[ -z $(which docker) ] && read -p "Would you like to install Docker? [Y/n]" -r DOCK
+	[ -z "$(which docker)" ] && read -p "Would you like to install Docker? [Y/n]" -r DOCK
 	
 	read -p "Would you like to install RUST? [Y/n]" -r RUST
 
@@ -107,20 +106,20 @@ function packages() {
 	printf "\n"
 
 	for PACKAGE in "${PACKAGES[@]}"; do
-		2>>"${LOG}" >>/dev/null ${AI[@]} ${PACKAGE}
+		2>>"${LOG}" >>/dev/null "${AI[@]}" "${PACKAGE}"
 
-		EC=$?
-		if (( $EC != 0 )); then
+		local EC=$?
+		if (( EC != 0 )); then
 			printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Not Installed" "${EC}"
 		else
 			printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Installed" "${EC}"
 		fi
 
 		printf "\n"
-		&>>"${LOG}" echo -e "${PACKAGE} (${EC})"
+		echo -e "${PACKAGE} (${EC})" &>>"${LOG}"
 	done
 
-	echo "" | ${WTL[@]}
+	echo "" | "${WTL[@]}"
 	succ "Finished with packaging" "$LOG"
 }
 
@@ -129,22 +128,22 @@ function process_choices() {
 	inform "Processing user-choices" "$LOG"
 
 	if [[ $UDA =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $UDA ]]; then
-		printf '\nEnabling ubuntu-drivers autoinstall... ' | ${WTL[@]}
+		printf '\nEnabling ubuntu-drivers autoinstall... ' | "${WTL[@]}"
 		test_on_success "$LOG" sudo ubuntu-drivers autoinstall
 	fi
 
 	if [[ $BE =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $BE ]]; then
-		printf '\nInstalling build-essential & CMake... ' | ${WTL[@]}
-		test_on_success "$LOG" ${AI[@]} build-essential cmake
+		printf '\nInstalling build-essential & CMake... ' | "${WTL[@]}"
+		test_on_success "$LOG" "${AI[@]}" build-essential cmake
 	fi
 
 	if [[ $NVIM =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $NVIM ]]; then
-		printf '\nInstalling NeoVIM... ' | ${WTL[@]}
-		test_on_success "$LOG" ${AI[@]} neovim
+		printf '\nInstalling NeoVIM... ' | "${WTL[@]}"
+		test_on_success "$LOG" "${AI[@]}" neovim
 	fi
 
 	if [[ $DOCK =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $DOCK ]]; then
-		printf '\nInstalling Docker... ' | ${WTL[@]}
+		printf '\nInstalling Docker... ' | "${WTL[@]}"
 		
 		curl -fsSL https://get.docker.com -o get-docker.sh &>/dev/null
 		sudo sh get-docker.sh &>/dev/null
@@ -157,14 +156,16 @@ function process_choices() {
 	fi
 
 	if [[ $RUST =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RUST ]]; then
-		printf '\nInstalling RUST... ' | ${WTL[@]}
+		printf '\nInstalling RUST... ' | "${WTL[@]}"
 
 		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile complete -y &>/dev/null
 		
-		if [[ $? -ne 0 ]]; then
-			printf "unsuccessful" | ${WTL[@]}
+		local RSP=$?
+		if [ $RSP -ne 0 ]; then
+			printf "unsuccessful" | "${WTL[@]}"
 		else
 			if [[ -e "${HOME}/.cargo/env" ]]; then
+				# shellcheck source=/dev/null
 				source "${HOME}/.cargo/env"
 
 				mkdir -p "${HOME}/.local/share/bash-completion/completions"
@@ -172,19 +173,19 @@ function process_choices() {
 				rustup completions bash > "${HOME}/.local/share/bash-completion/completions/rustup"
 
 				COMPONENTS=( rust-docs rust-analysis rust-src rustfmt rls clippy )
-				for COMPONENT in ${COMPONENTS[@]}; do
-					&>>/dev/null rustup component add $COMPONENT
+				for COMPONENT in "${COMPONENTS[@]}"; do
+					&>>/dev/null rustup component add "$COMPONENT"
 				done
 
-				if [[ ! -z $(which code) ]]; then
+				if [ -n "$(which code)" ]; then
 					code --install-extension rust-lang.rust &>/dev/null
 				fi
 			fi
-			printf "successful." | ${WTL[@]}
+			printf "successful." | "${WTL[@]}"
 		fi
 	fi
 
-	printf "\n\n" | ${WTL[@]}
+	printf "\n\n" | "${WTL[@]}"
 	succ 'Finished with processing user-choices' "$LOG"
 }
 
@@ -212,17 +213,14 @@ post() {
 # ! Main
 
 function main() {
-    sudo printf ''
-	if [[ $? -ne 0 ]]; then
-		echo ''
-		err 'User input invalid. Aborting.'
-		exit 1
+    if ! sudo printf ''; then
+		echo ''; err 'User input invalid. Aborting.'; exit 1
 	fi
 	
 	prechecks
 	init
 	
-	warn "Server packaging has begun" | ${WTL[@]}
+	warn "Server packaging has begun" | "${WTL[@]}"
 
 	choices
 

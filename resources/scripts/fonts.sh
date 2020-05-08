@@ -4,7 +4,7 @@
 # the installation of all fonts in the
 # directory of this script.
 # 
-# current version - 0.4.1 stable
+# current version - 0.5.0 stable
 
 FONTDIR="${HOME}/.local/share/fonts"
 
@@ -12,15 +12,13 @@ function firacode() {
 	(
 		local _ret=0
 	    mkdir -p "${FONTDIR}/FiraCode"
-		cd "${FONTDIR}/FiraCode"
+		cd "${FONTDIR}/FiraCode" || return 1
 
 		for TYPE in Bold Light Medium Regular Retina; do
 		    FILE_URL="https://github.com/tonsky/FiraCode/blob/master/distr/ttf/FiraCode-${TYPE}.ttf?raw=true"
 
-		    wget -O "FiraCode-${TYPE}.ttf" "${FILE_URL}" -q
-
-			if [[ $? -ne 0 ]]; then
-				$_ret=1
+		    if ! wget -O "FiraCode-${TYPE}.ttf" "${FILE_URL}" -q; then
+				_ret=1
 			fi 
 		done
 
@@ -29,30 +27,26 @@ function firacode() {
 		local NERDFONT="FiraCodeNerd"
 		local MONOFONT="FiraMono"
 
-		cd "${FONTDIR}"
+		cd "${FONTDIR}" || return 1
 
 		mkdir -p "${NERDFONT}"
 		mkdir -p "${MONOFONT}"
 
-		cd "${NERDFONT}"
-		wget -O "${NERDFONT}.zip" "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/FiraCode.zip" -q
-
-		if [[ $? -ne 0 ]]; then
-				$_ret=1
+		cd "${NERDFONT}" || return 1
+		if wget -O "${NERDFONT}.zip" "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/FiraCode.zip" -q; then
+			unzip -u "${NERDFONT}.zip"
+			rm "${NERDFONT}.zip"
+		else
+			_ret=1
 		fi 
 
-		unzip -u "${NERDFONT}.zip"
-		rm "${NERDFONT}.zip"
-
-		cd "../${MONOFONT}"
-		wget -O "${MONOFONT}.zip" "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/FiraMono.zip" -q
-		
-		if [[ $? -ne 0 ]]; then
-			$_ret=1
+		cd "../${MONOFONT}" || return 1
+		if wget -O "${MONOFONT}.zip" "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/FiraMono.zip" -q; then
+			unzip -u "${MONOFONT}.zip"
+			rm "${MONOFONT}.zip"
+		else
+			_ret=1
 		fi 
-
-		unzip -u "${MONOFONT}.zip"
-		rm "${MONOFONT}.zip"
 
 		return $_ret
 	)
@@ -62,17 +56,15 @@ function fontawesome() {
 	(
 		local FONTNAME="FontAwesome"
 
-		cd $FONTDIR
+		cd "$FONTDIR" || return 1
 		rm -rf $FONTNAME ${FONTNAME}.zip
 
-		wget -O ${FONTNAME}.zip "https://github.com/FortAwesome/Font-Awesome/releases/download/5.11.2/fontawesome-free-5.11.2-desktop.zip" -q
-
-		if [[ $? -ne 0 ]]; then
+		if wget -O ${FONTNAME}.zip "https://github.com/FortAwesome/Font-Awesome/releases/download/5.11.2/fontawesome-free-5.11.2-desktop.zip" -q; then
+			unzip ${FONTNAME}.zip
+			rm ${FONTNAME}.zip
+		else
 			return 1
 		fi 
-
-		unzip ${FONTNAME}.zip
-		rm ${FONTNAME}.zip
 
 		mv "fontawesome-free-5.11.2-desktop" $FONTNAME
 	)
@@ -81,11 +73,9 @@ function fontawesome() {
 function get_font() {
 	(
 		mkdir -p "${FONTDIR}/$1"
-		cd "${FONTDIR}/$1"
+		cd "${FONTDIR}/$1" || return 1
 
-		wget -O "$1.zip" "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/$2.zip" -q
-
-		if [[ $? -ne 0 ]]; then
+		if ! wget -O "$1.zip" "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/$2.zip" -q; then
 			return 1
 		fi 
 
@@ -103,9 +93,7 @@ function test_on_success() {
 }
 
 function install_fonts() {
-	if [[ ! -d "${FONTDIR}" ]]; then
-	    mkdir -p "${FONTDIR}"
-	fi
+	[ -d "${FONTDIR}" ] || mkdir -p "${FONTDIR}"
 
 	printf '–> FiraCode family will be installed... '
 	test_on_success firacode
