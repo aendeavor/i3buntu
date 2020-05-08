@@ -4,7 +4,7 @@
 # the installation of all fonts in the
 # directory of this script.
 # 
-# current version - 0.5.0 unstable
+# current version - 0.5.0 stable
 
 FONTDIR="${HOME}/.local/share/fonts"
 

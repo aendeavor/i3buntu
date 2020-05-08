@@ -5,7 +5,7 @@
 # Via APT, core utils, browser, graphical environment
 # and much more is being installed.
 #
-# version   1.4.0 unstable
+# version   1.4.0 stable
 
 # ? Preconfig
 
@@ -188,7 +188,7 @@ function prechecks() {
 
 function check_lightdm() {
 	if [[ -z $(which gdm3) ]]; then
-		warn 'It seems like GNOME (GDM3) is installed.\n\t\t\t\t\tThis can later conflict with LightDM and require user input.\n'
+		warn 'It seems like GNOME (GDM3) is installed.\n\t\t\tThis can later conflict with LightDM and require user input.\n'
 		read -p 'Would you like to uninstall it? [y/N]' -r _uninstall_gnome
 
 		echo ''
@@ -275,7 +275,7 @@ function packages() {
 			;;
 		'false')
 			echo ''
-			inform "Installing LightDM. Verbose output and user input neccessarry\n"
+			inform "Installing LightDM. Verbose output and user input might necessarry\n"
 			ensure "${AI[@]}" lightdm
 
 			echo ''
@@ -292,6 +292,7 @@ function packages() {
 	esac
 
 	for _package in "${PACKAGES[@]}"; do
+		test_on_success "$LOG" "${AI[@]}" 
 	    >/dev/null 2>>"${LOG}" "${AI[@]}" "${_package}"
 
 	    local EC=$?
@@ -363,14 +364,14 @@ function process_choices() {
 			err "Could not add Cryptomator PPA\n\t\t\t\t\tSkipping"
 		else
 			&>>/dev/null sudo apt update
-			>/dev/null 2>>"${LOG}" "${AI[@]}" cryptomator
+			test_on_success "$LOG" "${AI[@]}" cryptomator
 		fi
 	fi
 
 	if [[ $TEX =~ ^(yes|Yes|y|Y| ) ]] || [ -z "$TEX" ]; then
 		printf '\nInstalling TeX... ' | "${WTL[@]}"
+	    "${AI[@]}" python3-pygments &>/dev/null
 		test_on_success "$LOG" "${AI[@]}" texlive-full
-		test_on_success "$LOG" "${AI[@]}" python3-pygments
 	fi
 
 	if [[ $OC =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $OC ]]; then
@@ -396,7 +397,6 @@ function process_choices() {
 	if [[ $VSCE =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $VSCE ]]; then
 		printf '\nInstalling Visual Studio Code Extensions... ' | "${WTL[@]}"
 		test_on_success "$LOG" "${DIR}/../sys/vscode/extensions.sh"
-        echo ''
 	fi
 
 	if [[ $JBIDE =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $JBIDE ]]; then

@@ -3,7 +3,7 @@
 # This script serves as the main installation script
 # for all neccessary packages for a server installation.
 # 
-# current version - 1.5.0 unstable
+# current version - 1.5.0 stable
 
 # ? Preconfig
 

@@ -7,7 +7,7 @@
 # This sctipt is not executed by hand, but rather
 # by the sever_packaging.sh script.
 # 
-# current version - 1.0.0 unstable
+# current version - 1.0.0 stable
 
 # ? Preconfig
 
@@ -100,7 +100,7 @@ function deploy() {
 		} >/dev/null 2>>"${LOG}"
 
 		echo ''
-		warn "You will need to run :PlugInstall seperately in NeoVIM\n\t\t\t\t\tas you cannot execute this command in a shell.\n\t\t\t\t\tThereafter, run python3 ~/.config/nvim/plugged/YouCompleteMe/install.py"
+		warn "You will need to run :PlugInstall seperately in NeoVIM\n\t\t\tas you cannot execute this command in a shell.\n\t\t\tThereafter, run python3 ~/.config/nvim/plugged/YouCompleteMe/install.py"
 	fi
 }
 
