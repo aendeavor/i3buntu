@@ -35,7 +35,7 @@ It is recommended to be familiar with the Linux environment, the command line an
 
 ### Dependencies
 
-* [Ubuntu 18.04 LTS](https://en.wikipedia.org/wiki/Ubuntu) Operating System
+* [Ubuntu 20.04 LTS](https://en.wikipedia.org/wiki/Ubuntu) Operating System
 * [i3-gaps](https://github.com/Airblader/i3) Tiling Window Manager
 * [Alacritty](https://github.com/alacritty/alacritty) Main Terminal Emulator
 * [URXVT](https://wiki.archlinux.org/index.php/Rxvt-unicode) Fallback Terminal Emulator
