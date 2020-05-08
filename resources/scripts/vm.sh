@@ -39,7 +39,7 @@ function edit_sudoers() {
 	succ 'VM Ware Workstation Player installed'
 
 	read -p "It is recommended to restart. Would you like to schedule a restart? [Y/n]" -r RESTART
-	if [[ $RESTART =~ ^(yes|Yes|y|Y| ) ]] || [ -z "$RESTART" ]; then
+	if [[ $RESTART =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RESTART ]]; then
 	    shutdown --reboot 1 &>/dev/null
 		inform 'Rebooting in one minute'
 	fi
