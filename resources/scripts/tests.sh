@@ -14,23 +14,24 @@ set -e
 ## directory of this file - absolute & normalized
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
+# shellcheck source=../sys/sh/.bash_aliases
 . "${DIR}/../sys/sh/.bash_aliases"
 
 # ? Actual script
 
 # Insert something to test here
 function run_test() {
-	
+	true
 }
 
 # ! Main
 
 function main() {
 	warn 'This is a test!'
-	inform "Starting test\n"
+	inform "########## Starting test ##########\n"
 	run_test
 	echo ''
-	inform 'Finished test'
+	inform '########## Finished test ##########'
 }
 
 main "$@" || exit 1

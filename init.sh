@@ -2,7 +2,7 @@
 
 # Downloads i3buntu and starts installation
 #
-# current version - 0.1.6 stable
+# current version - 0.1.7 unstable
 
 LATEST='v1.1.0-stable.tar.gz'
 
@@ -33,7 +33,7 @@ function inform() {
 
 function abort() {
     echo -e "\033[0;31mERROR\033[0m\tAborting due to unrecoverable situation"
-	exit $1
+	exit "$1"
 }
 
 function warn() {
@@ -45,41 +45,36 @@ function succ() {
 }
 
 function say() {
-	printf "$2"
+	printf "%s" "$2"
 	echo -e "		$1"
 }
 
 function check_wget() {
-	[ -n $(which wget) ] || sudo apt-get install -y wget &>/dev/null
+	[ -n "$(which wget)" ] || sudo apt-get install -y wget &>/dev/null
 
-	if (( $? != 0 )); then
-		warn 'Could not find or install wget'
-		abort 100
-	fi
+	local RSP=$?
+	[ $RSP -ne 0 ] || warn 'Could not find or install wget'; abort 100;
 }
 
 function download() {
 	inform 'Downloading latest stable version of i3buntu'
 	
 	wget "https://github.com/aendeavor/i3buntu/archive/${LATEST}" &>/dev/null
-	local RESPONSE=$?
-	if [[ RESPONSE -ne 0 ]]; then
-		warn "Could not download latest stable version\n\
-		curl exit code was: $RESPONSE"
-		abort 100
-	fi
+
+	local RSP=$?
+	[ $RSP -ne 0 ] || warn "Could not download latest stable version\ncurl exit code was: $RSP"; abort 100;
 }
 
 # Checks whether a directory called i3buntu is already present (aborts if this is the case)
-# and checks if there is a tar with this name (which will be be reused)
+# and if there is a tar with this name (which will be be reused)
 function check_on_present() {
-	if [[ -d "i3buntu" ]]; then
+	if [ -d "i3buntu" ]; then
 		warn "There is already one i3buntu directory in this location\n\
 		Please remove or rename your i3buntu directory"
 		abort 1
 	fi
 
-	if [[ -e $LATEST ]]; then
+	if [ -e $LATEST ]; then
 		inform 'The latest version is already present and will not be downloaded again'
 		return
 	fi
@@ -89,9 +84,7 @@ function check_on_present() {
 }
 
 function decompress() {
-	tar xvfz $LATEST &>/dev/null
-	mv i3buntu* i3buntu
-	cd i3buntu
+	tar xvfz $LATEST &>/dev/null; mv i3buntu* i3buntu; cd i3buntu || exit 1
 }
 
 # ! Main
@@ -124,4 +117,3 @@ function main() {
 }
 
 main "$@" || exit 1
-
