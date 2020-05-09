@@ -53,7 +53,7 @@ function check_wget() {
 	[ -n "$(which wget)" ] || sudo apt-get install -y wget &>/dev/null
 
 	local RSP=$?
-	[ $RSP -eq 0 ] || warn 'Could not find or install wget'; abort 100;
+	[ $RSP -eq 0 ] || { warn 'Could not find or install wget'; abort 100; }
 }
 
 function download() {
@@ -62,7 +62,7 @@ function download() {
 	wget "https://github.com/aendeavor/i3buntu/archive/${LATEST}" &>/dev/null
 
 	local RSP=$?
-	[ $RSP -eq 0 ] || warn "Could not download latest stable version\ncurl exit code was: $RSP"; abort 100;
+	[ $RSP -eq 0 ] || { warn "Could not download latest stable version\ncurl exit code was: $RSP"; abort 100; }
 }
 
 # Checks whether a directory called i3buntu is already present (aborts if this is the case)
