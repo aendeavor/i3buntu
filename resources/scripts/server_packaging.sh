@@ -80,7 +80,7 @@ function choices() {
 	read -p "Would you like to install NeoVIM? [Y/n]" -r NVIM
 
 	DOCK="n"
-	[ -z "$(which docker)" ] && read -p "Would you like to install Docker? [Y/n]" -r DOCK
+	[ -z "$(command -v docker)" ] && read -p "Would you like to install Docker? [Y/n]" -r DOCK
 	
 	read -p "Would you like to install RUST? [Y/n]" -r RUST
 
@@ -90,8 +90,8 @@ function choices() {
 function prechecks() {
 	_programs=( apt dpkg apt-get )
 	for _program in "${_programs[@]}"; do
-		if [[ -z $(which "${_program}") ]]; then
-			err "Could not find command ${_program}\n\t\t\t\t\t\t\tAborting"
+		if [[ -z $(command -v "${_program}") ]]; then
+			err "Could not find command ${_program}\n\t\tAborting."
 			exit 100
 		fi
 	done
@@ -177,7 +177,7 @@ function process_choices() {
 					&>>/dev/null rustup component add "$COMPONENT"
 				done
 
-				if [ -n "$(which code)" ]; then
+				if [ -n "$(command -v code)" ]; then
 					code --install-extension rust-lang.rust &>/dev/null
 				fi
 			fi
@@ -197,7 +197,7 @@ function next() {
 }
 
 post() {
-	if [[ -z $(which shutdown) ]]; then
+	if [[ -z $(command -v shutdown) ]]; then
 		warn 'Altough recommended, could not find shutdown command to restart'
 		return 1
 	fi

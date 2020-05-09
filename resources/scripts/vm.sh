@@ -9,7 +9,7 @@
 # Install VM Ware Workstation Player, if
 # not already installed
 function install_vmware_player() {
-	if [[ -n $(which vmplayer) ]]; then
+	if [[ -n $(command -v vmplayer) ]]; then
 	  	echo -e "VM Ware Workstation Player already installed"
 	else
 		sudo apt update &>/dev/null

@@ -115,7 +115,7 @@ export -f test_on_success
 function ensure() {
     if ! "$@"; then
 		echo ''
-		err "Command failed: $*\n\t\t\t\t\t\t\tAborting" 1>&2
+		err "Command failed: $*\n\t\tAborting." 1>&2
 		exit 1
 	fi
 }
