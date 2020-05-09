@@ -8,7 +8,7 @@
     "workbench.editor.limit.value": 3,
     "workbench.startupEditor": "newUntitledFile",
     "workbench.sideBar.location": "right",
-    "workbench.colorTheme": "Horizon",
+    "workbench.colorTheme": "One Dark Pro",
     "workbench.iconTheme": "material-icon-theme",
     
     // LaTeX (XE-TeX)
