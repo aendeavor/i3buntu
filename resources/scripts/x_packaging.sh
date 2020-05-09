@@ -169,7 +169,7 @@ function choices() {
 	read -p 'Would you like to install the JetBrains IDE suite? [Y/n]' -r JBIDE
 	
 	DOCK="n"
-	[ -z "$(which docker)" ] && read -p "Would you like to install Docker? [Y/n]" -r DOCK
+	[ -z "$(command -v docker)" ] && read -p "Would you like to install Docker? [Y/n]" -r DOCK
 
 	read -p 'Would you like to install RUST? [Y/n]' -r RUST
 
@@ -179,16 +179,16 @@ function choices() {
 function prechecks() {
 	_programs=( apt dpkg apt-get )
 	for _program in "${_programs[@]}"; do
-		if [[ -z $(which "${_program}") ]]; then
-			err "Could not find command ${_program}\n\t\t\t\t\tAborting" | "${WTL[@]}"
+		if [[ -z $(command -v "${_program}") ]]; then
+			err "Could not find command ${_program}\n\t\tAborting." | "${WTL[@]}"
 			exit 100
 		fi
 	done
 }
 
 function check_lightdm() {
-	if [[ -z $(which gdm3) ]]; then
-		warn 'It seems like GNOME (GDM3) is installed.\n\t\t\tThis can later conflict with LightDM and require user input.\n'
+	if [[ -z $(command -v gdm3) ]]; then
+		warn 'It seems like GNOME (GDM3) is installed.\n\t\tThis can later conflict with LightDM and require user input.\n'
 		read -p 'Would you like to uninstall it? [y/N]' -r _uninstall_gnome
 
 		echo ''
@@ -214,7 +214,7 @@ function add_ppas() {
 	ensure "${AI[@]}" software-properties-common >/dev/null
 
 	for _ppa in "${_ppas[@]}"; do
-		ensure sudo add-apt-repository -y "$_ppa" &>/dev/null
+		ensure sudo add-apt-repository -y "$_ppa" >/dev/null
 	done
 }
 
@@ -261,7 +261,7 @@ function packages() {
 		'true')
 			# gnome*
 			ensure uninstall_and_log "${LOG}" gdm3*
-			ensure "${AI[@]}" lightdm >/dev/null 2>>"${LOG}"
+			ensure "${AI[@]}" lightdm >/dev/null
 
 			local EC=$?
 	    	if (( EC != 0 )); then
@@ -307,7 +307,7 @@ function packages() {
 	done
 
 	uninstall_and_log "${LOG}" suckless-tools
-	echo "" | "${WTL[@]}"
+	echo '' | "${WTL[@]}"
 	succ "Finished with packaging" "$LOG"
 }
 
@@ -319,12 +319,12 @@ function icons_and_colors() {
           cd /tmp || return 1
           ensure wget\
             -O tela.tar.gz\
-            "https://github.com/vinceliuice/Tela-icon-theme/archive/2020-02-21.tar.gz" &>>/dev/null
+            "https://github.com/vinceliuice/Tela-icon-theme/archive/2020-02-21.tar.gz" >/dev/null
 
           tar -xvzf "tela.tar.gz" &>>/dev/null
           mv Tela* tela
           cd /tmp/tela/ || return 1
-          ensure ./install.sh -a "&>>${LOG}" 
+          ensure ./install.sh -a >>"${LOG}" 
         )
 	fi
 
@@ -361,7 +361,7 @@ function process_choices() {
 		
 		local RSP=$?
 		if [ $RSP -ne 0 ]; then
-			err "Could not add Cryptomator PPA\n\t\t\t\t\tSkipping"
+			err "Could not add Cryptomator PPA\n\t\tSkipping"
 		else
 			&>>/dev/null sudo apt update
 			test_on_success "$LOG" "${AI[@]}" cryptomator
@@ -441,7 +441,7 @@ function process_choices() {
 					&>>/dev/null rustup component add "$COMPONENT"
 				done
 
-				[ -n "$(which code)" ] && code --install-extension rust-lang.rust &>/dev/null
+				[ -n "$(command -v code)" ] && code --install-extension rust-lang.rust &>/dev/null
 			fi
 			printf "successful\n" | "${WTL[@]}"
 		else
@@ -454,7 +454,7 @@ function process_choices() {
 }
 
 function post() {
-	if [[ -z $(which shutdown) ]]; then
+	if [[ -z $(command -v shutdown) ]]; then
 		warn 'Altough recommended, could not find shutdown to restart'
 		return 1
 	fi

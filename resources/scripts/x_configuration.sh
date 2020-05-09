@@ -196,7 +196,7 @@ process_choices() {
 }
 
 post() {
-	if [[ -z $(which shutdown) ]]; then
+	if [[ -z $(command -v shutdown) ]]; then
 		warn 'Altough recommended, could not find shutdown to restart'
 		return 1
 	fi
