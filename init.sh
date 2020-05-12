@@ -50,7 +50,7 @@ function say() {
 }
 
 function check_wget() {
-	[ -n "$(which wget)" ] || sudo apt-get install -y wget &>/dev/null
+	[ -n "$(command -v wget)" ] || sudo apt-get install -y wget &>/dev/null
 
 	local RSP=$?
 	[ $RSP -eq 0 ] || { warn 'Could not find or install wget'; abort 100; }
@@ -108,7 +108,7 @@ function main() {
 			;;
 	esac
 
-    echo -e "Welcome to \e[1mi3buntu\033[0m!\nThis will download and start the installation\nof i3buntu on your system.\n"
+    echo -e "\nWelcome to \e[1mi3buntu\033[0m!\nThis will download and start the installation\nof i3buntu on your system.\n"
 
 	check_on_present
 	decompress

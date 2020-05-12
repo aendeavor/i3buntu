@@ -12,7 +12,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 BACK="$(readlink -m "${DIR}/../../backups/packaging/$(date '+%d-%m-%Y--%H-%M-%S')")"
 LOG="${BACK}/packaging_log"
 
-IF=( --yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages )
+IF=( --yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages -qq)
 AI=( sudo apt-get install "${IF[@]}" )
 WTL=( tee -a "${LOG}" )
 
@@ -80,7 +80,7 @@ function choices() {
 	read -p "Would you like to install NeoVIM? [Y/n]" -r NVIM
 
 	DOCK="n"
-	[ -z "$(command -v docker)" ] && read -p "Would you like to install Docker? [Y/n]" -r DOCK
+	[ -z "$(command -v docker)" ] && read -p "Would you like to install Docker/Compose? [Y/n]" -r DOCK
 	
 	read -p "Would you like to install RUST? [Y/n]" -r RUST
 
@@ -144,15 +144,18 @@ function process_choices() {
 
 	if [[ $DOCK =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $DOCK ]]; then
 		printf '\nInstalling Docker... ' | "${WTL[@]}"
-		
-		curl -fsSL https://get.docker.com -o get-docker.sh &>/dev/null
-		sudo sh get-docker.sh &>/dev/null
+		test_on_success "$LOG" "${AI[@]}" docker.io
+        sudo systemctl enable --now docker >/dev/null 2>>"$LOG"
 		sudo usermod -aG docker "$(whoami)" &>/dev/null
 
-		sudo curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose &>/dev/null
+        local _compose_version="1.25.5"
+		sudo curl\
+          -L "https://github.com/docker/compose/releases/download/${_compose_version}/docker-compose-$(uname -s)-$(uname -m)"\
+          -o /usr/local/bin/docker-compose &>/dev/null
 		sudo chmod +x /usr/local/bin/docker-compose &>/dev/null
-
-		sudo curl -L https://raw.githubusercontent.com/docker/compose/1.25.4/contrib/completion/bash/docker-compose -o /etc/bash_completion.d/docker-compose &>/dev/null
+		sudo curl\
+          -L https://raw.githubusercontent.com/docker/compose/${_compose_version}/contrib/completion/bash/docker-compose\
+          -o /etc/bash_completion.d/docker-compose &>/dev/null
 	fi
 
 	if [[ $RUST =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RUST ]]; then
