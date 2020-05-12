@@ -9,7 +9,7 @@ To get things started, you will need an [Ubuntu ISO image](https://ubuntu.com/do
 
 ## Runlevel 3 - Managing packages
 
-If you chose the desktop version, you can remove GNOME packages and reboot. This is, however, not an absolute must, as some might prefer to have an alternative to _i3-gaps_. From hereon, update the system. Afterwards, just execute the `curl` command. It will setup everything you need. Keep in mind: For server installations, this step will finish _i3buntu_'s installation. For desktops, you will need to start configuration separately.
+If you chose the desktop version, you can remove GNOME packages and reboot. This is, however, not a must, as some might prefer to have an alternative to _i3-gaps_. From hereon, update the system. Afterwards, just execute the `curl` command. It will setup everything you need. Keep in mind: For server installations, this step will finish _i3buntu_'s installation. For desktops, you will need to start configuration separately.
 
 ``` BASH
 # (Optional) Remove GNOME
@@ -20,11 +20,8 @@ sudo apt-get -y update && sudo apt-get -y dist-upgrade
 sudo apt-get install curl
 
 # Execute the bootstrap script
-curl \
-  --proto '=https'\
-  --tlsv1.2\
-  -sSf\
-  https://raw.githubusercontent.com/aendeavor/i3buntu/master/resources/scripts/init.sh | bash
+curl --proto '=https' --tlsv1.2 -sSf\
+  https://raw.githubusercontent.com/aendeavor/i3buntu/master/init.sh | bash
 ```
 
 The `curl` command will create an i3buntu directory and execute the [install.sh](./install.sh) script. If you would like to start an installation manually, you can do so:

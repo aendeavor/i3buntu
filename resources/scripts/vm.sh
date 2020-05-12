@@ -9,13 +9,13 @@
 # Install VM Ware Workstation Player, if
 # not already installed
 function install_vmware_player() {
-	if [[ -n $(which vmplayer) ]]; then
+	if [[ -n $(command -v vmplayer) ]]; then
 	  	echo -e "VM Ware Workstation Player already installed"
 	else
 		sudo apt update &>/dev/null
 		sudo apt install build-essential linux-headers-generic &>/dev/null	
 		
-		cd /tmp
+		cd /tmp || return 1
 		wget --user-agent="Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/70.0" https://www.vmware.com/go/getplayer-linux -qy
 		
 		chmod a+x getplayer-linux &>/dev/null
@@ -54,4 +54,3 @@ function main() {
 }
 
 main "$@" || exit 1
-

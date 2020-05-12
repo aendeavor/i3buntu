@@ -1,3 +1,4 @@
+#!/bin/bash
 #        ____  ___   _____ __  ______  ______
 #       / __ )/   | / ___// / / / __ \/ ____/
 #      / __  / /| | \__ \/ /_/ / /_/ / /     
@@ -10,7 +11,7 @@
 # Executed by BASH for non-login shells
 # Loads $HOME/.bash_aliases
 #
-# version   0.6.4
+# version   0.7.0
 # author    aendeavor@Georg Lauterbach
 
 ###########################################################
@@ -63,7 +64,7 @@ prompt() {
   
     # PS1+='\[\e[0m\] : '
   
-    PS1+='\[\e[38;5;72m\]'
+    PS1+='\[\e[38;5;109m\]'
     PS1+='[ \w ]'
   
     PS1+='\[\e[0m\] \$ '
@@ -76,8 +77,9 @@ prompt() {
 }
 
 aliases() {
-  if [[ -f "${HOME}/.bash_aliases" ]]; then
-      . "${HOME}/.bash_aliases"
+  if [[ -f ${HOME}/.bash_aliases ]]; then
+  	# shellcheck source=/dev/null
+    . "${HOME}/.bash_aliases"
   fi
 }
 
@@ -113,7 +115,7 @@ update_ps1() {
     -numeric-exit-codes\
     -cwd-max-depth 7\
     -cwd-max-dir-size 11\
-    -modules "ssh,cwd,git,hg,jobs,exit,root"\
+    -modules "ssh,cwd,git,hg,jobs,exit,root"
   )"
 }
 

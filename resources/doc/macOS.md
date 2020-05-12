@@ -44,7 +44,7 @@ After opening a new shell, we can check whether we now use _bash5_.
 bash --version
 ```
 
-These should all show version 5. Now, turn SIP back on, by following the steps to turning it of, just use `enable` instead of `disable` - then reboot.
+These should all show version 5. While SIP is disabled, get rid of preinstalled applications we do not need, like chess, etc. Then, turn SIP back on, by following the steps to turning it of, just use `enable` instead of `disable`.
 
 ## _Homebrew_ & Programs
 
@@ -70,7 +70,6 @@ _brew_install=(
     firefox
     cmake
     htop
-    git
     gpg
     pinentry-mac
 )
@@ -86,10 +85,6 @@ _bci=(
     alacritty
     cryptomator
     owncloud
-    libreoffice
-    teamviewer
-    balenaetcher
-    gitkraken
 )
 
 for _candidate in ${_bci[@]}; do
@@ -155,7 +150,6 @@ _extensions=(
     redhat.vscode-xml
     redhat.vscode-yaml
     ritwickdey.LiveServer
-    sainnhe.gruvbox-material
     serayuzgur.crates
     shd101wyy.markdown-preview-enhanced
     streetsidesoftware.code-spell-checker
@@ -184,7 +178,7 @@ curl https://raw.githubusercontent.com/aendeavor/i3buntu/master/resources/sys/vi
 # Install plugins in NeoVIm with :PlugInstall,
 # next, compile YouCompleteMe with python3.X
 cd ${HOME}/.config/nvim/plugged/YouCompleteMe
-python3.7 install.py
+python3 install.py
 ```
 
 ### Thunderbird

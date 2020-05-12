@@ -1,3 +1,4 @@
+#!/bin/bash
 #        ____  ___   _____ __  __     ___    __    _______   _____ ___________
 #       / __ )/   | / ___// / / /    /   |  / /   /  _/   | / ___// ____/ ___/
 #      / __  / /| | \__ \/ /_/ /    / /| | / /    / // /| | \__ \/ __/  \__ \ 
@@ -10,20 +11,26 @@
 #
 # Executed from $HOME/.bashrc
 #
-# version   1.2.9
+# version   1.2.10
 # author    aendeavor@Georg Lauterbach
 
 ###########################################################
 
+# shellcheck disable=SC2024
+
 # check color support
 if [ -x /usr/bin/dircolors ]; then
-    test -r "${HOME}/.dircolors" && eval "$(dircolors -b "${HOME}/.dircolors")" || eval "$(dircolors -b)"
+    if [[ -r ${HOME}/.dircolors ]] && eval "$(dircolors -b "${HOME}/.dircolors")"; then
+		true
+	else
+		eval "$(dircolors -b)"
+	fi
 fi
 
 # ? Aliases
 
 alias ls='ls -lh --color=auto'
-alias lsa='ls -lha --color=auto'
+alias lsa='ls -lhA --color=auto'
 alias grep='grep --color=auto'
 alias datetime='date && cal'
 alias df='df -h'
@@ -73,57 +80,22 @@ function succ() {
 }
 export -f succ
 
-# uninstall a package and log the uninstall-process
-function uninstall_and_log()
-{
-    local LOG=${1:-"/dev/null"}
-    shift
-
-    local IF=(
-        --yes
-        --allow-unauthenticated
-        --allow-downgrades
-        --allow-remove-essential
-        --allow-change-held-packages
-    )
-    
-    # cannot just use $*, because when logging, we need to do
-    # it iteratively, so we use $@
-    for PACKAGE in $@; do
-        >/dev/null 2>>"${LOG}" sudo apt-get remove ${IF[@]} "$PACKAGE"
-        EC=$?
-
-        if (( $EC != 0 )); then
-            printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Not Removed" "${EC}"
-        else
-            printf "%-35s | %-15s | %-15s" "${PACKAGE}" "Removed" "${EC}"
-        fi
-        printf "\n"
-        
-        &>>"$LOG" echo -e "${PACKAGE} (${EC})"
-    done
-}
-
 ## ? Non-Logger
 
 function a () {
-    ensure sudo apt-get "$*"
-    return
+    sudo apt-get "$@"
 }
 export -f a
 
 function sf () {
     SEARCH=${1:?Enter a search-regex}
     MAXDEPTH=${2:-1}
-    find . -maxdepth $MAXDEPTH -iregex "[a-z0-9_\.\/\ ]*${SEARCH}[a-z0-9_\.\/\ ]*" -type f
-    ls -lha | grep $1
-    return
+    find . -maxdepth "$MAXDEPTH" -iregex "[a-z0-9_\.\/\ ]*${SEARCH}[a-z0-9_\.\/\ ]*" -type f
 }
 export -f sf
 
 function shutn () {
     shutdown now
-    return
 }
 export -f shutn
 
@@ -133,9 +105,9 @@ function test_on_success() {
 	local LOG=$1
 	shift
 	if "$@" &>/dev/null; then
-	    printf 'successful.' | tee -a $LOG
+	    printf 'successful.' | tee -a "$LOG"
 	else
-	    printf 'unsuccessful.' | tee -a $LOG
+	    printf 'unsuccessful.' | tee -a "$LOG"
 	fi
 }
 export -f test_on_success
@@ -143,7 +115,7 @@ export -f test_on_success
 function ensure() {
     if ! "$@"; then
 		echo ''
-		err "Command failed: $*\n\t\t\t\t\t\t\tAborting"
+		err "Command failed: $*\n\t\tAborting." 1>&2
 		exit 1
 	fi
 }
@@ -156,30 +128,22 @@ function script_update()
 
     local OPTIONS=( --yes --assume-yes --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages )
 
-	echo '' >> "$LOG"
-    warn 'New update started' >> "$LOG"
+	{ echo ''; warn 'New update started'; } >> "$LOG"
 
     inform 'Checking for updates' >> "$LOG"
-    1>&2 ensure >/dev/null sudo apt-get update
+    ensure sudo apt-get update >/dev/null
 
     inform 'Installing updates' >> "$LOG"
-    1>&2 ensure >/dev/null sudo apt-get ${OPTIONS[@]} upgrade
+    ensure sudo apt-get "${OPTIONS[@]}" upgrade >/dev/null
 
     inform 'Removing orphaned packages' >> "$LOG"
-    1>&2 ensure >/dev/null sudo apt-get ${OPTIONS[@]} autoremove
+    ensure sudo apt-get "${OPTIONS[@]}" autoremove >/dev/null
 
     inform 'Clearing apt cache' >> "$LOG"
-    1>&2 ensure >/dev/null sudo apt-get ${OPTIONS[@]} autoclean
+    ensure sudo apt-get "${OPTIONS[@]}" autoclean >/dev/null
 
-	if [[ ! -z $(which snap) ]]; then
-	    inform 'Updating via SNAP' >> "$LOG"
-	    &>/dev/null sudo snap refresh
-	fi
-
-    if [[ ! -z $(which rustup) ]]; then
-		inform 'Updating RUST via rustup' >> "$LOG"
-        &>/dev/null rustup update
-    fi
+	[[ -z $(which snap) ]] || inform 'Updating via SNAP' >> "$LOG"; sudo snap refresh &>/dev/null;
+    [[ -z $(which rustup) ]] || inform 'Updating RUST via rustup' >> "$LOG"; rustup update &>/dev/null;
 
     succ "Completed update\n" >> "$LOG"
 	set +u
@@ -190,26 +154,25 @@ export -f script_update
 
 function update()
 {
-    local LOG="${HOME}/.update_log"
-	touch $LOG
-
-    local OPTIONS=( --yes --assume-yes --allow-unauthenticated --allow-change-held-packages )
-
-	local RIP
-
-    sudo printf ""
-	if [[ $? -ne 0 ]]; then
+    if ! sudo printf ""; then
 		echo ''
 		err 'User input invalid. Aborting.'
 		return 1
 	fi
+    
+	local LOG="${HOME}/.update_log"
+	touch "$LOG"
+
+    local OPTIONS=( --yes --assume-yes --allow-unauthenticated --allow-change-held-packages )
+
+	local RIP
 
 	echo '' >> "$LOG"
     warn 'New update started' "$LOG"
 
 	echo '' >> "$LOG"
     inform 'Checking for updates' "$LOG"
-    &>>"$LOG" sudo apt-get update
+    sudo apt-get update &>>"$LOG"
 	RIP=$?
 	if [[ $RIP -ne 0 ]]; then
 		err "sudo apt-get update returned with error code $RIP"
@@ -218,7 +181,7 @@ function update()
 
 	echo '' >> "$LOG"
     inform 'Installing updates' "$LOG"
-    &>>"$LOG" sudo apt-get --with-new-pkgs ${OPTIONS[@]} upgrade
+    sudo apt-get --with-new-pkgs "${OPTIONS[@]}" upgrade &>>"$LOG"
 	RIP=$?
 	if [[ $RIP -ne 0 ]]; then
 		err "sudo apt-get upgrade returned with error code $RIP"
@@ -227,17 +190,17 @@ function update()
 
 	echo '' >> "$LOG"
     inform 'Removing orphaned packages' "$LOG"
-    &>>"$LOG" sudo apt-get ${OPTIONS[@]} autoremove
+    sudo apt-get "${OPTIONS[@]}" autoremove &>>"$LOG"
 	RIP=$?
 	if [[ $RIP -ne 0 ]]; then
 		err "sudo apt-get autoremove returned with error code $RIP"
 		return 1
 	fi
 
-	if [[ ! -z $(which snap) ]]; then
+	if [ -n "$(which snap)" ]; then
 		echo '' >> "$LOG"
     	inform 'Updating via SNAP' "$LOG"
-    	&>>"$LOG" sudo snap refresh
+    	sudo snap refresh &>>"$LOG"
 		RIP=$?
 		if [[ $RIP -ne 0 ]]; then
 			err "sudo snap refresh returned with error code $RIP"
@@ -245,10 +208,10 @@ function update()
 		fi
 	fi
 
-    if [[ ! -z $(which rustup) ]]; then
+    if [ -n "$(which rustup)" ]; then
 		echo '' >> "$LOG"
 		inform 'Updating RUST via rustup' "$LOG"
-        &>>"$LOG" rustup update
+        rustup update &>>"$LOG"
 		RIP=$?
 		if [[ $RIP -ne 0 ]]; then
 			err "sudo apt-get update returned with error code $RIP"

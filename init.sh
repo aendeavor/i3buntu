@@ -2,13 +2,13 @@
 
 # Downloads i3buntu and starts installation
 #
-# current version - 0.1.5 unstable
+# current version - 0.1.7 unstable
 
-LATEST='v1.0.26-beta.4.tar.gz'
+LATEST='v1.1.0-stable.tar.gz'
 
 function version() {
 	cat 1>&2 << EOF
-i3buntu-init                  v0.1.4   unstable
+i3buntu-init                  v0.2.0   stable
 
 EOF
 }
@@ -33,7 +33,7 @@ function inform() {
 
 function abort() {
     echo -e "\033[0;31mERROR\033[0m\tAborting due to unrecoverable situation"
-	exit $1
+	exit "$1"
 }
 
 function warn() {
@@ -45,41 +45,36 @@ function succ() {
 }
 
 function say() {
-	printf "$2"
+	printf "%s" "$2"
 	echo -e "		$1"
 }
 
 function check_wget() {
-	[ -n $(which wget) ] || sudo apt-get install -y wget &>/dev/null
+	[ -n "$(command -v wget)" ] || sudo apt-get install -y wget &>/dev/null
 
-	if (( $? != 0 )); then
-		warn 'Could not find or install wget'
-		abort 100
-	fi
+	local RSP=$?
+	[ $RSP -eq 0 ] || { warn 'Could not find or install wget'; abort 100; }
 }
 
 function download() {
 	inform 'Downloading latest stable version of i3buntu'
 	
 	wget "https://github.com/aendeavor/i3buntu/archive/${LATEST}" &>/dev/null
-	local RESPONSE=$?
-	if [[ RESPONSE -ne 0 ]]; then
-		warn "Could not download latest stable version\n\
-		curl exit code was: $RESPONSE"
-		abort 100
-	fi
+
+	local RSP=$?
+	[ $RSP -eq 0 ] || { warn "Could not download latest stable version\ncurl exit code was: $RSP"; abort 100; }
 }
 
 # Checks whether a directory called i3buntu is already present (aborts if this is the case)
-# and checks if there is a tar with this name (which will be be reused)
+# and if there is a tar with this name (which will be be reused)
 function check_on_present() {
-	if [[ -d "i3buntu" ]]; then
+	if [ -d "i3buntu" ]; then
 		warn "There is already one i3buntu directory in this location\n\
 		Please remove or rename your i3buntu directory"
 		abort 1
 	fi
 
-	if [[ -e $LATEST ]]; then
+	if [ -e $LATEST ]; then
 		inform 'The latest version is already present and will not be downloaded again'
 		return
 	fi
@@ -89,9 +84,7 @@ function check_on_present() {
 }
 
 function decompress() {
-	tar xvfz $LATEST &>/dev/null
-	mv i3buntu* i3buntu
-	cd i3buntu
+	tar xvfz $LATEST &>/dev/null; mv i3buntu* i3buntu; cd i3buntu || exit 1
 }
 
 # ! Main
@@ -115,12 +108,7 @@ function main() {
 			;;
 	esac
 
-cat 1>&2 << EOF
-
-Welcome to \e[1mi3buntu\033[0m!
-This will download and start the installation
-of i3buntu on your system.
-EOF
+    echo -e "\nWelcome to \e[1mi3buntu\033[0m!\nThis will download and start the installation\nof i3buntu on your system.\n"
 
 	check_on_present
 	decompress
@@ -129,4 +117,3 @@ EOF
 }
 
 main "$@" || exit 1
-

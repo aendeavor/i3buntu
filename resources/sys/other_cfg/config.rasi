@@ -23,7 +23,7 @@
     font:               "Roboto NF 9";
 }
 
-configuration {
+#configuration {
     show-icons: true;
 }
 
@@ -57,7 +57,7 @@ configuration {
 
 #element selected {
     background-color: rgba(0,0,0,0);
-    text-color: rgba(255, 142, 206,1);
+    text-color: rgba(251, 168, 121,1);
 }
 
 /* vim:ft=css
