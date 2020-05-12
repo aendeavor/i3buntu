@@ -325,7 +325,7 @@ function icons_and_colors() {
 		mkdir -p "${HOME}/.themes" &>/dev/null
 		cp "${DIR}/../design/ant.tar" "${HOME}/.themes"
 		cd "${HOME}/.themes" || return 1
-		tar -xvf ant_dracula.tar &>/dev/null
+		tar -xvf ant.tar &>/dev/null
 	)
 }
 
