@@ -8,7 +8,7 @@ LATEST='v1.1.0-stable.tar.gz'
 
 function version() {
 	cat 1>&2 << EOF
-i3buntu-init                  v0.1.4   unstable
+i3buntu-init                  v0.2.0   stable
 
 EOF
 }
