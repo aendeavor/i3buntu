@@ -1,11 +1,11 @@
 # Ubuntu Minimal & i3
 
 [//]: # (Serves an overview of i3buntu)
-[//]: # (version 1.2.0)
+[//]: # (version 1.2.1)
 
 ## Preamble
 
-This repository aims at providing you with a set of instructions to create your own minimal _Ubuntu_ installation with the _i3_[_-gaps_](https://github.com/Airblader/i3) window manager. The latest release of i3buntu is [v1.1.0-stable](https://github.com/aendeavor/i3buntu/releases/tag/v1.1.0-stable), the latest stable release is [v1.1.0-stable](https://github.com/aendeavor/i3buntu/releases/tag/v1.1.0-stable).
+This repository aims at providing you with a set of instructions to create your own minimal _Ubuntu_ installation with the _i3_[_-gaps_](https://github.com/Airblader/i3) window manager. The latest release of i3buntu is [v1.2.1-stable](https://github.com/aendeavor/i3buntu/releases/tag/v1.2.1-stable), the latest stable release is [v1.2.1-stable](https://github.com/aendeavor/i3buntu/releases/tag/v1.2.1-stable).
 
 [![Desktop Theme](resources/doc/desktop_theme.png)](https://reddit.com/r/unixporn/)
 
