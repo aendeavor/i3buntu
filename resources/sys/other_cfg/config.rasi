@@ -23,7 +23,7 @@
     font:               "Roboto NF 9";
 }
 
-configuration {
+#configuration {
     show-icons: true;
 }
 

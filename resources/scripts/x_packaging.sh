@@ -187,8 +187,9 @@ function prechecks() {
 }
 
 function check_lightdm() {
-	if [[ -z $(command -v gdm3) ]]; then
-		warn 'It seems like GNOME (GDM3) is installed.\n\t\tThis can later conflict with LightDM and require user input.\n'
+    _uninstall_gnome='normal'
+	if [[ -n $(command -v gdm3) ]]; then
+		warn 'It seems like GNOME (GDM3) is installed.\n\t\t\tThis can later conflict with LightDM and require user input.\n'
 		read -p 'Would you like to uninstall it? [y/N]' -r _uninstall_gnome
 
 		echo ''
@@ -229,6 +230,7 @@ function uninstall_and_log()
         --allow-downgrades
         --allow-remove-essential
         --allow-change-held-packages
+        -qq
     )
 
     # cannot just use $*, because when logging, we need to do
@@ -254,45 +256,36 @@ function packages() {
 	printf "%-35s | %-15s | %-15s" "PACKAGE" "STATUS" "EXIT CODE"
 	printf "\n"
 
-	## needs to be checked first, as LightDM conflicts with these packages
+	# needs to be checked first, as LightDM conflicts with these packages
 	ensure uninstall_and_log "${LOG}" liblightdm-gobject* liblightdm-qt*
 
 	case $_uninstall_gnome in
 		'true')
-			# gnome*
-			ensure uninstall_and_log "${LOG}" gdm3*
+			ensure uninstall_and_log "${LOG}" gdm3* # gnome*
 			ensure "${AI[@]}" lightdm >/dev/null
-
-			local EC=$?
-	    	if (( EC != 0 )); then
-	        	printf "%-35s | %-15s | %-15s" "lightdm" "Not Installed" "${EC}"
-	    	else
-	        	printf "%-35s | %-15s | %-15s" "lightdm" "Installed" "${EC}"
-	    	fi
-	
-	    	printf "\n"
-	    	echo -e "lightdm (${EC})" &>>"${LOG}"
 			;;
 		'false')
 			echo ''
 			inform "Installing LightDM. Verbose output and user input might necessarry\n"
 			ensure "${AI[@]}" lightdm
+            echo ''
+            ;;
+        'normal')
+	        >/dev/null 2>>"${LOG}" "${AI[@]}" lightdm
+            ;;
+    esac
 
-			echo ''
-			local EC=$?
-	    	if (( EC != 0 )); then
-	        	printf "%-35s | %-15s | %-15s" "lightdm" "Not Installed" "${EC}"
-	    	else
-	        	printf "%-35s | %-15s | %-15s" "lightdm" "Installed" "${EC}"
-	    	fi
-	
-	    	printf "\n"
-	    	echo -e "lightdm (${EC})" &>>"${LOG}"
-			;;
-	esac
+	local EC=$?
+	if (( EC != 0 )); then
+    	printf "%-35s | %-15s | %-15s" "lightdm" "Not Installed" "${EC}"
+	else
+    	printf "%-35s | %-15s | %-15s" "lightdm" "Installed" "${EC}"
+	fi
+
+	printf "\n"
+	echo -e "lightdm (${EC})" &>>"${LOG}"
 
 	for _package in "${PACKAGES[@]}"; do
-		test_on_success "$LOG" "${AI[@]}" 
 	    >/dev/null 2>>"${LOG}" "${AI[@]}" "${_package}"
 
 	    local EC=$?
@@ -316,20 +309,20 @@ function icons_and_colors() {
 	if [[ ! -d "${HOME}/.local/share/icons/Tela" ]]; then
 	    inform 'Icon-Theme is being processed' "$LOG"
         (
-          cd /tmp || return 1
-          ensure wget\
+          cd /tmp || exit 1
+          wget\
             -O tela.tar.gz\
-            "https://github.com/vinceliuice/Tela-icon-theme/archive/2020-02-21.tar.gz" >/dev/null
+            "https://github.com/vinceliuice/Tela-icon-theme/archive/2020-02-21.tar.gz" >/dev/null || exit 1
 
           tar -xvzf "tela.tar.gz" &>>/dev/null
           mv Tela* tela
           cd /tmp/tela/ || return 1
-          ensure ./install.sh -a >>"${LOG}" 
+          ./install.sh -a >/dev/null 2>>"${LOG}"
         )
 	fi
 
 	(
-		&>/dev/null mkdir -p "${HOME}/.themes"
+		mkdir -p "${HOME}/.themes" &>/dev/null
 		cp "${DIR}/../design/ant.tar" "${HOME}/.themes"
 		cd "${HOME}/.themes" || return 1
 		tar -xvf ant_dracula.tar &>/dev/null
@@ -346,13 +339,15 @@ function process_choices() {
 	fi
 
 	if [[ $OJDK =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $OJDK ]]; then
+        local jv=14
 		if [[ $(lsb_release -r) == *"18.04"* ]]; then
 			printf '\nInstalling OpenJDK 11... ' | "${WTL[@]}"
-			test_on_success "$LOG" "${AI[@]}" openjdk-11-jdk openjdk-11-doc openjdk-11-jre-headless openjdk-11-source
+            jv=11
 		else
-			printf '\nInstalling OpenJDK 12... ' | "${WTL[@]}"
-			test_on_success "$LOG" "${AI[@]}" openjdk-12-jdk openjdk-12-doc openjdk-12-jre-headless openjdk-12-source
+			printf '\nInstalling OpenJDK 14... ' | "${WTL[@]}"
 		fi
+
+		test_on_success "$LOG" "${AI[@]}" openjdk-${jv}-jdk openjdk-${jv}-doc openjdk-${jv}-jre-headless openjdk-${jv}-source
 	fi
 
 	if [[ $CR =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $CR ]]; then
@@ -413,15 +408,19 @@ function process_choices() {
 
 	if [[ $DOCK =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $DOCK ]]; then
 		printf '\nInstalling Docker... ' | "${WTL[@]}"
-		
-		curl -fsSL https://get.docker.com -o get-docker.sh &>/dev/null
-		sudo sh get-docker.sh &>/dev/null
+    	test_on_success "$LOG" "${AI[@]}" docker.io
+        sudo systemctl enable --now docker >/dev/null 2>>"$LOG"
 		sudo usermod -aG docker "$(whoami)" &>/dev/null
 
-		sudo curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose &>/dev/null
+        local _compose_version="1.25.5"
+		sudo curl\
+          -L "https://github.com/docker/compose/releases/download/${_compose_version}/docker-compose-$(uname -s)-$(uname -m)"\
+          -o /usr/local/bin/docker-compose &>/dev/null
 		sudo chmod +x /usr/local/bin/docker-compose &>/dev/null
+		sudo curl\
+          -L https://raw.githubusercontent.com/docker/compose/${_compose_version}/contrib/completion/bash/docker-compose\
+          -o /etc/bash_completion.d/docker-compose &>/dev/null
 
-		 sudo curl -L https://raw.githubusercontent.com/docker/compose/1.25.4/contrib/completion/bash/docker-compose -o /etc/bash_completion.d/docker-compose &>/dev/null
 	fi
 
 	if [[ $RUST =~ ^(yes|Yes|y|Y| ) ]] || [[ -z $RUST ]]; then
