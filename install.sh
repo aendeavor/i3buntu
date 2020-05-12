@@ -19,7 +19,7 @@ SCR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/resources
 function usage() {
 	cat 1>&2 <<EOF
 Main install script for i3buntu 
-version 1.2.0 unstable
+version 1.2.1 stable
 
 USAGE:
 	./install.sh [OPTIONS] COMMAND [FLAG]
@@ -42,9 +42,9 @@ EOF
 
 function version() {
 	cat 1>&2 <<EOF
-i3buntu                       v1.2.00  stable
+i3buntu                       v1.2.01  stable
 install.sh                    v0.5.00  stable
-init.sh                       v0.1.07  stable
+init.sh                       v0.2.00  stable
 
 x_packaging.sh                v1.4.00  stable
 x_configuration.sh            v1.2.00  stable
