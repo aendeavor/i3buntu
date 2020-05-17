@@ -99,6 +99,9 @@ function main() {
 	    "--help" | "-h")
 	        usage
 	    	;;
+        "exa" | "e")
+            "${SCR}/get_exa.sh"
+            ;;
 		"-i")
 			say "Please choose whether your want a desktop or" "\n"
 			say "server installation to happen [d/S]. If you"

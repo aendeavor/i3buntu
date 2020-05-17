@@ -10,7 +10,7 @@ function main() {
   cargo install exa
 
   sed -i "s/alias ls='ls -lh --color=auto'/alias ls='exa --binary --header --long --group --git'/g" "${HOME}/.bash_aliases"
-  sed -i "s/alias lsa='ls -lhA --color=auto'/alias ls='exa -b -h -l -g --git -a'/g" "${HOME}/.bash_aliases"
+  sed -i "s/alias lsa='ls -lhA --color=auto'/alias lsa='exa -b -h -l -g --git -a'/g" "${HOME}/.bash_aliases"
 
   echo "Success"
 }
