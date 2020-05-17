@@ -199,7 +199,7 @@ function next() {
 	"${DIR}/server_configuration.sh"
 }
 
-post() {
+function post() {
 	if [[ -z $(command -v shutdown) ]]; then
 		warn 'Altough recommended, could not find shutdown command to restart'
 		return 1

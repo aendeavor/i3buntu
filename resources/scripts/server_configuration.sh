@@ -26,7 +26,7 @@ WTL=( tee -a "$LOG" )
 # ? Actual script
 
 ## init of backup-directory and logfile
-init() {
+function init() {
 	if [[ ! -d "$BACK" ]]; then
 	    mkdir -p "$BACK"
 	fi
@@ -106,7 +106,7 @@ function deploy() {
 
 # ! Main
 
-main() {
+function main() {
     sudo printf ''
 	inform "Server configuration has begun"
 
