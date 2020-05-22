@@ -147,8 +147,8 @@ function script_update()
     inform 'Clearing apt cache' >> "$LOG"
     ensure sudo apt-get "${OPTIONS[@]}" autoclean >/dev/null
 
-	[[ -z $(which snap) ]] || inform 'Updating via SNAP' >> "$LOG"; sudo snap refresh &>/dev/null;
-    [[ -z $(which rustup) ]] || inform 'Updating RUST via rustup' >> "$LOG"; rustup update &>/dev/null;
+	[[ -z $(command -v snap) ]] || inform 'Updating via SNAP' >> "$LOG"; sudo snap refresh &>/dev/null;
+    [[ -z $(command -v rustup) ]] || inform 'Updating RUST via rustup' >> "$LOG"; rustup update &>/dev/null;
 
     succ "Completed update\n" >> "$LOG"
 	set +u
@@ -202,7 +202,7 @@ function update()
 		return 1
 	fi
 
-	if [ -n "$(which snap)" ]; then
+	if [ -n "$(command -v snap)" ]; then
 		echo '' >> "$LOG"
     	inform 'Updating via SNAP' "$LOG"
     	sudo snap refresh &>>"$LOG"
@@ -213,7 +213,7 @@ function update()
 		fi
 	fi
 
-    if [ -n "$(which rustup)" ]; then
+    if [ -n "$(command -v rustup)" ]; then
 		echo '' >> "$LOG"
 		inform 'Updating RUST via rustup' "$LOG"
         rustup update &>>"$LOG"
