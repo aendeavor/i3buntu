@@ -94,6 +94,11 @@ function sf () {
 }
 export -f sf
 
+function lb() {
+  lsblk "/dev/sd$1" --fs | grep "sd$1"
+}
+export -f lb
+
 function shutn () {
     shutdown now
 }

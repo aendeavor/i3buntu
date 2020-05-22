@@ -115,6 +115,10 @@ deploy() {
 	echo -e "-> Syncing Rofi's configuration" | "${WTL[@]}"
 	>/dev/null 2>>"${LOG}" "${RS[@]}" "${SYS}/other_cfg/config.rasi" "${HOME}/.config/rofi"
 
+	echo -e "-> Syncing Dunst's configuration" | "${WTL[@]}"
+    rm -rf "${HOME}/.config/dunst/dunstrc" &>/dev/null
+	>/dev/null 2>>"${LOG}" "${RS[@]}" "${SYS}/other_cfg/dunstrc" "${HOME}/.config/dunst"
+
 	echo -e "-> Syncing URXVT resize-font extension" | "${WTL[@]}"
 	>/dev/null 2>>"${LOG}" "${RS[@]}" "${SYS}/sh/resize-font" "${HOME}/.urxvt/ext"
 

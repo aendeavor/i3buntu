@@ -70,7 +70,6 @@ Plug 'vim-syntastic/syntastic'	" Syntax check
 
 Plug 'majutsushi/tagbar'        " Tagbar creates an outline
 Plug 'luochen1990/rainbow'      " Rainbow brackets
-Plug 'preservim/nerdcommenter'  " Fast commenting
 
 Plug 'Valloric/YouCompleteMe'   " Autocompletion
 
@@ -135,7 +134,7 @@ nmap <F8> :TagbarToggle<CR>
 nmap <F7> :NERDTreeToggle<CR>
 
 " Automaticall Open these pluins
-autocmd VimEnter * Tagbar
+" autocmd VimEnter * Tagbar
 
 " README
 " The following needs to be installed for TagBar to work: https://github.com/universal-ctags/ctags/blob/master/docs/autotools.rst
