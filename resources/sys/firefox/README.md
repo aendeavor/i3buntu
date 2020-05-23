@@ -2,9 +2,13 @@
 
 ## CSS
 
-This theme combines the files from [_Material Fox_](https://github.com/muckSponge/MaterialFox) with a "patched" version from [_Flying Fox_](https://github.com/akshat46/FlyingFox). A minor fix has been done to the `--menubar-height`, which has been set to `-opx`.
+This theme combines the files from [_Material Fox_](https://github.com/muckSponge/MaterialFox) with a "patched" version from [_Flying Fox_](https://github.com/akshat46/FlyingFox). A minor fix has been done to the `--menubar-height`, which has been set to `-0px`.
 
 The `chrome` folder can just be copied to your Firefox profile directory. You can get there by just "searching" for `about:support` in the searchbar.
+
+## Firefox Colors
+
+The Firefox Colors are found [here](https://color.firefox.com/?theme=XQAAAAIfAQAAAAAAAABBqYhm849SCia2CaaEGccwS-xNKlhWuMf61H-qemtFQ7JmIThKEJYbO6BYtxXFN3QVwfgIyLdrYygaud86UIpkiO8YN31rNYQT4wbIyYwCNHU7jaUMww6R7XMYKHXDUCvMW7_0AiLugqKwZ2mhpvOqQw__PRrGb_w5dNZqMUkPfE4UsOjehwu76ZgYlAyi-kcs2o76aC30rqSaUf9RJtUHhA_oQODqn_yh5tM). Just click on this link and apply the colors. 
 
 ## Policies
 
