@@ -72,9 +72,6 @@ function deploy() {
 	echo ''
 	inform "Proceeding to deploying config files\n" "$LOG"
 
-    echo -e "-> Copying PowerLine-Go to /bin"
-    >/dev/null 2>>"${LOG}" "${RS[@]}" "${SYS}/sh/powerline-go-linux-amd64" "/bin"
-
 	local _deploy_in_home=( sh/.bashrc sh/.bash_aliases vi/.vimrc )
 	for sourceFile in "${_deploy_in_home[@]}"; do
 	    echo -e "-> Syncing $(basename -- "${sourceFile}")"  | "${WTL[@]}"

@@ -137,9 +137,6 @@ deploy() {
 	    >/dev/null 2>>"${LOG}" "${RS[@]}" "${SYS}/vscode/settings.json" "${HOME}/.config/Code/User"
 	fi
 
-    echo -e '-> Copying PowerLine-Go to /bin'
-    >/dev/null 2>>"${LOG}" "${RS[@]}" "${SYS}/sh/powerline-go-linux-amd64" "/bin"
-	
 	if dpkg -s neovim &>/dev/null; then
 		mkdir -p "${HOME}/.config/nvim"
 		sudo mkdir -p "/root/.config/nvim"
