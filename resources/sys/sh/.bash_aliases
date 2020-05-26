@@ -29,8 +29,8 @@ fi
 
 # ? Aliases
 
-alias ls='ls -lh --color=auto'
-alias lsa='ls -lhA --color=auto'
+alias ls='exa --binary --header --long --group --git --group-directories-first'
+alias lsa='exa -b -h -l -g --git -a --group-directories-first --color-scale'
 alias grep='grep --color=auto'
 alias datetime='date && cal'
 alias df='df -h'
@@ -93,11 +93,6 @@ function sf () {
     find . -maxdepth "$MAXDEPTH" -iregex "[a-z0-9_\.\/\ ]*${SEARCH}[a-z0-9_\.\/\ ]*" -type f
 }
 export -f sf
-
-function lb() {
-  lsblk "/dev/sd$1" --fs | grep "sd$1"
-}
-export -f lb
 
 function shutn () {
     shutdown now

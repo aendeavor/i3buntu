@@ -64,10 +64,8 @@ prompt() {
   
     # PS1+='\[\e[0m\] : '
   
-    PS1+='\[\e[38;5;215m\]'
-    PS1+=' \w '
-  
-    PS1+='\[\e[0m\]\$ '
+    PS1+='\[\e[38;5;215m\]\w'
+    PS1+='\[\e[0m\] \$ '
   
     PROMPT_DIRTRIM=4
   else
@@ -96,7 +94,6 @@ programmable_completion() {
 }
 
 neofetch_parameterized() {
-  echo ''
   neofetch\
     --ascii_colors 215\
     --colors 215 255 255 215 250 255\
