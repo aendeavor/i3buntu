@@ -1,17 +1,19 @@
 # Ubuntu Minimal & i3
 
 [//]: # (Serves an overview of i3buntu)
-[//]: # (version 1.2.1)
+[//]: # (version 1.3.1)
 
 ## Preamble
 
-This repository aims at providing you with a set of instructions to create your own minimal _Ubuntu_ installation with the _i3_[_-gaps_](https://github.com/Airblader/i3) window manager. The latest release of i3buntu is [v1.2.1-stable](https://github.com/aendeavor/i3buntu/releases/tag/v1.2.1-stable), the latest stable release is [v1.2.1-stable](https://github.com/aendeavor/i3buntu/releases/tag/v1.2.1-stable).
+This repository aims at providing you with a set of instructions to create your own minimal _Ubuntu_ installation with the _i3_[_-gaps_](https://github.com/Airblader/i3) window manager. The latest release of i3buntu is [v1.3.1-stable](https://github.com/aendeavor/i3buntu/releases/tag/v1.3.1-stable), the latest stable release is [v1.3.1-stable](https://github.com/aendeavor/i3buntu/releases/tag/v1.3.1-stable).
 
-[![Desktop Theme](resources/doc/desktop_theme.png)](https://reddit.com/r/unixporn/)
+[![Desktop Theme](resources/doc/desktop_shell.png)](https://reddit.com/r/unixporn/)
 
 ## Installation instructions
 
 Installation instructions are found [here](./INSTALL.md) or on the [wiki pages](https://github.com/aendeavor/i3buntu/wiki).
+
+[![Desktop Theme](resources/doc/collage_1.png)](https://reddit.com/r/unixporn/)
 
 ## About
 
@@ -23,15 +25,21 @@ The color scheme has been carefully chosen to implement into the system seamless
 
 During the packaging stage, the user is offered a variety of packages to install. These packages are all completely optional. For developers and command line users, _[BASH](https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29)_ has been configured and extended with aliases, functions and parameters. In addition, the prompt has been reworked. If you like _Powerline_, you can enable it in `${HOME}/.bashrc`.
 
+[![Desktop Theme](resources/doc/neovim.png)](https://reddit.com/r/unixporn/)
+
 ### Compatibility & Why Ubuntu
 
 The following instructions are made for [Ubuntu](https://wiki.archlinux.org/index.php/Arch_compared_to_other_distributions#Ubuntu) / [Debian](https://wiki.archlinux.org/index.php/Arch_compared_to_other_distributions#General) based systems and are not compatible with other operating systems. Ubuntu has been chosen to provide every person with ease of use and stability.
 
 Systems not based on Ubuntu, including but not limited to those using package-managers differing from APT or not supporting Snap, are not officially supported by this guide.
 
+[![Desktop Theme](resources/doc/filemanager.png)](https://reddit.com/r/unixporn/)
+
 ### Prerequisites
 
 It is recommended to be familiar with the Linux environment, the command line and to have a basic knowledge about the file system structure. You should know what you are doing when working with administrator-privileges.
+
+[![Desktop Theme](resources/doc/collage_2.png)](https://reddit.com/r/unixporn/)
 
 ### Dependencies
 

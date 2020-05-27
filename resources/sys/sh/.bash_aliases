@@ -29,8 +29,8 @@ fi
 
 # ? Aliases
 
-alias ls='ls -lh --color=auto'
-alias lsa='ls -lhA --color=auto'
+alias ls='exa --binary --header --long --group --git --group-directories-first'
+alias lsa='exa -b -h -l -g --git -a --group-directories-first --color-scale'
 alias grep='grep --color=auto'
 alias datetime='date && cal'
 alias df='df -h'
@@ -142,8 +142,8 @@ function script_update()
     inform 'Clearing apt cache' >> "$LOG"
     ensure sudo apt-get "${OPTIONS[@]}" autoclean >/dev/null
 
-	[[ -z $(which snap) ]] || inform 'Updating via SNAP' >> "$LOG"; sudo snap refresh &>/dev/null;
-    [[ -z $(which rustup) ]] || inform 'Updating RUST via rustup' >> "$LOG"; rustup update &>/dev/null;
+	[[ -z $(command -v snap) ]] || inform 'Updating via SNAP' >> "$LOG"; sudo snap refresh &>/dev/null;
+    [[ -z $(command -v rustup) ]] || inform 'Updating RUST via rustup' >> "$LOG"; rustup update &>/dev/null;
 
     succ "Completed update\n" >> "$LOG"
 	set +u
@@ -197,7 +197,7 @@ function update()
 		return 1
 	fi
 
-	if [ -n "$(which snap)" ]; then
+	if [ -n "$(command -v snap)" ]; then
 		echo '' >> "$LOG"
     	inform 'Updating via SNAP' "$LOG"
     	sudo snap refresh &>>"$LOG"
@@ -208,7 +208,7 @@ function update()
 		fi
 	fi
 
-    if [ -n "$(which rustup)" ]; then
+    if [ -n "$(command -v rustup)" ]; then
 		echo '' >> "$LOG"
 		inform 'Updating RUST via rustup' "$LOG"
         rustup update &>>"$LOG"

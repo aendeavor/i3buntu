@@ -14,8 +14,8 @@ window:
   # Blank space added around the window in pixels. This padding is not scaled by
   # DPI and the specified value is always added at both opposing sides.
   padding:
-    x: 5
-    y: 5
+    x: 25
+    y: 25
 
   # Spread additional padding evenly around the terminal content.
   dynamic_padding: true
@@ -56,7 +56,7 @@ font:
     style: "Medium Italic"
 
   # Point size of the font
-  size: 11.0
+  size: 13.0
 
   # Offset is the extra space around each character. offset.y can be thought of
   # as modifying the linespacing, and offset.x as modifying the letter spacing.
@@ -99,35 +99,35 @@ colors:
   # Default colours
   primary:
     background: '0x1E1F29'
-    foreground: '0xF3EFF5'
+    foreground: '0xC8C6C5'
 
   # Colors that should be used to draw the terminal cursor. If these are unset,
   # the cursor colour will be the inverse of the cell colour.
   cursor:
   #   text: '0x2e2e2d'
-    cursor: '0xF3EFF5'
+    cursor: '0xC8C5C5'
 
   # Normal colors
   normal:
-    black:   '0x202125'
-    red:     '0xEF3B3B'
+    black:   '0x2E2828'
+    red:     '0xC04B57'
     green:   '0x8C9440'
     yellow:  '0xDE935F'
     blue:    '0x5F819D'
-    magenta: '0x85678F'
-    cyan:    '0x5E8D87'
-    white:   '0x707880'
+    magenta: '0x7F678F'
+    cyan:    '0x54665B'
+    white:   '0x807270'
 
   # Bright colors
   bright:
-    black:   '0x3D4146'
-    red:     '0xED5D5D'
-    green:   '0xB5BD68'
-    yellow:  '0xF0C674'
+    black:   '0x413737'
+    red:     '0xCC6672'
+    green:   '0xB5DD68'
+    yellow:  '0xE9B270'
     blue:    '0x81A2BE'
     magenta: '0xB294BB'
-    cyan:    '0xFF8CEC'
-    white:   '0xC7C3C9'
+    cyan:    '0x809A83'
+    white:   '0xC8C5C5'
 
   # Dim colors (Optional)
   dim:
@@ -147,7 +147,7 @@ visual_bell:
   color: '0xffffff'
   duration: 0 # completely disabled
 
-background_opacity: 0.8
+background_opacity: 1.0
 
 key_bindings:
   - { key: V,        mods: Command,       action: Paste                        }

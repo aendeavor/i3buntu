@@ -70,13 +70,11 @@ Plug 'vim-syntastic/syntastic'	" Syntax check
 
 Plug 'majutsushi/tagbar'        " Tagbar creates an outline
 Plug 'luochen1990/rainbow'      " Rainbow brackets
-Plug 'preservim/nerdcommenter'  " Fast commenting
 
 Plug 'Valloric/YouCompleteMe'   " Autocompletion
 
 " Themes
-Plug 'mhartington/oceanic-next'
-Plug 'drewtempelmeyer/palenight.vim'
+"
 Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
@@ -102,13 +100,18 @@ set mouse=a                 " Automatically enable mouse usage
 set mousehide               " Hide the mouse cursor while typing
 
 " Theming
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+
 set background=dark
-set termguicolors
 syntax enable
-let g:palenight_terminal_italics=1
-colorscheme palenight
+colorscheme onehalfdark
+
 let g:lightline = {
-\   'colorscheme': 'palenight',
+\   'colorscheme': 'onehalfdark',
 \   'active': {
 \     'left':[ [ 'mode', 'paste' ],
 \              [ 'gitbranch', 'readonly', 'filename', 'modified' ]
@@ -135,7 +138,7 @@ nmap <F8> :TagbarToggle<CR>
 nmap <F7> :NERDTreeToggle<CR>
 
 " Automaticall Open these pluins
-autocmd VimEnter * Tagbar
+" autocmd VimEnter * Tagbar
 
 " README
 " The following needs to be installed for TagBar to work: https://github.com/universal-ctags/ctags/blob/master/docs/autotools.rst

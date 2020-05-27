@@ -64,9 +64,7 @@ prompt() {
   
     # PS1+='\[\e[0m\] : '
   
-    PS1+='\[\e[38;5;109m\]'
-    PS1+='[ \w ]'
-  
+    PS1+='\[\e[38;5;215m\]\w'
     PS1+='\[\e[0m\] \$ '
   
     PROMPT_DIRTRIM=4
@@ -86,8 +84,10 @@ aliases() {
 programmable_completion() {
   if ! shopt -oq posix; then
     if [ -f /usr/share/bash-completion/bash_completion ]; then
+      # shellcheck source=/dev/null
       . /usr/share/bash-completion/bash_completion
     elif [ -f /etc/bash_completion ]; then
+      # shellcheck source=/dev/null
       . /etc/bash_completion
     fi
   fi
@@ -95,34 +95,17 @@ programmable_completion() {
 
 neofetch_parameterized() {
   neofetch\
+    --ascii_colors 215\
+    --colors 215 255 255 215 250 255\
     --ascii\
-    --disable term uptime packages resolution theme icons cpu gpu\
+    --disable term uptime packages resolution theme icons cpu gpu memory\
     --gtk3 on\
-    --bar_border on\
-    --ascii_distro arch\
+    --ascii_bold on\
+    --ascii_distro Arch_small\
+    --color_blocks off\
 	--underline_char \ \
-    --block_range 0 7\
-    --block_width 4\
-    --block_height 1\
-    --gap 13
-
-  echo '' 
-}
-
-update_ps1() {
-  PS1="$(/bin/powerline-go-linux-amd64\
-    -error $?\
-    -numeric-exit-codes\
-    -cwd-max-depth 7\
-    -cwd-max-dir-size 11\
-    -modules "ssh,cwd,git,hg,jobs,exit,root"
-  )"
-}
-
-powerline() {
-  if [ "$TERM" != "linux" ] && [ -f "/bin/powerline-go-linux-amd64" ]; then
-    PROMPT_COMMAND="update_ps1; $PROMPT_COMMAND"
-  fi
+    --separator \ \
+    --gap 3
 }
 
 main() {
@@ -134,7 +117,7 @@ main() {
   aliases
   programmable_completion
   neofetch_parameterized
-  #powerline
 }
 
 main "$@"
+
