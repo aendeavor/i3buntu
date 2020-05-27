@@ -74,7 +74,7 @@ Plug 'luochen1990/rainbow'      " Rainbow brackets
 Plug 'Valloric/YouCompleteMe'   " Autocompletion
 
 " Themes
-"
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
 Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
