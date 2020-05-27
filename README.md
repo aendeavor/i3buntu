@@ -13,7 +13,7 @@ This repository aims at providing you with a set of instructions to create your 
 
 Installation instructions are found [here](./INSTALL.md) or on the [wiki pages](https://github.com/aendeavor/i3buntu/wiki).
 
-[![Desktop Theme](resources/doc/neovim.png)](https://reddit.com/r/unixporn/)
+[![Desktop Theme](resources/doc/collage_1.png)](https://reddit.com/r/unixporn/)
 
 ## About
 
@@ -24,6 +24,8 @@ This project is all about improving your Linux experience and working environmen
 The color scheme has been carefully chosen to implement into the system seamlessly. Every program, from the shell to your browser have adapted these changes. They are reflected in the choice of icons, backgrounds and windows.
 
 During the packaging stage, the user is offered a variety of packages to install. These packages are all completely optional. For developers and command line users, _[BASH](https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29)_ has been configured and extended with aliases, functions and parameters. In addition, the prompt has been reworked. If you like _Powerline_, you can enable it in `${HOME}/.bashrc`.
+
+[![Desktop Theme](resources/doc/neovim.png)](https://reddit.com/r/unixporn/)
 
 ### Compatibility & Why Ubuntu
 
@@ -36,6 +38,8 @@ Systems not based on Ubuntu, including but not limited to those using package-ma
 ### Prerequisites
 
 It is recommended to be familiar with the Linux environment, the command line and to have a basic knowledge about the file system structure. You should know what you are doing when working with administrator-privileges.
+
+[![Desktop Theme](resources/doc/collage_2.png)](https://reddit.com/r/unixporn/)
 
 ### Dependencies
 
