@@ -1,17 +1,19 @@
 # Ubuntu Minimal & i3
 
 [//]: # (Serves an overview of i3buntu)
-[//]: # (version 1.2.1)
+[//]: # (version 1.3.1)
 
 ## Preamble
 
-This repository aims at providing you with a set of instructions to create your own minimal _Ubuntu_ installation with the _i3_[_-gaps_](https://github.com/Airblader/i3) window manager. The latest release of i3buntu is [v1.2.1-stable](https://github.com/aendeavor/i3buntu/releases/tag/v1.2.1-stable), the latest stable release is [v1.2.1-stable](https://github.com/aendeavor/i3buntu/releases/tag/v1.2.1-stable).
+This repository aims at providing you with a set of instructions to create your own minimal _Ubuntu_ installation with the _i3_[_-gaps_](https://github.com/Airblader/i3) window manager. The latest release of i3buntu is [v1.3.1-stable](https://github.com/aendeavor/i3buntu/releases/tag/v1.3.1-stable), the latest stable release is [v1.3.1-stable](https://github.com/aendeavor/i3buntu/releases/tag/v1.3.1-stable).
 
-[![Desktop Theme](resources/doc/desktop_theme.png)](https://reddit.com/r/unixporn/)
+[![Desktop Theme](resources/doc/desktop_shell.png)](https://reddit.com/r/unixporn/)
 
 ## Installation instructions
 
 Installation instructions are found [here](./INSTALL.md) or on the [wiki pages](https://github.com/aendeavor/i3buntu/wiki).
+
+[![Desktop Theme](resources/doc/neovim.png)](https://reddit.com/r/unixporn/)
 
 ## About
 
@@ -28,6 +30,8 @@ During the packaging stage, the user is offered a variety of packages to install
 The following instructions are made for [Ubuntu](https://wiki.archlinux.org/index.php/Arch_compared_to_other_distributions#Ubuntu) / [Debian](https://wiki.archlinux.org/index.php/Arch_compared_to_other_distributions#General) based systems and are not compatible with other operating systems. Ubuntu has been chosen to provide every person with ease of use and stability.
 
 Systems not based on Ubuntu, including but not limited to those using package-managers differing from APT or not supporting Snap, are not officially supported by this guide.
+
+[![Desktop Theme](resources/doc/filemanager.png)](https://reddit.com/r/unixporn/)
 
 ### Prerequisites
 

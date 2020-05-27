@@ -57,7 +57,7 @@ cd && ./i3buntu/install.sh desktop --cfg
 
 ## Runlevel ∞ - Icon and color theme
 
-Now, use _LXappearance_ to mod your color and icon theme. Open rofi with _mod + d_ and start typing the name of the desired application and hit enter. Choose _Ant-Dracula_ as your color theme. For _Tela_'s icon theme, pick what you like best.
+Now, use _LXappearance_ to mod your color and icon theme. Open rofi with _mod + d_ and start typing the name of the desired application and hit enter. Choose _Nordic Darker_ as your color theme. For _Tela_'s icon theme, pick grey.
 
 You can edit `~/.config/i3/config` to customize your keybindings and to edit the pactl binds if audio volume control does not work.
 

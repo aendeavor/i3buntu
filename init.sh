@@ -4,7 +4,7 @@
 #
 # current version - 0.2.0   stable
 
-LATEST='v1.2.1-stable.tar.gz'
+LATEST='v1.3.1-stable.tar.gz'
 
 function version() {
 	cat 1>&2 << EOF

@@ -60,7 +60,7 @@ for_window [class="^.*"] border pixel 0
 # smart_gaps on
 smart_borders no_gaps
 hide_edge_borders none
-# border_radius 2
+# border_radius 4
 
 set $GAPSBG                 #00000000
 
@@ -108,7 +108,7 @@ bindsym $mod+space exec rofi -show drun -no-plugins
 bindsym $mod+c exec code
 
 # Nautilus
-bindsym $mod+n exec nautilus
+bindsym $mod+n exec nautilus -w
 
 # Nemo
 bindsym $mod+Shift+n exec nemo
