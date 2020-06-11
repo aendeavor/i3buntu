@@ -60,7 +60,6 @@ CRITICAL=(
     policykit-desktop-privileges
     policykit-1-gnome
     gnome-keyring*
-    libgnome-keyring0
 
     firefox
     thunderbird
@@ -97,7 +96,6 @@ ENV=(
     pulseaudio-module-bluetooth
     
     tmux
-
 	shellcheck
 )
 
@@ -122,6 +120,7 @@ MISC=(
     evince
     gedit
     nomacs
+    eog
     
     scrot
     qalculate
@@ -412,7 +411,7 @@ function process_choices() {
         sudo systemctl enable --now docker >/dev/null 2>>"$LOG"
 		sudo usermod -aG docker "$(whoami)" &>/dev/null
 
-        local _compose_version="1.25.5"
+        local _compose_version="1.26.0"
 		sudo curl\
           -L "https://github.com/docker/compose/releases/download/${_compose_version}/docker-compose-$(uname -s)-$(uname -m)"\
           -o /usr/local/bin/docker-compose &>/dev/null
