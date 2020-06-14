@@ -1,0 +1,7 @@
+{
+	"PPAS" : [
+		"ppa:git-core/ppa",
+		"ppa:ubuntu-mozilla-security/ppa",
+		"ppa:mmstick76/alacritty"
+	]
+}

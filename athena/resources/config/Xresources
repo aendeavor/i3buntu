@@ -1,0 +1,150 @@
+*customization:	-color
+
+St.color0:	#0a0e14
+St.color1:	#ff3333
+St.color10:	#b3b1ad
+St.color11:	#b3b1ad
+St.color12:	#e6e1cf
+St.color13:	#B48EAD
+St.color14:	#e6e1cf
+St.color15:	#ffffff
+St.color2:	#bae67e
+St.color3:	#ffd580
+St.color4:	#73d0ff
+St.color5:	#f28779
+St.color6:	#95e6cb
+St.color7:	#e6e1cf
+St.color8:	#b3b1ad
+St.color9:	#e6b450
+St.font:	Source Code Pro:pixelsize=16:antialias=true:autohint=true
+
+Xcursor.size:	24
+Xcursor.theme:	Adwaita
+
+Xft.antialias:	1
+Xft.dpi:	96
+Xft.hinting:	1
+Xft.hintstyle:	hintslight
+Xft.rgba:	none
+
+gnome.gtk.theme:	Ayu-Dark
+gnome.icon.theme:	Arc
+gnome.terminal.font:	Source Code Pro 12
+gnome.terminal.scrollbar:	never
+gnome.wallpaper:	
+gnome.wm.theme:	Ayu-Dark
+
+i3-wm.bar.background.color:	#0a0e14
+i3-wm.bar.font:	pango:Source Code Pro Medium 13, FontAwesome 13
+i3-wm.bar.position:	top
+i3-wm.bar.separator.color:	#73d0ff
+i3-wm.bar.statusline.color:	#e6e1cf
+i3-wm.bar.workspace.active.background.color:	#1f2430
+i3-wm.bar.workspace.active.border.color:	#1f2430
+i3-wm.bar.workspace.active.text.color:	#b3b1ad
+i3-wm.bar.workspace.focused.background.color:	#1f2430
+i3-wm.bar.workspace.focused.border.color:	#1f2430
+i3-wm.bar.workspace.focused.text.color:	#ffffff
+i3-wm.bar.workspace.inactive.background.color:	#0a0e14
+i3-wm.bar.workspace.inactive.border.color:	#0a0e14
+i3-wm.bar.workspace.inactive.text.color:	#b3b1ad
+i3-wm.bar.workspace.urgent.background.color:	#ff3333
+i3-wm.bar.workspace.urgent.border.color:	#ff3333
+i3-wm.bar.workspace.urgent.text.color:	#ffffff
+
+i3-wm.client.focused.color.background:	#b3b1ad
+i3-wm.client.focused.color.border:	#0a0e14
+i3-wm.client.focused.color.child_border:	#b3b1ad
+i3-wm.client.focused.color.indicator:	#73d0ff
+i3-wm.client.focused.color.text:	#ffffff
+i3-wm.client.focused_inactive.color.background:	#1f2430
+i3-wm.client.focused_inactive.color.border:	#0a0e14
+i3-wm.client.focused_inactive.color.child_border:	#0a0e14
+i3-wm.client.focused_inactive.color.indicator:	#1f2430
+i3-wm.client.focused_inactive.color.text:	#e6e1cf
+i3-wm.client.unfocused.color.background:	#1f2430
+i3-wm.client.unfocused.color.border:	#0a0e14
+i3-wm.client.unfocused.color.child_border:	#0a0e14
+i3-wm.client.unfocused.color.indicator:	#1f2430
+i3-wm.client.unfocused.color.text:	#e6e1cf
+i3-wm.client.urgent.color.background:	#ff3333
+i3-wm.client.urgent.color.border:	#0a0e14
+i3-wm.client.urgent.color.child_border:	#0a0e14
+i3-wm.client.urgent.color.indicator:	#ff3333
+i3-wm.client.urgent.color.text:	#ffffff
+
+i3-wm.floatingwindow.border.size:	1
+i3-wm.font:	pango:Source Code Pro Medium 13
+
+i3-wm.gaps.inner.size:	5
+i3-wm.gaps.outer.size:	0
+
+i3-wm.window.border.size:	1
+
+i3-wm.workspace.01.name:	1:<span font_desc='Source Code Pro Medium 13'> 1 </span><span foreground='#73d0ff'></span>
+i3-wm.workspace.02.name:	2:<span font_desc='Source Code Pro Medium 13'> 2 </span><span foreground='#95e6cb'></span>
+i3-wm.workspace.03.name:	3:<span font_desc='Source Code Pro Medium 13'> 3 </span><span foreground='#bae67e'></span>
+i3-wm.workspace.04.name:	4:<span font_desc='Source Code Pro Medium 13'> 4 </span><span foreground='#ffd580'></span>
+i3-wm.workspace.05.name:	5:<span font_desc='Source Code Pro Medium 13'> 5 </span><span foreground='#e6b450'></span>
+i3-wm.workspace.06.name:	6:<span font_desc='Source Code Pro Medium 13'> 6 </span><span foreground='#ff3333'></span>
+i3-wm.workspace.07.name:	7:<span font_desc='Source Code Pro Medium 13'> 7 </span><span foreground='#f28779'></span>
+i3-wm.workspace.08.name:	8:<span font_desc='Source Code Pro Medium 13'> 8 </span><span foreground='#B48EAD'></span>
+i3-wm.workspace.09.name:	9:<span font_desc='Source Code Pro Medium 13'> 9 </span><span foreground='#e6e1cf'></span>
+i3-wm.workspace.10.name:	10:<span font_desc='Source Code Pro Medium 13'> 10 </span><span foreground='#73d0ff'></span>
+i3-wm.workspace.11.name:	11:<span font_desc='Source Code Pro Medium 13'> 11 </span><span foreground='#95e6cb'></span>
+i3-wm.workspace.12.name:	12:<span font_desc='Source Code Pro Medium 13'> 12 </span><span foreground='#bae67e'></span>
+i3-wm.workspace.13.name:	13:<span font_desc='Source Code Pro Medium 13'> 13 </span><span foreground='#ffd580'></span>
+i3-wm.workspace.14.name:	14:<span font_desc='Source Code Pro Medium 13'> 14 </span><span foreground='#e6b450'></span>
+i3-wm.workspace.15.name:	15:<span font_desc='Source Code Pro Medium 13'> 15 </span><span foreground='#ff3333'></span>
+i3-wm.workspace.16.name:	16:<span font_desc='Source Code Pro Medium 13'> 16 </span><span foreground='#f28779'></span>
+i3-wm.workspace.17.name:	17:<span font_desc='Source Code Pro Medium 13'> 17 </span><span foreground='#B48EAD'></span>
+i3-wm.workspace.18.name:	18:<span font_desc='Source Code Pro Medium 13'> 18 </span><span foreground='#e6e1cf'></span>
+i3-wm.workspace.19.name:	19:<span font_desc='Source Code Pro Medium 13'> 19 </span><span foreground='#73d0ff'></span>
+
+i3xrocks.critical.color:	#ff3333
+i3xrocks.error.color:	#e6b450
+
+i3xrocks.label.battery0:	
+i3xrocks.label.battery100:	
+i3xrocks.label.battery20:	
+i3xrocks.label.battery50:	
+i3xrocks.label.battery80:	
+i3xrocks.label.batteryac:	
+i3xrocks.label.batterycharging:	
+i3xrocks.label.batteryunknown:	
+i3xrocks.label.capslock:	C
+i3xrocks.label.color:	#e6e1cf
+i3xrocks.label.cpu:	
+i3xrocks.label.disk:	
+i3xrocks.label.dn:	
+i3xrocks.label.help:	
+i3xrocks.label.mediapaused:	
+i3xrocks.label.mediaplaying:	
+i3xrocks.label.memory:	R
+i3xrocks.label.mute:	M
+i3xrocks.label.notify.error:	
+i3xrocks.label.notify.none:	
+i3xrocks.label.notify.some:	
+i3xrocks.label.numlock:	N
+i3xrocks.label.off:	-
+i3xrocks.label.on:	+
+i3xrocks.label.sound:	S
+i3xrocks.label.thermometer:	
+i3xrocks.label.time:	
+i3xrocks.label.up:	
+i3xrocks.label.wifi:	
+i3xrocks.label.wired:	
+i3xrocks.nominal:	#e6e1cf
+i3xrocks.value.color:	#e6e1cf
+i3xrocks.value.font:	Source Code Pro Medium 13
+i3xrocks.value.mediaplayerwidth:	25
+i3xrocks.warning:	#ffd580
+i3xrocks.weather.error_message:	
+
+rofi.drun-display-format:	{name}
+rofi.font:	Source Code Pro Medium 16
+rofi.icon-theme:	Arc
+rofi.modi:	window,drun,run
+rofi.show-icons:	true
+rofi.theme:	/etc/regolith/styles/ayu-dark/rofi.rasi
+rofi.window-format:	\ {n} {t}

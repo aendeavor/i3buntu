@@ -1,0 +1,81 @@
+{
+	"AUDIO" : [
+		"gstreamer1.0-pulseaudio",
+		"pulseaudio",
+		"pulseaudio-module-bluetooth",
+    	"pulseaudio-module-raop"
+	],
+	"DISPLAY" : [
+    	"arandr",
+    	"compton",
+		"feh",
+    	"gtk2-engines-murrine",
+    	"gtk2-engines-pixbuf",
+		"i3-gaps",
+    	"i3lock",
+		"i3status",
+    	"lxappearance",
+		"mesa-utils",
+    	"mesa-utils-extra",
+		"slick-greeter",
+    	"xbacklight",
+		"xorg",
+    	"xserver-xorg"
+	],
+	"FILES" : [
+		"eog",
+		"evince",
+		"file-roller",
+		"nautilus",
+		"nautilus-admin",
+		"p7zip-full",
+		"python-nautilus"
+	],
+	"FONTS" : [
+		"fontconfig",
+		"fonts-roboto",
+		"fonts-open-sans",
+		"fonts-lyx"
+	],
+	"MISC" : [
+		"firefox",
+		"gedit",
+		"gparted",
+		"lxappearance",		
+		"nomacs",
+		"qalculate",
+		"rofi",
+		"scrot",
+		"shellcheck",
+		"thunderbird",
+		"thunderbird-locale-de",
+		"thunderbird-locale-en",
+		"usb-creator-common",
+		"usb-creator-gtk"
+	],
+	"NET" : [
+		"net-tools",
+		"network-manager*"
+	],
+	"SHELL" : [
+		"alacritty",
+		"htop",
+		"neofetch",
+		"neovim",
+		"rxvt-unicode",
+		"tmux",
+		"vim",
+		"xclip",
+		"xsel"		
+	],
+	"SYS" : [
+    	"gnome-keyring*",
+		"intel-microcode",
+		"libaio1",
+		"policykit-desktop-privileges",
+    	"policykit-1-gnome",
+		"python3-dev",
+		"python3-distutils",
+		"ubuntu-drivers-common"
+	]
+}    

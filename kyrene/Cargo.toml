@@ -1,0 +1,21 @@
+[package]
+name = "kyrene"
+version = "0.1.0"
+authors = ["Georg Lauterbach <infrastructure@itbsd.com>"]
+edition = "2018"
+
+description = "Cutom LINUX setup and bootstrapping"
+readme = "./README.md"
+
+license-file = "../LICENSE"
+
+keywords = ["APOLLO", "LINUX", "REGOLITH", "SETUP"]
+publish = false
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+colored = "1.9.3"
+scan-rules = "0.2.0"
+json = "0.12.4"
+dirs-next = "1.0.1"
