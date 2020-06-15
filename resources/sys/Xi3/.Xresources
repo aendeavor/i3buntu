@@ -7,7 +7,7 @@
 ! ! XRESOURCES - CONFIGURATION FOR X(org)
 ! ! $HOME/.Xresources
 !
-! version   0.2.11
+! version   0.3.0
 ! author    aendeavor@Georg Lauterbach
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -25,41 +25,41 @@ Xft.lcdfilter:              lcdfilter
 ! Colors
 
 !! special
-*.foreground:   #f3eff5
-*.background:   #1e1f29
-*.cursorColor:  #f3eff5
+*.foreground:   #C8C6C6
+*.background:   #1E1F29
+*.cursorColor:  #C8C5C5
 
 !! black
-*.color0:       #202125
-*.color8:       #3d4146
+*.color0:       #2E2828
+*.color8:       #413737
 
 !! red
-*.color1:       #ef3b3b
-*.color9:       #ed5d5d
+*.color1:       #C04B57
+*.color9:       #CC6672
 
 !! green
-*.color2:       #8c9440
-*.color10:      #b5bd68
+*.color2:       #8C9440
+*.color10:      #B5DD68
 
 !! yellow
-*.color3:       #de935f
-*.color11:      #f0c674
+*.color3:       #DE935F
+*.color11:      #E9B270
 
 !! blue
-*.color4:       #5f819d
-*.color12:      #81a2be
+*.color4:       #5F819D
+*.color12:      #81A2BE
 
 !! magenta
-*.color5:       #85678f
-*.color13:      #b294bb
+*.color5:       #7F678F
+*.color13:      #B294BB
 
 !! cyan
-*.color6:       #5e8d87
-*.color14:      #8abeb7
+*.color6:       #54665B
+*.color14:      #809A83
 
 !! white
-*.color7:       #707880
-*.color15:      #c7c3c9
+*.color7:       #807270
+*.color15:      #C8C5C5
 
 ! URXVT
 
@@ -87,10 +87,10 @@ URxvt*transparent: true
 URxvt*shading: 55
 URxvt*blurRadius: 7
 
-URxvt*font: xft:RobotoMono NF:style=Regular:pixelsize=13, \
-            xft:Iosevka Nerd Font Mono:style=Regular:pixelsize=13
-URxvt*boldFont: xft:RobotoMono NF:style=Bold:pixelsize=13, \
-                xft:Iosevka Nerd Font Mono:style=Bold:pixelsize=13
+URxvt*font: xft:RobotoMono NF:style=Regular:pixelsize=18, \
+            xft:Iosevka Nerd Font Mono:style=Regular:pixelsize=18
+URxvt*boldFont: xft:RobotoMono NF:style=Bold:pixelsize=18, \
+                xft:Iosevka Nerd Font Mono:style=Bold:pixelsize=18
 
 !! Extensions
 URxvt.perl-ext-common: default,selection-to-clipboard,resize-font,matcher

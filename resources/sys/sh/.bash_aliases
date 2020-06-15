@@ -31,6 +31,7 @@ fi
 
 alias ls='exa --binary --header --long --group --git --group-directories-first'
 alias lsa='exa -b -h -l -g --git -a --group-directories-first --color-scale'
+alias less='less -R'
 alias grep='grep --color=auto'
 alias datetime='date && cal'
 alias df='df -h'
