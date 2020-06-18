@@ -1,11 +1,11 @@
 {
-	"AUDIO" : [
+	"audio" : [
 		"gstreamer1.0-pulseaudio",
 		"pulseaudio",
 		"pulseaudio-module-bluetooth",
     	"pulseaudio-module-raop"
 	],
-	"DISPLAY" : [
+	"display" : [
     	"arandr",
     	"compton",
 		"feh",
@@ -22,7 +22,7 @@
 		"xorg",
     	"xserver-xorg"
 	],
-	"FILES" : [
+	"files" : [
 		"eog",
 		"evince",
 		"file-roller",
@@ -31,13 +31,13 @@
 		"p7zip-full",
 		"python-nautilus"
 	],
-	"FONTS" : [
+	"fonts" : [
 		"fontconfig",
 		"fonts-roboto",
 		"fonts-open-sans",
 		"fonts-lyx"
 	],
-	"MISC" : [
+	"misc" : [
 		"firefox",
 		"gedit",
 		"gparted",
@@ -53,11 +53,11 @@
 		"usb-creator-common",
 		"usb-creator-gtk"
 	],
-	"NET" : [
+	"net" : [
 		"net-tools",
 		"network-manager*"
 	],
-	"SHELL" : [
+	"shell" : [
 		"alacritty",
 		"htop",
 		"neofetch",
@@ -66,9 +66,9 @@
 		"tmux",
 		"vim",
 		"xclip",
-		"xsel"		
+		"xsel"
 	],
-	"SYS" : [
+	"sys" : [
     	"gnome-keyring*",
 		"intel-microcode",
 		"libaio1",

@@ -1,10 +1,12 @@
 use crate::lib::{
 	log::console::{self, stage_two},
-	data::{PhaseResult, stage_one::Choices}
-};
+	data::{
+		PhaseResult,
+		stage_one::Choices,
+		stage_two::Programs}};
 use super::general::dpo;
 use std::{fs, path::Path, process::Command};
-use json;
+use serde_json;
 
 /// # Base System Extension
 ///
@@ -31,24 +33,27 @@ pub fn install_base() -> PhaseResult
 		Err(_) => return dpo(121, 1, 3)
 	};
 	
-	let mut json_val = match json::parse(&file_str) {
+	let mut programs: Programs = match serde_json::from_str(&file_str) {
 		Ok(json_val) => json_val,
 		Err(_) => return dpo(122, 1, 3)
 	};
 	
-	for (_, array) in json_val.entries_mut() {
-		if array.is_array() {
-			for index in 0..array.len() - 1 {
-				if let Some(program) = array.array_remove(index).as_str() {
-					if let Err(code) = apt_install(program) {
-						error_code = code;
-					}
-				}
-				// TODO remove
-				break;
-			}
-		}
+	for program in programs.audio {
+		apt_install(&program);
 	}
+	// for (_, array) in json_val.entries_mut() {
+	// 	if array.is_array() {
+	// 		for index in 0..array.len() - 1 {
+	// 			if let Some(program) = array.array_remove(index).as_str() {
+	// 				if let Err(code) = apt_install(program) {
+	// 					error_code = code;
+	// 				}
+	// 			}
+	// 			// TODO remove
+	// 			break;
+	// 		}
+	// 	}
+	// }
 	
 	dpo(error_code, 1, 3)
 }
