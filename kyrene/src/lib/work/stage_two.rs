@@ -2,11 +2,10 @@ use crate::lib::{
 	log::console::{self, stage_two},
 	data::{
 		PhaseResult,
-		stage_one::Choices,
-		stage_two::Programs}};
-use super::general::dpo;
-use std::{fs, path::Path, process::Command};
-use serde_json;
+		stage_one::Choices}};
+use super::general::{dpo, try_evade};
+use std::{path::Path, process::Command};
+use serde_json::{self, Value};
 
 /// # Base System Extension
 ///
@@ -20,42 +19,65 @@ use serde_json;
 pub fn install_base() -> PhaseResult
 {
 	console::phase_init(1, 3, "Installing Programs");
-	let mut error_code: u8 = 0;
 	
-	let mut destination = match std::env::current_dir() {
+	let destination = match std::env::current_dir() {
 		Ok(dir) => dir,
 		Err(_) => return dpo(120, 1, 3)
 	};
-	destination.push(Path::new("athena/resources/programs/programs.json"));
 	
-	let file_str = match fs::read_to_string(&destination) {
+	let file_str = match try_evade(
+		destination,
+		Path::new("athena/resources/programs/programs.json"))
+	{
 		Ok(file_str) => file_str,
-		Err(_) => return dpo(121, 1, 3)
+		Err(error) => return error
 	};
 	
-	let mut programs: Programs = match serde_json::from_str(&file_str) {
-		Ok(json_val) => json_val,
+	let json_tree: Value = match serde_json::from_str(&file_str) {
+		Ok(json_tree) => json_tree,
 		Err(_) => return dpo(122, 1, 3)
 	};
 	
-	for program in programs.audio {
-		apt_install(&program);
-	}
-	// for (_, array) in json_val.entries_mut() {
-	// 	if array.is_array() {
-	// 		for index in 0..array.len() - 1 {
-	// 			if let Some(program) = array.array_remove(index).as_str() {
-	// 				if let Err(code) = apt_install(program) {
-	// 					error_code = code;
-	// 				}
-	// 			}
-	// 			// TODO remove
-	// 			break;
-	// 		}
-	// 	}
-	// }
+	let error_code = match recurse_json(&json_tree) {
+		Ok(_) => 0,
+		Err(code) => code
+	};
 	
 	dpo(error_code, 1, 3)
+}
+
+/// # Parrses JSON
+///
+/// Recursing through the given tree / enum of JSON
+/// values until every leaf has been used.
+fn recurse_json(value: &serde_json::Value) -> Result<(), u8>
+{
+	let mut exit_code: u8 = 0;
+	match value
+	{
+		Value::Object(obj) => {
+			for (_, key) in obj.iter() {
+				if let Err(code) = recurse_json(key) {
+					exit_code = code;
+				}
+			}
+		},
+		Value::Array(vec) => {
+			for entry in vec {
+				if let Err(code) = recurse_json(entry) {
+					exit_code = code;
+				}
+			}
+		},
+		Value::String(program) => {
+			if let Err(code) = apt_install(&program) {
+				exit_code = code;
+			}
+		},
+		_ => ()
+	};
+	
+	if exit_code == 0 { Ok(()) } else { Err(exit_code) }
 }
 
 /// # User Choices

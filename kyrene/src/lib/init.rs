@@ -17,6 +17,15 @@ use super::{data::{
 pub fn start() -> ApolloResult
 {
 	console::welcome();
+	
+	match std::process::Command::new("sudo")
+		.arg("apt-get")
+		.arg("--help")
+		.output() {
+		Ok(_) => (),
+		Err(_) => ()
+	};
+	
 	ApolloResult::new()
 }
 
@@ -98,6 +107,21 @@ pub fn stage_two(stage_one_data: StageOneData) -> StageResult<ExitCode>
 	}
 
 	let exit_code = drive(work::stage_two::remove_unnecessary, exit_code)?;
+	
+	if exit_code.is_success() {
+		console::finalize_stage(exit_code.0);
+		Ok(exit_code)
+	} else {
+		console::finalize_stage(exit_code.0);
+		Err(exit_code)
+	}
+}
+
+pub fn stage_three() -> StageResult<ExitCode>
+{
+	console::stage_three::init();
+	
+	let exit_code = drive(work::stage_three::copy_configurations, ExitCode(0))?;
 	
 	if exit_code.is_success() {
 		console::finalize_stage(exit_code.0);

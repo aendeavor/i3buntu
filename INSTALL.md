@@ -13,7 +13,7 @@ To get things started, get the [_Ubuntu_ Server ISO](https://ubuntu.com/download
 
 ### Starting _APOLLO_
 
-These first steps are **optional**. Update your system and ensure that `wget`, `cmake` and `unzip` are installed
+Update your system and ensure that `wget`, `cmake` and `unzip` are installed
 
 ``` BASH
 sudo apt-get update

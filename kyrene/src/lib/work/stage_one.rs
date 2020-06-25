@@ -2,8 +2,8 @@ use crate::lib::{
 	data::{stage_one::PPAs, PhaseResult},
 	log,
 };
-use super::general::dpo;
-use std::{fs, path::Path, process::Command};
+use super::general::{dpo, try_evade};
+use std::{path::Path, process::Command};
 use serde_json;
 
 /// # Getting Dependencies Ready
@@ -19,30 +19,32 @@ pub fn add_ppas() -> PhaseResult {
 	println!();
 	log::console::phase_init(1, 2, "Adding PPAs");
 	let mut exit_code: u8 = 0;
-	let mut destination = match std::env::current_dir() {
+	
+	let destination = match std::env::current_dir() {
 		Ok(dir) => dir,
-		Err(_) => return dpo(120, 1, 3),
+		Err(_) => return dpo(110, 1, 3),
 	};
-	destination.push(Path::new("athena/resources/programs/ppas.json"));
-
-	let file_str = match fs::read_to_string(&destination) {
+	
+	let file_str = match try_evade(
+		destination,
+		Path::new("athena/resources/programs/ppas.json"))
+	{
 		Ok(file_str) => file_str,
-		Err(e) => {
-			println!("{:#?}", e);
-			return dpo(121, 1, 3);
-		}
+		Err(error) => return error
 	};
 
 	let json_ppas: PPAs = match serde_json::from_str(&file_str) {
 		Ok(json_ppas) => json_ppas,
-		Err(_) => return dpo(122, 1, 3),
+		Err(_) => return dpo(112, 1, 3),
 	};
+	
 	for ppa in json_ppas.critical() {
 		let ppa: &str = ppa.as_str();
 		if let Err(_) = Command::new("sudo")
 			.arg("add-apt-repository")
 			.arg("-y")
 			.arg("-n")
+			.arg("-h")
 			.arg(ppa)
 			.output()
 		{
@@ -56,6 +58,7 @@ pub fn add_ppas() -> PhaseResult {
 			.arg("add-apt-repository")
 			.arg("-y")
 			.arg("-n")
+			.arg("-h")
 			.arg(ppa)
 			.output()
 		{

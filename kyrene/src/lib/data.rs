@@ -206,56 +206,6 @@ pub mod stage_one {
 	}
 }
 
-pub mod stage_two {
-	use serde::{Serialize, Deserialize};
-
-	/// # Programs to be installed
-	/// 
-	/// This struct holds parsed programs. These
-	/// are divided into specific subsections to
-	/// be able to quickly sort and filter them.
-	#[derive(Serialize, Deserialize, Debug)]
-	pub struct Programs {
-		pub audio: Vec<String>,
-		display: Vec<String>,
-		files: Vec<String>,
-		fonts: Vec<String>,
-		misc: Vec<String>,
-		net: Vec<String>,
-		shell: Vec<String>,
-		sys: Vec<String>,
-	}
-	
-	impl Programs {
-		pub fn iter(self) -> ProgramsIter
-		{
-			ProgramsIter {
-				programs: self,
-				next: 0
-			}
-		}
-	}
-	
-	struct ProgramsIter {
-		programs: Programs,
-		next: u8
-	}
-	
-	impl Iterator for ProgramsIter {
-		type Item = Vec<String>;
-		
-		fn next(&mut self) -> Option<Self::Item>
-		{
-			if self.next == 0 {
-				return Some(self.programs.audio)
-			}
-			
-			self.next = 0;
-			None
-		}
-	}
-}
-
 /// # The End
 ///
 /// Exists for error propagation and handling in `main()`.

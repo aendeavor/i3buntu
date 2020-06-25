@@ -14,14 +14,6 @@ pub mod console {
 
 		let procedure: &'static str = "We are going to walk you through a few steps\nto complete the setup. These include:\n\n  1. Initialization\n  2. Installation of Software\n  3. Deployment of Configuration Files\n  4. Cleanup and Post-Configuration\n\nAs we need superuser privileges to install\nprograms and to reach some locations, please\ninput your password if prompted.\n";
 		println!("\n{}", procedure);
-
-		match std::process::Command::new("sudo")
-			.arg("apt-get")
-			.arg("--help")
-			.output() {
-				Ok(_) => (),
-				Err(_) => ()
-			};
 	}
 	
 	/// # Phases
@@ -107,6 +99,11 @@ pub mod console {
 		         msg,
 		         exit_code);
 	}
+	fn flush()
+	{
+		io::stdout().flush().ok().expect("Could not flush stdout\
+			in lib::log::stage_two::install_program");
+	}
 
 	/// # Stage 1
 	///
@@ -158,39 +155,38 @@ pub mod console {
 	/// Prints all the information that is needed
 	// 	during S2 onto the console.
 	pub mod stage_two {
-		use std::io::{self, Write};
 		use colored::Colorize;
 		
 		pub fn init() {	println!("\nSTAGE 2\n{} {{\n", "PACKAGING".magenta()); }
 		
 		pub fn install_program(program: &str)
 		{
-			print!("         :: Installing {}", program);
-			io::stdout().flush().ok().expect("Could not flush stdout\
-			in lib::log::stage_two::install_program");
+			print!("     :: Installing {}", program);
+			super::flush();
 		}
 		
 		pub fn install_program_outcome(success: bool)
 		{
-			if success {
-				print!("  ✔\n");
-			} else {
-				print!("  ✘\n");
-			}
-			io::stdout().flush().ok().expect("Could not flush stdout\
-			in lib::log::stage_two::install_program_outcome");
+			if success { print!("  ✔\n"); } else { print!("  ✘\n"); }
+			super::flush();
 		}
 	}
 	
 	pub mod stage_three {
-		use std::io::{self, Write};
 		use colored::Colorize;
 		
 		pub fn init() { println!("\nSTAGE 3\n{} {{\n", "CONFIGURATION".magenta()); }
 		
-		pub fn copy_resource(_ressource: &str)
+		pub fn copy_config_folder()
 		{
+			print!("     :: Syncing ${{HOME}}.config folder");
+			super::flush();
+		}
 		
+		pub fn copy_config_folder_succ(success: bool)
+		{
+			if success { print!("  ✔\n"); } else { print!("  ✘\n"); }
+			super::flush();
 		}
 	}
 }
@@ -213,13 +209,18 @@ pub mod end {
 	pub fn fmt_apollo_result(apollo: &ApolloResult, f: &mut fmt::Formatter<'_>) -> fmt::Result
 	{
 		println!();
+		let label = "APOLLO".magenta().bold();
 		if apollo.is_success() {
-			write!(f, "{} has finished. There were no errors.", "APOLLO".magenta().bold())
+			write!(f, "{} has finished. There were no errors.",
+			       label)
 		} else if ! apollo.is_abort() {
-			write!(f, "{} has finished - but there were errors.", "APOLLO".magenta().bold())
+			write!(f, "{} has finished, but there were minor errors. Final exit code was {}.",
+			       label,
+			       apollo.get_exit_code())
 		} else {
-			write!(f, "{} has finished early. An unrecoverable situation\
-			was encountered. Exit code was {}", "APOLLO".magenta().bold(), apollo.get_exit_code())
+			write!(f, "{} has finished early. An unrecoverable situation was encountered. Exit code was {}",
+			       label,
+			       apollo.get_exit_code())
 		}
 	}
 }

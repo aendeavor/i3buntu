@@ -7,7 +7,7 @@ MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
 BIN := kyrene
-KPATH=kyrene
+KPATH := kyrene
 CC := cargo
 ABORTMSG := "Encountered critical non-zero exit code. Aborting."
 

@@ -7,7 +7,7 @@
 [//]: # (Main README in /)
 [//]: # (version 0.1.0)
 
-This repository provides means to customize an [_Ubuntu_](https://ubuntu.com/) installation. As an advancement of _i3buntu_, which was the name of this project's predecessor, this project is all about the ease of bootstrapping settings and programs.
+This repository provides means to customize an [_Ubuntu_](https://ubuntu.com/) installation. This project is all about the ease of bootstrapping settings and programs.
 
 [![Desktop Theme](athena/docs/desktop_shell.png)](https://github.com/aendeavor/i3buntu)
 
@@ -19,7 +19,7 @@ Are found in [`INSTALL.md`](INSTALL.md).
 
 ### About
 
-As mentioned, this project advances _i3buntu_. With _Regolith Linux_, a more seamless integration of [_GNOME_](https://www.gnome.org/) and [_i3-gaps_](https://github.com/Airblader/i3) is offered, which in turn makes for a simpler post-configuration. As GNOME is a desktop environment, it features all the settings you are used to when using regular [_Ubuntu_](https://ubuntu.com/), but now enhanced with _i3-gaps_, a tiling window manager.
+This project advances _i3buntu_, which was this project's name. We are trying to provide everyone with a single easy bootstrapping process for the installation of [_i3-gaps_](https://github.com/Airblader/i3) and other basic software.
 
 ### Submodules
 
@@ -27,7 +27,7 @@ As mentioned, this project advances _i3buntu_. With _Regolith Linux_, a more sea
 
 #### _Kyrene_
 
-This submodule does the actual work and processes all request and tasks. The program is written entirely in RUST and automatically invoked during installation. _Kyrene_ places all configuration files and installs the necessary software for you.
+This submodule does the actual work and processes all request and tasks. The program is written entirely in [_RUST_](https://www.rust-lang.org/) and automatically invoked during installation. _Kyrene_ places all configuration files and installs the necessary software for you.
 
 #### _Athena_
 

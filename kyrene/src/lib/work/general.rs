@@ -1,4 +1,5 @@
 use crate::lib::{data::PhaseResult, log};
+use std::{fs, path::{Path, PathBuf}};
 
 /// # Decide Phase Outcome (DPO)
 ///
@@ -17,4 +18,23 @@ pub fn dpo(error_code: u8, cs: u8, sct: u8) -> PhaseResult
 	
 	log::console::finalize_phase(cs, sct, &result);
 	result
+}
+
+pub fn try_evade(mut base_path: PathBuf, dest: &Path) -> Result<String, PhaseResult>
+{
+	let mut debug_dest = base_path.clone();
+	base_path.push(dest);
+	
+	match fs::read_to_string(&base_path)
+	{
+		Ok(file_str) => Ok(file_str),
+		Err(_) => {
+			debug_dest.push(Path::new("../"));
+			debug_dest.push(dest);
+			match fs::read_to_string(&debug_dest) {
+				Ok(file_str) => Ok(file_str),
+				Err(_) => Err(dpo(190, 1, 3))
+			}
+		}
+	}
 }

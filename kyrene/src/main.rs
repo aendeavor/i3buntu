@@ -39,6 +39,12 @@ fn main()
 		apollo_result.set_failure(exit_code.get_exit_code());
 		check_abort(&apollo_result);
 	}
+	
+	// STAGE 3
+	if let Err(exit_code) = init::stage_three() {
+		apollo_result.set_failure(exit_code.get_exit_code());
+		check_abort(&apollo_result);
+	}
 
 	println!("{}", apollo_result);
 	std::process::exit(apollo_result.get_exit_code());

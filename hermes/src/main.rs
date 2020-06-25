@@ -27,5 +27,5 @@ fn configure() -> Config {
 
 #[get("/")]
 pub fn root() -> Redirect {
-	Redirect::to("https://raw.githubusercontent.com/aendeavor/apollo/development/hermes/init.sh")
+	Redirect::to("https://raw.githubusercontent.com/aendeavor/i3buntu/init/apollo/hermes/init.sh")
 }
