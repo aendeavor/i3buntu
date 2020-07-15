@@ -1,34 +1,28 @@
-# Customizing Firefox (Quantum)
+# ![FireFox Quantum Material Logo](./logo.png)
 
-## CSS
+## Customizing Firefox (Quantum)
 
-This theme combines the files from [_Material Fox_](https://github.com/muckSponge/MaterialFox) with a "patched" version from [_Flying Fox_](https://github.com/akshat46/FlyingFox). A minor fix has been done to the `--menubar-height`, which has been set to `-0px`.
+### Theming
 
-The `chrome` folder can just be unpacked with `tar xf` and then copied to your Firefox profile directory. You can get there by just "searching" for `about:support` in the searchbar.
+#### Firefox Colors
 
-## Firefox Colors
+Add the [Firefox Color extension](https://addons.mozilla.org/en-US/firefox/addon/firefox-color/?src=search) to your browser and click [here](https://color.firefox.com/?theme=XQAAAAIfAQAAAAAAAABBqYhm849SCia2CaaEGccwS-xNKlhWuMf61H-qemtFQ7JmIThKEJYbO6BYtxXFN3QVwfgIyLdrYygaud86UIpkiO8YN31rNYQT4wbIyYwCNHU7jaUMww6R7XMYKHXDUCvMW7_0AiLugqKwZ2mhpvOqQw__PRrGb_w5dNZqMUkPfE4UsOjehwu76ZgYlAyi-kcs2o76aC30rqSaUf9RJtUHhA_oQODqn_yh5tM) to apply the colors.
 
-The Firefox Colors are found [here](https://color.firefox.com/?theme=XQAAAAIfAQAAAAAAAABBqYhm849SCia2CaaEGccwS-xNKlhWuMf61H-qemtFQ7JmIThKEJYbO6BYtxXFN3QVwfgIyLdrYygaud86UIpkiO8YN31rNYQT4wbIyYwCNHU7jaUMww6R7XMYKHXDUCvMW7_0AiLugqKwZ2mhpvOqQw__PRrGb_w5dNZqMUkPfE4UsOjehwu76ZgYlAyi-kcs2o76aC30rqSaUf9RJtUHhA_oQODqn_yh5tM). Just click on this link and apply the colors. 
+#### CSS
 
-## Policies
+A derivative of [_Material Fox_](https://github.com/muckSponge/MaterialFox) patched with [_Flying Fox_](https://github.com/akshat46/FlyingFox), changed to own preferences and to work without _Tree Style Tab_.
+
+The `chrome` folder can just be unpacked with `tar xf` and then copied to your Firefox profile directory. You can get there by searching for `about:support` in the searchbar.
+
+#### Policies
 
 Set all the following policies to true. You can do this under `about:config`.
 
-`toolkit.legacyUserProfileCustomizations.stylesheets`,
+`toolkit.legacyUserProfileCustomizations.stylesheets`
 `svg.context-properties.content.enabled`
 
-## Extensions
+### Extensions
 
-All extensions should be installed automatically when logging in with your Firefox account. The configurations might not be synchronized.
+#### Humble New Tab Page (HNTP)
 
-### Tree Style Tab
-
-1. Navigate to the extensions settings page
-2. Scroll all the way down and select import; choose [`config.json`](./extensions/tst/config.json)
-3. Select _Vertigo_ theme
-4. Paste contents of [`custom.css`](./extensions/tst/custom.css) to the text field under the "Advanced" section
-
-### Humble New Tab Page (HNTP)
-
-Copy [`custom.css`](./extensions/hntp/custom.css) into the filed called Custom CSS under the Advanced tab when in HNTP settings. Moreover, copy [`import.css`](./extensions/hntp/import.css) into the field Import Settings under Import/Export. Then, disable Mobile Bookmarks, Recently Closed and Recent Bookmarks to your taste under the Settings tab.
-Thereafter, set the default starting page when opening under Firefox's settings to HNTP, by opening a new tab and the selecting Current page in the settings.
+Copy [`custom.css`](./hntp/custom.css) into the field called Custom CSS under the Advanced tab when in HNTP settings. Moreover, copy [`import.css`](./hntp/import.css) into the field Import Settings under Import/Export. Then, disable Mobile Bookmarks, Recently Closed and Recent Bookmarks to your taste under the Settings tab. Thereafter, set the default starting page to HNTP in Firefox's settings. Open a new tab and select current page in the settings.
