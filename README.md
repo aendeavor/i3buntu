@@ -43,4 +43,4 @@ Is there for you convenience and provides a simple forwarding mechanism via [apo
 
 ### Warranty, Licensing & Credits
 
-This project is licensed under the [_GNU Lesser General Public License_](LICENSE), version 3, 29 June 2007. For warranty and icon-, font- or logo-credits, see [Credits and Warranty](athena/docs/cw.md).
+This project is licensed under the [_GNU Lesser General Public License_](LICENSE), version 3, 29 June 2007. For warranty and icon-, font- or logo-credits, see [Credits and Warranty](athena/docs/cws.md).

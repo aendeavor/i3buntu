@@ -5,12 +5,12 @@
 # not need to check for wget and unzip, as
 # they come preinstalled.
 #
-# current version - 0.1.0   unstable
-
+# author	Georg Lauterbach
+# version	0.1.0 unstable
 
 function main() {
 	local _branch=development
-	if [[ -e master.zip ]]; then
+	if [[ -e "${_branch}.zip" ]]; then
 		printf 'There is already a file named "master.zip" in this directory. Aborting.\n'
 		exit 10
 	fi
