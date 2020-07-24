@@ -1,4 +1,6 @@
-use crate::lib::{data::PhaseResult, log};
+use athena::PhaseResult;
+use athena::console;
+
 use std::{fs, path::{Path, PathBuf}};
 
 /// # Decide Phase Outcome (DPO)
@@ -16,7 +18,7 @@ pub fn dpo(error_code: u8, cs: u8, sct: u8) -> PhaseResult
 		PhaseResult::SoftError(error_code)
 	};
 	
-	log::console::finalize_phase(cs, sct, &result);
+	console::finalize_phase(cs, sct, &result);
 	result
 }
 

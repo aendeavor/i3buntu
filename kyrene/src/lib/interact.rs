@@ -2,7 +2,7 @@
 ///
 /// All user interaction in stage one is handled here.
 pub mod stage_one {
-	use crate::lib::data::stage_one::Choices;
+	use athena::Choices;
 	
 	/// The actual caller who drives the asking.
 	pub fn user_choices() -> Choices

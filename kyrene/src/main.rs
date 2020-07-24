@@ -8,7 +8,8 @@
 /// do the work, driven by `main()`.
 mod lib;
 use lib::init;
-use lib::data::ExitCodeCompatible;
+
+use athena::ExitCodeCompatible;
 
 /// # Version & Stability Tag
 ///

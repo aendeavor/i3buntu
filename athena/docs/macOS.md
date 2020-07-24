@@ -60,7 +60,7 @@ With _[Homebrew](https://brew.sh/)_, we can install all other programs we need, 
 cd /usr/local/share/man && sudo chmod -R 775 *
 cd /usr/local/share/locale && sudo chmod -R 775 *
 
-for _c in neofetch python3 neovim htop gpg pinentry-mac
+for _c in neofetch python3 cmake neovim htop gpg pinentry-mac
 do
   brew install $_c
 done
