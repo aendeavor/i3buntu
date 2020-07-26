@@ -1,27 +1,33 @@
-SHELL := bash
-.ONESHELL:
-.SHELLFLAGS := -eu -o pipefail -c
-.DELETE_ON_ERROR:
+# Makefile in /hermes/
+# Included in Top-Most Makefile
 
-MAKEFLAGS += --warn-undefined-variables
-MAKEFLAGS += --no-builtin-rules
+# ? ––––––––––––––––––––––––––––––––––––––––––––– VARs
 
-CC := cargo build
-ABORTMSG := "Encountered critical non-zero exit code. Aborting."
+PROJECTH := -p hermes
 
-all: build
+# ? ––––––––––––––––––––––––––––––––––––––––––––– Default
 
-build: Cargo.toml src/main.rs
-	$(CC)
+hbuild: Cargo.toml
+	$(CC) build $(PROJECTH)
 
-run: build
-	cargo run
+# ? ––––––––––––––––––––––––––––––––––––––––––––– Misc
 
-release: Cargo.toml src/main.rs
-	@- ./make.sh --build || printf "\n%s\n" $(ABORTMSG)
+hrun: hbuild
+	$(CC) run $(PROJECTH)
 
-publish: release
-	@- ./make.sh --publish || printf "\n%s\n" $(ABORTMSG)
+hdoc: Cargo.toml
+	$(CC) doc $(PROJECTH) --open &
 
-clean:
-	cargo --clean
+hcheck:
+	$(CC) check $(PROJECTH)
+
+htest:
+	$(CC) test $(PROJECTH)
+
+# ? ––––––––––––––––––––––––––––––––––––––––––––– Release
+
+hrelease: Cargo.toml
+	@- ./hermes/make.sh --build || printf "\n%s\n" $(ABORTMSG)
+
+hpublish: hrelease
+	@- ./hermes/make.sh --publish || printf "\n%s\n" $(ABORTMSG)

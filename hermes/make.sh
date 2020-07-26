@@ -94,6 +94,8 @@ function publish() {
 }
 
 function main() {
+	cd hermes || return 1
+
 	case $1 in
 		'--build') check ; build ;;
 		'--publish') publish ;;

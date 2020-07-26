@@ -3,7 +3,7 @@
 # Downloads APOLLO and starts installation.
 
 # author	Georg Lauterbach
-# version	0.1.0 unstable
+# version	0.1.1 unstable
 
 function main() {
 	local _branch=development

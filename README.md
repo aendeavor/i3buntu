@@ -2,12 +2,12 @@
 
 ## APOLLO
 
-[![version](https://img.shields.io/badge/version-v0.1.0-green.svg)](https://shields.io/) [![stability](https://img.shields.io/badge/stability-unstable-red.svg)](https://shields.io/)
+![version](https://img.shields.io/badge/version-v0.1.0-2e3440.svg) ![stability](https://img.shields.io/badge/stability-unstable-FBB444.svg) ![athena](https://img.shields.io/badge/athena-v0.1.0-3b4252.svg) ![hermes](https://img.shields.io/badge/hermes-v0.1.0-434c5e.svg) ![version](https://img.shields.io/badge/athena-v0.1.0-4c566a.svg)
 
 [//]: # (Main README in /)
-[//]: # (version 0.1.0)
+[//]: # (version 0.2.0)
 
-This repository provides means to customize an [_Ubuntu_](https://ubuntu.com/) installation. This project is all about the ease of bootstrapping settings and programs.
+This repository provides means to customize an [_Ubuntu_](https://ubuntu.com/) installation by deploying the needed programs and sensible default settings.
 
 [![Desktop Theme](athena/docs/desktop_shell.png)](https://github.com/aendeavor/i3buntu)
 
@@ -19,28 +19,29 @@ Are found in [`INSTALL.md`](INSTALL.md).
 
 ### About
 
-This project advances _i3buntu_, which was this project's name. We are trying to provide everyone with a single easy bootstrapping process for the installation of [_i3-gaps_](https://github.com/Airblader/i3) and other basic software.
-
-### Submodules
+This project advances _i3buntu_, which had been this project's name. We are trying to provide everyone with a single easy bootstrapping process for the installation of [_i3-gaps_](https://github.com/Airblader/i3) and other basic software.
 
 [![Collage 2](athena/docs/collage_2.png)](https://github.com/aendeavor/i3buntu)
 
-#### _Kyrene_
-
-This submodule does the actual work and processes all request and tasks. The program is written entirely in [_RUST_](https://www.rust-lang.org/) and automatically invoked during installation. _Kyrene_ places all configuration files and installs the necessary software for you.
-
-#### _Athena_
-
-_Athena_ holds all configuration files and instructions which software to install. This is heavily used by _Kyrene_. Moreover, all icons, logos and images are stored there as well.
+#### Submodules
 
 [![NeoVim](athena/docs/neovim.png)](https://github.com/aendeavor/i3buntu)
 
-#### _Hermes_
+##### _Kyrene_
 
-Is there for you convenience and provides a simple forwarding mechanism via [apollo.itbsd.com](apollo.itbsd.com) to get the `init.sh` script. This script is executed before all the rest - it bootstraps this repository.
+_Kyrene_ holds the binary which does the actaul job at runtime. Like all other projects in this repository, it is written in [_Rust_](https://www.rust-lang.org/). _Kyrene_ depeneds on _Athena_.
 
-[![Nautilus](athena/docs/filemanager.png)](https://github.com/aendeavor/i3buntu)
+##### _Athena_
+
+_Athena_ provides the base library _Kyrene_ uses. Moreover, all configuration files and software module descriptions are held here, as well as icons, logos and images.
+
+##### _Hermes_
+
+Is there for you convenience and provides a simple forwarding mechanism via [apollo.itbsd.com](https://apollo.itbsd.com) to get `init.sh`. This script is executed before the rest, bootstraping this repository itself.
+
 
 ### Warranty, Licensing & Credits
+
+[![Nautilus](athena/docs/filemanager.png)](https://github.com/aendeavor/i3buntu)
 
 This project is licensed under the [_GNU Lesser General Public License_](LICENSE), version 3, 29 June 2007. For warranty and icon-, font- or logo-credits, see [Credits and Warranty](athena/docs/cws.md).

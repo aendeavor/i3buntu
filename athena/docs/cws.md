@@ -14,7 +14,7 @@ This guide and these files come with absolutely **no warranty**! The knowledge i
 
 ##### Others
 
-- [GitHub Badges](https://naereen.github.io/badges/)
+- [Badges](https://shields.io/)
 
 ##### Styling
 
@@ -25,3 +25,4 @@ This guide and these files come with absolutely **no warranty**! The knowledge i
 - [Terminal colors](https://terminal.sexy/)
 - [ASCII art](http://www.patorjk.com/software/taag/#p=display&f=Slant&t=Type%20Something%20)
 - [Color Theme](https://www.gnome-look.org/p/1099856/#files)
+- [Nord Colors](https://www.nordtheme.com/docs/colors-and-palettes)
