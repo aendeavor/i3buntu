@@ -1,8 +1,4 @@
-use crate::lib::{
-	log::console::{self, stage_two},
-	data::{
-		PhaseResult,
-		stage_one::Choices}};
+use athena::{PhaseResult, console, Choices};
 use super::general::{dpo, try_evade};
 use std::{path::Path, process::Command};
 use serde_json::{self, Value};
@@ -125,7 +121,7 @@ pub fn remove_unnecessary() -> PhaseResult
 ///
 fn apt_install(program: &str) -> Result<(), u8>
 {
-	stage_two::install_program(program);
+	console::stage_two::install_program(program);
 	match Command::new("sudo")
 		.arg("apt")
 		.arg("show")
@@ -139,14 +135,14 @@ fn apt_install(program: &str) -> Result<(), u8>
 		Ok(output) => {
 			match output.status.success() {
 				true => {
-					stage_two::install_program_outcome(true);
+					console::stage_two::install_program_outcome(true);
 					Ok(())
 				},
 				false => {
 					// ! Could use some error log to logfile
 					// use log::debug to get debug msg
 					// (this is a non-fatal error)
-					stage_two::install_program_outcome(false);
+					console::stage_two::install_program_outcome(false);
 					Err(20)
 				}
 			}

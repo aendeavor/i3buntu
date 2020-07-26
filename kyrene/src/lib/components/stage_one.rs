@@ -1,7 +1,4 @@
-use crate::lib::{
-	data::{stage_one::PPAs, PhaseResult},
-	log,
-};
+use athena::{PPAs, PhaseResult, console};
 use super::general::{dpo, try_evade};
 use std::{path::Path, process::Command};
 use serde_json;
@@ -17,7 +14,7 @@ use serde_json;
 /// Phase: 1 / 2
 pub fn add_ppas() -> PhaseResult {
 	println!();
-	log::console::phase_init(1, 2, "Adding PPAs");
+	console::phase_init(1, 2, "Adding PPAs");
 	let mut exit_code: u8 = 0;
 	
 	let destination = match std::env::current_dir() {
@@ -78,7 +75,7 @@ pub fn add_ppas() -> PhaseResult {
 /// Stage: 1,
 /// Phase: 2 / 2
 pub fn update_package_information() -> PhaseResult {
-	log::console::phase_init(2, 2, "Updating APT");
+	console::phase_init(2, 2, "Updating APT");
 	match Command::new("sudo")
 		.arg("apt-get")
 		.arg("-y")

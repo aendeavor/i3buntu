@@ -25,21 +25,21 @@ fn main()
 {
 	let mut apollo_result = init::start();
 
-	// STAGE 1
-	let stage_one_data = match init::stage_one() {
-		Ok(sod) => sod,
-		Err(sod) => {
-			apollo_result.set_failure(sod.get_exit_code());
-			check_abort(&apollo_result);
-			sod
-		},
-	};
-	
-	// STAGE 2
-	if let Err(exit_code) = init::stage_two(stage_one_data) {
-		apollo_result.set_failure(exit_code.get_exit_code());
-		check_abort(&apollo_result);
-	}
+	// // STAGE 1
+	// let stage_one_data = match init::stage_one() {
+	// 	Ok(sod) => sod,
+	// 	Err(sod) => {
+	// 		apollo_result.set_failure(sod.get_exit_code());
+	// 		check_abort(&apollo_result);
+	// 		sod
+	// 	},
+	// };
+	//
+	// // STAGE 2
+	// if let Err(exit_code) = init::stage_two(stage_one_data) {
+	// 	apollo_result.set_failure(exit_code.get_exit_code());
+	// 	check_abort(&apollo_result);
+	// }
 	
 	// STAGE 3
 	if let Err(exit_code) = init::stage_three() {
@@ -54,7 +54,7 @@ fn main()
 /// Checks whether to abort on a given exit code
 /// or not. An abort exit code ranges from 100 to
 /// 199.
-pub fn check_abort(result: &lib::data::end::ApolloResult)
+pub fn check_abort(result: &athena::ApolloResult)
 {
 	if result.is_abort() {
 		result.show_abort();

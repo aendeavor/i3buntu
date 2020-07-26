@@ -1,5 +1,5 @@
 use athena::*;
-use super::interact;
+use super::{components, interact};
 
 /// # First Things First
 ///
@@ -10,13 +10,13 @@ pub fn start() -> ApolloResult
 {
 	console::welcome();
 	
-	match std::process::Command::new("sudo")
-		.arg("apt-get")
-		.arg("--help")
-		.output() {
-		Ok(_) => (),
-		Err(_) => ()
-	};
+	// match std::process::Command::new("sudo")
+	// 	.arg("apt-get")
+	// 	.arg("--help")
+	// 	.output() {
+	// 	Ok(_) => (),
+	// 	Err(_) => ()
+	// };
 	
 	ApolloResult::new()
 }
@@ -61,8 +61,8 @@ pub fn stage_one() -> StageResult<StageOneData>
 		}
 	};
 	
-	let sod = drive(work::stage_one::add_ppas, sod)?;
-	let sod = drive(work::stage_one::update_package_information, sod)?;
+	let sod = drive(components::stage_one::add_ppas, sod)?;
+	let sod = drive(components::stage_one::update_package_information, sod)?;
 
 	if sod.is_success() {
 		console::finalize_stage(sod.get_exit_code());
@@ -84,9 +84,9 @@ pub fn stage_one() -> StageResult<StageOneData>
 pub fn stage_two(stage_one_data: StageOneData) -> StageResult<ExitCode>
 {
 	console::stage_two::init();
-	let mut exit_code = drive(work::stage_two::install_base, ExitCode(0))?;
+	let mut exit_code = drive(components::stage_two::install_base, ExitCode(0))?;
 	
-	match work::stage_two::install_choices(&stage_one_data.choices) {
+	match components::stage_two::install_choices(&stage_one_data.choices) {
 		PhaseResult::SoftError(ec) => {
 			exit_code.set_exit_code(ec);
 		},
@@ -98,7 +98,7 @@ pub fn stage_two(stage_one_data: StageOneData) -> StageResult<ExitCode>
 		_ => ()
 	}
 
-	let exit_code = drive(work::stage_two::remove_unnecessary, exit_code)?;
+	let exit_code = drive(components::stage_two::remove_unnecessary, exit_code)?;
 	
 	if exit_code.is_success() {
 		console::finalize_stage(exit_code.0);
@@ -113,7 +113,7 @@ pub fn stage_three() -> StageResult<ExitCode>
 {
 	console::stage_three::init();
 	
-	let exit_code = drive(work::stage_three::copy_configurations, ExitCode(0))?;
+	let exit_code = drive(components::stage_three::copy_configurations, ExitCode(0))?;
 	
 	if exit_code.is_success() {
 		console::finalize_stage(exit_code.0);

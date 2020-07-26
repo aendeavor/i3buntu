@@ -26,7 +26,7 @@ all:
 
 release:
 	cargo build --release
-	cp -f target/release/kyrene .
+	cp ./target/release/kyrene apollo
 
 # ? ––––––––––––––––––––––––––––––––––––––––––––– Non-Release
 
@@ -38,17 +38,17 @@ SUBDIRS = kyrene athena
 .PHONY: nr $(SUBDIRS)
 
 nr: $(SUBDIRS)
+	./target/debug/kyrene
 
 $(SUBDIRS):
 	$(MAKE) -C $@
-	./target/debug/kyrene
 
 kyrene: athena
 
 # ? ––––––––––––––––––––––––––––––––––––––––––––– Install
 
-install: ./kyrene
-	-@ sudo -E ./$(KYR) || printf "\n%s\n" $(ABORTMSG)
+install: ./apollo
+	-@ sudo -E ./apollo || printf "\n%s\n" $(ABORTMSG)
 
 # ? ––––––––––––––––––––––––––––––––––––––––––––– Includes
 
