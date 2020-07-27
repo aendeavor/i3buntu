@@ -6,20 +6,20 @@
 # version	0.1.1 unstable
 
 function main() {
-	local _branch=development
-	if [[ -e "${_branch}.zip" ]]; then
-		printf "There is already a file named '%s.zip' in this directory. Aborting.\n" "${_branch}"
+	local _release="v2.0.0-stable"
+	if [[ -e "${_release}.zip" ]]; then
+		printf "There is already a file named '%s.zip' in this directory. Aborting.\n" "${_release}"
 		exit 10
 	fi
 
-	if ! wget "https://github.com/aendeavor/apollo/archive/${_branch}.zip" &>/dev/null
+	if ! wget "https://github.com/aendeavor/apollo/archive/${_release}.zip" &>/dev/null
 	then
 		printf 'Could not download repository. WGET exit code was %s. Aborting.\n' "$?"
 		exit 100
 	fi
 
-	unzip -u "${_branch}.zip" &>/dev/null
-	cd "apollo-${_branch}" || exit 200
+	unzip -u "${_release}.zip" &>/dev/null
+	cd "apollo-${_release}" || exit 200
 	make install < /dev/tty
 }
 

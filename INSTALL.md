@@ -1,8 +1,8 @@
-# ![Apollo Logo](athena/style/apollo_logo.png)
+# ![Apollo Logo](athena/resources/theme/apollo_logo.png)
 
 ## Installation
 
-[![stability](https://img.shields.io/badge/stability-unstable-red.svg)](https://shields.io/) [![init](https://img.shields.io/badge/init-0.1.1-yellow.svg)](https://shields.io/) [![apollo main](https://img.shields.io/badge/apollo_main-0.1.0-yellow.svg)](https://shields.io/) 
+![version](https://img.shields.io/badge/version-v2.0.0-1A1D23.svg) ![stability](https://img.shields.io/badge/stability-unstable-FBB444.svg) ![init](https://img.shields.io/badge/init-v0.1.1-2B303B.svg)
 
 [//]: # (Explains the installation process of APOLLO)
 [//]: # (version 0.1.2)

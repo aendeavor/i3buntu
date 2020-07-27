@@ -1,4 +1,4 @@
-# ![Apollo Logo](../style/apollo_logo.png)
+# ![Apollo Logo](../resources/theme/apollo_logo.png)
 
 ## _macOS_ Installation Guide
 
