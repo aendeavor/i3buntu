@@ -2,7 +2,7 @@
 ///
 /// All user interaction in stage one is handled here.
 pub mod stage_one {
-	use athena::Choices;
+	use athena::structures::Choices;
 	
 	/// The actual caller who drives the asking.
 	pub fn user_choices() -> Choices

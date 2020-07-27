@@ -1,7 +1,11 @@
-use crate::data::structures::PhaseError;
+use super::super::{
+	data::structures::{PhaseError, ApolloResult}
+};
 use std::{fmt, io::{self, Write}};
 use colored::Colorize;
 	
+/// # Greetings
+///
 /// Creates the greetings-message upon starting APOLLO.
 pub fn welcome(app_version: &'static str)
 {
@@ -12,24 +16,46 @@ pub fn welcome(app_version: &'static str)
 	         crate::VERSION,
 	         app_version);
 }
-	
+
+/// # Stages
+///
+/// Stages are the main blocks where work
+/// is divided into. Stages consist of
+/// phases.
+pub fn print_stage_start(stage_number: u8, stage_name: &str)
+{
+	println!("\nSTAGE {}\n{} {{", stage_number, stage_name.magenta());
+}
+
 /// # Phases
 ///
 /// Phases are sub-sections of stages. Stages
 /// consist of phases. This logger wraps the
 /// beginning of a phase with the number of
 /// the phase and a description
-pub fn phase_init(current_stage: u8, stage_count_total: u8, msg: &str)
+pub fn print_phase_description(current_stage: u8, stage_count_total: u8, msg: &str)
 {
 	print!("  ({}/{}) {}\n",
 		current_stage,
 		stage_count_total,
 		msg);
-	io::stdout().flush().ok().expect("Could not flush stdout\
-		in lib::log::phase_init");
-}
 	
-/// # Dichotomy to `phase_init()`
+	flush();
+}
+
+/// # Descriptions
+///
+/// As work id done in phases, they will
+/// log information on the console to in-
+/// form the user about the progess.
+pub fn print_sub_phase_description<T>(message: T)
+	where T: fmt::Display
+{
+	print!("{}", message);
+	flush();
+}
+
+/// # Closing a Phase
 ///
 /// Does exactly the opposite of `phase_init()`.
 /// Ends a phase and indicates success.
@@ -59,13 +85,13 @@ pub fn finalize_phase(current_stage: u8, stage_count_total: u8, result: Option<&
 		       "✔".green());
 	}
 	
-	io::stdout().flush().ok().expect("Could not flush stdout");
+	flush();
 	println!();
 }
 	
-/// # Like `phase_init()` for Stages
+/// # Closing a Stage
 ///
-/// Ends a phase and indicates success.
+/// Ends a stage and indicates success.
 pub fn finalize_stage(ec: u8)
 {
 	match ec {
@@ -87,21 +113,12 @@ pub fn debug<S: fmt::Display>(msg: S, obj: impl std::fmt::Debug)
 	         msg,
 	         obj);
 }
-	
-/// Prints the abort information just before aborting
-/// in `main()`.
-pub fn show_abort(msg: impl fmt::Display, exit_code: i32)
-{
-	println!("\n\n{}\n MESSAGE: {}\nEXIT CODE: {}",
-	         "ABORT".red(),
-	         msg,
-	         exit_code);
-}
 
 fn flush()
 {
-	io::stdout().flush().ok().expect("Could not flush stdout\
-		in lib::log::stage_two::install_program");
+	io::stdout().flush()
+		.ok()
+		.expect("Couldn't flush stdout in ::log::console::flush()");
 }
 
 /// # Stage 1
@@ -109,15 +126,18 @@ fn flush()
 /// Prints all the information that is needed
 /// during S1 onto the console.
 pub mod stage_one {
-	use crate::data::{
-		structures::{Choices, StageOneData},
-		traits::ExitCodeCompatible,
+	use super::super::super::{
+		data::{
+			structures::{
+				Choices,
+				StageOneData,
+			},
+			traits::ExitCodeCompatible
+		}
 	};
 	use std::fmt;
 	use colored::Colorize;
 	
-	/// Prints the beginning of S1
-	pub fn init() {	println!("\nSTAGE 1\n{} {{", "INITIALIZATION".magenta()); }
 	/// For displaying what the user choice are.
 	/// If a user pressed the wrong button, he can
 	/// accept to enter his choices again. This is
@@ -150,71 +170,26 @@ pub mod stage_one {
 		if val { &'✔' } else { &'✘' }
 	}
 }
-	
-/// # Stage 2
+
+
+
+/// # Final Console Output
 ///
-/// Prints all the information that is needed
-// 	during S2 onto the console.
-pub mod stage_two {
-	use colored::Colorize;
-		
-	pub fn init() {	println!("\nSTAGE 2\n{} {{\n", "PACKAGING".magenta()); }
-		
-	pub fn install_program(program: &str)
-	{
-		print!("     :: Installing {}", program);
-		super::flush();
-	}
-		
-	pub fn install_program_outcome(success: bool)
-	{
-		if success { print!("  ✔\n"); } else { print!("  ✘\n"); }
-		super::flush();
-	}
-}
-	
-pub mod stage_three {
-	use colored::Colorize;
-	
-	pub fn init() { println!("\nSTAGE 3\n{} {{\n", "CONFIGURATION".magenta()); }
-		
-	pub fn copy_config_folder()
-	{
-		print!("     :: Syncing ${{HOME}}/.config folder");
-		super::flush();
-	}
-	
-	pub fn copy_config_folder_succ(success: bool)
-	{
-		if success { print!("  ✔\n"); } else { print!("  ✘\n"); }
-		super::flush();
-	}
-}
-
-
-/// Only used for `ApolloResult` structs, which are finalized during
-/// expected end of program or unexpected abort.
-pub mod end {
-	use crate::data::structures::ApolloResult;
-	use std::fmt;
-	use colored::Colorize;
-	
-	/// Formats the final console output returned before exiting main().
-	pub fn fmt_apollo_result(apollo: &ApolloResult, f: &mut fmt::Formatter<'_>) -> fmt::Result
-	{
-		println!();
-		let label = "APOLLO".magenta().bold();
-		if apollo.is_success() {
-			write!(f, "{} has finished. There were no errors.",
-			       label)
-		} else if ! apollo.is_abort() {
-			write!(f, "{} has finished, but there were minor errors. Final exit code was {}.",
-			       label,
-			       apollo.get_exit_code())
-		} else {
-			write!(f, "{} has finished early. An unrecoverable situation was encountered. Exit code was {}",
-			       label,
-			       apollo.get_exit_code())
-		}
+/// Formats the final console output returned before exiting `main()`.
+pub fn fmt_final_result(apollo: &ApolloResult, f: &mut fmt::Formatter<'_>) -> fmt::Result
+{
+	println!();
+	let label = "APOLLO".magenta().bold();
+	if apollo.is_success() {
+		write!(f, "{} has finished. There were no errors.",
+		       label)
+	} else if ! apollo.is_abort() {
+		write!(f, "{} has finished, but there were minor errors. Final exit code was {}.",
+		       label,
+		       apollo.get_exit_code())
+	} else {
+		write!(f, "{} has finished early. An unrecoverable situation was encountered. Exit code was {}",
+		       label,
+		       apollo.get_exit_code())
 	}
 }

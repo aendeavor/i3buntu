@@ -1,4 +1,15 @@
-use athena::*;
+use athena::{
+	log::console,
+	structures::{
+		ApolloResult,
+		ExitCode,
+		PhaseError,
+		PhaseResult,
+		StageOneData,
+		StageResult
+	},
+	traits::ExitCodeCompatible
+};
 use super::{components, interact};
 
 // TODO uncomment
@@ -57,7 +68,7 @@ pub fn stage_one() -> StageResult<StageOneData>
 {
 	use interact::stage_one::{choices_ok, user_choices};
 	
-	console::stage_one::init();
+	console::print_stage_start(1, "INITIALIZATION");
 	let sod = loop {
 		let choices = user_choices();
 		if choices_ok() {
@@ -87,7 +98,7 @@ pub fn stage_one() -> StageResult<StageOneData>
 /// - remove unnecessary
 pub fn stage_two(stage_one_data: StageOneData) -> StageResult<ExitCode>
 {
-	console::stage_two::init();
+	console::print_stage_start(2, "PACKAGING");
 	let mut exit_code = drive(components::stage_two::install_base, ExitCode(0))?;
 	
 	if let Some(stage_result) = components::stage_two::install_choices(&stage_one_data.choices) {
@@ -116,7 +127,7 @@ pub fn stage_two(stage_one_data: StageOneData) -> StageResult<ExitCode>
 
 pub fn stage_three() -> StageResult<ExitCode>
 {
-	console::stage_three::init();
+	console::print_stage_start(3, "CONFIGURATION");
 	
 	let exit_code = drive(components::stage_three::copy_configurations, ExitCode(0))?;
 	

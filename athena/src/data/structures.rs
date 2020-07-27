@@ -1,5 +1,7 @@
-use crate::log::console;
-use super::traits::ExitCodeCompatible;
+use super::super::{
+	log::console,
+	traits::ExitCodeCompatible
+};
 use std::{fmt, error::Error};
 use serde::{Serialize, Deserialize};
 
@@ -278,7 +280,12 @@ impl ApolloResult {
 	/// in `main()`.
 	pub fn show_abort(&self)
 	{
-		console::show_abort(self.abort_msg.unwrap(), self.get_exit_code());
+		use colored::Colorize;
+		
+		println!("\n\n{}\n MESSAGE: {}\nEXIT CODE: {}",
+		         "ABORT".red(),
+		         self.abort_msg.unwrap(),
+		         self.get_exit_code());
 	}
 }
 	
@@ -286,7 +293,7 @@ impl Error for ApolloResult {}
 	
 impl fmt::Display for ApolloResult {
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		console::end::fmt_apollo_result(self, f)
+		console::fmt_final_result(self, f)
 	}
 }
 

@@ -1,4 +1,8 @@
-use athena::{PPAs, PhaseResult, console, dpo};
+use athena::{
+	structures::{PhaseResult, PPAs},
+	log::console,
+	controller::dpo
+};
 use std::process::Command;
 use serde_json;
 
@@ -13,10 +17,10 @@ use serde_json;
 /// Phase: 1 / 2
 pub fn add_ppas() -> PhaseResult {
 	println!();
-	console::phase_init(1, 2, "Adding PPAs");
+	console::print_phase_description(1, 2, "Adding PPAs");
 	let mut exit_code: u8 = 0;
 	
-	let path = athena::get_resource_path("athena/resources/programs/ppas.json", 1, 2)?;
+	let path = athena::controller::get_resource_path("athena/resources/programs/ppas.json", 1, 2)?;
 	
 	let json_ppas: PPAs = match serde_json::from_str(&path) {
 		Ok(json_ppas) => json_ppas,
@@ -63,7 +67,7 @@ pub fn add_ppas() -> PhaseResult {
 /// Stage: 1,
 /// Phase: 2 / 2
 pub fn update_package_information() -> PhaseResult {
-	console::phase_init(2, 2, "Updating APT Signatures");
+	console::print_phase_description(2, 2, "Updating APT Signatures");
 	match Command::new("sudo")
 		.arg("apt-get")
 		.arg("-y")

@@ -1,5 +1,6 @@
 #![feature(termination_trait_lib)]
 #![feature(in_band_lifetimes)]
+
 #[macro_use] extern crate scan_rules;
 
 /// # Actual Library
@@ -9,14 +10,17 @@
 mod lib;
 use lib::init;
 
-use athena::ExitCodeCompatible;
+use athena::{
+	structures::ApolloResult,
+	traits::ExitCodeCompatible
+};
 
 /// # Version & Stability Tag
 ///
 /// Globally used version name of ***KYRENE***.
 /// Stability identifier indicated release or
 /// development branching.
-const VERSION: &'static str = "v0.1.0-alpha unstable";
+const VERSION: &'static str = "v0.3.4-alpha unstable";
 
 /// # Main
 ///
@@ -25,21 +29,21 @@ fn main()
 {
 	let mut apollo_result = init::start();
 
-	// // STAGE 1
-	// let stage_one_data = match init::stage_one() {
-	// 	Ok(sod) => sod,
-	// 	Err(sod) => {
-	// 		apollo_result.set_failure(sod.get_exit_code());
-	// 		check_abort(&apollo_result);
-	// 		sod
-	// 	},
-	// };
-	//
-	// // STAGE 2
-	// if let Err(exit_code) = init::stage_two(stage_one_data) {
-	// 	apollo_result.set_failure(exit_code.get_exit_code());
-	// 	check_abort(&apollo_result);
-	// }
+	// STAGE 1
+	let stage_one_data = match init::stage_one() {
+		Ok(sod) => sod,
+		Err(sod) => {
+			apollo_result.set_failure(sod.get_exit_code());
+			check_abort(&apollo_result);
+			sod
+		},
+	};
+	
+	// STAGE 2
+	if let Err(exit_code) = init::stage_two(stage_one_data) {
+		apollo_result.set_failure(exit_code.get_exit_code());
+		check_abort(&apollo_result);
+	}
 	
 	// STAGE 3
 	if let Err(exit_code) = init::stage_three() {
@@ -54,7 +58,7 @@ fn main()
 /// Checks whether to abort on a given exit code
 /// or not. An abort exit code ranges from 100 to
 /// 199.
-pub fn check_abort(result: &athena::ApolloResult)
+pub fn check_abort(result: &ApolloResult)
 {
 	if result.is_abort() {
 		result.show_abort();

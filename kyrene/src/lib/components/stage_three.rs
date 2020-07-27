@@ -1,21 +1,26 @@
-use athena::{console, PhaseResult, dpo};
+use athena::{
+	structures::PhaseResult,
+	log::console,
+	controller::dpo
+};
 use std::process::Command;
 use dirs_next;
+use colored::Colorize;
 
 pub fn copy_configurations() -> PhaseResult
 {
 	let mut exit_code = 0;
-	console::phase_init(1,3, "Copying Configuration Files");
-	console::stage_three::copy_config_folder();
+	console::print_phase_description(1, 3, "Copying Configuration Files");
+	console::print_sub_phase_description("     :: Syncing ${{HOME}}/.config folder");
 	
-	let path = athena::get_resource_path("athena/resources/config/home/", 1, 3)?;
+	let path = athena::controller::get_resource_path("athena/resources/config/home/", 1, 3)?;
 	
 	let _home = match dirs_next::home_dir() {
 		Some(path) => path,
 		None => return dpo(131, 1, 3)
 	};
 	
-	console::stage_three::copy_config_folder_succ(true);
+	console::print_sub_phase_description("  ✔\n".green());
 	println!("{}", path);
 	
 	// if let Err(_) = Command::new("rsync")

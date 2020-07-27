@@ -1,6 +1,11 @@
-use athena::{console, Choices, dpo, PhaseResult};
+use athena::{
+	structures::{Choices, PhaseResult},
+	log::console,
+	controller::dpo
+};
 use std::process::Command;
 use serde_json::{self, Value};
+use colored::Colorize;
 
 /// # Base System Extension
 ///
@@ -13,9 +18,9 @@ use serde_json::{self, Value};
 /// Phase: 1 / 3
 pub fn install_base() -> PhaseResult
 {
-	console::phase_init(1, 3, "Installing Programs");
+	console::print_phase_description(1, 3, "Installing Programs");
 	
-	let path = athena::get_resource_path("athena/resources/programs/programs.json", 1, 3)?;
+	let path = athena::controller::get_resource_path("athena/resources/programs/programs.json", 1, 3)?;
 	
 	let json_tree: Value = match serde_json::from_str(&path) {
 		Ok(json_tree) => json_tree,
@@ -74,7 +79,7 @@ fn recurse_json(value: &serde_json::Value) -> Result<(), u8>
 /// Phase: 2 / 3
 pub fn install_choices(choices: &Choices) -> PhaseResult
 {
-	console::phase_init(2, 3, "Installing User-Choices");
+	console::print_phase_description(2, 3, "Installing User-Choices");
 	let mut exit_code = 0;
 	
 	for program in *choices {
@@ -99,7 +104,7 @@ pub fn install_choices(choices: &Choices) -> PhaseResult
 ///
 pub fn remove_unnecessary() -> PhaseResult
 {
-	console::phase_init(3, 3, "Removing unnecessary packages");
+	console::print_phase_description(3, 3, "Removing unnecessary packages");
 	dpo(0, 3, 3)
 }
 
@@ -109,7 +114,8 @@ pub fn remove_unnecessary() -> PhaseResult
 ///
 fn apt_install(program: &str) -> Result<(), u8>
 {
-	console::stage_two::install_program(program);
+	console::print_sub_phase_description("     :: Installing ".to_owned() + program);
+	
 	match Command::new("sudo")
 		.arg("apt")
 		.arg("show")
@@ -123,14 +129,14 @@ fn apt_install(program: &str) -> Result<(), u8>
 		Ok(output) => {
 			match output.status.success() {
 				true => {
-					console::stage_two::install_program_outcome(true);
+					console::print_sub_phase_description("  ✔\n".green());
 					Ok(())
 				},
 				false => {
 					// ! TODO Could use some error log to logfile
 					// use log::debug to get debug msg
 					// (this is a non-fatal error)
-					console::stage_two::install_program_outcome(false);
+					console::print_sub_phase_description("  ✘\n".red());
 					Err(20)
 				}
 			}
