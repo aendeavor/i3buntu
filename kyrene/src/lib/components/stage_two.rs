@@ -1,6 +1,5 @@
-use athena::{PhaseResult, console, Choices};
-use super::general::{dpo, try_evade};
-use std::{path::Path, process::Command};
+use athena::{console, Choices, dpo, PhaseResult};
+use std::process::Command;
 use serde_json::{self, Value};
 
 /// # Base System Extension
@@ -16,20 +15,9 @@ pub fn install_base() -> PhaseResult
 {
 	console::phase_init(1, 3, "Installing Programs");
 	
-	let destination = match std::env::current_dir() {
-		Ok(dir) => dir,
-		Err(_) => return dpo(120, 1, 3)
-	};
+	let path = athena::get_resource_path("athena/resources/programs/programs.json", 1, 3)?;
 	
-	let file_str = match try_evade(
-		destination,
-		Path::new("athena/resources/programs/programs.json"))
-	{
-		Ok(file_str) => file_str,
-		Err(error) => return error
-	};
-	
-	let json_tree: Value = match serde_json::from_str(&file_str) {
+	let json_tree: Value = match serde_json::from_str(&path) {
 		Ok(json_tree) => json_tree,
 		Err(_) => return dpo(122, 1, 3)
 	};
@@ -42,7 +30,7 @@ pub fn install_base() -> PhaseResult
 	dpo(error_code, 1, 3)
 }
 
-/// # Parrses JSON
+/// # Parses JSON
 ///
 /// Recursing through the given tree / enum of JSON
 /// values until every leaf has been used.
@@ -139,7 +127,7 @@ fn apt_install(program: &str) -> Result<(), u8>
 					Ok(())
 				},
 				false => {
-					// ! Could use some error log to logfile
+					// ! TODO Could use some error log to logfile
 					// use log::debug to get debug msg
 					// (this is a non-fatal error)
 					console::stage_two::install_program_outcome(false);
@@ -149,7 +137,7 @@ fn apt_install(program: &str) -> Result<(), u8>
 			
 		},
 		Err(_) => {
-			// ! Could use some error log to logfile
+			// ! TODO Could use some error log to logfile
 			// use log::debug to get debug msg
 			// (this is a fatal/severe error)
 			Err(21)

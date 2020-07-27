@@ -1,15 +1,16 @@
-use crate::data::structures::PhaseResult;
+use crate::data::structures::PhaseError;
 use std::{fmt, io::{self, Write}};
 use colored::Colorize;
 	
 /// Creates the greetings-message upon starting APOLLO.
-pub fn welcome()
+pub fn welcome(app_version: &'static str)
 {
-	println!("\nWelcome to {} {}", "APOLLO".bold().magenta(), crate::VERSION);
-
-	let procedure: &'static str = "We are going to walk you through a few steps\nto complete the setup. These include:\n\n  1. Initialization\n  2. Installation of Software\n  3. Deployment of Configuration Files\n  4. Cleanup and Post-Configuration\n\nAs we need superuser privileges to install\nprograms and to reach some locations, please\ninput your password if prompted.\n";
-
-	println!("\n{}", procedure);
+	println!("\nWelcome to {}\n\nLIB {}\nAPP {}\n\nWe are going to walk you through a few steps\nto complete the setup. These include:\n\n  1. \
+	Initialization\n  2. Installation of Software\n  3. Deployment of Configuration Files\n  4. Cleanup and Post-Configuration\n\nAs we need sup\
+	eruser privileges to install\nprograms and to reach some locations, please\ninput your password if prompted.\n",
+	         "APOLLO".bold().magenta(),
+	         crate::VERSION,
+	         app_version);
 }
 	
 /// # Phases
@@ -32,30 +33,32 @@ pub fn phase_init(current_stage: u8, stage_count_total: u8, msg: &str)
 ///
 /// Does exactly the opposite of `phase_init()`.
 /// Ends a phase and indicates success.
-pub fn finalize_phase(current_stage: u8, stage_count_total: u8, result: &PhaseResult)
+pub fn finalize_phase(current_stage: u8, stage_count_total: u8, result: Option<&PhaseError>)
 {
-	match result {
-		PhaseResult::Success => {
-			print!("  ({}/{}) {}",
+	if let Some(phase_error) = result {
+		match phase_error {
+			PhaseError::SoftError(ec) => {
+				print!("  ({}/{}) {} — Error {}",
+				       current_stage,
+				       stage_count_total,
+				       "✘".yellow(),
+				       ec);
+			},
+			PhaseError::HardError(ec) => {
+				print!("  ({}/{}) {} — Error {}",
+				       current_stage,
+				       stage_count_total,
+				       "✘".red(),
+				       ec);
+			}
+		}
+	} else {
+		print!("  ({}/{}) {}",
 		       current_stage,
 		       stage_count_total,
 		       "✔".green());
-		},
-		PhaseResult::SoftError(ec) => {
-			print!("  ({}/{}) {} — Error {}",
-		       current_stage,
-		       stage_count_total,
-			   "✘".yellow(),
-				ec);
-		},
-		PhaseResult::HardError(ec) => {
-			print!("  ({}/{}) {} — Error {}",
-		       current_stage,
-		       stage_count_total,
-			   "✘".red(),
-				ec);
-		}
 	}
+	
 	io::stdout().flush().ok().expect("Could not flush stdout");
 	println!();
 }
@@ -177,7 +180,7 @@ pub mod stage_three {
 		
 	pub fn copy_config_folder()
 	{
-		print!("     :: Syncing ${{HOME}}.config folder");
+		print!("     :: Syncing ${{HOME}}/.config folder");
 		super::flush();
 	}
 	

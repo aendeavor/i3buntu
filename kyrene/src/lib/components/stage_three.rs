@@ -1,6 +1,5 @@
-use athena::{console, PhaseResult};
-use super::general::{dpo, try_evade};
-use std::{path::Path, process::Command};
+use athena::{console, PhaseResult, dpo};
+use std::process::Command;
 use dirs_next;
 
 pub fn copy_configurations() -> PhaseResult
@@ -9,29 +8,15 @@ pub fn copy_configurations() -> PhaseResult
 	console::phase_init(1,3, "Copying Configuration Files");
 	console::stage_three::copy_config_folder();
 	
-	let current_dir = match std::env::current_dir() {
-		Ok(path) => path,
-		Err(_) => return dpo(130, 1, 3)
-	};
+	let path = athena::get_resource_path("athena/resources/config/home/", 1, 3)?;
 	
-	let home = match dirs_next::home_dir() {
+	let _home = match dirs_next::home_dir() {
 		Some(path) => path,
 		None => return dpo(131, 1, 3)
 	};
-
-	let file_str = match try_evade(
-		current_dir,
-		Path::new("athena/resources/programs/ppas.json"))
-	{
-		Ok(file_str) => file_str,
-		Err(error) => return error
-	};
 	
-	
-
 	console::stage_three::copy_config_folder_succ(true);
-
-	println!("{}", athena::get_current_dir().unwrap().display());
+	println!("{}", path);
 	
 	// if let Err(_) = Command::new("rsync")
 	// 	.arg("-az")

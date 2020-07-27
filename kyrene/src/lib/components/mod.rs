@@ -1,9 +1,3 @@
-/// # General
-///
-/// Holds miscelleneous functions and methods all stages
-/// may need.
-mod general;
-
 /// # Stage 1
 ///
 /// Worker for the first stage are found here. These

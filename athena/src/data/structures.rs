@@ -6,6 +6,7 @@ use serde::{Serialize, Deserialize};
 // * ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 /// # Stage Result
+///
 /// Resembles the outcome of a stage. These
 /// outcomes must only implement `ExitCodeCompatible`.
 #[allow(type_alias_bounds)]
@@ -35,13 +36,11 @@ impl ExitCodeCompatible for ExitCode {
 
 // * ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
-/// # Phase Results
+/// # Phase Error
 /// 
-/// Resembles the kind of result
+/// Resembles the kinds of error
 /// a phase can have.
-pub enum PhaseResult {
-	/// A phase ended successfully
-	Success,
+pub enum PhaseError {
 	/// A phase ended normally, but a recoverable
 	/// error occurred.
 	SoftError(u8),
@@ -51,7 +50,21 @@ pub enum PhaseResult {
 }
 
 // * ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-	
+
+/// # Phase Result
+///
+/// Resembles the outcome of a phase. These always contain
+/// `PhaseSuccess`-enums.
+pub type PhaseResult = Option<PhaseError>;
+
+impl std::convert::From<PhaseError> for std::option::NoneError {
+	fn from(_: PhaseError) -> Self {
+		std::option::NoneError
+	}
+}
+
+// * ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
 /// All information necessary after the completion
 /// of stage one of the installation.
 #[derive(Debug)]

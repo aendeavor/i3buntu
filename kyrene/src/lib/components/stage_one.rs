@@ -1,6 +1,5 @@
-use athena::{PPAs, PhaseResult, console};
-use super::general::{dpo, try_evade};
-use std::{path::Path, process::Command};
+use athena::{PPAs, PhaseResult, console, dpo};
+use std::process::Command;
 use serde_json;
 
 /// # Getting Dependencies Ready
@@ -17,20 +16,9 @@ pub fn add_ppas() -> PhaseResult {
 	console::phase_init(1, 2, "Adding PPAs");
 	let mut exit_code: u8 = 0;
 	
-	let destination = match std::env::current_dir() {
-		Ok(dir) => dir,
-		Err(_) => return dpo(110, 1, 3),
-	};
+	let path = athena::get_resource_path("athena/resources/programs/ppas.json", 1, 2)?;
 	
-	let file_str = match try_evade(
-		destination,
-		Path::new("athena/resources/programs/ppas.json"))
-	{
-		Ok(file_str) => file_str,
-		Err(error) => return error
-	};
-
-	let json_ppas: PPAs = match serde_json::from_str(&file_str) {
+	let json_ppas: PPAs = match serde_json::from_str(&path) {
 		Ok(json_ppas) => json_ppas,
 		Err(_) => return dpo(112, 1, 3),
 	};
@@ -75,7 +63,7 @@ pub fn add_ppas() -> PhaseResult {
 /// Stage: 1,
 /// Phase: 2 / 2
 pub fn update_package_information() -> PhaseResult {
-	console::phase_init(2, 2, "Updating APT");
+	console::phase_init(2, 2, "Updating APT Signatures");
 	match Command::new("sudo")
 		.arg("apt-get")
 		.arg("-y")

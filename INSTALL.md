@@ -11,7 +11,7 @@
 
 To get things started, get the [_Ubuntu_ Server ISO](https://ubuntu.com/download/server) and install it. It supports [UEFI](https://wiki.archlinux.org/index.php/Unified_Extensible_Firmware_Interface) right out of the box.
 
-Ensure that `wget`, `cmake` and `unzip` are installed. It is recommended to update your system beforehand, but _Kyrene_ will do an update nevertheless.
+Ensure that `wget`, `cmake` and `unzip` are installed. It is recommended to update your system beforehand.
 
 ``` BASH
 # obligatory

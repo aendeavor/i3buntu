@@ -18,11 +18,12 @@ export
 # ? ––––––––––––––––––––––––––––––––––––––––––––– Default
 
 all:
+	$(MAKE) -C athena
 	$(MAKE) -C kyrene
 
 # ? ––––––––––––––––––––––––––––––––––––––––––––– Release
 
-.PHONE: release
+.PHONY: release
 
 release:
 	cargo build --release
@@ -31,6 +32,7 @@ release:
 # ? ––––––––––––––––––––––––––––––––––––––––––––– Non-Release
 
 .PHONY: clean
+
 clean:
 	-@ cargo clean
 

@@ -1,6 +1,7 @@
 use athena::*;
 use super::{components, interact};
 
+// TODO uncomment
 /// # First Things First
 ///
 /// Coordinates greetings message and creates
@@ -8,7 +9,7 @@ use super::{components, interact};
 /// function in `main()`.
 pub fn start() -> ApolloResult
 {
-	console::welcome();
+	console::welcome(crate::VERSION);
 	
 	// match std::process::Command::new("sudo")
 	// 	.arg("apt-get")
@@ -24,22 +25,25 @@ pub fn start() -> ApolloResult
 /// Drives a phase and decides the outcome. This
 /// result is the propagated with the `?` Opera-
 /// tor.
-fn drive<'a, F, D>(phase: F, mut data: D) -> Result<D, D>
+fn drive<'a, F, D>(phase: F, mut data: D) -> StageResult<D>
 	where F: Fn() -> PhaseResult,
 		  D: ExitCodeCompatible + 'a
 {
-	match phase() {
-		PhaseResult::SoftError(ec) => {
-			data.set_exit_code(ec);
-			Ok(data)
-		},
-		PhaseResult::HardError(ec) => {
-			console::finalize_stage(ec);
-			data.set_exit_code(ec);
-			Err(data)
-		},
-		_ => Ok(data)
+	if let Some(phase_success) = phase() {
+		return match phase_success {
+			PhaseError::SoftError(ec) => {
+				data.set_exit_code(ec);
+				Ok(data)
+			},
+			PhaseError::HardError(ec) => {
+				console::finalize_stage(ec);
+				data.set_exit_code(ec);
+				Err(data)
+			}
+		}
 	}
+	
+	Ok(data)
 }
 
 /// # Stage 1
@@ -86,16 +90,17 @@ pub fn stage_two(stage_one_data: StageOneData) -> StageResult<ExitCode>
 	console::stage_two::init();
 	let mut exit_code = drive(components::stage_two::install_base, ExitCode(0))?;
 	
-	match components::stage_two::install_choices(&stage_one_data.choices) {
-		PhaseResult::SoftError(ec) => {
-			exit_code.set_exit_code(ec);
-		},
-		PhaseResult::HardError(ec) => {
-			console::finalize_stage(ec);
-			exit_code.set_exit_code(ec);
-			return Err(exit_code);
-		},
-		_ => ()
+	if let Some(stage_result) = components::stage_two::install_choices(&stage_one_data.choices) {
+		match stage_result {
+			PhaseError::SoftError(ec) => {
+				exit_code.set_exit_code(ec);
+			},
+			PhaseError::HardError(ec) => {
+				console::finalize_stage(ec);
+				exit_code.set_exit_code(ec);
+				return Err(exit_code);
+			}
+		}
 	}
 
 	let exit_code = drive(components::stage_two::remove_unnecessary, exit_code)?;
