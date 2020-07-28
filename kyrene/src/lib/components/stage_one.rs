@@ -1,9 +1,9 @@
 use athena::{
-	structures::{PhaseResult, PPAs},
+	controller::{self, dpo},
 	log::console,
-	controller::dpo
+	structures::{PhaseResult, PPAs},
 };
-use std::process::Command;
+use std::{fs, process::Command};
 use serde_json;
 
 /// # Getting Dependencies Ready
@@ -20,24 +20,27 @@ pub fn add_ppas() -> PhaseResult {
 	console::print_phase_description(1, 2, "Adding PPAs");
 	let mut exit_code: u8 = 0;
 	
-	let path = athena::controller::get_resource_path("athena/resources/programs/ppas.json", 1, 2)?;
+	let path = controller::get_resource_path("athena/resources/programs/ppas.json", 1, 2)?;
 	
-	let json_ppas: PPAs = match serde_json::from_str(&path) {
+	let json = match fs::read_to_string(path) {
+		Ok(json_str) => json_str,
+		Err(_) => return dpo(111, 1, 2)
+	};
+	
+	let json_ppas: PPAs = match serde_json::from_str(&json) {
 		Ok(json_ppas) => json_ppas,
-		Err(_) => return dpo(112, 1, 3),
+		Err(_) => return dpo(112, 1, 2)
 	};
 	
 	for ppa in json_ppas.critical() {
-		let ppa: &str = ppa.as_str();
 		if let Err(_) = Command::new("sudo")
 			.arg("add-apt-repository")
 			.arg("-y")
-			.arg("-n")
 			.arg("-h")
 			.arg(ppa)
 			.output()
 		{
-			return dpo(113, 1, 1);
+			return dpo(113, 1, 2);
 		}
 	}
 
@@ -46,7 +49,6 @@ pub fn add_ppas() -> PhaseResult {
 		if let Err(_) = Command::new("sudo")
 			.arg("add-apt-repository")
 			.arg("-y")
-			.arg("-n")
 			.arg("-h")
 			.arg(ppa)
 			.output()

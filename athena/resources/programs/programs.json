@@ -69,6 +69,7 @@
 		"xsel"
 	],
 	"sys" : [
+		"build-essential",
     	"gnome-keyring*",
 		"intel-microcode",
 		"libaio1",

@@ -7,28 +7,28 @@ pub mod stage_one {
 	/// The actual caller who drives the asking.
 	pub fn user_choices() -> Choices
 	{
-		println!();
 		let tex: bool   = ask("LaTeX");
 		let java: bool  = ask("OpenJDK");
 		let ct: bool    = ask("Cryptomator");
 		let be: bool    = ask("Build-Essential");
 		let oc: bool    = ask("ownCloud");
+		let dock: bool    = ask("Docker");
+		let vsc: bool    = ask("Visual Studio Code");
+		let rust: bool    = ask("Rust");
 		
-		let choices = Choices::new(tex, java, ct, be, oc);
+		let choices = Choices::new(tex, java, ct, be, oc, dock, vsc, rust);
 		println!("{}", choices);
 		
 		choices
 	}
 	
 	fn ask(package: impl std::fmt::Display) -> bool {
-		print!("{} {}? [Y/n] ",
-		       "  Would you like to install",
-		       package);
+		print!("  Would you like to install {}? [Y/n] ", package);
 		parse_input()
 	}
 	
-	/// ! Separated from `ask()` due to compiler warnings
-	/// originating in a macro.
+	// Separated from `ask()` due to compiler warnings
+	// originating in a macro.
 	fn parse_input() -> bool
 	{
 		readln! {

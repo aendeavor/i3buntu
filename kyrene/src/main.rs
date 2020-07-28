@@ -33,33 +33,33 @@ fn main()
 	let stage_one_data = match init::stage_one() {
 		Ok(sod) => sod,
 		Err(sod) => {
-			apollo_result.set_failure(sod.get_exit_code());
-			check_abort(&apollo_result);
+			check_abort(&mut apollo_result, sod.get_exit_code());
 			sod
 		},
 	};
 	
 	// STAGE 2
 	if let Err(exit_code) = init::stage_two(stage_one_data) {
-		apollo_result.set_failure(exit_code.get_exit_code());
-		check_abort(&apollo_result);
+		check_abort(&mut apollo_result, exit_code.0);
 	}
 	
 	// STAGE 3
 	if let Err(exit_code) = init::stage_three() {
-		apollo_result.set_failure(exit_code.get_exit_code());
-		check_abort(&apollo_result);
+		check_abort(&mut apollo_result, exit_code.0);
 	}
 
 	println!("{}", apollo_result);
 	std::process::exit(apollo_result.get_exit_code());
 }
 
+/// # Abort Early
+///
 /// Checks whether to abort on a given exit code
-/// or not. An abort exit code ranges from 100 to
-/// 199.
-pub fn check_abort(result: &ApolloResult)
+/// or not. An abort exit code ranges from 100 to 199.
+pub fn check_abort(result: &mut ApolloResult, exit_code: u8)
 {
+	result.set_failure(exit_code);
+	
 	if result.is_abort() {
 		result.show_abort();
 		std::process::exit(result.get_exit_code());

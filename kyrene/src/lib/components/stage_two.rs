@@ -1,9 +1,9 @@
 use athena::{
-	structures::{Choices, PhaseResult},
+	controller::{self, dpo},
 	log::console,
-	controller::dpo
+	structures::{Choices, PhaseResult},
 };
-use std::process::Command;
+use std::{fs, process::Command};
 use serde_json::{self, Value};
 use colored::Colorize;
 
@@ -20,17 +20,24 @@ pub fn install_base() -> PhaseResult
 {
 	console::print_phase_description(1, 3, "Installing Programs");
 	
-	let path = athena::controller::get_resource_path("athena/resources/programs/programs.json", 1, 3)?;
+	let path = controller::get_resource_path("athena/resources/programs/programs.json", 1, 3)?;
 	
-	let json_tree: Value = match serde_json::from_str(&path) {
+	let json = match fs::read_to_string(path) {
+		Ok(json_str) => json_str,
+		Err(_) => return dpo(111, 1, 2)
+	};
+	
+	let json_tree: Value = match serde_json::from_str(&json) {
 		Ok(json_tree) => json_tree,
 		Err(_) => return dpo(122, 1, 3)
 	};
 	
-	let error_code = match recurse_json(&json_tree) {
-		Ok(_) => 0,
-		Err(code) => code
-	};
+	// let error_code = match recurse_json(&json_tree) {
+	// 	Ok(_) => 0,
+	// 	Err(code) => code
+	// };
+	
+	let error_code = 0;
 	
 	dpo(error_code, 1, 3)
 }
@@ -92,6 +99,10 @@ pub fn install_choices(choices: &Choices) -> PhaseResult
 				}
 			}
 		}
+	}
+	
+	if choices.vsc {
+	
 	}
 	
 	dpo(exit_code, 2, 3)

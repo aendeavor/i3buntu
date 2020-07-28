@@ -7,10 +7,8 @@ use rocket::config::{Config, Environment, LoggingLevel};
 use rocket::response::Redirect;
 
 fn main() {
-	let application: rocket::Rocket = rocket::custom(configure());
-    application
-        .mount("/", routes![root])
-        .launch();
+    let application: rocket::Rocket = rocket::custom(configure());
+    application.mount("/", routes![root]).launch();
 }
 
 fn configure() -> Config {
@@ -27,5 +25,5 @@ fn configure() -> Config {
 
 #[get("/")]
 pub fn root() -> Redirect {
-	Redirect::to("https://raw.githubusercontent.com/aendeavor/i3buntu/init/apollo/hermes/init.sh")
+    Redirect::to("https://raw.githubusercontent.com/aendeavor/i3buntu/init/apollo/hermes/init.sh")
 }
