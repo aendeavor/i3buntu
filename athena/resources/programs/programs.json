@@ -17,6 +17,7 @@
     	"lxappearance",
 		"mesa-utils",
     	"mesa-utils-extra",
+		"redshift",
 		"slick-greeter",
     	"xbacklight",
 		"xorg",

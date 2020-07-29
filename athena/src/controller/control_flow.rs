@@ -1,5 +1,6 @@
 use super::super::{
-    data::structures::{PhaseError, PhaseResult},
+    data::structures::{PhaseError, PhaseResult, StageResult},
+    data::traits::ExitCodeCompatible,
     log::console,
 };
 
@@ -23,53 +24,44 @@ pub fn dpo(error_code: u8, cs: u8, sct: u8) -> PhaseResult {
     Some(result)
 }
 
-fn sync_files<S, T>(from: S, to: &T, sudo: bool) -> Option<u8>
-	where S: AsRef<OsStr>,
-	      T: AsRef<OsStr> + ?Sized
-{
-	let mut command = if sudo {
-		Command::new("sudo")
-	} else {
-		Command::new("rsync")
-	};
-	
-	if sudo { command.arg("rsync"); };
-	
-	return if let Err(_) = command
-		.arg("-azr")
-		.arg("--dry-run")
-		.arg(from)
-		.arg(to)
-		.output()
-	{
-		console::print_sub_phase_description("  ✘\n".yellow());
-		Some(30)
-	} else {
-		console::print_sub_phase_description("  ✔\n".green());
-		None
-	};
-}
+// * ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
-pub fn drive_sync<R, T>(description: R,
-                    from: &str,
-                    to: &T,
-                    sudo: bool,
-                    exit_code: &mut u8) -> Result<(), PhaseError>
-	where R: std::fmt::Display,
-	      T: AsRef<OsStr> + ?Sized
+/// Drives a phase and decides the outcome. This
+/// result is the propagated with the `?` Opera-
+/// tor.
+pub fn drive_stage<'a, F, D>(phase: F, data: &mut D) -> StageResult<D>
+	where F: Fn() -> PhaseResult,
+	      D: ExitCodeCompatible + Clone + 'a
 {
-	console::print_sub_phase_description(description);
-	
-	let mut base = String::from("athena/resources/config/");
-	base.push_str(from);
-	
-	if let Some(ec) = sync_files(
-		&controller::get_resource_path(&base, 1, 3)?,
-		to,
-		sudo)
-	{
-		*exit_code = ec;
+	if let Some(phase_success) = phase() {
+		return match phase_success {
+			PhaseError::SoftError(ec) => {
+				data.set_exit_code(ec);
+				Ok(data.to_owned())
+			},
+			PhaseError::HardError(ec) => {
+				console::finalize_stage(ec);
+				data.set_exit_code(ec);
+				Err(data.to_owned())
+			}
+		}
 	}
 	
-	Ok(())
+	Ok(data.to_owned())
+}
+
+/// # Evaluate Stage Ending
+///
+/// Checks the exit code and returns
+/// an `Ok()` or `Err()` value.
+pub fn eval_success<T>(exit_code: T) -> StageResult<T>
+	where T: ExitCodeCompatible
+{
+	if exit_code.is_success() {
+		console::finalize_stage(exit_code.get_exit_code());
+		Ok(exit_code)
+	} else {
+		console::finalize_stage(exit_code.get_exit_code());
+		Err(exit_code)
+	}
 }

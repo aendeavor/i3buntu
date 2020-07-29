@@ -9,7 +9,7 @@
 
 ### Instructions
 
-To get things started, get the [_Ubuntu_ Server ISO](https://ubuntu.com/download/server) and install it. Ensure that `wget`, `cmake`, `rsync` and `unzip` are installed; they should already be installed. It is recommended to update your system beforehand.
+To get things started, get the [_Ubuntu_ Server ISO](https://ubuntu.com/download/server) and install it. Ensure that `wget` and `cmake` are installed. `rsync` ought to work too. It is recommended to update your system beforehand.
 
 ``` BASH
 # obligatory
@@ -18,7 +18,7 @@ sudo apt-get -y upgrade
 sudo apt-get -y dist-upgrade
 
 # mandatory
-sudo apt-get install -y wget rsync unzip cmake
+sudo apt-get install -y wget cmake
 ```
 
 You can now go ahead and start ***APOLLO***.
@@ -35,8 +35,12 @@ It is recommended to be familiar with a Linux environment and the command line. 
 
 #### Security
 
-If you are concerned about piping `curl` into `bash`, just download the script with curl, check and execute it later. The SHA512 sum is `6fddfe348758784058d1c42f3258b95faa37fc0fefdeb0e081bc03118c6aaff4a16748bbe4e507e6a8f96c81f323662d81c0c40cd0f1853de79e7fed3519a223  init.sh`
- 
+If you are concerned about piping `curl` into `bash`, just download the script with curl, check and execute it later. The SHA512 sum is `005605de16977627954b5445f7fa7eec6f4f040a7b427b4c947f432e6f450ade6b58498b4390dfb92db3a57e0f9a48d608cdcb0661b9f8320d0b9d0f9ac8738c  init.sh`
+
 #### Leftover Configuration
 
-As of now, the monitor configuration is not done automatically, as this would not make much sense. You can do it manually, with `arandr` and `i3`'s config.
+As of now, the monitor/display configuration is not done automatically, as this would not make much sense. You can do it manually, with `arandr` and `i3`'s config.
+
+#### Miscellaneous Scripts
+
+Found under `athena/scripts/`, a few leftover script reside to ease the pain of installing certain software by hand. This includes [`exa`](https://the.exa.website/), [`i3-rounded-corners`](https://github.com/terroo/i3-radius) and a fonts installer.

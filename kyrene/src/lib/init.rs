@@ -1,16 +1,17 @@
 use athena::{
-	log::console,
+	controller::{drive_stage, eval_success},
 	structures::{
 		ApolloResult,
 		ExitCode,
 		PhaseError,
-		PhaseResult,
 		StageOneData,
-		StageResult
+		StageResult,
 	},
-	traits::ExitCodeCompatible
+	log::console,
+	traits::ExitCodeCompatible,
 };
 use super::{components, interact};
+use crate::lib::components::stage_two::vsc_ext;
 
 /// # First Things First
 ///
@@ -32,30 +33,6 @@ pub fn start() -> ApolloResult
 	ApolloResult::new()
 }
 
-/// Drives a phase and decides the outcome. This
-/// result is the propagated with the `?` Opera-
-/// tor.
-fn drive<'a, F, D>(phase: F, mut data: D) -> StageResult<D>
-	where F: Fn() -> PhaseResult,
-		  D: ExitCodeCompatible + 'a
-{
-	if let Some(phase_success) = phase() {
-		return match phase_success {
-			PhaseError::SoftError(ec) => {
-				data.set_exit_code(ec);
-				Ok(data)
-			},
-			PhaseError::HardError(ec) => {
-				console::finalize_stage(ec);
-				data.set_exit_code(ec);
-				Err(data)
-			}
-		}
-	}
-	
-	Ok(data)
-}
-
 /// # Stage 1
 ///
 /// Drives all functions necessary for stage
@@ -69,7 +46,7 @@ pub fn stage_one() -> StageResult<StageOneData>
 	use interact::stage_one::{choices_ok, user_choices};
 	
 	console::print_stage_start(1, "INITIALIZATION");
-	let sod = loop {
+	let mut sod = loop {
 		let choices = user_choices();
 		if choices_ok() {
 			break StageOneData::new(choices);
@@ -77,9 +54,9 @@ pub fn stage_one() -> StageResult<StageOneData>
 		println!();
 	};
 	
-	let sod = drive(stage_one::add_ppas, sod)?;
-	let sod = drive(stage_one::update_package_information, sod)?;
-
+	let mut sod = drive_stage(stage_one::add_ppas, &mut sod)?;
+	let sod = drive_stage(stage_one::update_package_information, &mut sod)?;
+	
 	eval_success(sod)
 }
 
@@ -96,13 +73,13 @@ pub fn stage_two(stage_one_data: StageOneData) -> StageResult<ExitCode>
 	use components::stage_two;
 	
 	console::print_stage_start(2, "PACKAGING");
-	let mut exit_code = drive(stage_two::install_base, ExitCode(0))?;
+	let mut exit_code = drive_stage(stage_two::install_base, &mut ExitCode(0))?;
 	
 	if let Some(stage_result) = stage_two::install_choices(&stage_one_data.choices) {
 		match stage_result {
 			PhaseError::SoftError(ec) => {
 				exit_code.set_exit_code(ec);
-			},
+			}
 			PhaseError::HardError(ec) => {
 				console::finalize_stage(ec);
 				exit_code.set_exit_code(ec);
@@ -110,8 +87,10 @@ pub fn stage_two(stage_one_data: StageOneData) -> StageResult<ExitCode>
 			}
 		}
 	}
-
-	let exit_code = drive(stage_two::remove_unnecessary, exit_code)?;
+	
+	if stage_one_data.choices.vsc { drive_stage(vsc_ext, &mut exit_code)?; }
+	
+	let exit_code = drive_stage(stage_two::remove_unnecessary, &mut exit_code)?;
 	
 	eval_success(exit_code)
 }
@@ -128,23 +107,7 @@ pub fn stage_three() -> StageResult<ExitCode>
 	
 	console::print_stage_start(3, "CONFIGURATION");
 	
-	let exit_code = drive(stage_three::copy_configurations, ExitCode(0))?;
+	let exit_code = drive_stage(stage_three::copy_configurations, &mut ExitCode(0))?;
 	
 	eval_success(exit_code)
-}
-
-/// # Evaluate Stage Ending
-///
-/// Checks the exit code and returns
-/// an `OK()` or `Err()` value.
-fn eval_success<T>(exit_code: T) -> StageResult<T>
-	where T: ExitCodeCompatible
-{
-	if exit_code.is_success() {
-		console::finalize_stage(exit_code.get_exit_code());
-		Ok(exit_code)
-	} else {
-		console::finalize_stage(exit_code.get_exit_code());
-		Err(exit_code)
-	}
 }

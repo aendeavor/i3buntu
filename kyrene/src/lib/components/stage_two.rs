@@ -1,5 +1,9 @@
 use athena::{
-	controller::{self, dpo},
+	controller::{self,
+	             dpo,
+	             apt_install,
+	             recurse_json,
+	             vsc_extension_install},
 	log::console,
 	structures::{Choices, PhaseResult},
 };
@@ -18,21 +22,21 @@ use colored::Colorize;
 /// Phase: 1 / 3
 pub fn install_base() -> PhaseResult
 {
-	console::print_phase_description(1, 3, "Installing Programs");
+	console::print_phase_description(1, 4, "Installing Programs");
 	
 	let path = controller::get_resource_path("athena/resources/programs/programs.json", 1, 3)?;
 	
 	let json = match fs::read_to_string(path) {
 		Ok(json_str) => json_str,
-		Err(_) => return dpo(111, 1, 2)
+		Err(_) => return dpo(121, 1, 4)
 	};
 	
-	let json_tree: Value = match serde_json::from_str(&json) {
+	let _json_tree: Value = match serde_json::from_str(&json) {
 		Ok(json_tree) => json_tree,
-		Err(_) => return dpo(122, 1, 3)
+		Err(_) => return dpo(122, 1, 4)
 	};
 	
-	// let error_code = match recurse_json(&json_tree) {
+	// let error_code = match recurse_json(&json_tree, &apt_install) {
 	// 	Ok(_) => 0,
 	// 	Err(code) => code
 	// };
@@ -40,40 +44,6 @@ pub fn install_base() -> PhaseResult
 	let error_code = 0;
 	
 	dpo(error_code, 1, 3)
-}
-
-/// # Parses JSON
-///
-/// Recursing through the given tree / enum of JSON
-/// values until every leaf has been used.
-fn recurse_json(value: &serde_json::Value) -> Result<(), u8>
-{
-	let mut exit_code: u8 = 0;
-	match value
-	{
-		Value::Object(obj) => {
-			for (_, key) in obj.iter() {
-				if let Err(code) = recurse_json(key) {
-					exit_code = code;
-				}
-			}
-		},
-		Value::Array(vec) => {
-			for entry in vec {
-				if let Err(code) = recurse_json(entry) {
-					exit_code = code;
-				}
-			}
-		},
-		Value::String(program) => {
-			if let Err(code) = apt_install(&program) {
-				exit_code = code;
-			}
-		},
-		_ => ()
-	};
-	
-	if exit_code == 0 { Ok(()) } else { Err(exit_code) }
 }
 
 /// # User Choices
@@ -86,7 +56,7 @@ fn recurse_json(value: &serde_json::Value) -> Result<(), u8>
 /// Phase: 2 / 3
 pub fn install_choices(choices: &Choices) -> PhaseResult
 {
-	console::print_phase_description(2, 3, "Installing User-Choices");
+	console::print_phase_description(2, 4, "Installing User-Choices");
 	let mut exit_code = 0;
 	
 	for program in *choices {
@@ -102,10 +72,53 @@ pub fn install_choices(choices: &Choices) -> PhaseResult
 	}
 	
 	if choices.vsc {
-	
+		console::print_sub_phase_description("     :: Installing Visual Studio Code");
+		match Command::new("sudo")
+			.arg("snap")
+			.arg("install")
+			.arg("code")
+			.arg("--classic")
+			.output() {
+			Ok(output) => {
+				match output.status.success() {
+					true => console::print_sub_phase_description("  ✔\n".green()),
+					false => {
+						println!("{:?}", output);
+						console::print_sub_phase_description("  ✘\n".red());
+						exit_code = 26;
+					}
+				}
+			}
+			Err(_) => exit_code = 27
+		}
 	}
 	
-	dpo(exit_code, 2, 3)
+	dpo(exit_code, 2, 4)
+}
+
+pub fn vsc_ext() -> PhaseResult
+{
+	console::print_phase_description(3, 4, "Installing VS Code Extensions");
+	
+	let path = controller::get_resource_path("athena/resources/programs/vsc_extensions.json", 1, 3)?;
+	
+	let json = match fs::read_to_string(path) {
+		Ok(json_str) => json_str,
+		Err(_) => return dpo(113, 3, 4)
+	};
+	
+	let extension_tree: Value = match serde_json::from_str(&json) {
+		Ok(json_tree) => json_tree,
+		Err(_) => return dpo(124, 3, 4)
+	};
+	
+	let mut exit_code: u8 = 0;
+	
+	if let Err(code) = recurse_json(&extension_tree, &vsc_extension_install) {
+		exit_code = code;
+	}
+	
+	dpo(exit_code, 3, 4)
 }
 
 /// # No Uselessness
@@ -115,49 +128,6 @@ pub fn install_choices(choices: &Choices) -> PhaseResult
 ///
 pub fn remove_unnecessary() -> PhaseResult
 {
-	console::print_phase_description(3, 3, "Removing unnecessary packages");
-	dpo(0, 3, 3)
-}
-
-/// # APT
-///
-/// Installs a program with apt.
-///
-fn apt_install(program: &str) -> Result<(), u8>
-{
-	console::print_sub_phase_description("     :: Installing ".to_owned() + program);
-	
-	match Command::new("sudo")
-		.arg("apt")
-		.arg("show")
-		// .arg("--yes")
-		// .arg("--allow-unauthenticated")
-		// .arg("--allow-downgrades")
-		// .arg("--allow-remove-essential")
-		// .arg("--allow-change-held-packages")
-		.arg(program)
-		.output() {
-		Ok(output) => {
-			match output.status.success() {
-				true => {
-					console::print_sub_phase_description("  ✔\n".green());
-					Ok(())
-				},
-				false => {
-					// ! TODO Could use some error log to logfile
-					// use log::debug to get debug msg
-					// (this is a non-fatal error)
-					console::print_sub_phase_description("  ✘\n".red());
-					Err(20)
-				}
-			}
-			
-		},
-		Err(_) => {
-			// ! TODO Could use some error log to logfile
-			// use log::debug to get debug msg
-			// (this is a fatal/severe error)
-			Err(21)
-		}
-	}
+	console::print_phase_description(4, 4, "Removing unnecessary packages");
+	dpo(0, 4, 4)
 }

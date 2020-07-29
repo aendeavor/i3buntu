@@ -1,10 +1,8 @@
 use athena::{
 	controller::{dpo, drive_sync},
 	log::console,
-	structures::{PhaseError, PhaseResult},
+	structures::PhaseResult,
 };
-use std::{ffi::OsStr, process::Command};
-use colored::Colorize;
 use dirs_next;
 
 pub fn copy_configurations() -> PhaseResult

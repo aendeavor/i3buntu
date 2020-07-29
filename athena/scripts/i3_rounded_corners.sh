@@ -5,7 +5,9 @@
 # required ad-hoc.
 
 # author    Georg Lauterbach
-# version   0.2.1 unstable
+# version   0.2.2 unstable
+
+echo "Make sure to have APT's 'deb-src' repositories enabled."
 
 trap "exit 1" ERR
 
@@ -17,7 +19,7 @@ then
 fi
 
 cd "$HOME" || exit 2
-[[ ! -d i3-radius ]] &&	git clone https://github.com/terroo/i3-radius
+[[ -d i3-radius ]] ||	git clone https://github.com/terroo/i3-radius
 
 cd i3-radius || exit 2
 

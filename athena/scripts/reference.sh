@@ -1,4 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+# ! DEPRECATED
+# ? This script still exists as a reference.
 
 # This script serves as the main post-packaging
 # script for server installations, i.e. it
@@ -20,7 +23,7 @@ LOG="${BACK}/configuration_log"
 RS=( rsync -ahq --delete )
 WTL=( tee -a "$LOG" )
 
-# shellcheck source=../sys/sh/.bash_aliases
+# shellcheck source=../resources/config/home/.bash_aliases
 . "${SYS}/sh/.bash_aliases"
 
 # ? Actual script
@@ -43,8 +46,10 @@ function init() {
 function backup() {
 	inform "Checkig for existing files\n" "$LOG"
 
-	_home_files=( "${HOME}/.bash_aliases" "${HOME}/.bashrc" "${HOME}/.vimrc" )
-	for _file in "${_home_files[@]}"; do
+	local _home_files=( "${HOME}/.bash_aliases" "${HOME}/.bashrc" "${HOME}/.vimrc" )
+
+	for _file in "${_home_files[@]}"
+	do
 	    if [[ -f "$_file" ]]; then
 	        backupFile="${BACK}${_file#~}.bak"
 	        echo -e "-> Found ${_file}... backing up" | "${WTL[@]}"
@@ -53,14 +58,16 @@ function backup() {
 	    fi
 	done
 
-	if [[ -d "${HOME}/.vim" ]]; then
+	if [[ -d "${HOME}/.vim" ]]
+	then
 	    echo -e "-> Found ~/.vim directory... backing up" | "${WTL[@]}"
 		# echo -e "\tBacking up to ${BACK}/.vim"
 	    >/dev/null 2>>"${LOG}" sudo "${RS[@]}" "${HOME}/.vim" "${BACK}"
 	    rm -rf "${HOME}/.vim"
 	fi
 
-	if [ -d "${HOME}/.config" ]; then
+	if [ -d "${HOME}/.config" ]
+	then
 	    echo -e "-> Found ${HOME}/.config directory... backing up" | "${WTL[@]}"
 		# echo -e "\tBacking up to ${BACK}/.config"
 	    >/dev/null 2>>"${LOG}" sudo "${RS[@]}" "${HOME}/.config/i3" "${BACK}"
@@ -73,14 +80,16 @@ function deploy() {
 	inform "Proceeding to deploying config files\n" "$LOG"
 
 	local _deploy_in_home=( sh/.bashrc sh/.bash_aliases vi/.vimrc )
-	for sourceFile in "${_deploy_in_home[@]}"; do
+	for sourceFile in "${_deploy_in_home[@]}"
+	do
 	    echo -e "-> Syncing $(basename -- "${sourceFile}")"  | "${WTL[@]}"
 	    >/dev/null 2>>"${LOG}" "${RS[@]}" "${SYS}/${sourceFile}" "${HOME}"
 	done
 
 	{ sudo "${RS[@]}" "${SYS}/sh/.bashrc" "/root"; sudo "${RS[@]}" "${SYS}/sh/.bash_aliases" "/root"; } >/dev/null 2>>"${LOG}"
 
-	if dpkg -s neovim &>/dev/null; then
+	if dpkg -s neovim &>/dev/null
+	then
 		mkdir -p "${HOME}/.config/nvim"
 		sudo mkdir -p "/root/.config/nvim"
 		echo -e "-> Syncing NeoVIM's configuration"
@@ -104,15 +113,14 @@ function deploy() {
 # ! Main
 
 function main() {
-    sudo printf ''
+  sudo printf ''
 	inform "Server configuration has begun"
 
 	init
 	backup
 	deploy
 
-    succ "Configuration stage finished\n"
+  succ "Configuration stage finished\n"
 }
 
 main "$@" || exit 1
-
