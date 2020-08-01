@@ -64,7 +64,6 @@ Plug 'ctrlpvim/ctrlp.vim'		" Full path fuzzy file-, buffer-, ... finder
 Plug 'Raimondi/delimitMate'		" Automatic closing of parenthesis, etc.
 Plug 'mhinz/vim-startify'		" Fancy start screen
 
-Plug 'rust-lang/rust.vim'		" RUST language extensions
 Plug 'tpope/vim-markdown'		" Markdown language extension
 Plug 'vim-syntastic/syntastic'	" Syntax check
 
@@ -82,6 +81,11 @@ call plug#end()
 let g:syntastic_check_on_open = 1
 let g:ycm_autoclose_preview_window_after_completion=1
 let g:rainbow_active = 1
+
+" YouCompleteMe
+" compile YCM with 'python3 install.py --rust-completer --clang-completer --clang-tidy"
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_global_ycm_extra_conf = "${HOME}/.config/nvim/plugged/YouCompleteMe/.ycm_extra_conf.py"
 
 " Autoformatting
 augroup autoformat_settings
