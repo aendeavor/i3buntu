@@ -20,7 +20,7 @@
     background-color:   rgba(1,1,1,0);
     border-color:       rgba(1,1,1,0);
     text-color:         rgba(243, 239, 245, 1);
-    font:               "Roboto NF 9";
+    font:               "Roboto Regular 11";
 }
 
 #configuration {
@@ -28,10 +28,10 @@
 }
 
 #window {
-    anchor:     south;
-    location:   south;
-    width:      60%;
-    padding:    3px;
+    anchor:     north;
+    location:   north;
+    width:      40%;
+    padding:    5px;
     children:   [ horibox ];
 }
 
@@ -57,7 +57,7 @@
 
 #element selected {
     background-color: rgba(0,0,0,0);
-    text-color: rgba(251, 168, 121,1);
+    text-color: rgba(27,60,101,1);
 }
 
 /* vim:ft=css

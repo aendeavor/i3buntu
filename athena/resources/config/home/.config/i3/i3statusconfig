@@ -1,8 +1,8 @@
 general {
 	colors = true
 
-	color_good = "#827972"
-	color_bad = "#E84A5f"
+	color_good = "#D3E3F4"
+	color_bad = "#F82512"
 	color_degraded = "#827972"
     color_separator = "#FDDAC6"
 
@@ -18,15 +18,18 @@ volume master {
 	mixer = "Master"
 	mixer_idx = 0
 	# termsyn font
-	format = " %volume "
+	format = "☊ %volume"
+    min_width = 30
 }
 
 tztime local {
-    format = "%d.%m.%Y %H:%M"
+    min_width = 30
+    format = "%b %d   %R Uhr  "
 }
 
 battery all {
-	format = "%percentage"
+    min_width = 30
+	format = "☈ %percentage"
     integer_battery_capacity = true
     hide_seconds = true
     threshold_type = percentage

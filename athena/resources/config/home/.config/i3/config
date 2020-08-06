@@ -20,8 +20,8 @@ set $mod Mod4
 floating_modifier $mod
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +5%
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -5%
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
 
 # screen brightness controls
@@ -31,19 +31,18 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 ########################################################### Design
 
 # wallpaper & font
-new_window 1pixel
-exec_always feh --bg-scale $HOME/images/background.jpg
+exec_always feh --bg-scale "$HOME/images/background.jpg"
 font xft:Roboto:style=Regular:pixelsize=13
 
 # Colors
-set $BG                     #1E1F29
-set $INACTIVE-BG            #282A36
-set $TEXT                   #F3EFF5
-set $INACTIVE-TEXT          #F3EFF5
-set $URGENT                 #EF3B3B
-set $BAR                    #1E1F29
-set $BTA                    #FDB491
-set $BTIA                   #F3EFF5
+set $BG                 #1E1F29
+set $INACTIVE-BG        #282A36
+set $TEXT               #F3EFF5
+set $INACTIVE-TEXT      #F3EFF5
+set $URGENT             #EF3B3B
+set $BAR                #1E1F29
+set $BTA                #FFFFFF
+set $BTIA               #D3E3F4
 
 # window colors         border       background   text           indicator ?
 client.focused          $BG          $BG          $TEXT          $BAR      $BAR
@@ -53,30 +52,39 @@ client.urgent           $URGENT      $URGENT      $TEXT          $BAR      $BAR
 
 ########################################################### Gaps
 
-gaps inner 8
+gaps inner 10
 gaps outer 0
 for_window [class="^.*"] border pixel 0
 
 # smart_gaps on
-smart_borders no_gaps
-hide_edge_borders none
-# border_radius 4
+# smart_borders on
+hide_edge_borders both
 
-set $GAPSBG                 #00000000
+default_border pixel 0
+default_floating_border pixel 0
+
+border_radius 7
 
 ########################################################### Bar
+
+set $GAPSBG                 #CCCCCC50
 
 bar {
   i3bar_command         i3bar --transparency
   status_command        i3status -c ~/.config/i3/i3statusconfig
 
-  font xft:Roboto 9
 
-  position              bottom
+  font xft:Roboto Regular 11
+  separator_symbol      "   "
+
+  position              top
   mode                  dock
+
+  height                27
   
   tray_padding          3
   tray_output           primary
+
 
   colors {
     background          $GAPSBG
@@ -205,16 +213,16 @@ exec_always xrandr
 
 ########################################################### Workspaces
 
-set $ws1 "1 Terminal"
-set $ws2 "2 Code"
-set $ws3 "3 FireFox"
-set $ws4 "4 Terminal"
-set $ws5 "5 Terminal"
-set $ws6 "6 Git"
-set $ws7 "7 Misc"
-set $ws8 "8 Misc"
-set $ws9 "9 IDE"
-set $ws10 "10 Music"
+set $ws1  "  1 Terminal  "
+set $ws2  "    2 Code    "
+set $ws3  "  3 Browsing  "
+set $ws4  "  4  "
+set $ws5  "  5  "
+set $ws6  "    6 Git     "
+set $ws7  "  7  "
+set $ws8  "  8  "
+set $ws9  "    9 IDE     "
+set $ws10 "    10 IDE    "
 
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
