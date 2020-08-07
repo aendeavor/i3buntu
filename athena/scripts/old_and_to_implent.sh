@@ -1,30 +1,5 @@
 #!/bin/bash
 
-## installs icon theme and colorpack
-function tela() {
-	if [[ ! -d "${HOME}/.local/share/icons/Tela" ]]; then
-	    inform 'Icon-Theme is being processed' "$LOG"
-        (
-          cd /tmp || exit 1
-          wget\
-            -O tela.tar.gz\
-            "https://github.com/vinceliuice/Tela-icon-theme/archive/2020-05-12.tar.gz" >/dev/null || exit 1
-
-          tar -xvzf "tela.tar.gz" &>>/dev/null
-          mv Tela* tela
-          cd /tmp/tela/ || return 1
-          ./install.sh grey >/dev/null 2>>"${LOG}"
-        )
-	fi
-
-	(
-		mkdir -p "${HOME}/.themes" &>/dev/null
-		cp "${DIR}/../design/nordic_darker.tar.xz" "${HOME}/.themes"
-		cd "${HOME}/.themes" || return 1
-		tar -xf nordic_darker.tar &>/dev/null
-	)
-}
-
 function i_docker()
 {
 	test_on_success "$LOG" "${AI[@]}" docker.io

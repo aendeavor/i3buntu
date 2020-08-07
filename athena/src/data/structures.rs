@@ -169,7 +169,7 @@ impl Choices {
             oc,
             dock,
             vsc,
-	        rust,
+	          rust,
             next: 0,
         }
     }
