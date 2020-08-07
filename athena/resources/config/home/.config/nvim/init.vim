@@ -73,7 +73,7 @@ Plug 'luochen1990/rainbow'      " Rainbow brackets
 Plug 'Valloric/YouCompleteMe'   " Autocompletion
 
 " Themes
-Plug 'sonph/onehalf', {'rtp': 'vim/'}
+Plug 'morhetz/gruvbox'
 Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
@@ -111,8 +111,9 @@ if exists('+termguicolors')
 endif
 
 set background=dark
+let g:gruvbox_italic=1
 syntax enable
-colorscheme onehalfdark
+colorscheme gruvbox
 
 let g:lightline = {
 \   'colorscheme': 'onehalfdark',

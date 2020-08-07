@@ -57,7 +57,7 @@
 
 #element selected {
     background-color: rgba(0,0,0,0);
-    text-color: rgba(27,60,101,1);
+    text-color: rgba(85,85,85,1);
 }
 
 /* vim:ft=css

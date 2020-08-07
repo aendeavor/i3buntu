@@ -39,9 +39,6 @@ _Athena_ provides the base library _Kyrene_ uses. Moreover, all configuration fi
 
 Is there for you convenience and provides a simple forwarding mechanism via [apollo.itbsd.com](https://apollo.itbsd.com) to get `init.sh`. This script is executed before the rest, bootstraping this repository itself.
 
-
 ### Warranty, Licensing & Credits
-
-[![Nautilus](athena/docs/filemanager.png)](https://github.com/aendeavor/i3buntu)
 
 This project is licensed under the [_GNU Lesser General Public License_](LICENSE), version 3, 29 June 2007. For warranty and icon-, font- or logo-credits, see [Credits and Warranty](athena/docs/cws.md).
