@@ -41,7 +41,7 @@ set $TEXT               #F3EFF5
 set $INACTIVE-TEXT      #F3EFF5
 set $URGENT             #EF3B3B
 set $BAR                #1E1F29
-set $BTA                #FFFFFF
+set $BTA                #555555
 set $BTIA               #D3E3F4
 
 # window colors         border       background   text           indicator ?
@@ -74,7 +74,7 @@ bar {
   status_command        i3status -c ~/.config/i3/i3statusconfig
 
 
-  font xft:Roboto Regular 11
+  font xft:Roboto Medium 11
   separator_symbol      "   "
 
   position              top
@@ -271,6 +271,6 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i
 exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 exec nm-applet &
 exec urxvtd -q -o -f &
-exec compton --xrender-sync-fence &
+exec picom &
 exec owncloud &
 exec_always ssh-add ~/.ssh/* >> /dev/null &

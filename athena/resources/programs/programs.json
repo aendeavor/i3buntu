@@ -3,25 +3,24 @@
 		"gstreamer1.0-pulseaudio",
 		"pulseaudio",
 		"pulseaudio-module-bluetooth",
-    	"pulseaudio-module-raop"
+    "pulseaudio-module-raop"
 	],
 	"display" : [
-    	"arandr",
-    	"compton",
+    "arandr",
 		"feh",
-    	"gtk2-engines-murrine",
-    	"gtk2-engines-pixbuf",
+    "gtk2-engines-murrine",
+    "gtk2-engines-pixbuf",
 		"i3-gaps",
-    	"i3lock",
+   	"i3lock",
 		"i3status",
-    	"lxappearance",
+   	"lxappearance",
 		"mesa-utils",
-    	"mesa-utils-extra",
+   	"mesa-utils-extra",
 		"redshift",
 		"slick-greeter",
-    	"xbacklight",
+   	"xbacklight",
 		"xorg",
-    	"xserver-xorg"
+   	"xserver-xorg"
 	],
 	"files" : [
 		"eog",
@@ -71,13 +70,36 @@
 	],
 	"sys" : [
 		"build-essential",
-    	"gnome-keyring*",
+   	"gnome-keyring*",
 		"intel-microcode",
 		"libaio1",
 		"policykit-desktop-privileges",
-    	"policykit-1-gnome",
+   	"policykit-1-gnome",
 		"python3-dev",
 		"python3-distutils",
 		"ubuntu-drivers-common"
+	],
+	"dependencies" : [
+		"libxext-dev",
+		"libxcb1-dev",
+		"libxcb-damage0-dev",
+		"libxcb-xfixes0-dev",
+		"libxcb-shape0-dev",
+		"libxcb-render-util0-dev",
+		"libxcb-render0-dev",
+		"libxcb-randr0-dev",
+		"libxcb-composite0-dev",
+		"libxcb-image0-dev",
+		"libxcb-present-dev",
+		"libxcb-xinerama0-dev",
+		"libpixman-1-dev",
+		"libdbus-1-dev",
+		"libconfig-dev",
+		"libgl1-mesa-dev",
+		"libpcre2-dev",
+		"libevdev-dev",
+		"uthash-dev",
+		"libev-dev",
+		"libx11-xcb-dev"
 	]
 }    

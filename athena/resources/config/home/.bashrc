@@ -57,7 +57,7 @@ prompt() {
   fi
   
   if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-    PS1='${debian_chroot:+($debian_chroot)}'
+    PS1=' ${debian_chroot:+($debian_chroot)}'
   
     # PS1+='\[\e[38;5;11m\]'
     # PS1+='[\u@\h]'
@@ -69,7 +69,7 @@ prompt() {
   
     PROMPT_DIRTRIM=4
   else
-    PS1='${debian_chroot:+($debian_chroot)}'
+    PS1=' ${debian_chroot:+($debian_chroot)}'
     PS1+='[\u@\h] : [ \w ] \$ '
   fi
 }
@@ -94,6 +94,7 @@ programmable_completion() {
 }
 
 neofetch_parameterized() {
+  echo ''
   neofetch\
     --ascii_colors 215\
     --colors 215 255 255 215 250 255\
@@ -103,7 +104,7 @@ neofetch_parameterized() {
     --ascii_bold on\
     --ascii_distro Arch_small\
     --color_blocks off\
-	--underline_char \ \
+		--underline_char \ \
     --separator \ \
     --gap 3
 }

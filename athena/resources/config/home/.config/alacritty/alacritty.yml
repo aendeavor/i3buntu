@@ -147,7 +147,7 @@ visual_bell:
   color: '0xffffff'
   duration: 0 # completely disabled
 
-background_opacity: 1.0
+background_opacity: 0.9
 
 key_bindings:
   - { key: V,        mods: Command,       action: Paste                        }
