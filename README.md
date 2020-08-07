@@ -1,4 +1,4 @@
-# ![Apollo Logo](athena/resources/theme/apollo_logo.png)
+# ![Apollo Logo](athena/docs/apollo_logo.png)
 
 ## APOLLO
 
