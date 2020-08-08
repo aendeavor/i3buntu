@@ -73,7 +73,8 @@ pub fn stage_two(stage_one_data: StageOneData) -> StageResult<ExitCode>
 	use components::stage_two;
 	
 	console::print_stage_start(2, "PACKAGING");
-	let mut exit_code = drive_stage(stage_two::install_base, &mut ExitCode(0))?;
+	let mut exit_code = ExitCode::new();
+	drive_stage(stage_two::install_base, &mut exit_code)?;
 	
 	if let Some(stage_result) = stage_two::install_choices(&stage_one_data.choices) {
 		match stage_result {
@@ -90,7 +91,7 @@ pub fn stage_two(stage_one_data: StageOneData) -> StageResult<ExitCode>
 	
 	if stage_one_data.choices.vsc { drive_stage(vsc_ext, &mut exit_code)?; }
 	
-	let exit_code = drive_stage(stage_two::remove_unnecessary, &mut exit_code)?;
+	drive_stage(stage_two::remove_unnecessary, &mut exit_code)?;
 	
 	eval_success(exit_code)
 }
@@ -105,10 +106,12 @@ pub fn stage_three() -> StageResult<ExitCode>
 {
 	use components::stage_three;
 	
+	let mut exit_code = ExitCode::new();
+	
 	console::print_stage_start(3, "CONFIGURATION");
 	
-	let mut exit_code = drive_stage(stage_three::copy_configurations, &mut ExitCode(0))?;
-	let exit_code = drive_stage(stage_three::install_fonts, &mut exit_code)?;
+	drive_stage(stage_three::copy_configurations, &mut exit_code)?;
+	drive_stage(stage_three::install_fonts, &mut exit_code)?;
 	
 	eval_success(exit_code)
 }

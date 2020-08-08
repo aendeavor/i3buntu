@@ -18,10 +18,12 @@ pub type StageResult<D: ExitCodeCompatible> = Result<D, D>;
 /// Resembles the general exit code for
 /// each subroutine used for error
 /// propagation.
-#[derive(Clone)]
+#[derive(Clone, Copy)]
 pub struct ExitCode(pub u8);
 
 impl ExitCode {
+		pub fn new() -> Self { ExitCode(0) }
+	
     pub fn is_success(&self) -> bool {
         if self.0 == 0 {
             true
@@ -80,7 +82,7 @@ impl std::convert::From<PhaseError> for std::option::NoneError {
 
 /// All information necessary after the completion
 /// of stage one of the installation.
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Copy)]
 pub struct StageOneData {
     pub choices: Choices,
     /// Exit code of stage one. Is later translated

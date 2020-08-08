@@ -37,17 +37,17 @@ pub fn drive_stage<'a, F, D>(phase: F, data: &mut D) -> StageResult<D>
 		return match phase_success {
 			PhaseError::SoftError(ec) => {
 				data.set_exit_code(ec);
-				Ok(data.to_owned())
+				Ok(data.clone())
 			},
 			PhaseError::HardError(ec) => {
 				console::finalize_stage(ec);
 				data.set_exit_code(ec);
-				Err(data.to_owned())
+				Err(data.clone())
 			}
 		}
 	}
 	
-	Ok(data.to_owned())
+	Ok(data.clone())
 }
 
 /// # Evaluate Stage Ending

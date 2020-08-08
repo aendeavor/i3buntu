@@ -10,7 +10,11 @@ Server deployments are, obviously, quite different from desktop installations. A
 
 ### Bash v5
 
-Just copy [`.bashrc`](./../resources/config/home/.bashrc) and [`.bash_aliases`](./../resources/config/home/.bash_aliases).  
+Just copy [`.bashrc`](./../resources/config/home/.bashrc) and [`.bash_aliases`](./../resources/config/home/.bash_aliases). Afterwards, install `neofetch` with
+
+``` BASH
+sudo apt-get install neofetch
+```
 
 ### NeoVim Configuration
 
