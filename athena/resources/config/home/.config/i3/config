@@ -271,6 +271,6 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i
 exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 exec nm-applet &
 exec urxvtd -q -o -f &
-exec picom &
+exec picom --xrender-sync-fence --experimantal-backends &
 exec owncloud &
 exec_always ssh-add ~/.ssh/* >> /dev/null &
