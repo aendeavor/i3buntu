@@ -1,10 +1,9 @@
 use athena::{
-	controller::{dpo, drive_sync},
+	controller::{dpo, drive_sync, get_home},
 	log::console,
 	structures::PhaseResult,
 };
 use std::process::Command;
-use dirs_next;
 use colored::Colorize;
 
 pub fn copy_configurations() -> PhaseResult
@@ -12,10 +11,7 @@ pub fn copy_configurations() -> PhaseResult
 	let mut exit_code = 0;
 	console::print_phase_description(1, 2, "Copying Configuration Files");
 	
-	let home = match dirs_next::home_dir() {
-		Some(path) => path,
-		None => return dpo(131, 1, 2)
-	};
+	let home = get_home();
 	
 	drive_sync("     :: Syncing over ${{HOME}}", "home/",
 	           &home, false, &mut exit_code)?;
@@ -31,19 +27,17 @@ pub fn copy_configurations() -> PhaseResult
 	
 	console::print_sub_phase_description("     :: Unpacking themes");
 	
-	let mut c_theme = String::from(&home);
+	let mut c_theme = home.clone();
 	c_theme.push_str("/.theme/whiteSur.tar.xz");
 	
-	let mut i_theme = String::from(&home);
+	let mut i_theme = home.clone();
 	i_theme.push_str("/.local/share/icons/whiteSur.tar.xz");
 	
-	let tar = Command::new("tar").arg("-xf");
-
-	if let Err(_) = tar.arg(c_theme).output() {
+	if let Err(_) = Command::new("tar").arg("-xf").arg(c_theme).output() {
 		exit_code = 30;
 	};
 	
-	if let Err(_) = tar.arg(i_theme).output() {
+	if let Err(_) = Command::new("tar").arg("-xf").arg(i_theme).output() {
 		exit_code = 31;
 	};
 	
@@ -61,24 +55,19 @@ pub fn install_fonts() -> PhaseResult
 	let mut exit_code: u8 = 0;
 	console::print_phase_description(1, 2, "Unpacking fonts");
 	
-	let home = match dirs_next::home_dir() {
-		Some(path) => String::from(path),
-		None => return dpo(132, 1, 1)
-	};
+	let home = get_home();
 	
-	let fire_code = String::from(&home);
-	c_theme.push_str("/.local/share/fonts/FiraCode.tar.xz");
+	let mut fira_code = String::from(&home);
+	fira_code.push_str("/.local/share/fonts/FiraCode.tar.xz");
 	
-	let fira_mono = String::from(&home);
-	i_theme.push_str("/.local/share/fonts/FiraMono.tar.xz");
+	let mut fira_mono = String::from(&home);
+	fira_mono.push_str("/.local/share/fonts/FiraMono.tar.xz");
 	
-	let tar = Command::new("tar").arg("-xf");
-	
-	if let Err(_) = tar.arg(fire_code).output() {
+	if let Err(_) = Command::new("tar").arg("-xf").arg(fira_code).output() {
 		exit_code = 30;
 	};
 	
-	if let Err(_) = tar.arg(fira_mono).output() {
+	if let Err(_) = Command::new("tar").arg("-xf").arg(fira_mono).output() {
 		exit_code = 31;
 	};
 	

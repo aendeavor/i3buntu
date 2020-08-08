@@ -107,7 +107,8 @@ pub fn stage_three() -> StageResult<ExitCode>
 	
 	console::print_stage_start(3, "CONFIGURATION");
 	
-	let exit_code = drive_stage(stage_three::copy_configurations, &mut ExitCode(0))?;
+	let mut exit_code = drive_stage(stage_three::copy_configurations, &mut ExitCode(0))?;
+	let exit_code = drive_stage(stage_three::install_fonts, &mut exit_code)?;
 	
 	eval_success(exit_code)
 }

@@ -20,7 +20,7 @@ pub fn add_ppas() -> PhaseResult {
 	console::print_phase_description(1, 2, "Adding PPAs");
 	let mut exit_code: u8 = 0;
 	
-	let path = controller::get_resource_path("athena/resources/programs/ppas.json", 1, 2)?;
+	let path = controller::get_resource_path("athena/resources/packages/ppas.json", 1, 2)?;
 	
 	let json = match fs::read_to_string(path) {
 		Ok(json_str) => json_str,

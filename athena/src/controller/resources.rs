@@ -1,6 +1,7 @@
 use super::super::{data::structures::PhaseError, log::console};
 use std::{ffi::OsStr, process::Command};
 use colored::Colorize;
+use dirs_next;
 use serde_json::{self, Value};
 
 /// # Local Resource Path
@@ -70,6 +71,12 @@ pub fn drive_sync<R, T>(description: R,
 	
 	let mut base = String::from("athena/resources/config/");
 	base.push_str(from);
+	
+	let mut backup_location = get_home();
+	backup_location.push_str("/.backup/");
+	
+	// TODO backup
+	sync_files(to, &backup_location, sudo);
 	
 	if let Some(ec) = sync_files(
 		&super::get_resource_path(&base, 1, 3)?,
@@ -172,4 +179,17 @@ pub fn vsc_extension_install(_extension: &str) -> Result<(), u8>
 	// 	},
 	// 	Err(_) => Err(23)
 	// }
+}
+
+pub fn get_home() -> String
+{
+	return match dirs_next::home_dir() {
+		Some(home) => {
+			match home.to_str() {
+				Some(home) => String::from(home),
+				None => String::from("~")
+			}
+		},
+		None => String::from("~")
+	};
 }
