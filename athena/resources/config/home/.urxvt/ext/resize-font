@@ -81,7 +81,6 @@ sub bind_hotkeys {
         $hotkey = $self->x_resource("%.$_");
       }
 
-      # FIXME If we're bound to a keysym, don't bind the default.
       $self->bind_action($hotkey, "%:$_") or
       warn "unable to register '$hotkey' as hotkey for $_";
     }

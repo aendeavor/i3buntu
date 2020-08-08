@@ -9,23 +9,23 @@
 
 This repository provides means to customize an [_Ubuntu_](https://ubuntu.com/) installation by deploying the needed programs and sensible default settings.
 
-[![Desktop Theme](athena/docs/desktop_shell.png)](https://github.com/aendeavor/i3buntu)
+![Desktop Theme](athena/docs/desktop_shell.png)
 
 ### Installation Instructions
 
 Are found in [`INSTALL.md`](INSTALL.md).
 
-[![Notifications](athena/docs/notifications.png)](https://github.com/aendeavor/i3buntu)
+![Notifications](athena/docs/notifications.png)
 
 ### About
 
-[![Collage 1](athena/docs/collage_1.png)](https://github.com/aendeavor/i3buntu)
+![Collage 1](athena/docs/collage_1.png)
 
 This project advances _i3buntu_, which had been this project's name. We are trying to provide everyone with a single easy bootstrapping process for the installation of [_i3-gaps_](https://github.com/Airblader/i3) and other basic software.
 
-[![NeoVim](athena/docs/neovim.png)](https://github.com/aendeavor/i3buntu)
-
 #### Submodules
+
+![NeoVim](athena/docs/neovim.png)
 
 ##### _Kyrene_
 
@@ -41,6 +41,6 @@ Is there for you convenience and provides a simple forwarding mechanism via [apo
 
 ### Warranty, Licensing & Credits
 
-[![Collage 2](athena/docs/collage_2.png)](https://github.com/aendeavor/i3buntu)
+![Collage 2](athena/docs/collage_2.png)
 
 This project is licensed under the [_GNU Lesser General Public License_](LICENSE), version 3, 29 June 2007. For warranty and icon-, font- or logo-credits, see [Credits and Warranty](athena/docs/cws.md).

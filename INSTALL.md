@@ -9,7 +9,7 @@
 
 ### Instructions
 
-To get things started, get the [_Ubuntu_ Server ISO](https://ubuntu.com/download/server) and install it. Ensure that `wget` and `cmake` are installed. `rsync` ought to work too. It is recommended to update your system beforehand.
+To get things started, get the [_Ubuntu 20.04 LTS_ Server ISO](https://ubuntu.com/download/server) and install it. Ensure that `wget` and `cmake` are installed. `rsync` ought to work too. It is recommended to update your system beforehand.
 
 ``` BASH
 # obligatory
@@ -26,6 +26,10 @@ You can now go ahead and start ***APOLLO***.
 ``` BASH
 curl -L --proto '=https' --tlsv1.2 -sSf apollo.itbsd.com | bash
 ```
+
+#### Handcrafted Finish
+
+As _Ubuntu 20.04 LTS_ only ships a stable package upstream, the latest and greatest details ought to be done by hand. You will need to get [_Picom_](https://github.com/ibhagwan/picom) by hand, grab the latest stable release and build it from source. The dependencies should have already been installed. The same goes for [_Dunst_](https://github.com/dunst-project/dunst). Make sure to remove the packages first.
 
 ### Miscellaneous
 

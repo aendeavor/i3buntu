@@ -104,7 +104,7 @@ bar {
 bindsym $mod+Shift+Return exec "urxvtcd"
 
 # start Alacritty
-bindsym $mod+Return exec alacritty --live-config-reload -qq 
+bindsym $mod+Return exec alacritty -qq
 
 # lock the screen
 bindsym $mod+Shift+x exec i3lock -u -e -i ~/images/dreamy.png -t

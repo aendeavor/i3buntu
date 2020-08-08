@@ -7,7 +7,7 @@ use athena::{
 	log::console,
 	structures::{Choices, PhaseResult},
 };
-use std::{fs, process::Command};
+use std::{fs, process::{Command, Stdio}};
 use serde_json::{self, Value};
 use colored::Colorize;
 
@@ -93,7 +93,60 @@ pub fn install_choices(choices: &Choices) -> PhaseResult
 		}
 	}
 	
+	// TODO install docker.io via APT
+	if choices.dock {
+		console::print_sub_phase_description("     :: Installing Docker Compose v1.26.0");
+		
+		let local_ec = 0;
+		
+		// compose version is 1.26.0
+		let mut url: String = String::from("https://github.com/docker/compose/releases/download/1.26.0/docker-compose-");
+		
+		append_output(Command::new("uname").arg("-s"), &mut url, "Linux");
+		append_output(Command::new("uname").arg("-m"), &mut url, "x86_64");
+		
+		if let Err(_) = Command::new("curl")
+			.args(["-L", url, "-o", "/usr/local/bin/docker-compose"])
+			.output()
+		{
+		
+		}
+		
+		Command::new("chmod").args(["+x", "/usr/local/bin/docker-compose"]).output();
+		Command::new("curl").args(["-L",
+			"https://raw.githubusercontent.com/docker/compose/1.26.0/contrib/completion/bash/docker-compose",
+			"-o", "/etc/bash_completion.d/docker-compose"]).output();
+		
+		if local_ec != 0 {
+			console::print_sub_phase_description("  ✘\n".red());
+		} else {
+			console::print_sub_phase_description("  ✔\n".green());
+		}
+	}
+	
+	// TODO
+	if choices.rust {
+		console::print_sub_phase_description("     :: Installing Rust");
+		if let Err(_) = Command::new("./athena/scripts/get_rust.sh").output() {
+			console::print_sub_phase_description("  ✘\n".red());
+		} else {
+			console::print_sub_phase_description("  ✔\n".green());
+		}
+	}
+	
 	dpo(exit_code, 2, 4)
+}
+
+fn append_output(command: &mut Command, to_be_extended: &mut String, default: &str)
+{
+	if let Ok(output) = command.stdout(Stdio::piped()).output() {
+		if let Ok(stdout) = std::str::from_utf8(&output.stdout) {
+			to_be_extended.push_str(stdout);
+			return
+		}
+	}
+	
+	url.push_str(default);
 }
 
 pub fn vsc_ext() -> PhaseResult
@@ -129,5 +182,7 @@ pub fn vsc_ext() -> PhaseResult
 pub fn remove_unnecessary() -> PhaseResult
 {
 	console::print_phase_description(4, 4, "Removing unnecessary packages");
+	// TODO
+	Command::new("xrdb").arg("~/.Xresources").output();
 	dpo(0, 4, 4)
 }
