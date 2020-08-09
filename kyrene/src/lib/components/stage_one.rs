@@ -6,30 +6,38 @@ use athena::{
 use std::{fs, process::Command};
 use serde_json;
 
+const PCT1: u8 = 2;
+
 /// # Getting Dependencies Ready
 ///
-/// This function in S1 sets up the necessary
-/// package-dependencies via PPAs.
-///
-/// ## Context
+/// Sets up the necessary package-dependencies via PPAs.
 ///
 /// Stage: 1,
 /// Phase: 1 / 2
-pub fn add_ppas() -> PhaseResult {
-	println!();
-	console::print_phase_description(1, 2, "Adding PPAs");
-	let mut exit_code: u8 = 0;
+pub fn add_ppas() -> PhaseResult
+{
+	let cp = 1;
+	let mut exit_code = 0;
 	
-	let path = controller::get_resource_path("athena/resources/packages/ppas.json", 1, 2)?;
+	println!();
+	console::print_phase_description(
+		cp,
+		PCT1,
+		"Adding PPAs");
+	
+	let path = controller::get_resource_path(
+		"athena/resources/packages/ppas.json",
+		cp,
+		PCT1)?;
 	
 	let json = match fs::read_to_string(path) {
 		Ok(json_str) => json_str,
-		Err(_) => return dpo(111, 1, 2)
+		Err(_) => return dpo(111, cp, PCT1)
 	};
 	
 	let json_ppas: PPAs = match serde_json::from_str(&json) {
 		Ok(json_ppas) => json_ppas,
-		Err(_) => return dpo(112, 1, 2)
+		Err(_) => return dpo(112, cp, PCT1)
 	};
 	
 	for ppa in json_ppas.critical() {
@@ -40,7 +48,7 @@ pub fn add_ppas() -> PhaseResult {
 			.arg(ppa)
 			.output()
 		{
-			return dpo(113, 1, 2);
+			return dpo(113, cp, PCT1);
 		}
 	}
 
@@ -57,26 +65,31 @@ pub fn add_ppas() -> PhaseResult {
 		}
 	}
 	
-	dpo(exit_code, 1, 2)
+	dpo(exit_code, cp, PCT1)
 }
 
 /// # Updating Dependencies
 ///
-/// Executes `apt-get update`.
-///
-/// ## Context
+/// Updates APT signatures.
 ///
 /// Stage: 1,
 /// Phase: 2 / 2
-pub fn update_package_information() -> PhaseResult {
-	console::print_phase_description(2, 2, "Updating APT Signatures");
+pub fn update_package_information() -> PhaseResult
+{
+	let cp = 2;
+	
+	console::print_phase_description(
+		cp,
+		PCT1,
+		"Updating APT Signatures");
+	
 	match Command::new("sudo")
 		.arg("apt-get")
 		.arg("-y")
 		.arg("update")
 		.output()
 	{
-		Ok(_) => dpo(0, 2, 2),
-		Err(_) => dpo(114, 2, 2),
+		Ok(_) => dpo(0, cp, PCT1),
+		Err(_) => dpo(114, cp, PCT1),
 	}
 }

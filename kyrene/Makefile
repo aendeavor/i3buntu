@@ -10,6 +10,8 @@ PROJECTK := -p kyrene
 kbuild:
 	$(CC) build $(PROJECTK)
 
+k: kbuild
+
 # ? ––––––––––––––––––––––––––––––––––––––––––––– Misc
 
 krun: kbuild

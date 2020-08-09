@@ -1,30 +1,27 @@
 use super::super::{
-    data::structures::{PhaseError, PhaseResult, StageResult},
+    data::structures::{
+	    ApolloResult,
+	    PhaseError,
+	    PhaseResult,
+	    StageResult
+    },
     data::traits::ExitCodeCompatible,
     log::console,
 };
 
-/// # Decide Phase Outcome (DPO)
+/// # Abort Early
 ///
-/// Decides what a the result of a phase is,
-/// i.e. whether it is `PhaseResult::Success`
-/// `PhaseResult::SoftError(error_code)` or
-/// `PhaseResult::HardError(error_code)`.
-pub fn dpo(error_code: u8, cs: u8, sct: u8) -> PhaseResult {
-    let result = if error_code == 0 {
-        return None;
-    } else if error_code > 100 {
-        PhaseError::HardError(error_code)
-    } else {
-        PhaseError::SoftError(error_code)
-    };
-
-    console::finalize_phase(cs, sct, Some(&result));
-
-    Some(result)
+/// Checks whether to abort on a given exit code
+/// or not. An abort exit code ranges from 100 to 199.
+pub fn check_abort<T: ExitCodeCompatible>(result: &mut ApolloResult, exit_code: T)
+{
+	result.set_failure(exit_code.get_exit_code());
+	
+	if result.is_abort() {
+		result.show_abort();
+		std::process::exit(result.get_exit_code());
+	}
 }
-
-// * ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 /// Drives a phase and decides the outcome. This
 /// result is the propagated with the `?` Opera-
@@ -33,8 +30,8 @@ pub fn drive_stage<'a, F, D>(phase: F, data: &mut D) -> StageResult<D>
 	where F: Fn() -> PhaseResult,
 	      D: ExitCodeCompatible + Clone + 'a
 {
-	if let Some(phase_success) = phase() {
-		return match phase_success {
+	if let Some(phase_error) = phase() {
+		return match phase_error {
 			PhaseError::SoftError(ec) => {
 				data.set_exit_code(ec);
 				Ok(data.clone())
@@ -48,6 +45,26 @@ pub fn drive_stage<'a, F, D>(phase: F, data: &mut D) -> StageResult<D>
 	}
 	
 	Ok(data.clone())
+}
+
+/// # Decide Phase Outcome (DPO)
+///
+/// Decides what a the result of a phase is,
+/// i.e. whether it is `PhaseResult::Success`
+/// `PhaseResult::SoftError(error_code)` or
+/// `PhaseResult::HardError(error_code)`.
+pub fn dpo(error_code: u8, cp: u8, tpc: u8) -> PhaseResult {
+    let result = if error_code == 0 {
+        return None;
+    } else if error_code > 100 {
+        PhaseError::HardError(error_code)
+    } else {
+        PhaseError::SoftError(error_code)
+    };
+
+    console::finalize_phase(cp, tpc, Some(&result));
+
+    Some(result)
 }
 
 /// # Evaluate Stage Ending

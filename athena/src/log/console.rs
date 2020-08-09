@@ -8,13 +8,23 @@ use std::{
 /// # Greetings
 ///
 /// Creates the greetings-message upon starting APOLLO.
-pub fn welcome(app_version: &'static str) {
+pub fn welcome(app_version: &'static str)
+{
     println!("\nWelcome to {}\n\nLIB {}\nAPP {}\n\nWe are going to walk you through a few steps\nto complete the setup. These include:\n\n  1. \
 	Initialization\n  2. Installation of Software\n  3. Deployment of Configuration Files\n  4. Cleanup and Post-Configuration\n\nAs we need sup\
 	eruser privileges to install\nprograms and to reach some locations, please\ninput your password if prompted.\n",
 	         "APOLLO".bold().magenta(),
 	         crate::VERSION,
 	         app_version);
+	
+	match std::process::Command::new("sudo")
+		.arg("apt-get")
+		.arg("--help")
+		.output()
+	{
+		Ok(_) => (),
+		Err(_) => ()
+	};
 }
 
 /// # Stages
@@ -32,8 +42,8 @@ pub fn print_stage_start(stage_number: u8, stage_name: &str) {
 /// consist of phases. This logger wraps the
 /// beginning of a phase with the number of
 /// the phase and a description
-pub fn print_phase_description(current_stage: u8, stage_count_total: u8, msg: &str) {
-    print!("  ({}/{}) {}\n", current_stage, stage_count_total, msg);
+pub fn print_phase_description(current_phase: u8, total_phase_count: u8, msg: &str) {
+    print!("  ({}/{}) {}\n", current_phase, total_phase_count, msg);
 
     flush();
 }

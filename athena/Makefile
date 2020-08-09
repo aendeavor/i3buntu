@@ -10,6 +10,8 @@ PROJECTA := -p athena
 abuild:
 	$(CC) build $(PROJECTA)
 
+a: abuild
+
 # ? ––––––––––––––––––––––––––––––––––––––––––––– Misc
 
 arun: abuild

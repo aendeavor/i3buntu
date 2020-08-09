@@ -1,5 +1,6 @@
 use athena::{
 	controller::{drive_stage, eval_success},
+	log::console,
 	structures::{
 		ApolloResult,
 		ExitCode,
@@ -7,11 +8,9 @@ use athena::{
 		StageOneData,
 		StageResult,
 	},
-	log::console,
 	traits::ExitCodeCompatible,
 };
 use super::{components, interact};
-use crate::lib::components::stage_two::vsc_ext;
 
 /// # First Things First
 ///
@@ -21,15 +20,6 @@ use crate::lib::components::stage_two::vsc_ext;
 pub fn start() -> ApolloResult
 {
 	console::welcome(crate::VERSION);
-	
-	match std::process::Command::new("sudo")
-		.arg("apt-get")
-		.arg("--help")
-		.output() {
-		Ok(_) => (),
-		Err(_) => ()
-	};
-	
 	ApolloResult::new()
 }
 
@@ -38,14 +28,16 @@ pub fn start() -> ApolloResult
 /// Drives all functions necessary for stage
 /// one to complete. These include
 ///
-/// - creation and propagation of user choices
+/// - handling and propagation of user choices
 /// - adding of PPAs
+/// - updating package information
 pub fn stage_one() -> StageResult<StageOneData>
 {
 	use components::stage_one;
 	use interact::stage_one::{choices_ok, user_choices};
 	
 	console::print_stage_start(1, "INITIALIZATION");
+	
 	let mut sod = loop {
 		let choices = user_choices();
 		if choices_ok() {
@@ -54,8 +46,8 @@ pub fn stage_one() -> StageResult<StageOneData>
 		println!();
 	};
 	
-	let mut sod = drive_stage(stage_one::add_ppas, &mut sod)?;
-	let sod = drive_stage(stage_one::update_package_information, &mut sod)?;
+	drive_stage(stage_one::add_ppas, &mut sod)?;
+	drive_stage(stage_one::update_package_information, &mut sod)?;
 	
 	eval_success(sod)
 }
@@ -65,22 +57,20 @@ pub fn stage_one() -> StageResult<StageOneData>
 /// Drives all functions necessary for stage
 /// two to complete. These include
 ///
-/// - installing the packages the user chose
-/// - installing the base packages
-/// - remove unnecessary
+/// - installing base packages
+/// - installing user choices
 pub fn stage_two(stage_one_data: StageOneData) -> StageResult<ExitCode>
 {
 	use components::stage_two;
 	
 	console::print_stage_start(2, "PACKAGING");
+	
 	let mut exit_code = ExitCode::new();
 	drive_stage(stage_two::install_base, &mut exit_code)?;
 	
-	if let Some(stage_result) = stage_two::install_choices(&stage_one_data.choices) {
-		match stage_result {
-			PhaseError::SoftError(ec) => {
-				exit_code.set_exit_code(ec);
-			}
+	if let Some(p_error) = stage_two::install_choices(&stage_one_data.choices) {
+		match p_error {
+			PhaseError::SoftError(ec) => exit_code.set_exit_code(ec),
 			PhaseError::HardError(ec) => {
 				console::finalize_stage(ec);
 				exit_code.set_exit_code(ec);
@@ -89,9 +79,11 @@ pub fn stage_two(stage_one_data: StageOneData) -> StageResult<ExitCode>
 		}
 	}
 	
-	if stage_one_data.choices.vsc { drive_stage(vsc_ext, &mut exit_code)?; }
+	if stage_one_data.choices.vsc {
+		drive_stage(stage_two::vsc_ext, &mut exit_code)?;
+	}
 	
-	drive_stage(stage_two::remove_unnecessary, &mut exit_code)?;
+	drive_stage(stage_two::cleanup, &mut exit_code)?;
 	
 	eval_success(exit_code)
 }
@@ -101,15 +93,15 @@ pub fn stage_two(stage_one_data: StageOneData) -> StageResult<ExitCode>
 /// Drives all functions necessary for stage
 /// two to complete. These include
 ///
-/// - copies configuration files
+/// - copying configuration files
+/// - installing fonts
 pub fn stage_three() -> StageResult<ExitCode>
 {
 	use components::stage_three;
 	
-	let mut exit_code = ExitCode::new();
-	
 	console::print_stage_start(3, "CONFIGURATION");
 	
+	let mut exit_code = ExitCode::new();
 	drive_stage(stage_three::copy_configurations, &mut exit_code)?;
 	drive_stage(stage_three::install_fonts, &mut exit_code)?;
 	
