@@ -1,6 +1,6 @@
 /// # Being Able to Set an Exit Code
 ///
-/// This traits allows types to be able to set
+/// This trait allows types to be able to set
 /// and get an exit code from a structure.
 ///
 pub trait ExitCodeCompatible: Clone + Copy {

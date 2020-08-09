@@ -1,5 +1,5 @@
 use athena::{
-	controller::{drive_stage, eval_success},
+	controller::{drive_phase, eval_success},
 	log::console,
 	structures::{
 		ApolloResult,
@@ -46,8 +46,8 @@ pub fn stage_one() -> StageResult<StageOneData>
 		println!();
 	};
 	
-	drive_stage(stage_one::add_ppas, &mut sod)?;
-	drive_stage(stage_one::update_package_information, &mut sod)?;
+	drive_phase(stage_one::add_ppas, &mut sod)?;
+	drive_phase(stage_one::update_package_information, &mut sod)?;
 	
 	eval_success(sod)
 }
@@ -66,7 +66,7 @@ pub fn stage_two(stage_one_data: StageOneData) -> StageResult<ExitCode>
 	console::print_stage_start(2, "PACKAGING");
 	
 	let mut exit_code = ExitCode::new();
-	drive_stage(stage_two::install_base, &mut exit_code)?;
+	drive_phase(stage_two::install_base, &mut exit_code)?;
 	
 	if let Some(p_error) = stage_two::install_choices(&stage_one_data.choices) {
 		match p_error {
@@ -80,10 +80,10 @@ pub fn stage_two(stage_one_data: StageOneData) -> StageResult<ExitCode>
 	}
 	
 	if stage_one_data.choices.vsc {
-		drive_stage(stage_two::vsc_ext, &mut exit_code)?;
+		drive_phase(stage_two::vsc_ext, &mut exit_code)?;
 	}
 	
-	drive_stage(stage_two::cleanup, &mut exit_code)?;
+	drive_phase(stage_two::cleanup, &mut exit_code)?;
 	
 	eval_success(exit_code)
 }
@@ -102,8 +102,8 @@ pub fn stage_three() -> StageResult<ExitCode>
 	console::print_stage_start(3, "CONFIGURATION");
 	
 	let mut exit_code = ExitCode::new();
-	drive_stage(stage_three::copy_configurations, &mut exit_code)?;
-	drive_stage(stage_three::install_fonts, &mut exit_code)?;
+	drive_phase(stage_three::copy_configurations, &mut exit_code)?;
+	drive_phase(stage_three::install_fonts, &mut exit_code)?;
 	
 	eval_success(exit_code)
 }

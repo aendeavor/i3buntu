@@ -23,10 +23,12 @@ pub fn check_abort<T: ExitCodeCompatible>(result: &mut ApolloResult, exit_code: 
 	}
 }
 
+/// # Phase Driver
+///
 /// Drives a phase and decides the outcome. This
 /// result is the propagated with the `?` Opera-
 /// tor.
-pub fn drive_stage<'a, F, D>(phase: F, data: &mut D) -> StageResult<D>
+pub fn drive_phase<'a, F, D>(phase: F, data: &mut D) -> StageResult<D>
 	where F: Fn() -> PhaseResult,
 	      D: ExitCodeCompatible + Clone + 'a
 {
@@ -53,7 +55,8 @@ pub fn drive_stage<'a, F, D>(phase: F, data: &mut D) -> StageResult<D>
 /// i.e. whether it is `PhaseResult::Success`
 /// `PhaseResult::SoftError(error_code)` or
 /// `PhaseResult::HardError(error_code)`.
-pub fn dpo(error_code: u8, cp: u8, tpc: u8) -> PhaseResult {
+pub fn dpo(error_code: u8, cp: u8, tpc: u8) -> PhaseResult
+{
     let result = if error_code == 0 {
         return None;
     } else if error_code > 100 {
@@ -62,7 +65,10 @@ pub fn dpo(error_code: u8, cp: u8, tpc: u8) -> PhaseResult {
         PhaseError::SoftError(error_code)
     };
 
-    console::finalize_phase(cp, tpc, Some(&result));
+    console::finalize_phase(
+	    cp,
+	    tpc,
+	    Some(&result));
 
     Some(result)
 }

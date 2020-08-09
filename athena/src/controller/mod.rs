@@ -3,7 +3,7 @@ mod resources;
 
 pub use control_flow::check_abort;
 pub use control_flow::dpo;
-pub use control_flow::drive_stage;
+pub use control_flow::drive_phase;
 pub use control_flow::eval_success;
 pub use resources::apt_install;
 pub use resources::drive_sync;

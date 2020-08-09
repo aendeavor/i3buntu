@@ -1,10 +1,16 @@
 /// # Console
 ///
-/// `log` provides logging functionality for APOLLO.
-/// Console output is handled here.
+/// Provides logging functionality as console
+/// output.
 pub mod console;
 
 /// # Logfile
-/// `file` provides logging functionality for APOLLO.
-/// Logfile creation and use is handled here.
+///
+/// Provides logging functionality as logfile
+/// ouput.
+///
+/// ## Warning
+///
+/// This feature has not been implemented,
+/// and only will if it's necessary.
 mod file;

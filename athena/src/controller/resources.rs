@@ -4,10 +4,11 @@ use colored::Colorize;
 use dirs_next;
 use serde_json::{self, Value};
 
-/// # Local Resource Path
+/// # Local resource path
 ///
 /// Provides
-pub fn get_resource_path(to_append: &str, cs: u8, sct: u8) -> Result<String, PhaseError> {
+pub fn get_resource_path(to_append: &str, cs: u8, sct: u8) -> Result<String, PhaseError>
+{
     if let Ok(path) = std::env::current_dir() {
         if let Some(path) = path.to_str() {
             let mut path = String::from(path);
@@ -18,17 +19,17 @@ pub fn get_resource_path(to_append: &str, cs: u8, sct: u8) -> Result<String, Pha
     }
 
     let result = PhaseError::HardError(190);
-    console::finalize_phase(cs, sct, Some(&result));
+    console::finalize_phase(
+	    cs,
+	    sct,
+	    Some(&result));
 
     Err(result)
 }
 
-// * ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-
-/// # File Copy with `rsync`
+/// # File copy with `rsync`
 ///
-/// Copies files from `from` to `to` by spawning
-/// `rsync`.
+/// Copies files by executing `rsync`.
 fn sync_files<S, T>(from: S, to: &T, sudo: bool) -> Option<u8>
 	where S: AsRef<OsStr>,
 	      T: AsRef<OsStr> + ?Sized
@@ -56,14 +57,15 @@ fn sync_files<S, T>(from: S, to: &T, sudo: bool) -> Option<u8>
 	};
 }
 
-/// # Wrapping File Synchronization
+/// # Wrapping file synchronization
 ///
 /// Wraps `sync_files()` for easier access.
-pub fn drive_sync<R, T>(description: R,
-                        from: &str,
-                        to: &T,
-                        sudo: bool,
-                        exit_code: &mut u8) -> Result<(), PhaseError>
+pub fn drive_sync<R, T>(
+	description: R,
+	from: &str,
+	to: &T,
+	sudo: bool,
+	exit_code: &mut u8) -> Result<(), PhaseError>
 	where R: std::fmt::Display,
 	      T: AsRef<OsStr> + ?Sized
 {
@@ -74,8 +76,8 @@ pub fn drive_sync<R, T>(description: R,
 	
 	let mut backup_location = get_home();
 	backup_location.push_str("/.backup/");
-	
-	// TODO backup
+
+	// current backup solution
 	sync_files(to, &backup_location, sudo);
 	
 	if let Some(ec) = sync_files(
@@ -89,9 +91,7 @@ pub fn drive_sync<R, T>(description: R,
 	Ok(())
 }
 
-// * ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-
-/// # Parses JSON
+/// # Parses & processes JSON
 ///
 /// Recursing through the given tree / enum of JSON
 /// values until every leaf has been used.
@@ -99,6 +99,7 @@ pub fn recurse_json<T>(value: &serde_json::Value, subroutine: &T) -> Result<(), 
 	where T: Fn(&str) -> Result<(), u8>
 {
 	let mut exit_code: u8 = 0;
+	
 	match value
 	{
 		Value::Object(obj) => {
@@ -126,11 +127,9 @@ pub fn recurse_json<T>(value: &serde_json::Value, subroutine: &T) -> Result<(), 
 	if exit_code == 0 { Ok(()) } else { Err(exit_code) }
 }
 
-// * ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-
 /// # APT
 ///
-/// Installs a program with apt.
+/// Installs a program with APT.
 ///
 pub fn apt_install(program: &str) -> Result<(), u8>
 {
@@ -145,7 +144,8 @@ pub fn apt_install(program: &str) -> Result<(), u8>
 		// .arg("--allow-remove-essential")
 		// .arg("--allow-change-held-packages")
 		.arg(program)
-		.output() {
+		.output()
+	{
 		Ok(output) => {
 			match output.status.success() {
 				true => {
@@ -157,7 +157,6 @@ pub fn apt_install(program: &str) -> Result<(), u8>
 					Err(20)
 				}
 			}
-			
 		},
 		Err(_) => Err(21)
 	}
@@ -183,13 +182,11 @@ pub fn vsc_extension_install(_extension: &str) -> Result<(), u8>
 
 pub fn get_home() -> String
 {
-	return match dirs_next::home_dir() {
-		Some(home) => {
-			match home.to_str() {
-				Some(home) => String::from(home),
-				None => String::from("~")
-			}
-		},
-		None => String::from("~")
-	};
+	if let Some(home) = dirs_next::home_dir() {
+		if let Some(home) = home.to_str() {
+			return String::from(home)
+		}
+	}
+	
+	String::from("~")
 }

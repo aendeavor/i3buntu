@@ -9,7 +9,7 @@ mod lib;
 use athena::controller::check_abort;
 use lib::init;
 
-const VERSION: &'static str = "v0.3.4-alpha rc1 unstable";
+const VERSION: &'static str = "v0.3.6-alpha rc1 unstable";
 
 fn main()
 {
