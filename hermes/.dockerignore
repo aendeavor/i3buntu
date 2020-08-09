@@ -1,0 +1,13 @@
+# VS Codes settings directory
+.vscode
+
+# Cargo's target folder except binary itself
+target
+!target/x86_64-unknown-linux-musl/release/hermes
+
+# Source code
+src
+
+# Miscellaneous
+make.sh
+README.md

@@ -1,64 +1,50 @@
-# Installation
+# ![Apollo Logo](athena/docs/apollo_logo.png)
 
-[//]: # (Explains the installation process of i3buntu)
-[//]: # (version 1.0.13)
+## Installation
 
-## Runlevel 0 - Installing the operating system
+![version](https://img.shields.io/badge/version-v2.0.0-1A1D23.svg) ![stability](https://img.shields.io/badge/stability-unstable-FBB444.svg) ![init](https://img.shields.io/badge/init-v0.1.1-2B303B.svg)
 
-To get things started, you will need an [Ubuntu ISO image](https://ubuntu.com/download). As of now, the latest LTS (Long Term Support) version of Ubuntu is 20.04. The installation is straightforward. **We recommend using the server version** as it ships without unnecessary packages. These images also support [UEFI](https://wiki.archlinux.org/index.php/Unified_Extensible_Firmware_Interface) right out of the box.
+[//]: # (Explains the installation process of APOLLO)
+[//]: # (version 0.1.2)
 
-## Runlevel 3 - Managing packages
+### Instructions
 
-If you chose the desktop version, you can remove GNOME packages and reboot. This is, however, not a must, as some might prefer to have an alternative to _i3-gaps_. From hereon, update the system. Afterwards, just execute the `curl` command. It will setup everything you need. Keep in mind: For server installations, this step will finish _i3buntu_'s installation. For desktops, you will need to start configuration separately.
-
-``` BASH
-# (Optional) Remove GNOME
-sudo apt-get purge gnome-desktop*
-
-# (Optional) Update the system and install curl
-sudo apt-get -y update && sudo apt-get -y dist-upgrade
-sudo apt-get install curl
-
-# Execute the bootstrap script
-curl --proto '=https' --tlsv1.2 -sSf\
-  https://raw.githubusercontent.com/aendeavor/i3buntu/master/init.sh | bash
-```
-
-The `curl` command will create an i3buntu directory and execute the [install.sh](./install.sh) script. If you would like to start an installation manually, you can do so:
+To get things started, get the [_Ubuntu 20.04 LTS_ Server ISO](https://ubuntu.com/download/server) and install it. Ensure that `wget` and `cmake` are installed. `rsync` ought to work too. It is recommended to update your system beforehand.
 
 ``` BASH
-# For desktop installations, you will need
-# to execute the packaging and configuration separately
-./i3buntu/install.sh desktop --pkg
+# obligatory
+sudo apt-get update
+sudo apt-get -y upgrade
+sudo apt-get -y dist-upgrade
 
-# For server installations, run
-./i3buntu/install.sh server
+# mandatory
+sudo apt-get install -y wget cmake
 ```
 
-## Runlevel 5 - Configuration
-
-On desktops, you should be greeted on a graphical interface after a reboot. During login, i3 will ask you whether you would like to create an i3 config file, which you will answer with yes. For your _mod key_, choose the _Super_ key.
-
-You will now need to create the fitting _xrander_ settings so your screens are displayed the way they should. Open `arandr`, either by command line or through rofi, which is invoked with _mod + d_. `arandr` will assist you with the setup of multiple monitors. When you are done, save these setting in a file of your choice, open this file and copy the content. Next, open i3's `config`-file in this repository on the command line wit _mod + Return_
+You can now go ahead and start ***APOLLO***.
 
 ``` BASH
-cd i3buntu && vi resources/sys/Xi3/config
+curl -L --proto '=https' --tlsv1.2 -sSf apollo.itbsd.com | bash
 ```
 
-and paste your setup in these lines after `exec_always xrander`
+#### Handcrafted Finish
 
-![xrandr settings](resources/doc/xrandr_settings.png)
+As _Ubuntu 20.04 LTS_ only ships a stable package upstream, the latest and greatest details ought to be done by hand. You will need to get [_Picom_](https://github.com/ibhagwan/picom) by hand, grab the latest stable release and build it from source. The dependencies should have already been installed. The same goes for [_Dunst_](https://github.com/dunst-project/dunst). Make sure to remove the packages first.
 
-Afterwards, save the file and run your configuration script. The server-installation does this automatically, so you will not need to do this yourself if you install _i3buntu_ as a server. This is how you invoke configuration:
+### Miscellaneous
 
-``` BASH
-cd && ./i3buntu/install.sh desktop --cfg
-```
+#### Prerequisites & Manual Start
 
-## Runlevel ∞ - Icon and color theme
+It is recommended to be familiar with a Linux environment and the command line. Before the actual program start, you may choose to stop the installation. You can start it manually with `make install`.
 
-Now, use _LXappearance_ to mod your color and icon theme. Open rofi with _mod + d_ and start typing the name of the desired application and hit enter. Choose _Nordic Darker_ as your color theme. For _Tela_'s icon theme, pick grey.
+#### Security
 
-You can edit `~/.config/i3/config` to customize your keybindings and to edit the pactl binds if audio volume control does not work.
+If you are concerned about piping `curl` into `bash`, just download the script with curl, check and execute it later. The SHA512 sum is `005605de16977627954b5445f7fa7eec6f4f040a7b427b4c947f432e6f450ade6b58498b4390dfb92db3a57e0f9a48d608cdcb0661b9f8320d0b9d0f9ac8738c  init.sh`
 
-That's it.
+#### Leftover Configuration
+
+As of now, the monitor/display configuration is not done automatically, as this would not make much sense. You can do it manually, with `arandr` and `i3`'s config.
+
+#### Miscellaneous Scripts
+
+Found under `athena/scripts/`, a few leftover script reside to ease the pain of installing certain software by hand. This includes [`exa`](https://the.exa.website/), [`i3-rounded-corners`](https://github.com/terroo/i3-radius) and a fonts installer.

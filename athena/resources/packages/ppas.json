@@ -1,0 +1,10 @@
+{
+	"critical" : [
+		"ppa:mmstick76/alacritty",
+		"ppa:kgilmer/speed-ricer"
+	],
+	"optional" : [
+		"ppa:git-core/ppa",
+		"ppa:ubuntu-mozilla-security/ppa"
+	]
+}
