@@ -116,7 +116,7 @@ syntax enable
 colorscheme gruvbox
 
 let g:lightline = {
-\   'colorscheme': 'onehalfdark',
+\   'colorscheme': 'gruvbox',
 \   'active': {
 \     'left':[ [ 'mode', 'paste' ],
 \              [ 'gitbranch', 'readonly', 'filename', 'modified' ]

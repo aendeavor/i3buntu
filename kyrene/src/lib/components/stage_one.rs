@@ -44,7 +44,6 @@ pub fn add_ppas() -> PhaseResult
 		if let Err(_) = Command::new("sudo")
 			.arg("add-apt-repository")
 			.arg("-y")
-			.arg("-h")
 			.arg(ppa)
 			.output()
 		{
@@ -57,7 +56,6 @@ pub fn add_ppas() -> PhaseResult
 		if let Err(_) = Command::new("sudo")
 			.arg("add-apt-repository")
 			.arg("-y")
-			.arg("-h")
 			.arg(ppa)
 			.output()
 		{

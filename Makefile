@@ -11,7 +11,6 @@ MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
 CC := cargo
-ABORTMSG := "Encountered critical non-zero exit code. Aborting."
 
 export
 
@@ -26,8 +25,11 @@ all:
 .PHONY: release
 
 release:
-	cargo build --release
-	cp ./target/release/kyrene apollo
+	rustup override set nightly
+	cargo build --release -p athena
+	cargo build --release -p kyrene
+	@ cp ./target/release/kyrene apollo
+	@ chmod +x apollo
 
 # ? ––––––––––––––––––––––––––––––––––––––––––––– Non-Release
 
@@ -50,7 +52,7 @@ kyrene: athena
 # ? ––––––––––––––––––––––––––––––––––––––––––––– Install
 
 install: ./apollo
-	-@ sudo -E ./apollo || printf "\n%s\n" $(ABORTMSG)
+	-@ sudo -E ./apollo
 
 # ? ––––––––––––––––––––––––––––––––––––––––––––– Includes
 
@@ -61,11 +63,9 @@ include kyrene/Makefile
 # ? ––––––––––––––––––––––––––––––––––––––––––––– Notes
 
 # A prepended "@" will result in not displaying the
-#     build rules.
-# A prepended "-" will result in ignoring the exit
-#     code of a command.
-# if no target is specified, the first one that is
-#     encountered will be build.
+# build rules. A prepended "-" will result in ignoring
+# the exit code of a command. If no target is specified,
+# the first one that is encountered will be build.
 #
 # GUIDES
 # https://devhints.io/makefile

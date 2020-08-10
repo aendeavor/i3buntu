@@ -44,6 +44,13 @@ pub fn copy_configurations() -> PhaseResult
 		"/etc/lightdm/",
 		true,
 		&mut exit_code)?;
+
+	drive_sync(
+		"     :: Syncing LightDM wallpaper",
+		"home/images/background.png",
+		"/usr/share/lightdm/",
+		true,
+		&mut exit_code)?;
 	
 	drive_sync(
 		"     :: Syncing LightDM greeter config",
@@ -61,6 +68,12 @@ pub fn copy_configurations() -> PhaseResult
 	
 	console::print_sub_phase_description("     :: Unpacking themes");
 	
+	let mut theme_dir = home.clone();
+	theme_dir.push_str("/.themes/");
+
+	let mut icon_dir = home.clone();
+	icon_dir.push_str("/.local/share/icons/");
+
 	let mut color_theme = home.clone();
 	color_theme.push_str("/.theme/whiteSur.tar.xz");
 	
@@ -70,6 +83,8 @@ pub fn copy_configurations() -> PhaseResult
 	if let Err(_) = Command::new("tar")
 		.arg("-xf")
 		.arg(color_theme)
+		.arg("-C")
+		.arg(theme_dir)
 		.output()
 	{
 		exit_code = 30;
@@ -78,6 +93,8 @@ pub fn copy_configurations() -> PhaseResult
 	if let Err(_) = Command::new("tar")
 		.arg("-xf")
 		.arg(icon_theme)
+		.arg("-C")
+		.arg(icon_dir)
 		.output()
 	{
 		exit_code = 31;
@@ -111,6 +128,9 @@ pub fn install_fonts() -> PhaseResult
 	
 	let home = get_home();
 	
+	let mut font_dir = String::from(&home);
+	font_dir.push_str("/.local/share/fonts/");
+
 	let mut fira_code = String::from(&home);
 	fira_code.push_str("/.local/share/fonts/FiraCode.tar.xz");
 	
@@ -120,6 +140,8 @@ pub fn install_fonts() -> PhaseResult
 	if let Err(_) = Command::new("tar")
 		.arg("-xf")
 		.arg(fira_code)
+		.arg("-C")
+		.arg(font_dir.clone())
 		.output()
 	{
 		exit_code = 30;
@@ -128,6 +150,8 @@ pub fn install_fonts() -> PhaseResult
 	if let Err(_) = Command::new("tar")
 		.arg("-xf")
 		.arg(fira_mono)
+		.arg("-C")
+		.arg(font_dir)
 		.output()
 	{
 		exit_code = 31;

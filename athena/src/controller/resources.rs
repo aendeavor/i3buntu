@@ -44,7 +44,6 @@ fn sync_files<S, T>(from: S, to: &T, sudo: bool) -> Option<u8>
 	
 	return if let Err(_) = command
 		.arg("-azr")
-		.arg("--dry-run")
 		.arg(from)
 		.arg(to)
 		.output()
@@ -74,18 +73,23 @@ pub fn drive_sync<R, T>(
 	let mut base = String::from("athena/resources/config/");
 	base.push_str(from);
 	
-	let mut backup_location = get_home();
-	backup_location.push_str("/.backup/");
+	if let Ok(_) = Command::new("sudo")
+		.args(&["mkdir", "-p", "/backup"])
+		.output()
+	{
+		// current backup solution
+		sync_files(to, "/backup/", true);
+	} else {
+		*exit_code = 70;
+	}
 
-	// current backup solution
-	sync_files(to, &backup_location, sudo);
 	
 	if let Some(ec) = sync_files(
 		&super::get_resource_path(&base, 1, 3)?,
 		to,
 		sudo)
 	{
-		*exit_code = ec;
+		if *exit_code == 0 { *exit_code = ec; }
 	}
 	
 	Ok(())

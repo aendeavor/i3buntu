@@ -33,7 +33,7 @@ pub fn install_base() -> PhaseResult
 		"Installing Programs");
 	
 	let path = controller::get_resource_path(
-		"athena/resources/packages/packages.json",
+		"athena/resources/packages/programs.json",
 		cp,
 		TPC2)?;
 	
@@ -74,11 +74,7 @@ pub fn install_choices(choices: &Choices) -> PhaseResult
 	for program in *choices {
 		if let Err(ec) = apt_install(program) {
 			if ec != exit_code {
-				if exit_code == 0 {
-					exit_code = ec;
-				} else {
-					exit_code = 25;
-				}
+				if exit_code != 0 { exit_code = 25; }
 			}
 		}
 	}
@@ -165,12 +161,12 @@ pub fn vsc_ext() -> PhaseResult
 	
 	let json = match fs::read_to_string(path) {
 		Ok(json_str) => json_str,
-		Err(_) => return dpo(123, cp, TPC2)
+		Err(_) => return dpo(27, cp, TPC2)
 	};
 	
 	let extension_tree: Value = match serde_json::from_str(&json) {
 		Ok(json_tree) => json_tree,
-		Err(_) => return dpo(124, cp, TPC2)
+		Err(_) => return dpo(28, cp, TPC2)
 	};
 	
 	if let Err(code) = recurse_json(
@@ -206,7 +202,7 @@ pub fn cleanup() -> PhaseResult
 		.output()
 	{
 		Ok(_) => (),
-		Err(_) => exit_code = 27
+		Err(_) => exit_code = 29
 	};
 	
 	dpo(exit_code, cp, TPC2)

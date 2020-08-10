@@ -169,19 +169,34 @@ impl Iterator for Choices {
 		
 		if self.tex && self.next == 1 {
 			return Some("texlive-full");
-		};
+		} else if self.next < 2 {
+			self.next = 2;
+		}
+
 		if self.java && self.next == 2 {
 			return Some("openjdk-14-jdk");
-		};
+		} else if self.next < 3 {
+			self.next = 3;
+		}
+
 		if self.ct && self.next == 3 {
 			return Some("cryptomator");
-		};
+		} else if self.next < 4 {
+			self.next = 4;
+		}
+		
 		if self.be && self.next == 4 {
 			return Some("build-essential");
-		};
+		} else if self.next < 5 {
+			self.next = 5;
+		}
+
 		if self.oc && self.next == 5 {
 			return Some("owncloud-client");
-		};
+		} else if self.next < 6 {
+			self.next = 6;
+		}
+
 		if self.dock && self.next == 5 {
 			return Some("docker.io");
 		}
@@ -263,9 +278,12 @@ impl ApolloResult {
 		self.abort = true;
 		
 		match self.get_exit_code() {
-			100 => {
-				self.abort_msg = Some("EXIT CODE 100 - NEEDS MSG");
-			}
+			111 => self.abort_msg = Some("S1P1 - Could not read from path to JSON string"),
+			112 => self.abort_msg = Some("S1P1 - Could not parse PPAs from JSON"),
+			113 => self.abort_msg = Some("S1P1 - Could not add a critical APT repository"),
+			114 => self.abort_msg = Some("S1P2 - Could not update APT signatures"),
+			121 => self.abort_msg = Some("S2P1 - Could not read from path to JSON string"),
+			122 => self.abort_msg = Some("S2P1 - Could not parse programs from JSON"),
 			_ => panic!(
 				"Exit Code for abort not implemented in \
 				lib::data::end::ApolloResult.set_abort. Exit code was: {}",

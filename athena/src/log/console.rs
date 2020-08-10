@@ -154,7 +154,7 @@ pub mod stage_one {
 			"\n  Your installation candidates:\n              \
 			LaTeX  {}\n            OpenJDK  {}\n        Cryptomator  {}\n    \
 			Build-Essential  {}\n           ownCloud  {}\n             Docker  {}\
-			\n Visual Studio Code  {}\n               Rust  {}",
+			\n            VS Code  {}\n               Rust  {}",
 			tb(choices.tex),
 			tb(choices.java),
 			tb(choices.ct),

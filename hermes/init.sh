@@ -3,7 +3,7 @@
 # Downloads APOLLO and starts installation.
 
 # author	Georg Lauterbach
-# version	0.1.2 unstable
+# version	0.1.3 unstable
 
 function main() {
 	local _release="v2.0.0-stable.tar.gz"

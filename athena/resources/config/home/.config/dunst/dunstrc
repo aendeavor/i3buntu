@@ -2,7 +2,7 @@
 
 # DUNTRC for Dunst 1.5.0 (2020-07-23) and later.
 # This version is not yet in Ubuntu 20.04 LTS
-# stable upstream, so the RGBA colors will not
+# stable upstream, so the RGBA colors would not
 # work properly.
 
 # Built from source from release 1.5.0.
@@ -12,8 +12,8 @@
 # <https://dunst-project.org/documentation/>
 
 [global]
-	geometry = "300+1600+48"
-	frame_color = "#FFFFFF00"
+	geometry = "300x0-20+48"
+	frame_color = "#EEB55B00"
 	corner_radius = 7
 	shrink = false
 	follow = none
@@ -28,7 +28,7 @@
 	ignore_newline = false
 
 	transparency = 0
-	separator_color = "#FFFFFF00"
+	separator_color = "#EEB55B00"
 
 	idle_threshold = 0
 	show_age_threshold = -1
@@ -46,16 +46,16 @@
 	browser = "/usr/bin/firefox"
 
 [urgency_low]
-    background = "#FFFFFF00"
+    background = "#EEB55B00"
     foreground = "#FFFFFF"
     timeout = 5
 
 [urgency_normal]
-    background = "#FFFFFF00"
+    background = "#EEB55B00"
     foreground = "#FFFFFF"
     timeout = 7
 
 [urgency_critical]
-    background = "#FFFFFF00"
+    background = "#EEB55B00"
     foreground = "#FFFFFF"
     timeout = 9
