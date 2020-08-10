@@ -42,17 +42,15 @@ pub fn install_base() -> PhaseResult
 		Err(_) => return dpo(121, cp, TPC2)
 	};
 	
-	let _json_tree: Value = match serde_json::from_str(&json) {
+	let json_tree: Value = match serde_json::from_str(&json) {
 		Ok(json_tree) => json_tree,
 		Err(_) => return dpo(122, cp, TPC2)
 	};
 	
-	// let error_code = match recurse_json(&json_tree, &apt_install) {
-	// 	Ok(_) => 0,
-	// 	Err(code) => code
-	// };
-	
-	let error_code = 0;
+	let error_code = match recurse_json(&json_tree, &apt_install) {
+		Ok(_) => 0,
+		Err(code) => code
+	};
 	
 	dpo(error_code, cp, TPC2)
 }

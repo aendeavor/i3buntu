@@ -7,6 +7,7 @@ Server deployments are, obviously, quite different from desktop installations. A
 - Bash configuration
 - (Neo)Vim configuration
 - Docker
+- Further packages
 
 ### Bash v5
 
@@ -21,7 +22,7 @@ sudo apt-get install neofetch
 Install NeoVim with
 
 ``` BASH
-sudo apt-get install -y neovim
+sudo apt-get install -y neovim python3-dev
 ```
 
 Then, download the plugin-manager [_VimPlug_](https://github.com/junegunn/vim-plug) with
@@ -40,8 +41,17 @@ You can install Docker with
 sudo apt-get install docker.io
 ```
 
-Docker Compose can be installed with the `rd.sh` script in the [`scripts`](../scripts) directory by executing
+Docker Compose can be installed with the `rd.sh` script in the [`../scripts/`](../scripts) directory by executing
 
 ``` BASH
 ./rd.sh --docker-compose
 ```
+
+### Further packages
+
+Useful packages include
+
+- git
+- libaio1
+- cmake
+- build-essential

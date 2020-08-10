@@ -44,7 +44,7 @@ function check () {
 }
 
 function build() {
-	local _tag=':nightly-2020-05-07'
+	local _tag=':nightly-2020-07-12'
 	local rust_musl_builder
 	rust_musl_builder="docker run --rm -it -v $(pwd):/home/rust/src ekidd/rust-musl-builder${_tag}"
 

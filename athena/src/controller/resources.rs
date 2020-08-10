@@ -136,13 +136,13 @@ pub fn apt_install(program: &str) -> Result<(), u8>
 	console::print_sub_phase_description("     :: Installing ".to_owned() + program);
 	
 	match Command::new("sudo")
-		.arg("apt")
-		.arg("show")
-		// .arg("--yes")
-		// .arg("--allow-unauthenticated")
-		// .arg("--allow-downgrades")
-		// .arg("--allow-remove-essential")
-		// .arg("--allow-change-held-packages")
+		.arg("apt-get")
+		.arg("install")
+		.arg("--yes")
+		.arg("--allow-unauthenticated")
+		.arg("--allow-downgrades")
+		.arg("--allow-remove-essential")
+		.arg("--allow-change-held-packages")
 		.arg(program)
 		.output()
 	{
@@ -162,22 +162,20 @@ pub fn apt_install(program: &str) -> Result<(), u8>
 	}
 }
 
-pub fn vsc_extension_install(_extension: &str) -> Result<(), u8>
+pub fn vsc_extension_install(extension: &str) -> Result<(), u8>
 {
-	return Ok(());
-	
-	// match Command::new("code")
-	// 	.arg("--install-extension")
-	// 	.arg(extension)
-	// 	.output() {
-	// 	Ok(output) => {
-	// 		match output.status.success() {
-	// 			true => Ok(()),
-	// 			false => Err(22)
-	// 		}
-	// 	},
-	// 	Err(_) => Err(23)
-	// }
+	match Command::new("code")
+		.arg("--install-extension")
+		.arg(extension)
+		.output() {
+		Ok(output) => {
+			match output.status.success() {
+				true => Ok(()),
+				false => Err(22)
+			}
+		},
+		Err(_) => Err(23)
+	}
 }
 
 pub fn get_home() -> String
