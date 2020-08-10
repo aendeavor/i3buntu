@@ -267,11 +267,12 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
-# autostarts 
-exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
-exec nm-applet &
-exec urxvtd -q -o -f &
-exec picom --xrender-sync-fence --experimental-backends &
+########################################################### Autostart
 exec dunst &
+exec nm-applet &
 exec owncloud &
+exec picom --xrender-sync-fence --experimental-backends &
+exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+exec redshift &
 exec_always ssh-add ~/.ssh/* >> /dev/null &
+exec urxvtd -q -o -f &

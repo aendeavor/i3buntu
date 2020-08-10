@@ -2,7 +2,7 @@
 
 ## APOLLO
 
-![version](https://img.shields.io/badge/version-v2.0.0-1A1D23.svg) ![stability](https://img.shields.io/badge/stability-unstable-FBB444.svg) ![athena](https://img.shields.io/badge/athena-v0.1.0-2B303B.svg) ![hermes](https://img.shields.io/badge/hermes-v0.1.0-434c5e.svg) ![version](https://img.shields.io/badge/kyrene-v0.1.0-5E6A82.svg)
+![version](https://img.shields.io/badge/version-v2.0.0-1A1D23.svg) ![stability](https://img.shields.io/badge/stability-unstable-FBB444.svg) ![athena](https://img.shields.io/badge/athena-v0.2.2-2B303B.svg) ![hermes](https://img.shields.io/badge/hermes-v0.1.2-434c5e.svg) ![version](https://img.shields.io/badge/kyrene-v0.3.6-5E6A82.svg)
 
 [//]: # (Main README in /)
 [//]: # (version 0.2.0)

@@ -12,38 +12,38 @@
 # <https://dunst-project.org/documentation/>
 
 [global]
-  geometry = "300+1600+48"
-	#frame_color = "#FFFFFF00"
-  corner_radius = 7
-  shrink = false
-  follow = none
-  monitor = 0
+	geometry = "300+1600+48"
+	frame_color = "#FFFFFF00"
+	corner_radius = 7
+	shrink = false
+	follow = none
+	monitor = 0
+
+	format = "%s\n%b"
+	font = Roboto Medium 11
+	padding = 30
+	line_height = 5
+	alignment = center
+	word_wrap = true
+	ignore_newline = false
+
+	transparency = 0
+	separator_color = "#FFFFFF00"
+
+	idle_threshold = 0
+	show_age_threshold = -1
   
-  format = "%s\n%b"
-  font = Roboto Medium 11
-  padding = 30
-  line_height = 5
-  alignment = center
-  word_wrap = true
-  ignore_newline = false
-  
-  transparency = 0
-  separator_color = "#FFFFFF00"
-  
-  idle_threshold = 0
-  show_age_threshold = -1
-  
-  sticky_history = false
-  allow_markup = true
-  markup = full
-  indicate_hidden = false
-  sort = yes
-  show_indicators = true
-  stack_duplicates = false
-  hide_duplicates_count = true
-  startup_notification = false
-  
-  browser = "/usr/bin/firefox"
+	sticky_history = false
+	allow_markup = true
+	markup = full
+	indicate_hidden = false
+	sort = yes
+	show_indicators = true
+	stack_duplicates = false
+	hide_duplicates_count = true
+	startup_notification = false
+
+	browser = "/usr/bin/firefox"
 
 [urgency_low]
     background = "#FFFFFF00"

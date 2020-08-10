@@ -6,20 +6,20 @@
 # version	0.1.2 unstable
 
 function main() {
-	local _release="v2.0.0-stable"
-	if [[ -e "${_release}.zip" ]]; then
-		printf "There is already a file named '%s.zip' in this directory. Aborting.\n" "${_release}"
+	local _release="v2.0.0-stable.tar.gz"
+	if [[ -e "${_release}" ]]; then
+		printf "There is already a file named '%s' in this directory. Aborting.\n" "${_release}"
 		exit 10
 	fi
 
-	if ! wget "https://github.com/aendeavor/i3buntu/archive/${_release}.tar.gz" &>/dev/null
+	if ! wget "https://github.com/aendeavor/i3buntu/archive/${_release}" &>/dev/null
 	then
 		printf 'Could not download repository. WGET exit code was %s. Aborting.\n' "$?"
 		exit 100
 	fi
 
-	unzip -u "${_release}.zip" &>/dev/null
-	cd "apollo-${_release}" || exit 200
+	tar -xzf "${_release}" &>/dev/null
+	cd "i3buntu-${_release}" || exit 200
 	make install < /dev/tty
 }
 
