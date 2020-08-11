@@ -2,7 +2,7 @@
 
 ## Installation
 
-![version](https://img.shields.io/badge/version-v2.0.0-1A1D23.svg) ![stability](https://img.shields.io/badge/stability-unstable-FBB444.svg) ![init](https://img.shields.io/badge/init-v0.1.4-2B303B.svg)
+![version](https://img.shields.io/badge/version-v2.0.0-1A1D23.svg) ![stability](https://img.shields.io/badge/stability-unstable-FBB444.svg) ![init](https://img.shields.io/badge/init-v0.1.6-2B303B.svg)
 
 [//]: # (Explains the installation process of APOLLO)
 [//]: # (version 0.1.4)

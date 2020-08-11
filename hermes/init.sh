@@ -3,24 +3,35 @@
 # Downloads APOLLO and starts installation.
 
 # author	Georg Lauterbach
-# version	0.1.5 unstable
+# version	0.1.6 unstable
 
 set -eE
-trap 'echo "ERROR" ; exit 200' ERR
-trap 'echo "INTERRUPT" ; exit 220' SIGINT SIGTERM
+trap 'echo "  :: ERROR" ; exit 200' ERR
+trap 'echo "  :: INTERRUPT" ; exit 220' SIGINT
+trap 'echo "  :: TERMINATION" ; exit 230' SIGTERM
 
 function main() {
-	local _release="v2.0.0-stable"
-	local _archive="${_release}.tar.gz"
+	local _release="2.0.0-stable"
+	local _archive="v${_release}.tar.gz"
 
 	if [[ -e "${_archive}" ]]; then
-		printf "There is already a file named '%s' in this directory. Aborting.\n" "${_archive}"
+		printf '%s %s %s\n'\
+			'There is already a file named'\
+			"${_archive}"\
+			'in this directory. Aborting.'
 		exit 10
 	fi
 
-	if ! wget "https://github.com/aendeavor/i3buntu/archive/${_archive}" &>/dev/null
+	local _gh='https://github.com/'
+	local _user="${_gh}aendeavor/i3buntu/archive"
+
+	if ! wget "${_user}/${_archive}" &>/dev/null
 	then
-		printf 'Could not download repository. WGET exit code was %s. Aborting.\n' "$?"
+		printf '%s %s %s %s\n'\
+			'Could not download repository.'\
+			'WGET exit code was'\
+			"$?"\
+			'. Aborting.'
 		exit 100
 	fi
 
@@ -31,4 +42,4 @@ function main() {
 	sudo -E ./apollo < /dev/tty
 }
 
-main "$@" || exit 1
+main || exit 1
