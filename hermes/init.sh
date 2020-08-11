@@ -3,7 +3,7 @@
 # Downloads APOLLO and starts installation.
 
 # author	Georg Lauterbach
-# version	0.1.6 unstable
+# version	0.1.7 stable
 
 set -eE
 trap 'echo "  :: ERROR" ; exit 200' ERR
@@ -14,10 +14,13 @@ function main() {
 	local _release="2.0.0-stable"
 	local _archive="v${_release}.tar.gz"
 
-	if [[ -e "${_archive}" ]]; then
-		printf '%s %s %s\n'\
+	if [[ -e "${_archive}" ]] || [[ -d "i3buntu-${_release}" ]]
+	then
+		printf '%s %s %s %s %s\n'\
 			'There is already a file named'\
 			"${_archive}"\
+			"or a directory called"\
+			"${_release}"\
 			'in this directory. Aborting.'
 		exit 10
 	fi
@@ -27,11 +30,9 @@ function main() {
 
 	if ! wget "${_user}/${_archive}" &>/dev/null
 	then
-		printf '%s %s %s %s\n'\
+		printf '%s %s\n'\
 			'Could not download repository.'\
-			'WGET exit code was'\
-			"$?"\
-			'. Aborting.'
+			'Aborting.'
 		exit 100
 	fi
 

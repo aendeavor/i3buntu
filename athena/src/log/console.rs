@@ -11,7 +11,7 @@ use colored::Colorize;
 pub fn welcome(app_version: &str)
 {
 	println!("\nWelcome to {}\n\nLIB {}\nAPP {}\n\nWe are going to walk you through a few steps\nto complete the setup. These include:\n\n  1. \
-	Initialization\n  2. Installation of Software\n  3. Deployment of Configuration Files\n  4. Cleanup and Post-Configuration\n\nAs we need sup\
+	Initialization\n  2. Installation of Software\n  3. Deployment of Configuration Files\n\nAs we need sup\
 	eruser privileges to install\nprograms and to reach some locations, please\ninput your password if prompted.\n",
 	         "APOLLO".bold().magenta(),
 	         crate::VERSION,
@@ -179,8 +179,8 @@ pub mod stage_one {
 	}
 	
 	/// Translates the given boolean into a string representation.
-	fn tb(val: bool) -> char {
-		if val { '✔' } else { '✘' }
+	fn tb(val: bool) -> &'static str {
+		if val { "yes" } else { "no" }
 	}
 }
 

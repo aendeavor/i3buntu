@@ -35,8 +35,13 @@ It is recommended to be familiar with a Linux environment and the command line. 
 
 #### Security
 
-If you are concerned about piping `curl` into `bash`, just download the script with curl, check and execute it later. The SHA512 sum is `005605de16977627954b5445f7fa7eec6f4f040a7b427b4c947f432e6f450ade6b58498b4390dfb92db3a57e0f9a48d608cdcb0661b9f8320d0b9d0f9ac8738c  init.sh`.
+If you are concerned about piping `curl` into `bash`, just download the script with curl, check and execute it later. The SHA512 sum is
+`4c0938af0968571c6714c892fa74424a41e2b0f6a63ba6503faccf8d50e6b9289906236ccef364353a1a6359db5e1f09dcbf5b66532d8d92fddb28ca63d4fad2  init.sh`.
 
-#### Miscellaneous Scripts
+#### Scripts
 
-Found under `athena/scripts/`, a few leftover script reside to ease the pain of installing certain software by hand. This includes [`exa`](https://the.exa.website/), [`i3-rounded-corners`](https://github.com/terroo/i3-radius) and a fonts installer.
+Found under `athena/scripts/`, a few leftover script reside to ease the pain of installing certain software by hand. These include [`exa`](https://the.exa.website/) or [`ycm`](https://github.com/ycm-core/YouCompleteMe).
+
+#### GDM3 vs LightDM
+
+***APOLLO*** installs [LightDM](https://wiki.ubuntuusers.de/LightDM/) as an alternative to [GDM3](https://wiki.ubuntuusers.de/GDM/). When you have GDM3 installed and do not wish to remove it, you need to press "Return" when a package install LightDM directly or as a dependency. If you don't, the process will just not continue.

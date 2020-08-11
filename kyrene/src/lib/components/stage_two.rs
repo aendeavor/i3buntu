@@ -90,19 +90,19 @@ pub fn install_choices(choices: &Choices) -> PhaseResult
 			.output()
 		{
 			Ok(output) => {
-				match output.status.success() {
-					true => console::print_sub_phase_description("  ✔\n".green()),
-					false => {
-						println!("{:?}", output);
-						console::print_sub_phase_description("  ✘\n".yellow());
-						exit_code = 26;
-					}
+				if output.status.success() {
+					console::print_sub_phase_description("  ✔\n".green());
+					vsc_ext();
+				} else {
+					exit_code = 26;
+					console::print_sub_phase_description("  ✘\n".yellow());
 				}
 			},
-			Err(_) => exit_code = 27
+			Err(_) => {
+				console::print_sub_phase_description("  ✘\n".yellow());
+				exit_code = 27;
+			}
 		}
-
-		vsc_ext();
 	}
 	
 	if choices.dock {
