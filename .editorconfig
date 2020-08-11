@@ -1,17 +1,15 @@
-# EditorConfig
-# https://EditorConfig.org
+# https://editorconfig.org
 
-# top-most EditorConfig file
+# Top-Most EditorConfig File
 root = true
 
-# Unix-style newlines with a newline ending every file
+# Unix-Style Newlines & Newline Ending Every File
+# UTF-8 Charset & Default Indent Style and Length
 [*]
 end_of_line = lf
 insert_final_newline = true
 
-# Set default charset
 charset = utf-8
 
-# Indent style and size
 indent_style = tab
 indent_size = 4
