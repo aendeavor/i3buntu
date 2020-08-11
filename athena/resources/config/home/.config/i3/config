@@ -271,7 +271,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i
 exec dunst &
 exec nm-applet &
 exec owncloud &
-exec compton --xrender-sync-fence
+exec compton --xrender-sync-fence &
 # exec picom --xrender-sync-fence --experimental-backends &
 exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 exec redshift &

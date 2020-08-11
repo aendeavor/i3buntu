@@ -19,18 +19,25 @@ function rust()
 	else
 		exit 1
 	fi
+
+	return 0
 }
 
 function dockerc()
 {
-  	local _compose_version="1.26.0"
+  	local _compose_version="1.26.2"
 	sudo curl\
   		-L "https://github.com/docker/compose/releases/download/${_compose_version}/docker-compose-$(uname -s)-$(uname -m)"\
     	-o /usr/local/bin/docker-compose
 	sudo chmod +x /usr/local/bin/docker-compose
+	
+	sudo curl -L https://raw.githubusercontent.com/docker/compose/1.26.2/contrib/completion/bash/docker-compose -o /etc/bash_completion.d/docker-compose
+
 	sudo curl\
   		-L "https://raw.githubusercontent.com/docker/compose/${_compose_version}/contrib/completion/bash/docker-compose"\
-    	-o /etc/bash_completion.d/docker-compose
+    	-o "/etc/bash_completion.d/docker-compose"
+	
+	return 0
 }
 
 function main()
@@ -42,3 +49,4 @@ function main()
 }
 
 main "$@" || exit 1
+exit 0

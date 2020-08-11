@@ -43,7 +43,7 @@ font:
   # The normal (roman) font face to use.
   # Style can be specified to pick a specific face.
   normal:
-    family: "Fura Code NF"
+    family: "Fura Mono NF"
     style: "Regular"
 
   # The bold font face

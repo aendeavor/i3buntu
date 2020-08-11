@@ -38,6 +38,7 @@ function d()
 
 function i3r()
 {
+	cd /tmp || exit 1
 	git clone ${GH}/terroo/i3-radius.git
 	cd i3-radius || exit 1
 
@@ -46,6 +47,7 @@ function i3r()
 
 function main()
 {
+	sudo apt-get -y remove dunst compton
 	i3r ; d ; p
 }
 

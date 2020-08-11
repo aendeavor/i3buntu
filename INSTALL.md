@@ -25,7 +25,9 @@ As of now, the monitor/display configuration is not done automatically, as this 
 
 #### Handcrafted Finish
 
-As _Ubuntu 20.04 LTS_ only ships a stable package upstream, we will need to build some packages from source. All dependencies have already been installed. All that is left to do is executing `i3rdp.sh` in the `athena/scripts/` directory.
+As _Ubuntu 20.04 LTS_ only ships a stable package upstream, we will need to build some packages from source. All dependencies have already been installed. What is left to do is executing `i3rdp.sh` in the `athena/scripts/` directory.
+
+Thereafter, edit i3's config under `~/.config/i3/config` to use Picom and not Compton. At the bottom, the autostart applications can be edited - adjust them. You can also play with Picom's configuration located under `~/.config/picom.conf`.
 
 ### Miscellaneous
 

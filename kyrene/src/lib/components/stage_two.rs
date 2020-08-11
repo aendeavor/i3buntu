@@ -82,6 +82,7 @@ pub fn install_choices(choices: &Choices) -> PhaseResult
 	if choices.vsc {
 		console::print_sub_phase_description("     :: Installing Visual Studio Code");
 		
+		let mut code_success = false;
 		match Command::new("sudo")
 			.arg("snap")
 			.arg("install")
@@ -92,7 +93,7 @@ pub fn install_choices(choices: &Choices) -> PhaseResult
 			Ok(output) => {
 				if output.status.success() {
 					console::print_sub_phase_description("  ✔\n".green());
-					vsc_ext();
+					code_success = true;
 				} else {
 					exit_code = 26;
 					console::print_sub_phase_description("  ✘\n".yellow());
@@ -103,6 +104,8 @@ pub fn install_choices(choices: &Choices) -> PhaseResult
 				exit_code = 27;
 			}
 		}
+
+		if code_success { vsc_ext(); }
 	}
 	
 	if choices.dock {
