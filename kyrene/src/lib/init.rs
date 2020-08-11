@@ -79,10 +79,6 @@ pub fn stage_two(stage_one_data: StageOneData) -> StageResult<ExitCode>
 		}
 	}
 	
-	if stage_one_data.choices.vsc {
-		drive_phase(stage_two::vsc_ext, &mut exit_code)?;
-	}
-	
 	drive_phase(stage_two::cleanup, &mut exit_code)?;
 	
 	eval_success(exit_code)

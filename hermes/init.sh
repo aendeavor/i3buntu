@@ -3,7 +3,7 @@
 # Downloads APOLLO and starts installation.
 
 # author	Georg Lauterbach
-# version	0.1.3 unstable
+# version	0.1.4 unstable
 
 function main() {
 	local _release="v2.0.0-stable.tar.gz"
@@ -20,7 +20,9 @@ function main() {
 
 	tar -xzf "${_release}" &>/dev/null
 	cd "i3buntu-${_release}" || exit 200
-	make install < /dev/tty
+
+	# shellcheck disable=SC2024
+	sudo -E ./apollo < /dev/tty
 }
 
-main || exit 1
+main "$@" || exit 1

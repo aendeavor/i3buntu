@@ -94,22 +94,25 @@ pub fn install_choices(choices: &Choices) -> PhaseResult
 					true => console::print_sub_phase_description("  ✔\n".green()),
 					false => {
 						println!("{:?}", output);
-						console::print_sub_phase_description("  ✘\n".red());
+						console::print_sub_phase_description("  ✘\n".yellow());
 						exit_code = 26;
 					}
 				}
 			},
 			Err(_) => exit_code = 27
 		}
+
+		vsc_ext();
 	}
 	
 	if choices.dock {
-		console::print_sub_phase_description("     :: Installing Docker Compose");
 		let mut local_ec: u8 = 0;
 		
 		if let Err(_) = apt_install("docker.io") {
 			local_ec = 1;
 		}
+
+		console::print_sub_phase_description("     :: Installing Docker Compose");
 		
 		if let Ok(_) = Command::new("sudo")
 			.arg("./athena/scripts/rd.sh")
@@ -120,7 +123,7 @@ pub fn install_choices(choices: &Choices) -> PhaseResult
 		}
 		
 		if local_ec != 0 {
-			console::print_sub_phase_description("  ✘\n".red());
+			console::print_sub_phase_description("  ✘\n".yellow());
 		} else {
 			console::print_sub_phase_description("  ✔\n".green());
 		}
@@ -133,7 +136,7 @@ pub fn install_choices(choices: &Choices) -> PhaseResult
 			.arg("--rust")
 			.output()
 		{
-			console::print_sub_phase_description("  ✘\n".red());
+			console::print_sub_phase_description("  ✘\n".yellow());
 		} else {
 			console::print_sub_phase_description("  ✔\n".green());
 		}
@@ -149,24 +152,39 @@ pub fn install_choices(choices: &Choices) -> PhaseResult
 ///
 /// Stage: 2,
 /// Phase: 2+ (hidden) / TPC1
-pub fn vsc_ext() -> PhaseResult
+pub fn vsc_ext()
 {
 	let cp = 2;
 	let mut exit_code = 0;
+
+	console::print_sub_phase_description("     :: Installing VS Code extensions");
 	
-	let path = controller::get_resource_path(
+	let path = match controller::get_resource_path(
 		"athena/resources/packages/vsc_extensions.json",
 		cp,
-		TPC2)?;
+		TPC2)
+	{
+		Ok(resource_path) => resource_path,
+		Err(_) => {
+			console::print_sub_phase_description("  ✘\n".yellow());
+			return
+		}
+	};
 	
 	let json = match fs::read_to_string(path) {
 		Ok(json_str) => json_str,
-		Err(_) => return dpo(27, cp, TPC2)
+		Err(_) => {
+			console::print_sub_phase_description("  ✘\n".yellow());
+			return
+		}
 	};
 	
 	let extension_tree: Value = match serde_json::from_str(&json) {
 		Ok(json_tree) => json_tree,
-		Err(_) => return dpo(28, cp, TPC2)
+		Err(_) => {
+			console::print_sub_phase_description("  ✘\n".yellow());
+			return
+		}
 	};
 	
 	if let Err(code) = recurse_json(
@@ -176,7 +194,11 @@ pub fn vsc_ext() -> PhaseResult
 		exit_code = code;
 	}
 	
-	dpo(exit_code, cp, TPC2)
+	if exit_code == 0 {
+		console::print_sub_phase_description("  ✔\n".green());
+	} else {
+		console::print_sub_phase_description("  ✘\n".yellow());
+	}
 }
 
 /// # Cleanup

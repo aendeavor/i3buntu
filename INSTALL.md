@@ -2,29 +2,21 @@
 
 ## Installation
 
-![version](https://img.shields.io/badge/version-v2.0.0-1A1D23.svg) ![stability](https://img.shields.io/badge/stability-unstable-FBB444.svg) ![init](https://img.shields.io/badge/init-v0.1.3-2B303B.svg)
+![version](https://img.shields.io/badge/version-v2.0.0-1A1D23.svg) ![stability](https://img.shields.io/badge/stability-unstable-FBB444.svg) ![init](https://img.shields.io/badge/init-v0.1.4-2B303B.svg)
 
 [//]: # (Explains the installation process of APOLLO)
-[//]: # (version 0.1.2)
+[//]: # (version 0.1.4)
 
 ### Instructions
 
-To get things started, get the [_Ubuntu 20.04 LTS_ Server ISO](https://ubuntu.com/download/server) and install it. Ensure that `wget` and `cmake` are installed. `rsync` ought to work too. It is recommended to update your system beforehand.
+To get things started, get the [_Ubuntu 20.04 LTS_ Server ISO](https://ubuntu.com/download/server) and install it. ***APOLLO*** depends on `curl`, `wget` and `rsync`, all of which are already be installed. To start ***APOLLO***, use
 
 ``` BASH
-# obligatory
-sudo apt-get update
-sudo apt-get -y upgrade
-sudo apt-get -y dist-upgrade
+# obligatory update
+sudo apt-get update && sudo apt-get -y upgrade
 
-# mandatory
-sudo apt-get install -y cmake
-```
-
-You can now go ahead and start ***APOLLO***.
-
-``` BASH
-curl -L --proto '=https' --tlsv1.2 -sSf apollo.itbsd.com | bash
+# start APOLLO
+curl --tlsv1.2 -sSfL https://apollo.itbsd.com | bash
 ```
 
 #### Leftover Configuration

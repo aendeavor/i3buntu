@@ -32,7 +32,7 @@ pub fn copy_configurations() -> PhaseResult
 	let home = get_home();
 	
 	drive_sync(
-		"     :: Syncing over ${{HOME}}",
+		"     :: Syncing over ${HOME}",
 		"home/",
 		&home,
 		false,
@@ -75,7 +75,7 @@ pub fn copy_configurations() -> PhaseResult
 	icon_dir.push_str("/.local/share/icons/");
 
 	let mut color_theme = home.clone();
-	color_theme.push_str("/.theme/whiteSur.tar.xz");
+	color_theme.push_str("/.themes/whiteSur.tar.xz");
 	
 	let mut icon_theme = home.clone();
 	icon_theme.push_str("/.local/share/icons/whiteSur.tar.xz");

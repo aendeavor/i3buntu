@@ -30,7 +30,7 @@ pub fn get_resource_path(to_append: &str, cs: u8, sct: u8) -> Result<String, Pha
 /// # File copy with `rsync`
 ///
 /// Copies files by executing `rsync`.
-fn sync_files<S, T>(from: S, to: &T, sudo: bool) -> Option<u8>
+fn sync_files<S, T>(from: S, to: &T, sudo: bool, log: bool) -> Option<u8>
 	where S: AsRef<OsStr>,
 	      T: AsRef<OsStr> + ?Sized
 {
@@ -48,10 +48,10 @@ fn sync_files<S, T>(from: S, to: &T, sudo: bool) -> Option<u8>
 		.arg(to)
 		.output()
 	{
-		console::print_sub_phase_description("  ✘\n".yellow());
+		if log { console::print_sub_phase_description("  ✘\n".yellow()); }
 		Some(30)
 	} else {
-		console::print_sub_phase_description("  ✔\n".green());
+		if log { console::print_sub_phase_description("  ✔\n".green()); }
 		None
 	};
 }
@@ -78,7 +78,7 @@ pub fn drive_sync<R, T>(
 		.output()
 	{
 		// current backup solution
-		sync_files(to, "/backup/", true);
+		sync_files(to, "/backup/", true, false);
 	} else {
 		*exit_code = 70;
 	}
@@ -87,7 +87,8 @@ pub fn drive_sync<R, T>(
 	if let Some(ec) = sync_files(
 		&super::get_resource_path(&base, 1, 3)?,
 		to,
-		sudo)
+		sudo,
+		true)
 	{
 		if *exit_code == 0 { *exit_code = ec; }
 	}

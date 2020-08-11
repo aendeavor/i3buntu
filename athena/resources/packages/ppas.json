@@ -5,6 +5,7 @@
 	],
 	"optional" : [
 		"ppa:git-core/ppa",
-		"ppa:ubuntu-mozilla-security/ppa"
+		"ppa:ubuntu-mozilla-security/ppa",
+		"ppa:sebastian-stenzel/cryptomator"
 	]
 }

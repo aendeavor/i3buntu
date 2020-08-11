@@ -13,7 +13,7 @@ function rust()
 
 			local COMPONENTS=( rust-docs rust-analysis rust-src rustfmt rls clippy )
 			for COMPONENT in "${COMPONENTS[@]}"; do
-				&>>/dev/null rustup component add "$COMPONENT"
+				rustup component add "$COMPONENT" &>/dev/null
 			done
 		fi
 	else
@@ -23,14 +23,14 @@ function rust()
 
 function dockerc()
 {
-  local _compose_version="1.26.0"
+  	local _compose_version="1.26.0"
 	sudo curl\
-  	-L "https://github.com/docker/compose/releases/download/${_compose_version}/docker-compose-$(uname -s)-$(uname -m)"\
-    -o /usr/local/bin/docker-compose
+  		-L "https://github.com/docker/compose/releases/download/${_compose_version}/docker-compose-$(uname -s)-$(uname -m)"\
+    	-o /usr/local/bin/docker-compose
 	sudo chmod +x /usr/local/bin/docker-compose
 	sudo curl\
-  	-L https://raw.githubusercontent.com/docker/compose/${_compose_version}/contrib/completion/bash/docker-compose\
-    -o /etc/bash_completion.d/docker-compose
+  		-L "https://raw.githubusercontent.com/docker/compose/${_compose_version}/contrib/completion/bash/docker-compose"\
+    	-o /etc/bash_completion.d/docker-compose
 }
 
 function main()
