@@ -100,7 +100,31 @@ pub fn copy_configurations() -> PhaseResult
 		exit_code = 31;
 	};
 	
-	if exit_code == 30 || exit_code == 31 {
+	if exit_code != 0 {
+		console::print_sub_phase_description("  ✘\n".yellow());
+	} else {
+		console::print_sub_phase_description("  ✔\n".green());
+	}
+
+	exit_code = 0;
+
+	console::print_sub_phase_description("     :: Acquiring Vim-Plug");
+
+	let mut vim_plug_dir = home.clone();
+	vim_plug_dir.push_str("/.local/share/nvim/site/autoload/plug.vim");
+
+	if let Err(_) = Command::new("curl")
+		.args(&[
+			"-fLo",
+			vim_plug_dir.as_str(),
+			"--create-dirs",
+			"https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"])
+		.output()
+	{
+		exit_code = 33;
+	};
+
+	if exit_code != 0 {
 		console::print_sub_phase_description("  ✘\n".yellow());
 	} else {
 		console::print_sub_phase_description("  ✔\n".green());

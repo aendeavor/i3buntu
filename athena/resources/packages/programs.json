@@ -67,9 +67,11 @@
 	"net" : [
 		"net-tools",
 		"network-manager",
+		"network-manager-applet",
 		"network-manager-openvpn",
 		"network-manager-ssh",
-		"network-manager-vpnc"
+		"network-manager-vpnc",
+		"nmap"
 	],
 	"shell" : [
 		"alacritty",
