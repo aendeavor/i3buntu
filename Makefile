@@ -52,7 +52,7 @@ kyrene: athena
 # ? ––––––––––––––––––––––––––––––––––––––––––––– Install
 
 install: ./apollo
-	-@ sudo -E ./apollo
+	-@ ./apollo
 
 # ? ––––––––––––––––––––––––––––––––––––––––––––– Includes
 

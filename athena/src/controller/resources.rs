@@ -48,10 +48,10 @@ fn sync_files<S, T>(from: S, to: &T, sudo: bool, log: bool) -> Option<u8>
 		.arg(to)
 		.output()
 	{
-		if log { console::print_sub_phase_description("  ✘\n".yellow()); }
+		if log { console::pspd("  ✘\n".yellow()); }
 		Some(30)
 	} else {
-		if log { console::print_sub_phase_description("  ✔\n".green()); }
+		if log { console::pspd("  ✔\n".green()); }
 		None
 	};
 }
@@ -68,7 +68,7 @@ pub fn drive_sync<R, T>(
 	where R: std::fmt::Display,
 	      T: AsRef<OsStr> + ?Sized
 {
-	console::print_sub_phase_description(description);
+	console::pspd(description);
 	
 	let mut base = String::from("athena/resources/config/");
 	base.push_str(from);
@@ -138,7 +138,7 @@ pub fn recurse_json<T>(value: &serde_json::Value, subroutine: &T) -> Result<(), 
 ///
 pub fn apt_install(program: &str) -> Result<(), u8>
 {
-	console::print_sub_phase_description("     :: Installing ".to_owned() + program);
+	console::pspd("     :: Installing ".to_owned() + program);
 	
 	match Command::new("sudo")
 		.arg("apt-get")
@@ -148,17 +148,18 @@ pub fn apt_install(program: &str) -> Result<(), u8>
 		.arg("--allow-downgrades")
 		.arg("--allow-remove-essential")
 		.arg("--allow-change-held-packages")
+		.arg("--no-install-recommends")
 		.arg(program)
 		.output()
 	{
 		Ok(output) => {
 			match output.status.success() {
 				true => {
-					console::print_sub_phase_description("  ✔\n".green());
+					console::pspd("  ✔\n".green());
 					Ok(())
 				},
 				false => {
-					console::print_sub_phase_description("  ✘\n".red());
+					console::pspd("  ✘\n".red());
 					Err(20)
 				}
 			}

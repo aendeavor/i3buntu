@@ -66,7 +66,7 @@ pub fn copy_configurations() -> PhaseResult
 		true,
 		&mut exit_code)?;
 	
-	console::print_sub_phase_description("     :: Unpacking themes");
+	console::pspd("     :: Unpacking themes");
 	
 	let mut theme_dir = home.clone();
 	theme_dir.push_str("/.themes/");
@@ -101,14 +101,14 @@ pub fn copy_configurations() -> PhaseResult
 	};
 	
 	if exit_code != 0 {
-		console::print_sub_phase_description("  ✘\n".yellow());
+		console::pspd("  ✘\n".yellow());
 	} else {
-		console::print_sub_phase_description("  ✔\n".green());
+		console::pspd("  ✔\n".green());
 	}
 
 	exit_code = 0;
 
-	console::print_sub_phase_description("     :: Acquiring Vim-Plug");
+	console::pspd("     :: Acquiring Vim-Plug");
 
 	let mut vim_plug_dir = home.clone();
 	vim_plug_dir.push_str("/.local/share/nvim/site/autoload/plug.vim");
@@ -125,9 +125,9 @@ pub fn copy_configurations() -> PhaseResult
 	};
 
 	if exit_code != 0 {
-		console::print_sub_phase_description("  ✘\n".yellow());
+		console::pspd("  ✘\n".yellow());
 	} else {
-		console::print_sub_phase_description("  ✔\n".green());
+		console::pspd("  ✔\n".green());
 	}
 	
 	dpo(exit_code, cp, TPC3)

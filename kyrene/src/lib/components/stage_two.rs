@@ -47,7 +47,10 @@ pub fn install_base() -> PhaseResult
 		Err(_) => return dpo(122, cp, TPC2)
 	};
 	
-	let error_code = match recurse_json(&json_tree, &apt_install) {
+	let error_code = match recurse_json(
+		&json_tree,
+		&apt_install)
+	{
 		Ok(_) => 0,
 		Err(code) => code
 	};
@@ -80,9 +83,10 @@ pub fn install_choices(choices: &Choices) -> PhaseResult
 	}
 	
 	if choices.vsc {
-		console::print_sub_phase_description("     :: Installing Visual Studio Code");
+		console::pspd("     :: Installing Visual Studio Code");
 		
 		let mut code_success = false;
+
 		match Command::new("sudo")
 			.arg("snap")
 			.arg("install")
@@ -92,20 +96,20 @@ pub fn install_choices(choices: &Choices) -> PhaseResult
 		{
 			Ok(output) => {
 				if output.status.success() {
-					console::print_sub_phase_description("  ✔\n".green());
+					console::pspd("  ✔\n".green());
 					code_success = true;
 				} else {
 					exit_code = 26;
-					console::print_sub_phase_description("  ✘\n".yellow());
+					console::pspd("  ✘\n".yellow());
 				}
 			},
 			Err(_) => {
-				console::print_sub_phase_description("  ✘\n".yellow());
+				console::pspd("  ✘\n".yellow());
 				exit_code = 27;
 			}
 		}
 
-		if code_success { vsc_ext(); }
+		if code_success { vsc_ext(&mut exit_code); }
 	}
 	
 	if choices.dock {
@@ -115,9 +119,9 @@ pub fn install_choices(choices: &Choices) -> PhaseResult
 			local_ec = 1;
 		}
 
-		console::print_sub_phase_description("     :: Installing Docker Compose");
+		console::pspd("     :: Installing Docker Compose");
 		
-		if let Ok(_) = Command::new("sudo")
+		if let Err(_) = Command::new("sudo")
 			.arg("./athena/scripts/rd.sh")
 			.arg("--docker-compose")
 			.output()
@@ -126,22 +130,24 @@ pub fn install_choices(choices: &Choices) -> PhaseResult
 		}
 		
 		if local_ec != 0 {
-			console::print_sub_phase_description("  ✘\n".yellow());
+			console::pspd("  ✘\n".yellow());
+			exit_code = 28
 		} else {
-			console::print_sub_phase_description("  ✔\n".green());
+			console::pspd("  ✔\n".green());
 		}
 	}
 	
 	if choices.rust {
-		console::print_sub_phase_description("     :: Installing Rust");
+		console::pspd("     :: Installing Rust");
 		
 		if let Err(_) = Command::new("./athena/scripts/rd.sh")
 			.arg("--rust")
 			.output()
 		{
-			console::print_sub_phase_description("  ✘\n".yellow());
+			console::pspd("  ✘\n".yellow());
+			exit_code = 29
 		} else {
-			console::print_sub_phase_description("  ✔\n".green());
+			console::pspd("  ✔\n".green());
 		}
 	}
 	
@@ -155,12 +161,12 @@ pub fn install_choices(choices: &Choices) -> PhaseResult
 ///
 /// Stage: 2,
 /// Phase: 2+ (hidden) / TPC1
-pub fn vsc_ext()
+pub fn vsc_ext(error_code: &mut u8)
 {
 	let cp = 2;
 	let mut exit_code = 0;
 
-	console::print_sub_phase_description("     :: Installing VS Code extensions");
+	console::pspd("     :: Installing VS Code extensions");
 	
 	let path = match controller::get_resource_path(
 		"athena/resources/packages/vsc_extensions.json",
@@ -169,7 +175,7 @@ pub fn vsc_ext()
 	{
 		Ok(resource_path) => resource_path,
 		Err(_) => {
-			console::print_sub_phase_description("  ✘\n".yellow());
+			console::pspd("  ✘\n".yellow());
 			return
 		}
 	};
@@ -177,7 +183,7 @@ pub fn vsc_ext()
 	let json = match fs::read_to_string(path) {
 		Ok(json_str) => json_str,
 		Err(_) => {
-			console::print_sub_phase_description("  ✘\n".yellow());
+			console::pspd("  ✘\n".yellow());
 			return
 		}
 	};
@@ -185,7 +191,7 @@ pub fn vsc_ext()
 	let extension_tree: Value = match serde_json::from_str(&json) {
 		Ok(json_tree) => json_tree,
 		Err(_) => {
-			console::print_sub_phase_description("  ✘\n".yellow());
+			console::pspd("  ✘\n".yellow());
 			return
 		}
 	};
@@ -198,9 +204,10 @@ pub fn vsc_ext()
 	}
 	
 	if exit_code == 0 {
-		console::print_sub_phase_description("  ✔\n".green());
+		console::pspd("  ✔\n".green());
 	} else {
-		console::print_sub_phase_description("  ✘\n".yellow());
+		console::pspd("  ✘\n".yellow());
+		*error_code = exit_code;
 	}
 }
 

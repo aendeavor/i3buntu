@@ -5,7 +5,7 @@ pub mod controller;
 mod data;
 pub mod log;
 
-const VERSION: &'static str = "v0.2.4-alpha rc2 unstable";
+const VERSION: &'static str = "v0.2.5-production rc3 stable";
 
 pub use data::structures;
 pub use data::traits;

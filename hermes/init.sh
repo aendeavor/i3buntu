@@ -3,7 +3,7 @@
 # Downloads APOLLO and starts installation.
 
 # author	Georg Lauterbach
-# version	0.1.7 stable
+# version	0.2.0 stable
 
 set -eE
 trap 'echo "  :: ERROR" ; exit 200' ERR
@@ -39,8 +39,7 @@ function main() {
 	tar -xzf "${_archive}" &>/dev/null
 	cd "i3buntu-${_release}" || exit 200
 
-	# shellcheck disable=SC2024
-	sudo -E ./apollo < /dev/tty
+	./apollo < /dev/tty
 }
 
 main || exit 1

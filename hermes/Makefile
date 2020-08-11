@@ -27,7 +27,7 @@ htest:
 # ? ––––––––––––––––––––––––––––––––––––––––––––– Release
 
 hrelease: Cargo.toml
-	@- ./hermes/make.sh --build || printf "\n%s\n" $(ABORTMSG)
+	@- ./hermes/make.sh --build
 
 hpublish: hrelease
-	@- ./hermes/make.sh --publish || printf "\n%s\n" $(ABORTMSG)
+	@- ./hermes/make.sh --publish

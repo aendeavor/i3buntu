@@ -67,7 +67,7 @@
 	"net" : [
 		"net-tools",
 		"network-manager",
-		"network-manager-applet",
+		"network-manager-gnome",
 		"network-manager-openvpn",
 		"network-manager-ssh",
 		"network-manager-vpnc",

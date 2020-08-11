@@ -17,6 +17,8 @@ k: kbuild
 krun: kbuild
 	$(CC) run $(PROJECTK)
 
+doc: kdoc
+
 kdoc: Cargo.toml
 	$(CC) doc $(PROJECTK) --open &
 

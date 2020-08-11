@@ -2,10 +2,10 @@
 
 ## Installation
 
-![version](https://img.shields.io/badge/version-v2.0.0-1A1D23.svg) ![stability](https://img.shields.io/badge/stability-unstable-FBB444.svg) ![init](https://img.shields.io/badge/init-v0.1.6-2B303B.svg)
+![version](https://img.shields.io/badge/version-v2.0.0-1A1D23.svg) ![stability](https://img.shields.io/badge/stability-stable-FBB444.svg) ![init](https://img.shields.io/badge/init-v0.2.0-2B303B.svg)
 
 [//]: # (Explains the installation process of APOLLO)
-[//]: # (version 0.1.4)
+[//]: # (version 0.1.6)
 
 ### Instructions
 
@@ -18,6 +18,8 @@ sudo apt-get update && sudo apt-get -y upgrade
 # start APOLLO
 curl --tlsv1.2 -sSfL https://apollo.itbsd.com | bash
 ```
+
+When executing ***APOLLO*** manually, do **not** start it in a root / superuser context. Either use `./apollo` or `make install`.
 
 #### Leftover Configuration
 
@@ -37,8 +39,7 @@ It is recommended to be familiar with a Linux environment and the command line. 
 
 #### Security
 
-If you are concerned about piping `curl` into `bash`, just download the script with curl, check and execute it later. The SHA512 sum is
-`4c0938af0968571c6714c892fa74424a41e2b0f6a63ba6503faccf8d50e6b9289906236ccef364353a1a6359db5e1f09dcbf5b66532d8d92fddb28ca63d4fad2  init.sh`.
+If you are concerned about piping `curl` into `bash`, just download the script with curl, check and execute it later. The SHA512 sum is `e45c61044ceb5f85c4f8710f5941b6b30748b282fa6d57dd38e2836a8026a2bf7dd6ff18aa607a4f98fff9bcb90aabf96ad2d1212571811d91cbff81e70e99e4  init.sh`.
 
 #### Scripts
 

@@ -51,7 +51,7 @@ pub fn print_phase_description(current_phase: u8, total_phase_count: u8, msg: &s
 /// As work id done in phases, they will log
 /// information on the console to inform the
 /// user about the progess.
-pub fn print_sub_phase_description<T: fmt::Display>(message: T)
+pub fn pspd<T: fmt::Display>(message: T)
 {
 	print!("{}", message);
 	flush();
