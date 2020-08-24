@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 # Installs EXA with Cargo to replace ls.
-
-# author		Georg Lauterbach
-# version		0.2.0 stable
+# 
+# author   Georg Lauterbach
+# version  0.2.1 stable
 
 if [[ -n $(command -v cargo) ]]
 then

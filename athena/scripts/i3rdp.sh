@@ -5,8 +5,8 @@
 # Dependencies should have already been
 # installed by APOLLO.
 #
-# author	Georg Lauterbach
-# version	0.1.0 unstable
+# author   Georg Lauterbach
+# version  0.1.1 stable
 
 set -eE
 trap 'echo "ERROR" ; exit 1' ERR

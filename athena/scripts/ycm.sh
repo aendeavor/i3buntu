@@ -2,15 +2,14 @@
 
 # Compiles NeoVim's YouCompleteMe plugin and
 # copies `.ycm_extra_conf.py`.
-
-# author    Georg Lauterbach
-# version   0.1.5 stable
+# 
+# author   Georg Lauterbach
+# version  0.1.5 stable
 
 set -eE
 trap 'exit 2' ERR
 
 SD=$(cd "$(dirname "$(readlink -f "$0")")" && pwd)
-
 
 function main()
 {
