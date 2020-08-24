@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Installs Rust and Docker
+# Compose during packaging
+# (stage 3) when APOLLO is
+# processing user choices.
+#
+# author   Georg Lauterbach
+# version  0.1.0 stable
+
 function rust()
 {
 	if curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
