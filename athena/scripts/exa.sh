@@ -5,7 +5,7 @@
 # author   Georg Lauterbach
 # version  0.2.1 stable
 
-if [[ -n $(command -v cargo) ]]
+if [[ -z $(command -v cargo) ]]
 then
 	echo "Cargo not installed. Aborting."
 	exit 1
