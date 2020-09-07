@@ -2,12 +2,22 @@
 
 ## APOLLO
 
-![version](https://img.shields.io/badge/version-v2.0.0-1A1D23.svg) ![stability](https://img.shields.io/badge/stability-stable-FBB444.svg) ![athena](https://img.shields.io/badge/athena-v0.2.5-2B303B.svg) ![hermes](https://img.shields.io/badge/hermes-v0.1.2-434c5e.svg) ![version](https://img.shields.io/badge/kyrene-v0.4.0-5E6A82.svg)
+![version][version] ![stability][stability] ![athena][version::athena] ![hermes][version::hermes] ![kyrene][version::kyrene]
+
+1. [Introduction](#introduction)
+2. [Installation Instructions](#installation-instructions)
+3. [About](#about)
+   1. [Kyrene](#kyrene)
+   2. [Athena](#athena)
+   3. [Hermes](#hermes)
+4. [Warranty](#warranty-licensing--credits)
 
 [//]: # (Main README in /)
-[//]: # (version 0.2.2)
+[//]: # (version 0.3.0)
 
-i3buntu provides means to customize an [_Ubuntu_](https://ubuntu.com/) installation by deploying the needed programs and sensible default settings.
+### Introduction
+
+i3buntu, a legacy name, provides means to customize an [_Ubuntu_](https://ubuntu.com/) installation by deploying the needed programs and sensible default settings. ***APOLLO*** is the name of the current working environment and a spiritual successor to i3buntu.
 
 ![Desktop Theme](athena/docs/desktop_shell.png)
 
@@ -44,3 +54,11 @@ _Hermes_ provides a forwarding mechanism via [apollo.itbsd.com](https://apollo.i
 ![Collage 2](athena/docs/collage_2.png)
 
 This project is licensed under the [_GNU Lesser General Public License_](LICENSE), version 3, 29 June 2007. For warranty and icon-, font- or logo-credits, see [Credits and Warranty](athena/docs/cws.md).
+
+[//]: # (Links)
+
+[version]: https://img.shields.io/badge/version-v2.0.0-1A1D23.svg
+[stability]: https://img.shields.io/badge/stability-stable-FBB444.svg
+[version::athena]: https://img.shields.io/badge/hermes-v0.1.2-434c5e.svg
+[version::hermes]: https://img.shields.io/badge/hermes-v0.1.2-434c5e.svg
+[version::kyrene]: https://img.shields.io/badge/kyrene-v0.4.0-5E6A82.svg

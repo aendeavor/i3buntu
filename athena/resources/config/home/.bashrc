@@ -16,28 +16,33 @@
 
 ###########################################################
 
-# if not running interactively, don't do anything
-check_on_interactive() {
+# if not running interactively,
+# don't do anything
+check_on_interactive()
+{
   case $- in
-      *i*) ;;
-        *) exit;;
+    *i*) ;;
+    *) exit ;;
   esac
 }
 
-history_parameters() {
+history_parameters()
+{
   HISTCONTROL=ignoreboth
   HISTSIZE=10000
   HISTFILESIZE=10000
 }
 
-shopts() {
+shopts()
+{
   shopt -s histappend
   shopt -s checkwinsize
   shopt -s globstar
   shopt -s autocd
 }
 
-misc() {
+misc()
+{
   stty -ixon
 
   export VISUAL=vim
@@ -50,23 +55,24 @@ misc() {
   export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 }
 
-prompt() {
+prompt()
+{
   # set variable identifying chroot you work in
   if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-      debian_chroot=$(cat /etc/debian_chroot)
+    debian_chroot=$(cat /etc/debian_chroot)
   fi
-  
+
   if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
     PS1=' ${debian_chroot:+($debian_chroot)}'
-  
+
     # PS1+='\[\e[38;5;11m\]'
     # PS1+='[\u@\h]'
-  
+
     # PS1+='\[\e[0m\] : '
-  
+
     PS1+='\[\e[38;5;215m\]\w'
     PS1+='\[\e[0m\] \$ '
-  
+
     PROMPT_DIRTRIM=4
   else
     PS1=' ${debian_chroot:+($debian_chroot)}'
@@ -74,14 +80,16 @@ prompt() {
   fi
 }
 
-aliases() {
+aliases()
+{
   if [[ -f ${HOME}/.bash_aliases ]]; then
-  	# shellcheck source=/dev/null
+    # shellcheck source=/dev/null
     . "${HOME}/.bash_aliases"
   fi
 }
 
-programmable_completion() {
+programmable_completion()
+{
   if ! shopt -oq posix; then
     if [ -f /usr/share/bash-completion/bash_completion ]; then
       # shellcheck source=/dev/null
@@ -93,24 +101,15 @@ programmable_completion() {
   fi
 }
 
-neofetch_parameterized() {
+neofetch_parameterized()
+{
   echo ''
-  neofetch\
-    --ascii_colors 215\
-    --colors 215 255 255 215 250 255\
-    --ascii\
-    --disable term uptime packages resolution theme icons cpu gpu memory\
-    --gtk3 on\
-    --ascii_bold on\
-    --ascii_distro Arch_small\
-    --color_blocks off\
-		--underline_char \ \
-    --separator \ \
-    --gap 3
+  neofetch --ascii_colors 215 --colors 215 255 255 215 250 255 --ascii --disable term uptime packages resolution theme icons cpu gpu memory --gtk3 on --ascii_bold on --ascii_distro Arch_small --color_blocks off --underline_char \  --separator \  --gap 3
 }
 
-main() {
-  check_on_interactive  
+main()
+{
+  check_on_interactive
   history_parameters
   shopts
   misc
@@ -121,4 +120,3 @@ main() {
 }
 
 main "$@"
-
