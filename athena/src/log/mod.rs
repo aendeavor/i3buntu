@@ -7,7 +7,7 @@ pub mod console;
 /// # Logfile
 ///
 /// Provides logging functionality as logfile
-/// ouput.
+/// output.
 ///
 /// ## Warning
 ///

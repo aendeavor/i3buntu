@@ -3,7 +3,7 @@
 # ? ––––––––––––––––––––––––––––––––––––––––––––– VARs
 
 SHELL = /bin/bash
-.ONESHELL:
+
 .SHELLFLAGS := -eu -o pipefail -c
 .DELETE_ON_ERROR:
 
@@ -16,16 +16,21 @@ export
 
 # ? ––––––––––––––––––––––––––––––––––––––––––––– Default
 
-all:
+all: nightly
 	$(MAKE) -C athena
 	$(MAKE) -C kyrene
+
+nightly:
+	@ rustup override set nightly
+
+format:
+	-@ cargo fmt
 
 # ? ––––––––––––––––––––––––––––––––––––––––––––– Release
 
 .PHONY: release
 
-release:
-	rustup override set nightly
+release: nightly
 	cargo build --release -p athena
 	cargo build --release -p kyrene
 	@ cp ./target/release/kyrene apollo
