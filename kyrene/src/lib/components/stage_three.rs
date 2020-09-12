@@ -74,13 +74,13 @@ pub fn copy_configurations() -> PhaseResult
     theme_dir.push_str("/.themes/");
 
     let mut icon_dir = home.clone();
-    icon_dir.push_str("/.local/share/icons/");
+    icon_dir.push_str("/.local/share/");
 
     let mut color_theme = home.clone();
     color_theme.push_str("/.themes/whiteSur.tar.xz");
 
     let mut icon_theme = home.clone();
-    icon_theme.push_str("/.local/share/icons/whiteSur.tar.xz");
+    icon_theme.push_str("/.local/share/icons.tar.xz");
 
     if let Err(_) = Command::new("tar")
         .arg("-xf")

@@ -32,7 +32,8 @@
 		"slick-greeter",
 		"xbacklight",
 		"xorg",
-		"xserver-xorg"
+    "xserver-xorg",
+    "xserver-xorg-video-intel"
 	],
 	"files" : [
 		"eog",

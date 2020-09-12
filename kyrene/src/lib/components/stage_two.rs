@@ -86,26 +86,16 @@ pub fn install_choices(choices: &Choices) -> PhaseResult
 
         let mut code_success = false;
 
-        match Command::new("sudo")
-            .arg("snap")
-            .arg("install")
-            .arg("code")
-            .arg("--classic")
+        if let Err(_) = Command::new("sudo")
+            .arg("./athena/scripts/rdv.sh")
+            .arg("--visual-studio-code")
             .output()
         {
-            Ok(output) => {
-                if output.status.success() {
-                    console::pspd("  ✔\n".green());
-                    code_success = true;
-                } else {
-                    exit_code = 26;
-                    console::pspd("  ✘\n".yellow());
-                }
-            },
-            Err(_) => {
-                console::pspd("  ✘\n".yellow());
-                exit_code = 27;
-            },
+            console::pspd("  ✘\n".yellow());
+            exit_code = 27;
+        } else {
+            code_success = true;
+            console::pspd("  ✔\n".green());
         }
 
         if code_success {
@@ -123,7 +113,7 @@ pub fn install_choices(choices: &Choices) -> PhaseResult
         console::pspd("     :: Installing Docker Compose");
 
         if let Err(_) = Command::new("sudo")
-            .arg("./athena/scripts/rd.sh")
+            .arg("./athena/scripts/rdv.sh")
             .arg("--docker-compose")
             .output()
         {
@@ -141,7 +131,7 @@ pub fn install_choices(choices: &Choices) -> PhaseResult
     if choices.rust {
         console::pspd("     :: Installing Rust");
 
-        if let Err(_) = Command::new("./athena/scripts/rd.sh")
+        if let Err(_) = Command::new("./athena/scripts/rdv.sh")
             .arg("--rust")
             .output()
         {
