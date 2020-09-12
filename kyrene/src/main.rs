@@ -8,7 +8,7 @@ mod lib;
 use athena::controller::check_abort;
 use lib::init;
 
-const VERSION: &'static str = "v0.4.1-production rc4 stable";
+const VERSION: &'static str = "v0.4.2-production rc5 stable";
 
 fn main()
 {
