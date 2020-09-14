@@ -2,6 +2,13 @@
 
 ## Version 2
 
+### v2.2.0 RC1
+
+- implemented new format for installing Visual Studio Code without snap
+- re-packaged icon theme
+- refined [`INSTALL.md`](./INSTALL.md)
+- formatted [`.rustfmt.toml`](./..rustfmt.toml)
+
 ### v2.1.0
 
 - canonicalised script comments
