@@ -2,14 +2,22 @@
 
 ## Installation
 
-![version](https://img.shields.io/badge/version-v2.0.0-1A1D23.svg) ![stability](https://img.shields.io/badge/stability-stable-FBB444.svg) ![init](https://img.shields.io/badge/init-v0.2.0-2B303B.svg)
+![version][version] ![stability][stability] ![init]
+
+1. [Instructions](#instructions)
+2. [Leftover Configuration](#leftover-configuration)
+3. [Handcrafted Finish](#handcrafted-finish)
+4. [Miscellaneous](#miscellaneous)
+   1. [Security](#scripts)
+   2. [Scripts](#scripts)
+   3. [GDM3 vs LightDM](#gdm3-vs-lightdm)
 
 [//]: # (Explains the installation process of APOLLO)
 [//]: # (version 0.1.6)
 
 ### Instructions
 
-To get things started, get the [_Ubuntu 20.04 LTS_ Server ISO](https://ubuntu.com/download/server) and install it. ***APOLLO*** depends on `curl`, `wget` and `rsync`, all of which are already installed. To start ***APOLLO***, use
+To get things started, get the [_Ubuntu 20.04 LTS_ Server ISO][iso] and install it. ***APOLLO*** depends on `curl`, `wget` and `rsync`, all of which are already installed. To start ***APOLLO***, use
 
 ``` BASH
 # obligatory update
@@ -37,13 +45,28 @@ Thereafter, edit i3's config under `~/.config/i3/config` to use Picom and not Co
 
 If you are concerned about piping `curl` into `bash`, just download the script with curl, check and execute it later. The SHA sums are
 
-- SHA512 sum `e45c61044ceb5f85c4f8710f5941b6b30748b282fa6d57dd38e2836a8026a2bf7dd6ff18aa607a4f98fff9bcb90aabf96ad2d1212571811d91cbff81e70e99e4  init.sh`
-- SHA1 sum `512dfc4eb37d39b25d9cfadc90be003d096d1d9c  init.sh`
+- SHA512
+  `65fb9fee3327ea298d7f0b080fe8ba144d78b87b1f33e87b7d3e2607c127021221bd28c6bad611716ab989174ef3d5c00962216b185c3243a8c73cd65eeb5eed  init.sh`
+- SHA256
+  `b0884fd312b287f63daefff60bef488811e97d039c20961c15d6444145272945  init.sh`
+- SHA1
+  `87df13f3c59a6a287067211a65efe8bddf668b34  init.sh`
 
 #### Scripts
 
-Found under `athena/scripts/`, a few leftover script reside to ease the pain of installing certain software by hand. These include [`exa`](https://the.exa.website/) or [`ycm`](https://github.com/ycm-core/YouCompleteMe).
+Found under `athena/scripts/`, a few leftover script reside to ease the pain of installing certain software by hand. These include [`exa`][exa] or [`ycm`][ycm].
 
 #### GDM3 vs LightDM
 
-***APOLLO*** installs [LightDM](https://wiki.ubuntuusers.de/LightDM/) as an alternative to [GDM3](https://wiki.ubuntuusers.de/GDM/). When you have GDM3 installed and do not wish to remove it, you need to press "Return" when a package installs LightDM directly or as a dependency. If you don't, the process will just not continue.
+***APOLLO*** installs [LightDM][lightdm] as an alternative to [GDM3][gdm3]. When you have GDM3 installed and do not wish to remove it, you need to press "Return" when a package installs LightDM directly or as a dependency. If you don't, the process will just not continue.
+
+[//]: # (Links)
+
+[version]: https://img.shields.io/badge/version-v2.1.0-1A1D23.svg
+[stability]: https://img.shields.io/badge/stability-stable-FBB444.svg
+[init]: https://img.shields.io/badge/init-v0.2.2-2B303B.svg
+[iso]: https://ubuntu.com/download/server
+[exa]: https://the.exa.website/
+[ycm]: https://github.com/ycm-core/YouCompleteM
+[lightdm]: https://wiki.ubuntuusers.de/LightDM/
+[gdm3]: https://wiki.ubuntuusers.de/GDM/

@@ -1,49 +1,35 @@
 # GitHub <https://github.com/rust-lang/rustfmt/blob/master/README.md#license>
 # Configurator <https://rust-lang.github.io/rustfmt/?version=master>
 
-unstable_features = true
-edition = "2018"
+unstable_features            = true
+edition                      = "2018"
 
-brace_style = "AlwaysNextLine"
-combine_control_expr = false
+brace_style                  = "AlwaysNextLine"
+imports_layout               = "Vertical"
+indent_style                 = "Block"
 
-blank_lines_upper_bound = 1
+combine_control_expr         = false
+reorder_imports              = false
+reorder_modules              = false
 
-wrap_comments = true
-comment_width = 60
+condense_wildcard_suffixes   = true
+error_on_line_overflow       = true
+error_on_unformatted         = true
+fn_single_line               = true
+format_code_in_doc_comments  = true
+format_macro_bodies          = true
+format_macro_matchers        = true
+format_strings               = true
+match_block_trailing_comma   = true
+merge_imports                = true
+normalize_comments           = true
+normalize_doc_attributes     = true
+reorder_impl_items           = true
+use_field_init_shorthand     = true
+wrap_comments                = true
 
-condense_wildcard_suffixes = true
-
+blank_lines_upper_bound      = 1
+comment_width                = 60
 enum_discrim_align_threshold = 35
-
-error_on_line_overflow = true
-error_on_unformatted = true
-
-fn_single_line = true
-
-format_code_in_doc_comments = true
-format_macro_matchers = true
-format_macro_bodies = true
-
-format_strings = true
-
-imports_layout = "Vertical"
-
-indent_style = "Block"
-
-inline_attribute_width = 60
-
-match_block_trailing_comma = true
-
-merge_imports = true
-
-normalize_comments = true
-normalize_doc_attributes = true
-
-reorder_impl_items = true
-reorder_imports = false
-reorder_modules = false
-
+inline_attribute_width       = 60
 struct_field_align_threshold = 35
-
-use_field_init_shorthand = true
