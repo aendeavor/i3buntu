@@ -2,12 +2,11 @@
 
 ## Installation
 
-![version][version] ![stability][stability] ![init]
+![version][version] ![stability][stability] ![init][init]
 
 1. [Instructions](#instructions)
-2. [Leftover Configuration](#leftover-configuration)
-3. [Handcrafted Finish](#handcrafted-finish)
-4. [Miscellaneous](#miscellaneous)
+2. [Handcrafted Finish](#handcrafted-finish)
+3. [Miscellaneous](#miscellaneous)
    1. [Security](#scripts)
    2. [Scripts](#scripts)
    3. [GDM3 vs LightDM](#gdm3-vs-lightdm)
@@ -29,15 +28,13 @@ curl --tlsv1.2 -sSfL https://apollo.itbsd.com | bash
 
 When executing ***APOLLO*** manually, do **not** start it in a root / superuser context. Either use `./apollo` or `make install`.
 
-#### Leftover Configuration
+### Handcrafted Finish
 
-As of now, the monitor/display configuration is not done automatically, as this would not make much sense. You can do it manually, with `arandr` and `i3`'s config.
-
-#### Handcrafted Finish
+The monitor/display configuration is not done automatically as this wouldn't make sense. You can do it manually with `arandr` and `i3`'s config.
 
 As _Ubuntu 20.04 LTS_ only ships a stable package upstream, we will need to build some packages from source. All dependencies have already been installed. What is left to do is executing `i3rdp.sh` in the `athena/scripts/` directory.
 
-Thereafter, edit i3's config under `~/.config/i3/config` to use Picom and not Compton. At the bottom, the autostart applications can be edited - adjust them. You can also play with Picom's configuration located under `~/.config/picom.conf`.
+Thereafter, edit i3's config under `~/.config/i3/config` to use Picom and not Compton. At the bottom, the autostart applications can be edited - adjust them. You can also play with Picom's configuration located under `~/.config/picom.conf`. Delete the old config under `~/.config/compton.conf`
 
 ### Miscellaneous
 

@@ -5,7 +5,7 @@
 ![version][version] ![stability][stability] ![athena][version::athena] ![hermes][version::hermes] ![kyrene][version::kyrene]
 
 1. [Introduction](#introduction)
-2. [Installation Instructions](#installation-instructions)
+2. [Installation Instructions](./INSTALL.md)
 3. [About](#about)
    1. [Kyrene](#kyrene)
    2. [Athena](#athena)
@@ -13,11 +13,11 @@
 4. [Warranty](#warranty-licensing--credits)
 
 [//]: # (Main README in /)
-[//]: # (version 0.3.0)
+[//]: # (version 0.3.1)
 
 ### Introduction
 
-i3buntu, a legacy name, provides means to customize an [_Ubuntu_](https://ubuntu.com/) installation by deploying the needed programs and sensible default settings. ***APOLLO*** is the name of the current working environment and a spiritual successor to i3buntu.
+i3buntu  provides means to customize an [_Ubuntu_](https://ubuntu.com/) installation by deploying the needed programs and sensible default settings. ***APOLLO*** is the name of the current working environment.
 
 ![Desktop Theme](athena/docs/desktop_shell.png)
 
@@ -29,9 +29,9 @@ Are found in [`INSTALL.md`](INSTALL.md).
 
 ### About
 
-![Collage 1](athena/docs/collage_1.png)
+The ***APOLLO*** project advances _i3buntu_. We are providing everyone with a single easy bootstrapping process for the installation of [_i3-gaps_](https://github.com/Airblader/i3) and other basic software.
 
-The ***APOLLO*** project advances _i3buntu_. We are trying to provide everyone with a single easy bootstrapping process for the installation of [_i3-gaps_](https://github.com/Airblader/i3) and other basic software.
+![Collage 1](athena/docs/collage_1.png)
 
 #### Submodules
 
@@ -51,9 +51,7 @@ _Hermes_ provides a forwarding mechanism via [apollo.itbsd.com](https://apollo.i
 
 ### Warranty, Licensing & Credits
 
-![Collage 2](athena/docs/collage_2.png)
-
-This project is licensed under the [_GNU Lesser General Public License_](LICENSE), version 3, 29 June 2007. For warranty and icon-, font- or logo-credits, see [Credits and Warranty](athena/docs/cws.md).
+This project is licensed under the [_GNU Lesser General Public License_](./LICENSE), version 3, 29 June 2007. For warranty and icon-, font- or logo-credits, see [Credits and Warranty](athena/docs/cws.md).
 
 [//]: # (Links)
 
