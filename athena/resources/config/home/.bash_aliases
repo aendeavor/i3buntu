@@ -9,7 +9,7 @@
 # ! BASH_ALIASES - ADDITIONAL CONFIGURATION FILE FOR BASH
 # ! $HOME/.bash_aliases
 #
-# version   1.3.0
+# version   1.3.1
 # author    Georg Lauterbach
 # executed  from $HOME/.bashrc
 #
@@ -17,14 +17,9 @@
 #
 #################################################
 
-if [[ -x /usr/bin/dircolors ]]
+if [[ ! -x /usr/bin/dircolors ]] || [[ ! -r ${HOME}/.dircolors ]] || ! eval "$(dircolors -b "${HOME}/.dircolors")"
 then
-  if [[ -r ${HOME}/.dircolors ]] && eval "$(dircolors -b "${HOME}/.dircolors")"
-  then
-    true
-  else
-    eval "$(dircolors -b)"
-  fi
+  eval "$(dircolors -b)"
 fi
 
 # ? ––––––––––––––––––––––––––––––––––––––––––––– Aliases
