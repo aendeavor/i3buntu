@@ -9,25 +9,25 @@
 # ! BASH_ALIASES - ADDITIONAL CONFIGURATION FILE FOR BASH
 # ! $HOME/.bash_aliases
 #
-# Executed from $HOME/.bashrc
+# version   1.3.0
+# author    Georg Lauterbach
+# executed  from $HOME/.bashrc
 #
-# version   1.2.10
-# author    aendeavor@Georg Lauterbach
-
-###########################################################
-
 # shellcheck disable=SC2024
+#
+#################################################
 
-# check color support
-if [[ -x /usr/bin/dircolors ]]; then
-  if [[ -r ${HOME}/.dircolors ]] && eval "$(dircolors -b "${HOME}/.dircolors")"; then
+if [[ -x /usr/bin/dircolors ]]
+then
+  if [[ -r ${HOME}/.dircolors ]] && eval "$(dircolors -b "${HOME}/.dircolors")"
+  then
     true
   else
     eval "$(dircolors -b)"
   fi
 fi
 
-# ? Aliases
+# ? ––––––––––––––––––––––––––––––––––––––––––––– Aliases
 
 alias ls='ls -lh --color=auto'
 alias lsa='ls -lhA --color=auto'
@@ -53,125 +53,88 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 
-# ? Functions
+# ? ––––––––––––––––––––––––––––––––––––––––––––– Functions
 
-## ? Logger
-
-function inform()
-{
-  local LOG=${2:-"/dev/null"}
-  echo -e "$(date '+%H:%M:%S') \033[1;34mINFO\033[0m\t\t$1" | tee -a "$LOG" # +%d.%m.%Y
-}
-export -f inform
-
-function err()
-{
-  local LOG=${2:-"/dev/null"}
-  echo -e "$(date '+%H:%M:%S') \033[0;31mERROR\033[0m\t$1" | tee -a "$LOG"
-}
-export -f err
-
-function warn()
-{
-  local LOG=${2:-"/dev/null"}
-  echo -e "$(date '+%H:%M:%S') \033[1;33mWARNING\033[0m\t$1" | tee -a "$LOG"
-}
-export -f warn
-
-function succ()
-{
-  local LOG=${2:-"/dev/null"}
-  echo -e "$(date '+%H:%M:%S') \033[1;32mSUCCESS\033[0m\t$1" | tee -a "$LOG"
-}
-export -f succ
-
-## ? Non-Logger
+function dt     { printf "%s " "$(date '+%H:%M:%S')"          ; }
+function inform { echo -e "$(dt)\033[1;34mINFO\033[0m\t\t$1"  ; }
+function err    { echo -e "$(dt)\033[0;31mERROR\033[0m\t$1"   ; }
+function warn   { echo -e "$(dt)\033[1;33mWARNING\033[0m\t$1" ; }
+function succ   { echo -e "$(dt)\033[1;32mSUCCESS\033[0m\t$1" ; }
 
 function sf()
 {
-  SEARCH=${1:?Enter a search-regex}
-  MAXDEPTH=${2:-1}
-  find . -maxdepth "$MAXDEPTH" -iregex "[a-z0-9_\.\/\ ]*${SEARCH}[a-z0-9_\.\/\ ]*" -type f
+  local SEARCH=${1:?Enter a search-regex}
+  local MAXDEPTH=${2:-1}
+  local TYPE=${3:-}
+
+  find . -maxdepth "${MAXDEPTH}" -iname "*${SEARCH}*" "${TYPE}"
 }
 export -f sf
 
-function shutn()
-{
-  shutdown now
-}
+function shutn { shutdown now ; }
 export -f shutn
-
-## ? Update function
 
 function update()
 {
-  if ! sudo printf ""; then
-    echo ''
-    err 'User input invalid. Aborting.'
-    return 1
+  if ! sudo -AE printf '' &>/dev/null && ! sudo -E printf ''
+  then
+    echo '' ; err 'User input invalid. Aborting.' ; return 1
   fi
 
+  local ERR=0
   local LOG="${HOME}/.update_log"
-  touch "$LOG"
+  echo '' >"${LOG}"
 
-  local OPTIONS=(--yes --assume-yes --allow-unauthenticated --allow-change-held-packages)
+  local OPTIONS=(
+    --yes
+    --assume-yes
+    --allow-unauthenticated
+    --allow-change-held-packages
+  )
 
-  local RIP
+  warn 'New update started'
+  inform 'Checking for updates'
 
-  echo '' >>"$LOG"
-  warn 'New update started' "$LOG"
-
-  echo '' >>"$LOG"
-  inform 'Checking for updates' "$LOG"
-  sudo apt-get update &>>"$LOG"
-  RIP=$?
-  if [[ $RIP -ne 0 ]]; then
-    err "sudo apt-get update returned with error code $RIP"
-    return 1
+  if ! sudo apt-get update &>>"${LOG}"
+  then
+    err "Could'nt update APT signatures [${?}]" ; return 1
   fi
 
-  echo '' >>"$LOG"
-  inform 'Installing updates' "$LOG"
-  sudo apt-get --with-new-pkgs "${OPTIONS[@]}" upgrade &>>"$LOG"
-  RIP=$?
-  if [[ $RIP -ne 0 ]]; then
-    err "sudo apt-get upgrade returned with error code $RIP"
-    return 1
+  inform 'Installing updates'
+  if ! sudo apt-get --with-new-pkgs "${OPTIONS[@]}" upgrade &>>"${LOG}"
+  then
+    err "APT upgrade exited with an error [${?}]" ; return 1
   fi
 
-  echo '' >>"$LOG"
-  inform 'Removing orphaned packages' "$LOG"
-  sudo apt-get "${OPTIONS[@]}" autoremove &>>"$LOG"
-  RIP=$?
-  if [[ $RIP -ne 0 ]]; then
-    err "sudo apt-get autoremove returned with error code $RIP"
-    return 1
+  inform 'Removing orphaned packages'
+  if ! sudo apt-get "${OPTIONS[@]}" autoremove &>>"${LOG}"
+  then
+    err "APT autoremove exited with an error [${?}]" ; ERR=1
   fi
 
-  if [ -n "$(command -v snap)" ]; then
-    echo '' >>"$LOG"
-    inform 'Updating via SNAP' "$LOG"
-    sudo snap refresh &>>"$LOG"
-    RIP=$?
-    if [[ $RIP -ne 0 ]]; then
-      err "sudo snap refresh returned with error code $RIP"
-      return 1
+  if [[ -n $(command -v snap) ]]
+  then
+    inform 'Updating via SNAP'
+    if ! sudo snap refresh &>>"${LOG}"
+    then
+      err "Could not refresh snaps [${?}]" ; ERR=1
     fi
   fi
 
-  if [ -n "$(command -v rustup)" ]; then
-    echo '' >>"$LOG"
-    inform 'Updating RUST via rustup' "$LOG"
-    rustup update &>>"$LOG"
-    RIP=$?
-    if [[ $RIP -ne 0 ]]; then
-      err "sudo apt-get update returned with error code $RIP"
-      return 1
+  if [[ -n $(command -v rustup) ]]
+  then
+    inform 'Updating RUST via rustup'
+    if ! rustup update &>>"${LOG}"
+    then
+      err "sudo apt-get update returned with error code $RIP" ; ERR=1
     fi
   fi
 
-  echo '' >>"$LOG"
-  succ 'Completed update' "$LOG"
-  echo '' >>"$LOG"
+  if [[ $ERR -eq 0 ]]
+  then
+    succ 'Completed update'
+  else
+    warn 'Completed update with errors'
+  fi
 }
 export -f update
