@@ -6,18 +6,23 @@
 # installed by APOLLO.
 #
 # author   Georg Lauterbach
-# version  0.1.1 stable
+# version  0.2.0 unstable
 
-set -eE
-trap 'echo "ERROR" ; exit 1' ERR
+set -euEo pipefail
+trap '_log_err ${_} ${LINENO} ${?}' ERR
 
-GH="https://github.com"
-
-function p()
+function _log_err()
 {
-	cd /tmp || exit 1
-	git clone ${GH}/yshui/picom.git
-	cd picom || exit 1
+  echo -e "ERROR occured :: source ${1} ; line ${2} ; exit code ${3}"
+  unset GH
+}
+
+GH='https://github.com'
+
+function _install_picom()
+{
+	cd /tmp && git clone "${GH}/yshui/picom.git"
+	cd picom
 
 	git submodule update --init --recursive
 	meson --buildtype=release . build
@@ -26,30 +31,32 @@ function p()
 	sudo ninja -C build install
 }
 
-function d()
+function _install_dunst()
 {
-	cd /tmp || exit 1
-	git clone ${GH}/dunst-project/dunst.git
-	cd dunst || exit 1
+	cd /tmp && git clone "${GH}/dunst-project/dunst.git"
+	cd dunst
 
 	make
 	sudo make install
 }
 
-function i3r()
+function _install_i3-radius()
 {
-	cd /tmp || exit 1
-	git clone ${GH}/terroo/i3-radius.git
-	cd i3-radius || exit 1
+	cd /tmp && git clone "${GH}/terroo/i3-radius.git"
+	cd i3-radius
 
 	./build.sh
 }
 
-function main()
+function _main()
 {
 	sudo apt-get -y remove dunst compton
-	i3r ; d ; p
+	
+  _install_i3-radius
+  _install_dunst
+  _install_picom
+
+  unset GH
 }
 
-main || exit 1
-unset GH
+_main

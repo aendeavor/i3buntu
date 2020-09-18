@@ -8,7 +8,15 @@
 # author   Georg Lauterbach
 # version  0.1.0 stable
 
-function rust()
+set -uEo pipefail
+trap '_log_err ${_} ${LINENO} ${?}' ERR
+
+function _log_err()
+{
+  echo -e "ERROR occured :: source ${1} ; line ${2} ; exit code ${3}"
+}
+
+function _install_rust()
 {
   if curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
   then
@@ -23,7 +31,7 @@ function rust()
       local COMPONENTS=( rust-docs rust-analysis rust-src rustfmt rls clippy )
       for COMPONENT in "${COMPONENTS[@]}"
       do
-        rustup component add "$COMPONENT" &>/dev/null
+        rustup component add "${COMPONENT}" &>/dev/null
       done
     fi
   else
@@ -31,7 +39,7 @@ function rust()
   fi
 }
 
-function dockerc()
+function _install_compose()
 {
   local _compose_version="1.26.2"
   sudo curl \
@@ -44,7 +52,7 @@ function dockerc()
     -o "/etc/bash_completion.d/docker-compose"
 }
 
-function visual_studio_code()
+function _install_vs_code()
 {
   cd /tmp || return 1
 
@@ -57,13 +65,13 @@ function visual_studio_code()
   sudo apt-get install code
 }
 
-
 function main()
 {
   case $1 in
-    '--rust' ) rust ;;
-    '--docker-compose' ) dockerc ;;
-    '--visual-studio-code' ) visual_studio_code ;;
+    '--rust'               ) _install_rust ;;
+    '--docker-compose'     ) _install_compose ;;
+    '--visual-studio-code' ) _install_vs_code ;;
+    * ) return 1 ;;
   esac
 }
 

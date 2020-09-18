@@ -1,12 +1,23 @@
 #!/bin/bash
 
-# Called by CMAKE (Makefile) and CMAKE only.
-
-# Builds Docker-container which provides the init script.
+# Called by Makefile.
+#
+# Builds Docker container which provides the init script.
 # Realized via ekidd/rust-musl-builder, which builds the
 # binary and links statically against system libraries.
-
+#
 # https://github.com/emk/rust-musl-builder
+#
+# author   Georg Lauterbach
+# version  v0.1.0
+
+set -euEo pipefail
+trap '_log_err ${_} ${LINENO} ${?}' ERR
+
+function _log_err()
+{
+  echo -e "ERROR occured :: source ${1} ; line ${2} ; exit code ${3}"
+}
 
 function log()
 {
@@ -26,22 +37,26 @@ function log()
     5) # PHASE SUCCESS
       printf '} \e[32m✓\e[0m\n'
       ;;
+    *)
+      return 3
+      ;;
   esac
 }
 
 function check()
 {
   true >.log
+
   if ! command -v docker &>/dev/null
   then
     printf 'Docker not in PATH or not installed.'
-    exit 10
+    return 10
   fi
 
   if ! command -v cargo &>/dev/null
   then
     printf 'Cargo not in PATH or not installed.'
-    exit 10
+    return 11
   fi
 }
 
@@ -54,18 +69,21 @@ function build()
   log 1 'BUILD'
   log 2 1 2 'RUST'
   log 3 "Using rust-musl-builder${_tag}"
-  if ! $rust_musl_builder cargo build --release -q --color never &>.log
+
+  if ! ${rust_musl_builder} cargo build --release -q --color never &>.log
   then
     log 4 'Could not compile sources. Check logfile.'
-    exit 100
+    return 100
   fi
 
   log 2 2 2 'DOCKER'
+
   if ! docker build -t andevour/hermes . >/dev/null 2>.log
   then
     log 4 'Could not build Docker image. Check logfile.'
-    exit 101
+    return 101
   fi
+
   log 3 'Building tag is andevour/hermes'
   log 5
 }
@@ -74,24 +92,27 @@ function publish()
 {
   log 1 'PUBLISH'
   log 2 1 4 'LOGIN'
+  
   printf '    \e[32m->\e[0m Password: '
   if ! docker login -u andevour >/dev/null 2>.log
   then
     printf '\e[31m✕\e[0m\n'
     log 4 'Login unsuccessful'
-    exit 200
+    return 200
   fi
   printf '\e[32m✓\e[0m\n'
 
   log 2 2 4 'TAGGING'
-  docker tag andevour/hermes andevour/hermes:latest &>/dev/null
-  log 3 'Version tag is ":latest"'
 
+  docker tag andevour/hermes andevour/hermes:latest &>/dev/null
+
+  log 3 'Version tag is ":latest"'
   log 2 3 4 'PUSHING'
+
   if ! docker push andevour/hermes:latest >/dev/null 2>.log
   then
     log 4 'Push unsuccessful. Check logfile.'
-    exit 201
+    return 201
   fi
 
   docker logout &>/dev/null
@@ -104,11 +125,9 @@ function main()
   cd hermes || return 1
 
   case $1 in
-    '--build')
-      check
-      build
-      ;;
-    '--publish') publish ;;
+    '--build'   ) check ; build ;;
+    '--publish' ) publish ;;
+    *           ) return 2 ;;
   esac
 }
 

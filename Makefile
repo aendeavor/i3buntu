@@ -26,6 +26,18 @@ nightly:
 format:
 	-@ cargo fmt
 
+
+shellcheck:
+	@ echo -e '#\n## STARTING SHELLCHECK TEST\n#\n'
+	@ shellcheck --version
+	@ echo ''
+	@ if find -iname "*.sh" -exec shellcheck -S style -Cauto -o all -e SC2154 -W 50 {} \; | grep .; then\
+		echo -e "\nError" ;\
+		exit 1 ;\
+	else\
+		echo -e '\nSuccess' ;\
+	fi
+
 # ? ––––––––––––––––––––––––––––––––––––––––––––– Release
 
 .PHONY: release
