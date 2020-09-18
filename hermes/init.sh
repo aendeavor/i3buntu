@@ -3,9 +3,9 @@
 # Downloads APOLLO and starts installation.
 
 # author	Georg Lauterbach
-# version	0.2.2 stable
+# version	0.2.3 stable
 
-set -euE
+set -euEo pipefail
 trap '_log_err ${_} ${LINENO} ${?}' ERR
 
 function _log_err()

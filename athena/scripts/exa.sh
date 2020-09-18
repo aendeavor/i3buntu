@@ -19,6 +19,6 @@ then
 alias ls='exa --binary --header\
 --long --group --git'/g" "${HOME}/.bash_aliases"
   sed -i "s/alias lsa='ls -lhA --color=auto'/\
-alias lsa='exa -b -h -l -g --git -a'/g"\
+alias lsa='exa -b -h -l -g --git -a'/g" \
 "${HOME}/.bash_aliases"
 fi

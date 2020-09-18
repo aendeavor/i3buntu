@@ -2,6 +2,14 @@
 
 ## Version 2
 
+### v2.3.0 RC1
+
+- markdown refinements
+- updated `.bashrc` to `v0.7.0` and `.bash_aliases` to `v1.3.0`
+- corrected `exa` script
+- added shellcheck test
+- streamlined shell scripts
+
 ### v2.2.0 RC1
 
 - implemented new format for installing Visual Studio Code without snap

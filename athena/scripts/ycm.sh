@@ -4,29 +4,26 @@
 # copies `.ycm_extra_conf.py`.
 # 
 # author   Georg Lauterbach
-# version  0.1.5 stable
+# version  0.2.0 unstable
 
-set -eE
-trap 'exit 2' ERR
+set -euo pipefail
+trap '_log_err ${_} ${LINENO} ${?}' ERR
 
-SD=$(cd "$(dirname "$(readlink -f "$0")")" && pwd)
-
-function main()
+function _log_err()
 {
-	trap '' SIGTERM SIGINT
-
-	cd "${HOME}/.config/nvim/plugged/YouCompleteMe"
-    local _completer=(
-      --rust-completer
-      --clang-completer
-      --clang-tidy
-    )
-
-	python3 install.py "${_completer[@]}"
-	
-	local _rhome="/../resources/config/home/"
-	local _rpath=".config/nvim/.ycm_extra_conf.py"
-	cp "$(readlink -m "${SD}${_rhome}${_rpath}")" .
+  echo -e "ERROR occured :: source ${1} ; line ${2} ; exit code ${3}"
+  unset SD COMPLETER RHOME RPATH
 }
 
-main || exit 1
+SD=$(cd "$(dirname "$(readlink -f "$0")")" && pwd)
+COMPLETER=(--rust-completer --clang-completer --clang-tidy)
+
+cd "${HOME}/.config/nvim/plugged/YouCompleteMe"
+python3 install.py "${COMPLETER[@]}"
+	
+RHOME="/../resources/config/home/"
+RPATH=".config/nvim/.ycm_extra_conf.py"
+
+cp "$(readlink -m "${SD}${RHOME}${RPATH}")" .
+
+unset SD COMPLETER RHOME RPATH
