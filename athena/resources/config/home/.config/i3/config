@@ -73,7 +73,6 @@ bar {
   i3bar_command         i3bar --transparency
   status_command        i3status -c ~/.config/i3/i3statusconfig
 
-
   font xft:Roboto Medium 11
   separator_symbol      "   "
 
@@ -121,8 +120,8 @@ bindsym $mod+n exec nautilus -w
 # Nemo
 bindsym $mod+Shift+n exec nemo
 
-# Ranger
-bindsym $mod+Ctrl+n exec --no-startup-id urxvt -e ranger
+# GitKraken
+bindsym $mod+g exec gitkraken
 
 # Firefox
 bindsym $mod+f exec firefox
