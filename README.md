@@ -55,8 +55,8 @@ This project is licensed under the [_GNU Lesser General Public License_](./LICEN
 
 [//]: # (Links)
 
-[version]: https://img.shields.io/badge/version-v2.1.0-1A1D23.svg
+[version]: https://img.shields.io/badge/version-v2.3.1-1A1D23.svg
 [stability]: https://img.shields.io/badge/stability-stable-FBB444.svg
-[version::athena]: https://img.shields.io/badge/hermes-v0.2.6-434c5e.svg
+[version::athena]: https://img.shields.io/badge/athena-v0.2.6-434c5e.svg
 [version::hermes]: https://img.shields.io/badge/hermes-v0.1.2-434c5e.svg
 [version::kyrene]: https://img.shields.io/badge/kyrene-v0.4.1-5E6A82.svg

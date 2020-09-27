@@ -2,6 +2,14 @@
 
 ## Version 2
 
+### v2.3.1 RC1
+
+- corrected [`README.md`](./README.md)
+- corrected [`exa.sh`](./athena/scripts/exa.sh)
+- formatted VS Code settings
+- updated Docker Compose version
+- updated i3's configuration
+
 ### v2.3.0 RC1
 
 - markdown refinements

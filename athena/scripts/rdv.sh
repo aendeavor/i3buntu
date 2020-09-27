@@ -41,7 +41,7 @@ function _install_rust()
 
 function _install_compose()
 {
-  local _compose_version="1.26.2"
+  local _compose_version="1.27.4"
   sudo curl \
     -L "https://github.com/docker/compose/releases/download/${_compose_version}/docker-compose-$(uname -s)-$(uname -m)" \
     -o /usr/local/bin/docker-compose
