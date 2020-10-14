@@ -70,7 +70,7 @@ function build()
   log 2 1 2 'RUST'
   log 3 "Using rust-musl-builder${_tag}"
 
-  if ! ${rust_musl_builder} cargo build --release -q --color never &>.log
+  if ! ${rust_musl_builder} cargo build --release --color never &>.log
   then
     log 4 'Could not compile sources. Check logfile.'
     return 100
@@ -104,12 +104,13 @@ function publish()
 
   log 2 2 4 'TAGGING'
 
-  docker tag andevour/hermes andevour/hermes:latest &>/dev/null
+  local VERSION_TAG='stable'
+  docker tag andevour/hermes "andevour/hermes:${VERSION_TAG}" &>/dev/null
 
-  log 3 'Version tag is ":latest"'
+  log 3 "Version tag is ':${VERSION_TAG}'"
   log 2 3 4 'PUSHING'
 
-  if ! docker push andevour/hermes:latest >/dev/null 2>.log
+  if ! docker push "andevour/hermes:${VERSION_TAG}" >/dev/null 2>.log
   then
     log 4 'Push unsuccessful. Check logfile.'
     return 201

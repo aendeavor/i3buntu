@@ -44,6 +44,7 @@
   "editor.suggestSelection": "first",
   "editor.wordWrap": "bounded",
   "editor.wordWrapColumn": 130,
+  "editor.cursorSurroundingLines": 25,
 
   // Explorer
   "explorer.confirmDragAndDrop": false,
