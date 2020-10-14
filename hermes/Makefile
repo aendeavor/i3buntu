@@ -27,7 +27,7 @@ htest:
 # ? ––––––––––––––––––––––––––––––––––––––––––––– Release
 
 hrelease: Cargo.toml
-	@- ./hermes/make.sh --build
+	@ ./hermes/make.sh --build
 
 hpublish: hrelease
 	@- ./hermes/make.sh --publish
