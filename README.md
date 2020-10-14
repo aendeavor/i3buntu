@@ -12,12 +12,12 @@
    3. [Hermes](#hermes)
 4. [Warranty](#warranty-licensing--credits)
 
-[//]: # (Main README in /)
-[//]: # (version 0.3.1)
+[//]: # "Main README in /"
+[//]: # "version 0.3.1"
 
 ### Introduction
 
-i3buntu  provides means to customize an [_Ubuntu_](https://ubuntu.com/) installation by deploying the needed programs and sensible default settings. ***APOLLO*** is the name of the current working environment.
+i3buntu provides means to customize an [_Ubuntu_](https://ubuntu.com/) installation by deploying the needed programs and sensible default settings. **_APOLLO_** is the name of the current working environment.
 
 ![Desktop Theme](athena/docs/desktop_shell.png)
 
@@ -29,7 +29,7 @@ Are found in [`INSTALL.md`](INSTALL.md).
 
 ### About
 
-The ***APOLLO*** project advances _i3buntu_. We are providing everyone with a single easy bootstrapping process for the installation of [_i3-gaps_](https://github.com/Airblader/i3) and other basic software.
+The **_APOLLO_** project advances _i3buntu_. We are providing everyone with a single easy bootstrapping process for the installation of [_i3-gaps_](https://github.com/Airblader/i3) and other basic software.
 
 ![Collage 1](athena/docs/collage_1.png)
 
@@ -47,14 +47,13 @@ _Athena_ provides the base library _Kyrene_ uses. Moreover, all configuration fi
 
 ##### _Hermes_
 
-_Hermes_ provides a forwarding mechanism via [apollo.itbsd.com](https://apollo.itbsd.com) to download and execute `init.sh`. This script acquires the latest stable release candidate and starts ***APOLLO***.
+_Hermes_ provides a forwarding mechanism via [apollo.itbsd.com](https://apollo.itbsd.com) to download and execute `init.sh`. This script acquires the latest stable release candidate and starts **_APOLLO_**.
 
 ### Warranty, Licensing & Credits
 
 This project is licensed under the [_GNU Lesser General Public License_](./LICENSE), version 3, 29 June 2007. For warranty and icon-, font- or logo-credits, see [Credits and Warranty](athena/docs/cws.md).
 
-[//]: # (Links)
-
+[//]: # "Links"
 [version]: https://img.shields.io/badge/version-v2.3.1-1A1D23.svg
 [stability]: https://img.shields.io/badge/stability-stable-FBB444.svg
 [version::athena]: https://img.shields.io/badge/athena-v0.2.6-434c5e.svg

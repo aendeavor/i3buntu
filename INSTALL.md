@@ -11,14 +11,14 @@
    2. [Scripts](#scripts)
    3. [GDM3 vs LightDM](#gdm3-vs-lightdm)
 
-[//]: # (Explains the installation process of APOLLO)
-[//]: # (version 0.1.6)
+[//]: # "Explains the installation process of APOLLO"
+[//]: # "version 0.1.6"
 
 ### Instructions
 
-To get things started, get the [_Ubuntu 20.04 LTS_ Server ISO][iso] and install it. ***APOLLO*** depends on `curl`, `wget` and `rsync`, all of which are already installed. To start ***APOLLO***, use
+To get things started, get the [_Ubuntu 20.04 LTS_ Server ISO][iso] and install it. **_APOLLO_** depends on `curl`, `wget` and `rsync`, all of which are already installed. To start **_APOLLO_**, use
 
-``` BASH
+```BASH
 # obligatory update
 sudo apt-get update && sudo apt-get -y upgrade
 
@@ -26,7 +26,7 @@ sudo apt-get update && sudo apt-get -y upgrade
 curl --tlsv1.2 -sSfL https://apollo.itbsd.com | bash
 ```
 
-When executing ***APOLLO*** manually, do **not** start it in a root / superuser context. Either use `./apollo` or `make install`.
+When executing **_APOLLO_** manually, do **not** start it in a root / superuser context. Either use `./apollo` or `make install`.
 
 ### Handcrafted Finish
 
@@ -43,11 +43,11 @@ Thereafter, edit i3's config under `~/.config/i3/config` to use Picom and not Co
 If you are concerned about piping `curl` into `bash`, just download the script with curl, check and execute it later. The SHA sums are
 
 - SHA512
-  `65fb9fee3327ea298d7f0b080fe8ba144d78b87b1f33e87b7d3e2607c127021221bd28c6bad611716ab989174ef3d5c00962216b185c3243a8c73cd65eeb5eed  init.sh`
+  `65fb9fee3327ea298d7f0b080fe8ba144d78b87b1f33e87b7d3e2607c127021221bd28c6bad611716ab989174ef3d5c00962216b185c3243a8c73cd65eeb5eed init.sh`
 - SHA256
-  `b0884fd312b287f63daefff60bef488811e97d039c20961c15d6444145272945  init.sh`
+  `b0884fd312b287f63daefff60bef488811e97d039c20961c15d6444145272945 init.sh`
 - SHA1
-  `87df13f3c59a6a287067211a65efe8bddf668b34  init.sh`
+  `87df13f3c59a6a287067211a65efe8bddf668b34 init.sh`
 
 #### Scripts
 
@@ -55,10 +55,9 @@ Found under `athena/scripts/`, a few leftover script reside to ease the pain of 
 
 #### GDM3 vs LightDM
 
-***APOLLO*** installs [LightDM][lightdm] as an alternative to [GDM3][gdm3]. When you have GDM3 installed and do not wish to remove it, you need to press "Return" when a package installs LightDM directly or as a dependency. If you don't, the process will just not continue.
+**_APOLLO_** installs [LightDM][lightdm] as an alternative to [GDM3][gdm3]. When you have GDM3 installed and do not wish to remove it, you need to press "Return" when a package installs LightDM directly or as a dependency. If you don't, the process will just not continue.
 
-[//]: # (Links)
-
+[//]: # "Links"
 [version]: https://img.shields.io/badge/version-v2.1.0-1A1D23.svg
 [stability]: https://img.shields.io/badge/stability-stable-FBB444.svg
 [init]: https://img.shields.io/badge/init-v0.2.2-2B303B.svg

@@ -39,4 +39,4 @@
 
 ### v2.0.0
 
-- published ***APOLLO***
+- published **_APOLLO_**

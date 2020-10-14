@@ -13,7 +13,7 @@ Server deployments are, obviously, quite different from desktop installations. A
 
 Just copy [`.bashrc`](./../resources/config/home/.bashrc) and [`.bash_aliases`](./../resources/config/home/.bash_aliases). Afterwards, install `neofetch` with
 
-``` BASH
+```BASH
 sudo apt-get install neofetch
 ```
 
@@ -21,13 +21,13 @@ sudo apt-get install neofetch
 
 Install NeoVim with
 
-``` BASH
+```BASH
 sudo apt-get install -y neovim python3-dev
 ```
 
 Then, download the plugin-manager [_VimPlug_](https://github.com/junegunn/vim-plug) with
 
-``` BASH
+```BASH
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 ```
 
@@ -37,13 +37,13 @@ Afterwards, copy [`init.vim`](./../resources/config/home/.config/nvim/init.vim) 
 
 You can install Docker with
 
-``` BASH
+```BASH
 sudo apt-get install docker.io
 ```
 
 Docker Compose can be installed with the `rd.sh` script in the [`../scripts/`](../scripts) directory by executing
 
-``` BASH
+```BASH
 ./rd.sh --docker-compose
 ```
 

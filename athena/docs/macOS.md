@@ -2,13 +2,13 @@
 
 ## _macOS_ Installation Guide
 
-[//]: # (source <https://scriptingosx.com/2019/02/install-bash-5-on-macos/>)
+[//]: # "source <https://scriptingosx.com/2019/02/install-bash-5-on-macos/>"
 
 ### _BASH 5_
 
 After installing and configuring _macOS_, we need to setup _Bash_ properly. As _macOS_ ships with _Bash v3.2_ because of licensing issues, we will download, compile and install _Bash v5.x.x_ ourselves.
 
-``` BASH
+```BASH
 # currently Bash v3
 cd ${HOME}/Downloads
 curl https://ftp.gnu.org/gnu/bash/bash-5.0.tar.gz -o bash-5.0.tar.gz
@@ -29,7 +29,7 @@ chsh -s /bin/bash
 
 You will now need to boot into recovery mode. While rebooting, during startup, press `Command (⌘)-R` to get into recovery mode. Then open a shell and execute `csrutil disable` and reboot. Check with `csrutil status` whether SIP is disabled. We will now rename the old `bash` to `bash3` and softlink the new `/bin/bash` to `/usr/local/bin/bash`, which is _Bash v5_.
 
-``` BASH
+```BASH
 cd /bin
 sudo mv bash bash3
 sudo ln -s /usr/local/bin/bash /bin/bash
@@ -37,7 +37,7 @@ sudo ln -s /usr/local/bin/bash /bin/bash
 
 After opening a new shell, we can check whether we now use _bash5_.
 
-``` BASH
+```BASH
 /usr/local/bin/bash --version
 /usr/bin/env bash --version
 /bin/bash --version
@@ -50,9 +50,9 @@ These should all show version 5. While SIP is disabled, get rid of preinstalled 
 
 With _[Homebrew](https://brew.sh/)_, we can install all other programs we need, i.e. _Visual Studio Code_, _Git_, _NeoVim_, etc. Furthermore, we will be installing _FiraCode_, a special coding font.
 
-[//]: # (cask sources https://formulae.brew.sh/cask/)
+[//]: # "cask sources https://formulae.brew.sh/cask/"
 
-``` BASH
+```BASH
 # install Homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
@@ -84,7 +84,7 @@ brew cask install font-fira-code
 
 Other programs we will not be installing with _Homebrew_ are _Rust_.
 
-``` BASH
+```BASH
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 mkdir -p ${HOME}/.local/share/bash-completion/completions/
 rustup completions bash > ${HOME}/.local/share/bash-completion/completions/rustup
@@ -95,7 +95,7 @@ rustup completions bash cargo > ${HOME}/.local/share/bash-completion/completions
 
 You can download a patched version of `.bashrc` and `.bash_aliases` into `$HOME`. These will work with _Bash v5_. All other configuration files can also be downloaded and used with the commands given below.
 
-``` BASH
+```BASH
 # BASH
 cd
 _guc="https://raw.githubusercontent.com/aendeavor/i3buntu/master/athena/resources/config/macOS"

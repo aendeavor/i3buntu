@@ -25,7 +25,7 @@ Increase the version numbers in all changed files and in [README.md](./README.md
 
 Pull Requests are given a concise name and follow this template:
 
-``` MARKDOWN
+```MARKDOWN
 # {TITLE}
 
 ## Type & Purpose
@@ -46,7 +46,7 @@ Pull Requests are given a concise name and follow this template:
 
 We use the default [Git-Flow Workflow][git_flow].
 
-``` TXT
+```TXT
 RELEASE                                 [v0.2.0] ...
                                             |
 MASTER      [v0.1.0]---+ ...         - ...  |
@@ -85,7 +85,7 @@ We use `shellcheck` in version `v0.7.1` to test scripts. This is done during CI/
 
 When writing a script, provide the version and the script's task like so:
 
-``` BASH
+```BASH
 #!/usr/bin/env bash
 
 # version  0.1.0
@@ -97,7 +97,7 @@ When writing a script, provide the version and the script's task like so:
 
 #### If-Else-Statements
 
-``` BASH
+```BASH
 # the default if-else-style
 # using double-braces
 if [[ <CONDITION1> ]]
@@ -130,7 +130,7 @@ fi
 
 Variables are always uppercase and consist of only alphanumeric symbols. Do not precede a variable an underline. We always use braces. If you forgot this and want to change it later, you can use [this link](https://regex101.com/r/ikzJpF/4), which points to <https://regex101.com>. The used regex is `\$([^{("\\'\/])([a-zA-Z0-9_]*)([^}\/ \t'"\n.\]:]*)`, where you should in practice be able to replace all variable occurrences without braces with occurrences with braces.
 
-``` BASH
+```BASH
 # good
 local VAR="good"
 local NEW_VAR="${VAR}"
@@ -143,7 +143,7 @@ var="bad"
 
 Like `if-else`, loops look like this
 
-``` BASH
+```BASH
 for / while <LOOP CONDITION>
 do
   <CODE TO RUN>
@@ -159,7 +159,7 @@ done < INPUT
 
 It's always nice to see the use of functions. Not only as it's more C-style, but it also provides a clear structure. If scripts are small, this is unnecessary, but if they become larger, please consider using functions. When doing so, provide `function _main()`. When using functions, they are **always** at the top of the script!
 
-``` BASH
+```BASH
 function _<name_underscored_and_lowercase>()
 {
   <CODE TO RUN>
@@ -173,14 +173,14 @@ function _<name_underscored_and_lowercase>()
 
 A construct to trace error in your scripts looks like this: Please use it like this (copy-paste) to make errors streamlined. Remember: Remove `set -x` in the end. This of debugging purposes only.
 
-``` BASH
+```BASH
 set -euxEo pipefail
 trap '_report_err $_ $LINENO $?' ERR
 
 function _report_err()
 {
   echo "ERROR occurred :: source (hint) $1 ; line $2 ; exit code $3 ;;" >&2
-  
+
   <CODE TO RUN AFTERWARDS>
 }
 ```
@@ -191,7 +191,7 @@ Comments should be kept minimal and only describe non-obvious matters, i.e. not 
 
 A positive example:
 
-``` BASH
+```BASH
 # writes result to stdout
 function _add_one()
 {
@@ -201,7 +201,7 @@ function _add_one()
 
 A negative example:
 
-``` BASH
+```BASH
 # adds one to the first argument
 # and print it to stdout
 function _add_one()
@@ -221,13 +221,12 @@ function _add_one()
 
 Do not create arrays with non-robust methods. Use `mapfile` or (preferably) `read`.
 
-``` BASH
+```BASH
 declare -a ARRAY
 IFS='DELIMITER' ; read -r -a ARRAY < <(COMMAND INPUT)
 unset IFS
 ```
 
-[//]: # (Links)
-
+[//]: # "Links"
 [git_flow]: https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
 [prettier]: https://prettier.io/
