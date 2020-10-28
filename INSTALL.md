@@ -1,6 +1,4 @@
-# ![Apollo Logo](library/docs/apollo_logo.png)
-
-## Installation
+# Installation
 
 ![version][version] ![stability][stability] ![init][init]
 
@@ -11,10 +9,7 @@
    2. [Scripts](#scripts)
    3. [GDM3 vs LightDM](#gdm3-vs-lightdm)
 
-[//]: # (Explains the installation process of APOLLO)
-[//]: # (version 0.1.6)
-
-### Instructions
+## Instructions
 
 To get things started, get the [_Ubuntu 20.04 LTS_ Server ISO][iso] and install it. The application depends on `curl`, `wget` and `rsync`, all of which are already installed. To start the process, use
 
@@ -22,13 +17,13 @@ To get things started, get the [_Ubuntu 20.04 LTS_ Server ISO][iso] and install 
 # obligatory update
 sudo apt-get update && sudo apt-get -y upgrade
 
-# start APOLLO
-curl --tlsv1.2 -sSfL https://apollo.itbsd.com | bash
+# start the installation
+curl --tlsv1.2 -sSfL https://i3buntu.itbsd.com | bash
 ```
 
-When executing the application manually, do **not** start it in a root / superuser context. Either use `./apollo` or `make install`.
+When executing the application manually, do **not** start it in a root / superuser context. Either use `./i3buntu` or `make install`.
 
-### Handcrafted Finish
+## Handcrafted Finish
 
 The monitor/display configuration is not done automatically as this wouldn't make sense. You can do it manually with `arandr` and `i3`'s config.
 
@@ -42,9 +37,9 @@ Thereafter, edit i3's config under `~/.config/i3/config` to use Picom and not Co
 
 If you are concerned about piping `curl` into `bash`, just download the script with curl, check and execute it later. The SHA sums are
 
-- SHA512 `b0687fd13a4fe811458a51c06a1bb26b8174f894dd08572714ed60061f575e01a26fef86621e5f02ef95fdca48272fc11d82d73d024f7bee6068b8603333ad6f  init.sh`
-- SHA256 `d6d512d99075c239f7c0212ded414cfcc9ac218faf448ea0db80a266a9668f3c  init.sh`
-- SHA1 `633800bdf738d954893948d7b663efd6f80c4784  init.sh`
+- SHA512 `ea452e3337024390e630587e83b0e63174d67f410c7a5db1ec6bdbd564af03698f2ef018804aafe41576123dda6f66b136834e28fcc1d7a55de7683d7ad99a29  init.sh`
+- SHA256 `0a6de54606ed269c5bcab9b7076db21289f801e1145241a1a37d61a2739c1d3c  init.sh`
+- SHA1 `3c5e916666822738d04d540c0e72aedc8b9eb087  init.sh`
 
 #### Scripts
 
@@ -56,10 +51,10 @@ We install [LightDM][lightdm] as an alternative to [GDM3][gdm3]. When you have [
 
 [//]: # (Links)
 
-[version]: https://img.shields.io/badge/version-v2.3.1-1A1D23?&style=for-the-badge
+[version]: https://img.shields.io/badge/version-v3.0.0-1A1D23?&style=for-the-badge
 [stability]: https://img.shields.io/badge/stability-stable-FBB444?&style=for-the-badge
 
-[init]: https://img.shields.io/badge/init-v0.2.2-2B303B?&style=for-the-badge
+[init]: https://img.shields.io/badge/init-v0.3.0-2B303B?&style=for-the-badge
 [iso]: https://ubuntu.com/download/server
 [exa]: https://the.exa.website/
 [ycm]: https://github.com/ycm-core/YouCompleteM

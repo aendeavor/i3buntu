@@ -3,10 +3,10 @@ name = "provider"
 version = "0.1.0"
 authors = ["Georg Lauterbach <infrastructure@itbsd.com>"]
 edition = "2018"
-description = "A forward-agent for APOLLO"
+description = "A forward-agent for i3buntu"
 readme = "./README.md"
 license-file = "../LICENSE"
-keywords = ["APOLLO", "html-forwarding"]
+keywords = ["i3buntu", "html-forwarding"]
 publish = false
 
 [dependencies]

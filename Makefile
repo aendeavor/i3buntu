@@ -17,5 +17,5 @@ shellcheck:
 
 # -->                   -->                   --> INSTALLATION
 
-install: ./apollo
-	-@ ./apollo
+install: ./app
+	-@ ./app

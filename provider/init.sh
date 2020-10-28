@@ -1,7 +1,7 @@
 #!/bin/bash
 
 : '
-# ? version       v0.2.0 RC1 BETA1 UNSTABLE
+# ? version       v0.3.0 RC1 BETA1 UNSTABLE
 # ? executed by   curl | bash
 # ? task          Downloads application & starts installation
 '
@@ -10,6 +10,7 @@
 
 set -euEo pipefail
 
+trap 'unset RELEASE ARCHIVE GH' EXIT
 trap '__log_uerror ${FUNCNAME[0]:-'?'} ${_:-'?'} ${LINENO:-'?'} ${?:-'?'}' ERR
 
 function __log_uerror
@@ -29,37 +30,31 @@ function __log_uerror
 
 # -->                   -->                   --> START
 
-function _main()
-{
-  local RELEASE="2.1.0-stable"
-  local ARCHIVE="v${RELEASE}.tar.gz"
+RELEASE="3.0.0-stable"
+ARCHIVE="v${RELEASE}.tar.gz"
+GH="https://github.com/aendeavor/i3buntu/archive"
 
-  if [[ -e ${ARCHIVE} ]] || [[ -d "i3buntu-${RELEASE}" ]]
-  then
-    printf '%s %s %s %s %s\n' \
-      'There is already a file named' \
-      "${ARCHIVE}" \
-      "or a directory called" \
-      "${RELEASE}" \
-      'in this directory. Aborting.'
-    return 10
-  fi
+if [[ -e ${ARCHIVE} ]] || [[ -d "i3buntu-${RELEASE}" ]]
+then
+  printf '%s %s %s %s %s\n' \
+    'There is already a file named' \
+    "${ARCHIVE}" \
+    "or a directory called" \
+    "${RELEASE}" \
+    'in this directory. Aborting.'
+  return 10
+fi
 
-  local GH='https://github.com/'
-  local USER="${GH}aendeavor/i3buntu/archive"
 
-  if ! wget "${USER}/${ARCHIVE}" &>/dev/null
-  then
-    printf '%s %s\n' \
-      'Could not download repository.' \
-      'Aborting.'
-    return 100
-  fi
+if ! wget "${GH}/${ARCHIVE}" &>/dev/null
+then
+  printf '%s %s\n' \
+    'Could not download repository.' \
+    'Aborting.'
+  return 100
+fi
 
-  tar -xzf "${ARCHIVE}" &>/dev/null
-  cd "i3buntu-${RELEASE}" || return 200
+tar -xzf "${ARCHIVE}" &>/dev/null
+cd "i3buntu-${RELEASE}" || return 200
 
-  ./app </dev/tty
-}
-
-_main || exit ${?}
+./app </dev/tty

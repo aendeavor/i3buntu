@@ -1,6 +1,4 @@
-# ![Apollo Logo](apollo_logo.png)
-
-## Server Deployment Guide
+# Server Deployment Guide
 
 Server deployments are, obviously, quite different from desktop installations. As no graphical environment is needed, we can concentrate on the important programs and configs. These include
 
@@ -9,7 +7,7 @@ Server deployments are, obviously, quite different from desktop installations. A
 - Docker
 - Further packages
 
-### Bash v5
+## Bash v5
 
 Just copy [`.bashrc`](./../resources/config/home/.bashrc) and [`.bash_aliases`](./../resources/config/home/.bash_aliases). Afterwards, install `neofetch` with
 
@@ -17,7 +15,7 @@ Just copy [`.bashrc`](./../resources/config/home/.bashrc) and [`.bash_aliases`](
 sudo apt-get install neofetch
 ```
 
-### NeoVim Configuration
+## NeoVim Configuration
 
 Install NeoVim with
 
@@ -33,7 +31,7 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
 
 Afterwards, copy [`init.vim`](./../resources/config/home/.config/nvim/init.vim) to `~/.config/nvim/`. Open NeoVim and use the command `:PlugInstall` to install the plugins. You can then use the script `nvim_ycm.sh` in the [`scripts`](../scripts) directory to compile [_YouCompleteMe_](https://github.com/ycm-core/YouCompleteMe).
 
-### Docker
+## Docker
 
 You can install Docker with
 
@@ -47,7 +45,7 @@ Docker Compose can be installed with the `rd.sh` script in the [`../scripts/`](.
 ./rd.sh --docker-compose
 ```
 
-### Further packages
+## Further packages
 
 Useful packages include
 

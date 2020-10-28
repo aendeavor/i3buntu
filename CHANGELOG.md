@@ -8,6 +8,8 @@
 
 - new initialization with **major** refactoring
 - new provider
+- new issue and merge request templates
+- updated dependencies
 
 ## Major Version 2
 

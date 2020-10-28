@@ -27,7 +27,7 @@ const TPC2: u8 = 3;
 
 /// # Base System Extension
 ///
-/// Installs ***APOLLO***'s base packages onto
+/// Installs the app's base packages onto
 /// the OS.
 ///
 /// Stage: 2,

@@ -1,10 +1,8 @@
-# ![Apollo Logo](apollo_logo.png)
-
-## _macOS_ Installation Guide
+# _macOS_ Installation Guide
 
 [//]: # (source <https://scriptingosx.com/2019/02/install-bash-5-on-macos/>)
 
-### _BASH 5_
+## _BASH 5_
 
 After installing and configuring _macOS_, we need to setup _Bash_ properly. As _macOS_ ships with _Bash v3.2_ because of licensing issues, we will download, compile and install _Bash v5.x.x_ ourselves.
 
@@ -46,7 +44,7 @@ bash --version
 
 These should all show version 5. While SIP is disabled, get rid of preinstalled applications we do not need, like chess, etc. Then, turn SIP back on, by following the steps to turning it of, just use `enable` instead of `disable`.
 
-### _Homebrew_ & Programs
+## _Homebrew_ & Programs
 
 With _[Homebrew](https://brew.sh/)_, we can install all other programs we need, i.e. _Visual Studio Code_, _Git_, _NeoVim_, etc. Furthermore, we will be installing _FiraCode_, a special coding font.
 
@@ -91,7 +89,7 @@ rustup completions bash > ${HOME}/.local/share/bash-completion/completions/rustu
 rustup completions bash cargo > ${HOME}/.local/share/bash-completion/completions/cargo
 ```
 
-### Configuration
+## Configuration
 
 You can download a patched version of `.bashrc` and `.bash_aliases` into `$HOME`. These will work with _Bash v5_. All other configuration files can also be downloaded and used with the commands given below.
 
@@ -167,7 +165,7 @@ cd "${HOME}/.config/nvim/plugged/YouCompleteMe"
 python3 install.py
 ```
 
-#### Thunderbird
+### Thunderbird
 
 We already downloaded `pinentry-mac` to serve as a graphical interface for _GnuPG_ when we want to sign and encrypt E-Mails with _Thunderbird_. We have to make sure this program is used when signing and encrypting.
 

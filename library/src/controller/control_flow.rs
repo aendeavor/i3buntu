@@ -1,6 +1,6 @@
 use super::super::{
     data::structures::{
-        ApolloResult,
+        AppResult,
         PhaseError,
         PhaseResult,
         StageResult,
@@ -13,7 +13,7 @@ use super::super::{
 ///
 /// Checks whether to abort on a given exit code
 /// or not. An abort exit code ranges from 100 to 199.
-pub fn check_abort<T: ExitCodeCompatible>(result: &mut ApolloResult, exit_code: T)
+pub fn check_abort<T: ExitCodeCompatible>(result: &mut AppResult, exit_code: T)
 {
     result.set_failure(exit_code.get_exit_code());
 

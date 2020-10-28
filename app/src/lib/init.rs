@@ -5,7 +5,7 @@ use library::{
     },
     log::console,
     structures::{
-        ApolloResult,
+        AppResult,
         ExitCode,
         PhaseError,
         StageOneData,
@@ -21,12 +21,12 @@ use super::{
 /// # First Things First
 ///
 /// Coordinates greetings message and creates
-/// an `ApolloResult` instance. Called as first
+/// an `AppResult` instance. Called as first
 /// function in `main()`.
-pub fn start() -> ApolloResult
+pub fn start() -> AppResult
 {
     console::welcome(crate::VERSION);
-    ApolloResult::new()
+    AppResult::new()
 }
 
 /// # Stage 1

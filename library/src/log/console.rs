@@ -1,7 +1,7 @@
 use super::super::data::{
     self,
     structures::{
-        ApolloResult,
+        AppResult,
         PhaseError,
     },
 };
@@ -16,7 +16,7 @@ use colored::Colorize;
 
 /// # Greetings
 ///
-/// Creates the greetings-message upon starting APOLLO.
+/// Creates the greetings-message upon starting i3buntu.
 pub fn welcome(app_version: &str)
 {
     println!(
@@ -24,7 +24,7 @@ pub fn welcome(app_version: &str)
          complete the setup. These include:\n\n  1. Initialization\n  2. Installation of \
          Software\n  3. Deployment of Configuration Files\n\nAs we need superuser privileges to \
          install\nprograms and to reach some locations, please\ninput your password if prompted.\n",
-        "APOLLO".bold().magenta(),
+        "i3buntu".bold().magenta(),
         crate::VERSION,
         app_version
     );
@@ -204,26 +204,26 @@ pub mod stage_one
 ///
 /// Formats the final console output returned before exiting
 /// `main()`.
-pub fn fmt_final_result(apollo: &ApolloResult, f: &mut fmt::Formatter<'_>) -> fmt::Result
+pub fn fmt_final_result(result: &AppResult, f: &mut fmt::Formatter<'_>) -> fmt::Result
 {
     println!();
-    let label = "APOLLO".magenta().bold();
+    let label = "result".magenta().bold();
 
-    if apollo.is_success() {
+    if result.is_success() {
         write!(f, "{} has finished. There were no errors.", label)
-    } else if !apollo.is_abort() {
+    } else if !result.is_abort() {
         write!(
             f,
             "{} has finished, but there were minor errors. Final exit code was {}.",
             label,
-            apollo.get_exit_code()
+            result.get_exit_code()
         )
     } else {
         write!(
             f,
             "{} has finished early. An unrecoverable situation was encountered. Exit code was {}",
             label,
-            apollo.get_exit_code()
+            result.get_exit_code()
         )
     }
 }

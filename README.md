@@ -1,6 +1,7 @@
 # i3buntu
 
 ![version][version] ![stability][stability]
+
 ![lib][lib::version] ![provider][provider::version] ![bin][application::version]
 
 1. [Introduction](#introduction)
@@ -46,7 +47,7 @@ This project is licensed under the [_GNU Lesser General Public License_](./LICEN
 
 [//]: # (Badge Links)
 
-[version]: https://img.shields.io/badge/version-v2.3.1-1A1D23?&style=for-the-badge
+[version]: https://img.shields.io/badge/version-v3.0.0-1A1D23?&style=for-the-badge
 [stability]: https://img.shields.io/badge/stability-stable-FBB444?&style=for-the-badge
 
 [lib::version]: https://img.shields.io/badge/library-v0.2.6-282D39?&style=for-the-badge

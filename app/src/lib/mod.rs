@@ -1,8 +1,8 @@
 /// # Main Driver
 ///
-/// Serves a sort of "runtime" for APOLLO. It
-/// coordinates the procedure of all functions and
-/// regulates information exchange.
+/// Serves a sort of "runtime" for the application.
+/// It coordinates the procedure of all functions
+/// and regulates information exchange.
 pub mod init;
 
 /// # I/O

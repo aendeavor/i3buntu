@@ -3,7 +3,7 @@
 # Downloads Picom, Dunst and i3-radius
 # via `git clone` and installs them.
 # Dependencies should have already been
-# installed by APOLLO.
+# installed by i3buntu.
 #
 # author   Georg Lauterbach
 # version  0.2.0 unstable

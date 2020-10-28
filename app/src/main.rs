@@ -8,28 +8,28 @@ mod lib;
 use library::controller::check_abort;
 use lib::init;
 
-const VERSION: &'static str = "v0.4.2-production rc5 stable";
+const VERSION: &str = "v0.4.2-production rc5 stable";
 
 fn main()
 {
-    let mut apollo_result = init::start();
+    let mut app_result = init::start();
 
     let stage_one_data = match init::stage_one() {
         Ok(sod) => sod,
         Err(sod) => {
-            check_abort(&mut apollo_result, sod);
+            check_abort(&mut app_result, sod);
             sod
         },
     };
 
     if let Err(exit_code) = init::stage_two(stage_one_data) {
-        check_abort(&mut apollo_result, exit_code);
+        check_abort(&mut app_result, exit_code);
     }
 
     if let Err(exit_code) = init::stage_three() {
-        check_abort(&mut apollo_result, exit_code);
+        check_abort(&mut app_result, exit_code);
     }
 
-    println!("{}", apollo_result);
-    std::process::exit(apollo_result.get_exit_code());
+    println!("{}", app_result);
+    std::process::exit(app_result.get_exit_code());
 }

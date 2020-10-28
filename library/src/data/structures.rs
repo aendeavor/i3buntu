@@ -262,7 +262,7 @@ impl PPAs
     pub fn optional(&self) -> &Vec<String> { &self.optional }
 }
 
-/// # ApolloResult
+/// # AppResult
 ///
 /// Used for error propagation to top level `main()`
 /// and to decide whether the installation was a
@@ -270,7 +270,7 @@ impl PPAs
 /// there is also an indication whether the
 /// installation ended in an abort.
 #[derive(Debug)]
-pub struct ApolloResult
+pub struct AppResult
 {
     success:   bool,
     abort:     bool,
@@ -285,11 +285,11 @@ pub struct ApolloResult
     abort_msg: Option<&'static str>,
 }
 
-impl ApolloResult
+impl AppResult
 {
     pub fn new() -> Self
     {
-        ApolloResult {
+        AppResult {
             success:   true,
             abort:     false,
             exit_code: 0,
@@ -329,7 +329,7 @@ impl ApolloResult
             121 => self.abort_msg = Some("S2P1 - Could not read from path to JSON string"),
             122 => self.abort_msg = Some("S2P1 - Could not parse programs from JSON"),
             _ => panic!(
-                "Exit Code for abort not implemented in lib::data::end::ApolloResult.set_abort. \
+                "Exit Code for abort not implemented in lib::data::end::AppResult.set_abort. \
                  Exit code was: {}",
                 self.get_exit_code()
             ),
@@ -356,9 +356,9 @@ impl ApolloResult
     }
 }
 
-impl Error for ApolloResult {}
+impl Error for AppResult {}
 
-impl fmt::Display for ApolloResult
+impl fmt::Display for AppResult
 {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result { console::fmt_final_result(self, f) }
 }

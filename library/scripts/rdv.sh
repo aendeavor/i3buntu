@@ -2,7 +2,7 @@
 
 # Installs Rust and Docker
 # Compose during packaging
-# (stage 3) when APOLLO is
+# (stage 3) when i3buntu is
 # processing user choices.
 #
 # author   Georg Lauterbach
