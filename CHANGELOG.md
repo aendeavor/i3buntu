@@ -1,16 +1,21 @@
 # Changelog
 
-## Version 2
+## Major  Version 3
 
-### v2.3.1 RC1
+### v3.0
 
-- corrected [`README.md`](./README.md)
-- corrected [`exa.sh`](./athena/scripts/exa.sh)
-- formatted VS Code settings
-- updated Docker Compose version
-- updated i3's configuration
+#### v3.0.0 RC1 ALPHA1
 
-### v2.3.0 RC1
+- new initialization with **major** refactoring
+- new provider
+- new issue and merge request templates
+- updated dependencies
+
+## Major Version 2
+
+### v2.3
+
+### v2.3.1 RC1 PRODUCTION
 
 - markdown refinements
 - updated `.bashrc` to `v0.7.0` and `.bash_aliases` to `v1.3.0`
@@ -18,7 +23,15 @@
 - added shellcheck test
 - streamlined shell scripts
 
-### v2.2.0 RC1
+### v2.3.1 RC1 PRODUCTION
+
+- corrected [`README.md`](./README.md)
+- corrected [`exa.sh`](./library/scripts/exa.sh)
+- formatted VS Code settings
+- updated Docker Compose version
+- updated i3's configuration
+
+### v2.2.0
 
 - implemented new format for installing Visual Studio Code without snap
 - re-packaged icon theme
@@ -29,7 +42,7 @@
 
 - canonicalised script comments
 - adjusted INSTALL
-- corrected [`exa`](./athena/scripts/exa.sh) script
+- corrected [`exa`](./library/scripts/exa.sh) script
 - added VS Code Prettier extension and clang to programs
 - added table of contents
 - Bash and Rust code formatting

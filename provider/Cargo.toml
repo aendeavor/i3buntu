@@ -1,0 +1,13 @@
+[package]
+name = "provider"
+version = "0.1.0"
+authors = ["Georg Lauterbach <infrastructure@itbsd.com>"]
+edition = "2018"
+description = "A forward-agent for i3buntu"
+readme = "./README.md"
+license-file = "../LICENSE"
+keywords = ["i3buntu", "html-forwarding"]
+publish = false
+
+[dependencies]
+rocket = "0.4.5"
