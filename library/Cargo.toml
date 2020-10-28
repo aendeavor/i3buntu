@@ -1,0 +1,15 @@
+[package]
+name = "library"
+version = "0.1.0"
+authors = ["Georg Lauterbach <infrastructure@itbsd.com>"]
+edition = "2018"
+description = "Custom LINUX setup and bootstrapping LIB"
+license-file = "../LICENSE"
+keywords = [ "LINUX", "SETUP" ]
+publish = false
+
+[dependencies]
+colored = "2.0.0"
+dirs-next = "2.0.0"
+serde = { version = "1.0.117", features = ["derive"] }
+serde_json = "1.0.59"
