@@ -15,8 +15,8 @@ build_library:
 build_app:
   {{CC}} build -p app
 
-build_provider release='':
-  {{CC}} build {{release}} -p provider
+build_provider:
+  cd provider && make release
 
 build package='app':
   {{CC}} build -p {{package}}

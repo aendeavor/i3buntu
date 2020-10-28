@@ -7,6 +7,7 @@
 #### v3.0.0 RC1 ALPHA1
 
 - new initialization with **major** refactoring
+- new provider
 
 ## Major Version 2
 

@@ -4,6 +4,6 @@
 FROM scratch
 USER 1000
 
-COPY target/x86_64-unknown-linux-musl/release/hermes /
+COPY ./target/x86_64-unknown-linux-musl/release/provider /
 
-CMD [ "/hermes" ]
+CMD [ "/provider" ]

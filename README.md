@@ -38,7 +38,7 @@ The library provides the base library our application uses. Moreover, all config
 
 ##### Provider
 
-The provider makes a forwarding mechanism via [apollo.itbsd.com][provider::url] available to download and execute `init.sh`. This script acquires the latest stable release candidate and starts the application.
+The provider makes a forwarding mechanism via [i3buntu.itbsd.com][provider::url] available to download and execute `init.sh`. This script acquires the latest stable release candidate and starts the application.
 
 ### Licensing
 
@@ -59,4 +59,4 @@ This project is licensed under the [_GNU Lesser General Public License_](./LICEN
 [i3gaps::github]: https://github.com/Airblader/i3
 [rust::main]: https://www.rust-lang.org/
 
-[provider::url]: https://apollo.itbsd.com
+[provider::url]: https://i3buntu.itbsd.com

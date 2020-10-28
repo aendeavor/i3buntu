@@ -10,5 +10,5 @@ MAKEFLAGS += --no-builtin-rules
 release: Cargo.toml
 	@ ./make.sh --build
 
-hpublish: hrelease
+publish: release
 	@ ./make.sh --publish
