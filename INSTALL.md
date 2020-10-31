@@ -51,7 +51,7 @@ We install [LightDM][lightdm] as an alternative to [GDM3][gdm3]. When you have [
 
 [//]: # (Links)
 
-[version]: https://img.shields.io/badge/version-v3.0.0-1A1D23?&style=for-the-badge
+[version]: https://img.shields.io/badge/version-v3.1.0-1A1D23?&style=for-the-badge
 [stability]: https://img.shields.io/badge/stability-stable-FBB444?&style=for-the-badge
 
 [init]: https://img.shields.io/badge/init-v0.3.0-2B303B?&style=for-the-badge

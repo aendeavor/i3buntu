@@ -52,7 +52,7 @@ alias ......='cd ../../../../..'
 
 function dt     { printf "%s " "$(date '+%H:%M:%S')"          ; }
 function inform { echo -e "$(dt)\033[1;34mINFO\033[0m\t\t$1"  ; }
-function err    { echo -e "$(dt)\033[0;31mERROR\033[0m\t$1"   ; }
+function err    { echo -e "$(dt)\033[0;31mERROR\033[0m\t\t$1" ; }
 function warn   { echo -e "$(dt)\033[1;33mWARNING\033[0m\t$1" ; }
 function succ   { echo -e "$(dt)\033[1;32mSUCCESS\033[0m\t$1" ; }
 
