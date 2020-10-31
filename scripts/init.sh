@@ -30,7 +30,7 @@ function __log_uerror
 
 # -->                   -->                   --> START
 
-RELEASE="3.0.0-stable"
+RELEASE="3.1.0-stable"
 ARCHIVE="v${RELEASE}.tar.gz"
 GH="https://github.com/aendeavor/i3buntu/archive"
 
