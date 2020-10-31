@@ -24,7 +24,7 @@ pub fn welcome(app_version: &str)
          complete the setup. These include:\n\n  1. Initialization\n  2. Installation of \
          Software\n  3. Deployment of Configuration Files\n\nAs we need superuser privileges to \
          install\nprograms and to reach some locations, please\ninput your password if prompted.\n",
-        "i3buntu".bold().magenta(),
+        "i3buntu".bold().yellow(),
         crate::VERSION,
         app_version
     );
@@ -45,7 +45,7 @@ pub fn welcome(app_version: &str)
 /// divided into. Stages consist of phases.
 pub fn print_stage_start(stage_number: u8, stage_name: &str)
 {
-    println!("\nSTAGE {}\n{} {{\n", stage_number, stage_name.magenta());
+    println!("\nSTAGE {}\n{} {{\n", stage_number, stage_name.yellow());
 }
 
 /// # Phase descriptions
@@ -181,7 +181,7 @@ pub mod stage_one
             f,
             "{}\nSTAGE 1\n{} {{\n{}\n  EXIT CODE: {}\n  SUCCESS: {}",
             "DATA".red(),
-            "INITIALIZATION".magenta(),
+            "INITIALIZATION".yellow(),
             sod.choices,
             sod.get_exit_code(),
             sod.is_success()
@@ -207,7 +207,7 @@ pub mod stage_one
 pub fn fmt_final_result(result: &AppResult, f: &mut fmt::Formatter<'_>) -> fmt::Result
 {
     println!();
-    let label = "result".magenta().bold();
+    let label = "result".yellow().bold();
 
     if result.is_success() {
         write!(f, "{} has finished. There were no errors.", label)

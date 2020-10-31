@@ -13,19 +13,14 @@ export SCRIPT='SHA SUM ADJUSTMENT'
 
 # -->                   -->                   --> START
 
-(
-  cd provider
-
-  sed -E -i \
-    "s+SHA512\ \`.*\`+SHA512\ \`$(sha512sum init.sh)\`+g" \
-    ../INSTALL.md
+sed -E -i \
+  "s+SHA512\ \`.*\`+SHA512\ \`$(sha512sum init.sh)\`+g" \
+  INSTALL.md
   
-  sed -E -i \
-    "s+SHA256\ \`.*\`+SHA256\ \`$(sha256sum init.sh)\`+g" \
-    ../INSTALL.md
+sed -E -i \
+  "s+SHA256\ \`.*\`+SHA256\ \`$(sha256sum init.sh)\`+g" \
+  INSTALL.md
   
-  sed -E -i \
-    "s+SHA1\ \`.*\`+SHA1\ \`$(sha1sum init.sh)\`+g" \
-    ../INSTALL.md
-
-)
+sed -E -i \
+  "s+SHA1\ \`.*\`+SHA1\ \`$(sha1sum init.sh)\`+g" \
+  INSTALL.md
