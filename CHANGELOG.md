@@ -7,6 +7,7 @@
 #### v3.1.0 RC1 BETA1
 
 - removed provider as _Traefik_ now handles redirection
+- minor adjustments in _Alacritty_'s configuration
 
 #### v3.0.0 RC1 ALPHA1
 
