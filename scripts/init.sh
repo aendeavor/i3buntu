@@ -1,7 +1,7 @@
 #!/bin/bash
 
 : '
-# ? version       v0.4.0 RC1 BETA1 UNSTABLE
+# ? version       v0.4.1 RC1 BETA1 UNSTABLE
 # ? executed by   curl | bash
 # ? task          Downloads application & starts installation
 '
@@ -38,9 +38,9 @@ function __check_integrity
   SELF="$(curl --tlsv1.2 -sSfL i3buntu.itbsd.com)"
 
   GREP_CMD=(grep -a -m 1 -h -o -E "[0-9a-zA-Z]+")
-  SHA1SUM="$(sha1sum "${SELF}" | "${GREP_CMD[@]}" | head -1)"
-  SHA256SUM="$(sha256sum "${SELF}" | "${GREP_CMD[@]}" | head -1)"
-  SHA512SUM="$(sha512sum "${SELF}" | "${GREP_CMD[@]}" | head -1)"
+  SHA1SUM="$(sha1sum <<< "${SELF}" | "${GREP_CMD[@]}" | head -1)"
+  SHA256SUM="$(sha256sum <<< "${SELF}" | "${GREP_CMD[@]}" | head -1)"
+  SHA512SUM="$(sha512sum <<< "${SELF}" | "${GREP_CMD[@]}" | head -1)"
 
   if ! grep -q "${SHA1SUM}" <<< "${SHA_SUMS_FILE}" || \
     ! grep -q "${SHA256SUM}" <<< "${SHA_SUMS_FILE}" || \
