@@ -1,6 +1,6 @@
 # Installation
 
-![version][version] ![stability][stability] ![init][init]
+![init][init]
 
 1. [Instructions](#instructions)
 2. [Handcrafted Finish](#handcrafted-finish)
@@ -18,7 +18,7 @@ To get things started, get the [_Ubuntu 20.04 LTS_ Server ISO][iso] and install 
 sudo apt-get update && sudo apt-get -y upgrade
 
 # start the installation
-curl --tlsv1.2 -sSfL https://i3buntu.itbsd.com | bash
+curl --tlsv1.2 -sSfL i3buntu.itbsd.com | bash
 ```
 
 When executing the application manually, do **not** start it in a root / superuser context. Either use `./i3buntu` or `make install`.
@@ -35,11 +35,7 @@ Thereafter, edit i3's config under `~/.config/i3/config` to use Picom and not Co
 
 #### Security
 
-If you are concerned about piping `curl` into `bash`, just download the script with curl, check and execute it later. The SHA sums are
-
-- SHA512 `ea452e3337024390e630587e83b0e63174d67f410c7a5db1ec6bdbd564af03698f2ef018804aafe41576123dda6f66b136834e28fcc1d7a55de7683d7ad99a29  init.sh`
-- SHA256 `0a6de54606ed269c5bcab9b7076db21289f801e1145241a1a37d61a2739c1d3c  init.sh`
-- SHA1 `3c5e916666822738d04d540c0e72aedc8b9eb087  init.sh`
+The `init.sh` is checked with `SHA512`, `SHA256` and `SHA1` sums to verify integrity.
 
 #### Scripts
 
@@ -51,10 +47,8 @@ We install [LightDM][lightdm] as an alternative to [GDM3][gdm3]. When you have [
 
 [//]: # (Links)
 
-[version]: https://img.shields.io/badge/version-v3.1.0-1A1D23?&style=for-the-badge
-[stability]: https://img.shields.io/badge/stability-stable-FBB444?&style=for-the-badge
+[init]: https://img.shields.io/badge/init-v0.4.0-2B303B?&style=for-the-badge
 
-[init]: https://img.shields.io/badge/init-v0.3.0-2B303B?&style=for-the-badge
 [iso]: https://ubuntu.com/download/server
 [exa]: https://the.exa.website/
 [ycm]: https://github.com/ycm-core/YouCompleteM

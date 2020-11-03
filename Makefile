@@ -17,5 +17,5 @@ shellcheck:
 
 # -->                   -->                   --> INSTALLATION
 
-install: ./app
-	-@ ./app
+install: ./i3buntu
+	-@ ./i3buntu
