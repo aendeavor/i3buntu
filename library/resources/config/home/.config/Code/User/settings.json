@@ -3,15 +3,17 @@
   "telemetry.enableTelemetry": false,
 
   // Workbench
-  "workbench.editor.limit.enabled": true,
-  "workbench.editor.limit.perEditorGroup": true,
-  "workbench.editor.limit.value": 3,
-  "workbench.startupEditor": "newUntitledFile",
+  // "workbench.editor.limit.enabled": true,
+  // "workbench.editor.limit.perEditorGroup": true,
+  // "workbench.editor.limit.value": 3,
+  // "workbench.startupEditor": "newUntitledFile",
   "workbench.sideBar.location": "right",
-  "workbench.colorTheme": "One Dark Pro",
   "workbench.iconTheme": "material-icon-theme",
+  "workbench.editor.enablePreview": true,
+  "workbench.editor.showTabs": true,
+  "workbench.colorTheme": "Material Theme Ocean High Contrast",
 
-  // LaTeX (XE-TeX)
+  // LaTeX (Xe-TeX)
   "latex-workshop.message.update.show": false,
   "latex-workshop.latex.build.clearLog.everyRecipeStep.enabled": false,
   "latex-workshop.view.pdf.viewer": "tab",
@@ -37,7 +39,7 @@
   ],
 
   // Font
-  "editor.fontFamily": "Fira Code Retina", // "FiraCode-Retina" if macOS
+  "editor.fontFamily": "Fira Code Retina",
   "editor.fontLigatures": true,
 
   // Editor
@@ -45,16 +47,12 @@
   "editor.wordWrap": "bounded",
   "editor.wordWrapColumn": 130,
   "editor.cursorSurroundingLines": 25,
+  "editor.tabCompletion": "on",
+  "editor.insertSpaces": false,
 
   // Explorer
   "explorer.confirmDragAndDrop": false,
   "explorer.confirmDelete": false,
-
-  // VS IntelliCode
-  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-
-  // Python
-  "python.jediEnabled": false,
 
   // Files
   "files.exclude": {
@@ -101,13 +99,44 @@
     "yml"
   ],
 
-  // LiveServer
-  "liveServer.settings.donotShowInfoMsg": true,
-
   // ShellCheck
   "shellcheck.customArgs": ["-x"],
 
-  // Markdown
   "markdown.extension.toc.slugifyMode": "gitlab",
-  "markdown.extension.toc.updateOnSave": false
+  "markdown.extension.toc.updateOnSave": false,
+
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  "files.associations": {
+    "justfile": "just"
+  },
+
+  "[c]": {
+    "editor.defaultFormatter": "ms-vscode.cpptools"
+  },
+
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  "[rust]": {
+    "editor.defaultFormatter": "matklad.rust-analyzer"
+  },
+  "rust-analyzer.cargo.allFeatures": true,
+
+  // Python
+  "python.languageServer": "Pylance",
+  "python.dataScience.alwaysTrustNotebooks": true,
+  "vsintellicode.features.python.deepLearning": "enabled",
 }
+

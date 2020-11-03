@@ -1,7 +1,7 @@
 #!/bin/bash
 
 : '
-# ? version       v0.3.0 RC1 BETA1 UNSTABLE
+# ? version       v0.4.0 RC1 BETA1 UNSTABLE
 # ? executed by   curl | bash
 # ? task          Downloads application & starts installation
 '
@@ -27,6 +27,31 @@ function __log_uerror
     "  – line      = ${LINE}" \
     "  – exit code = ${EXIT_CODE}"
 }
+
+# -->                   -->                   --> INTEGRITY CHECK
+
+function __check_integrity
+{
+  local SHA_SUMS_FILE GREP_CMD SHA1SUM SHA256SUM SHA512SUM
+  
+  SHA_SUMS_FILE="$(curl --tlsv1.2 -sSf https://raw.githubusercontent.com/aendeavor/i3buntu/master/.env)"
+  SELF="$(curl --tlsv1.2 -sSfL i3buntu.itbsd.com)"
+
+  GREP_CMD=(grep -a -m 1 -h -o -E "[0-9a-zA-Z]+")
+  SHA1SUM="$(sha1sum "${SELF}" | "${GREP_CMD[@]}" | head -1)"
+  SHA256SUM="$(sha256sum "${SELF}" | "${GREP_CMD[@]}" | head -1)"
+  SHA512SUM="$(sha512sum "${SELF}" | "${GREP_CMD[@]}" | head -1)"
+
+  if ! grep -q "${SHA1SUM}" <<< "${SHA_SUMS_FILE}" || \
+    ! grep -q "${SHA256SUM}" <<< "${SHA_SUMS_FILE}" || \
+    ! grep -q "${SHA512SUM}" <<< "${SHA_SUMS_FILE}"
+  then
+    echo "Checksums are not matching. Aborting." >&2
+    exit 1
+  fi
+}
+
+__check_integrity
 
 # -->                   -->                   --> START
 
@@ -57,4 +82,4 @@ fi
 tar -xzf "${ARCHIVE}" &>/dev/null
 cd "i3buntu-${RELEASE}" || return 200
 
-./app </dev/tty
+./i3buntu </dev/tty

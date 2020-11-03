@@ -8,6 +8,8 @@
 
 - removed provider as _Traefik_ now handles redirection
 - minor adjustments in _Alacritty_'s configuration
+- updating _VS Code_ settings and extensions
+- added checksum integration and validation
 
 #### v3.0.0 RC1 ALPHA1
 
