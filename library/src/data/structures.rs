@@ -145,6 +145,7 @@ impl Error for StageOneData {}
 /// `Choices` implements `Iterator`, so that one can
 /// loop over this struct to get the entries to install
 /// them.
+#[allow(clippy::clippy::struct_excessive_bools)]
 #[derive(Debug, Clone, Copy)]
 pub struct Choices
 {
@@ -161,7 +162,7 @@ pub struct Choices
 
 impl Choices
 {
-    pub fn new(
+	pub fn new(
         tex: bool,
         java: bool,
         ct: bool,

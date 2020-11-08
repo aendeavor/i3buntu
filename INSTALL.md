@@ -5,13 +5,13 @@
 1. [Instructions](#instructions)
 2. [Handcrafted Finish](#handcrafted-finish)
 3. [Miscellaneous](#miscellaneous)
-   1. [Security](#scripts)
-   2. [Scripts](#scripts)
+   1. [Integrity](#integrity)
+   2. [Other Scripts](#other-scripts)
    3. [GDM3 vs LightDM](#gdm3-vs-lightdm)
 
 ## Instructions
 
-To get things started, get the [_Ubuntu 20.04 LTS_ Server ISO][iso] and install it. The application depends on `curl`, `wget` and `rsync`, all of which are already installed. To start the process, use
+To get things started, get the [_Ubuntu 20.04 LTS_ Server ISO][iso] and install it. To start the installation process, use
 
 ``` BASH
 # obligatory update
@@ -33,13 +33,13 @@ Thereafter, edit i3's config under `~/.config/i3/config` to use Picom and not Co
 
 ### Miscellaneous
 
-#### Security
+#### Integrity
 
 The `init.sh` is checked with `SHA512`, `SHA256` and `SHA1` sums to verify integrity.
 
-#### Scripts
+#### Other Scripts
 
-Found under `library/scripts/`, a few leftover script reside to ease the pain of installing certain software by hand. These include [`exa`][exa] or [`ycm`][ycm].
+Found under `library/scripts/`, a few scripts reside there to ease the pain of installing certain software by hand. These include [`exa`][exa] or [`ycm`][ycm].
 
 #### GDM3 vs LightDM
 
@@ -47,7 +47,7 @@ We install [LightDM][lightdm] as an alternative to [GDM3][gdm3]. When you have [
 
 [//]: # (Links)
 
-[init]: https://img.shields.io/badge/init-v0.4.0-2B303B?&style=for-the-badge
+[init]: https://img.shields.io/badge/init-v0.4.1-2B303B?&style=for-the-badge
 
 [iso]: https://ubuntu.com/download/server
 [exa]: https://the.exa.website/

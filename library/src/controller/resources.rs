@@ -7,7 +7,6 @@ use std::{
     process::Command,
 };
 use colored::Colorize;
-use dirs_next;
 use serde_json::{
     self,
     Value,
