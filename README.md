@@ -33,15 +33,15 @@ The application essentially is the binary which does the actual job at runtime. 
 
 ##### Library
 
-The library provides the base library our application uses. Moreover, all configuration files and software module descriptions are held here, as well as icons, logos and images.
+The library provides all functions and methods as well as data structures our application uses. Moreover, all configuration files and software module descriptions are held here, as well as icons, logos and images.
 
 ### Licensing
 
-This project is licensed under the [_GNU Lesser General Public License_](./LICENSE), version 3, 29 June 2007.
+This project is licensed under the [_GNU Lesser General Public License_](./LICENSE) version 3.
 
 [//]: # (Badge Links)
 
-[version]: https://img.shields.io/badge/version-v3.1.0-1A1D23?&style=for-the-badge
+[version]: https://img.shields.io/badge/version-v3.1.1-1A1D23?&style=for-the-badge
 [stability]: https://img.shields.io/badge/stability-stable-FBB444?&style=for-the-badge
 
 [lib::version]: https://img.shields.io/badge/library-v0.2.6-282D39?&style=for-the-badge

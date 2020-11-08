@@ -211,19 +211,19 @@ pub fn fmt_final_result(result: &AppResult, f: &mut fmt::Formatter<'_>) -> fmt::
 
     if result.is_success() {
         write!(f, "{} has finished. There were no errors.", label)
-    } else if !result.is_abort() {
-        write!(
-            f,
-            "{} has finished, but there were minor errors. Final exit code was {}.",
-            label,
-            result.get_exit_code()
-        )
-    } else {
-        write!(
-            f,
+    } else if result.is_abort() {
+		write!(
+			f,
             "{} has finished early. An unrecoverable situation was encountered. Exit code was {}",
             label,
             result.get_exit_code()
         )
+    } else {
+		write!(
+			f,
+			"{} has finished, but there were minor errors. Final exit code was {}.",
+			label,
+			result.get_exit_code()
+		)
     }
 }

@@ -4,6 +4,10 @@
 
 ### v3.0
 
+#### v3.1.1 RC1 BETA1
+
+- small cleanup
+
 #### v3.1.0 RC1 BETA1
 
 - removed provider as _Traefik_ now handles redirection
