@@ -102,7 +102,7 @@ pub fn install_choices(choices: &Choices) -> PhaseResult
             exit_code = 27;
         } else {
             code_success = true;
-            console::pspd("  \u{2014}\n".green());
+            console::pspd("  \u{2714}\n".green());
         }
 
         if code_success {
@@ -129,7 +129,7 @@ pub fn install_choices(choices: &Choices) -> PhaseResult
         }
 
         if local_ec == 0 {
-            console::pspd("  \u{2014}\n".green());
+            console::pspd("  \u{2714}\n".green());
         } else {
             console::pspd("  \u{2718}\n".yellow());
             exit_code = 28
@@ -147,7 +147,7 @@ pub fn install_choices(choices: &Choices) -> PhaseResult
             console::pspd("  \u{2718}\n".yellow());
             exit_code = 29
         } else {
-            console::pspd("  \u{2014}\n".green());
+            console::pspd("  \u{2714}\n".green());
         }
     }
 
@@ -202,7 +202,7 @@ pub fn vsc_ext(error_code: &mut u8)
     }
 
     if exit_code == 0 {
-        console::pspd("  \u{2014}\n".green());
+        console::pspd("  \u{2714}\n".green());
     } else {
         console::pspd("  \u{2718}\n".yellow());
         *error_code = exit_code;
