@@ -114,7 +114,7 @@ pub fn finalize_phase(
 pub fn finalize_stage(ec: u8)
 {
     match ec {
-        0 => println!("\n}} {}", "\u{2014}".green()),
+        0 => println!("\n}} {}", "\u{2714}".green()),
         1..=99 => println!("\n}} {} ({})", "\u{2718}".yellow(), ec),
         _ => println!("\n}} {} ({})", "\u{2718}".red(), ec),
     }

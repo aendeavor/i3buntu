@@ -109,7 +109,7 @@ pub fn copy_configurations() -> PhaseResult
     };
 
     if exit_code == 0 {
-        console::pspd("  \u{2014}\n".green());
+        console::pspd("  \u{2714}\n".green());
     } else {
         console::pspd("  \u{2718}\n".yellow());
     }
@@ -133,7 +133,7 @@ pub fn copy_configurations() -> PhaseResult
     };
 
     if exit_code == 0 {
-        console::pspd("  \u{2014}\n".green());
+        console::pspd("  \u{2714}\n".green());
     } else {
         console::pspd("  \u{2718}\n".yellow());
     }
