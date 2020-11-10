@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /bin/bash
 
 : '
 # ? version       v0.4.1 RC1 BETA1 UNSTABLE

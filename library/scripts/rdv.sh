@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /bin/bash
 
 # Installs Rust and Docker
 # Compose during packaging

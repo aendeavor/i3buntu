@@ -1,16 +1,16 @@
 use super::super::data::{
-    self,
-    structures::{
-        AppResult,
-        PhaseError,
-    },
+	self,
+	structures::{
+		AppResult,
+		PhaseError,
+	},
 };
 use std::{
-    fmt,
-    io::{
-        self,
-        Write,
-    },
+	fmt,
+	io::{
+		self,
+		Write,
+	},
 };
 use colored::Colorize;
 
@@ -19,23 +19,23 @@ use colored::Colorize;
 /// Creates the greetings-message upon starting i3buntu.
 pub fn welcome(app_version: &str)
 {
-    println!(
-        "\nWelcome to {}\n\nLIB {}\nAPP {}\n\nWe are going to walk \
-         you through a few steps\nto complete the setup. These \
-         include:\n\n  1. Initialization\n  2. Installation of \
-         Software\n  3. Deployment of Configuration Files\n\nAs we \
-         need superuser privileges to install\nprograms and to \
-         reach some locations, please\ninput your password if \
-         prompted.\n",
-        "i3buntu".bold().yellow(),
-        crate::VERSION,
-        app_version
-    );
+	println!(
+		"\nWelcome to {}\n\nLIB {}\nAPP {}\n\nWe are going to walk \
+		you through a few steps\nto complete the setup. These \
+		include:\n\n  1. Initialization\n  2. Installation of \
+		Software\n  3. Deployment of Configuration Files\n\nAs we \
+		need superuser privileges to install\nprograms and to \
+		reach some locations, please\ninput your password if \
+		prompted.\n",
+		"i3buntu".bold().yellow(),
+		crate::VERSION,
+		app_version
+	);
 
-    let _ = std::process::Command::new("sudo")
-        .arg("apt-get")
-        .arg("--help")
-        .output();
+	let _ = std::process::Command::new("sudo")
+		.arg("apt-get")
+		.arg("--help")
+		.output();
 }
 
 /// # Beginning of a stage
@@ -44,11 +44,11 @@ pub fn welcome(app_version: &str)
 /// divided into. Stages consist of phases.
 pub fn print_stage_start(stage_number: u8, stage_name: &str)
 {
-    println!(
-        "\nSTAGE {}\n{} {{\n",
-        stage_number,
-        stage_name.yellow()
-    );
+	println!(
+		"\nSTAGE {}\n{} {{\n",
+		stage_number,
+		stage_name.yellow()
+	);
 }
 
 /// # Phase descriptions
@@ -57,13 +57,13 @@ pub fn print_stage_start(stage_number: u8, stage_name: &str)
 /// logger wraps the beginning of a phase with
 /// the number of the phase and a description
 pub fn print_phase_description(
-    current_phase: u8,
-    total_phase_count: u8,
-    msg: &str,
+	current_phase: u8,
+	total_phase_count: u8,
+	msg: &str,
 )
 {
-    print!("  ({}/{}) {}\n", current_phase, total_phase_count, msg);
-    flush();
+	print!("  ({}/{}) {}\n", current_phase, total_phase_count, msg);
+	flush();
 }
 
 /// # Sub phase descriptions
@@ -73,39 +73,39 @@ pub fn print_phase_description(
 /// user about the progress.
 pub fn pspd<T: fmt::Display>(message: T)
 {
-    print!("{}", message);
-    flush();
+	print!("{}", message);
+	flush();
 }
 
 /// # Closing a phase
 ///
 /// Logs the end of a phase and indicates success.
 pub fn finalize_phase(
-    current_phase: u8,
-    total_phase_count: u8,
-    result: Option<&PhaseError>,
+	current_phase: u8,
+	total_phase_count: u8,
+	result: Option<&PhaseError>,
 )
 {
-    if let Some(phase_error) = result {
-        let (indicator, ec) = match phase_error {
-            PhaseError::SoftError(ec) => ("\u{2718}".yellow(), *ec),
-            PhaseError::HardError(ec) => ("\u{2718}".red(), *ec),
-        };
+	if let Some(phase_error) = result {
+		let (indicator, ec) = match phase_error {
+			PhaseError::SoftError(ec) => ("\u{2718}".yellow(), *ec),
+			PhaseError::HardError(ec) => ("\u{2718}".red(), *ec),
+		};
 
-        print!(
-            "  ({}/{}) {} \u{2014} Error {}\n",
-            current_phase, total_phase_count, indicator, ec
-        );
-    } else {
-        print!(
-            "  ({}/{}) {}\n",
-            current_phase,
-            total_phase_count,
-            "\u{2714}".green()
-        );
-    }
+		print!(
+			"  ({}/{}) {} \u{2014} Error {}\n",
+			current_phase, total_phase_count, indicator, ec
+		);
+	} else {
+		print!(
+			"  ({}/{}) {}\n",
+			current_phase,
+			total_phase_count,
+			"\u{2714}".green()
+		);
+	}
 
-    flush();
+	flush();
 }
 
 /// # Closing a stage
@@ -113,11 +113,11 @@ pub fn finalize_phase(
 /// Logs the end of a stage and indicates success.
 pub fn finalize_stage(ec: u8)
 {
-    match ec {
-        0 => println!("\n}} {}", "\u{2714}".green()),
-        1..=99 => println!("\n}} {} ({})", "\u{2718}".yellow(), ec),
-        _ => println!("\n}} {} ({})", "\u{2718}".red(), ec),
-    }
+	match ec {
+		0 => println!("\n}} {}", "\u{2714}".green()),
+		1..=99 => println!("\n}} {} ({})", "\u{2718}".yellow(), ec),
+		_ => println!("\n}} {} ({})", "\u{2718}".red(), ec),
+	}
 }
 
 /// # Debugging
@@ -129,15 +129,15 @@ pub fn finalize_stage(ec: u8)
 #[allow(dead_code)]
 pub fn debug<S, T>(msg: S, obj: T)
 where
-    S: fmt::Display,
-    T: fmt::Debug,
+	S: fmt::Display,
+	T: fmt::Debug,
 {
-    println!(
-        "This is a {} message!\nMESSAGE: {}\nERROR:  {:#?}",
-        "DEBUG".blue(),
-        msg,
-        obj
-    );
+	println!(
+		"This is a {} message!\nMESSAGE: {}\nERROR:  {:#?}",
+		"DEBUG".blue(),
+		msg,
+		obj
+	);
 }
 
 /// # Flush `print!(...)`
@@ -151,31 +151,31 @@ fn flush() { io::stdout().flush().ok().unwrap_or_default() }
 /// during S1 onto the console.
 pub mod stage_one
 {
-    use super::data::{
-        structures::{
-            Choices,
-            StageOneData,
-        },
-        traits::ExitCodeCompatible,
-    };
-    use std::fmt;
-    use colored::Colorize;
+	use super::data::{
+		structures::{
+			Choices,
+			StageOneData,
+		},
+		traits::ExitCodeCompatible,
+	};
+	use std::fmt;
+	use colored::Colorize;
 
-    /// # Display User Choices
-    ///
-    /// Displays user choices. If a user pressed the wrong
-    /// button, he / she can accept to enter his choices
-    /// again. This is a visual representation.
-    ///
-    /// ## Errors
-    ///
-    /// Propagates the result from the `write!()` macro.
-    pub fn fmt_choices(
-        choices: &Choices,
-        f: &mut fmt::Formatter<'_>,
-    ) -> fmt::Result
-    {
-        write!(
+	/// # Display User Choices
+	///
+	/// Displays user choices. If a user pressed the wrong
+	/// button, he / she can accept to enter his choices
+	/// again. This is a visual representation.
+	///
+	/// ## Errors
+	///
+	/// Propagates the result from the `write!()` macro.
+	pub fn fmt_choices(
+		choices: &Choices,
+		f: &mut fmt::Formatter<'_>,
+	) -> fmt::Result
+	{
+		write!(
 			f,
 			"\n  Your installation candidates:\n              \
 			LaTeX  {}\n            OpenJDK  {}\n        \
@@ -190,41 +190,41 @@ pub mod stage_one
 			tb(choices.dock),
 			tb(choices.vsc),
 			tb(choices.rust))
-    }
+	}
 
-    /// # Debugging
-    ///
-    /// For debugging purposes, to display what the
-    /// `StageOneData` struct holds.
-    /// # Errors
-    ///
-    /// Propagates the result from the `write!()` macro.
-    pub fn fmt_stage_one_data(
-        sod: &StageOneData,
-        f: &mut fmt::Formatter<'_>,
-    ) -> fmt::Result
-    {
-        write!(
-            f,
-            "{}\nSTAGE 1\n{} {{\n{}\n  EXIT CODE: {}\n  SUCCESS: {}",
-            "DATA".red(),
-            "INITIALIZATION".yellow(),
-            sod.choices,
-            sod.get_exit_code(),
-            sod.is_success()
-        )
-    }
+	/// # Debugging
+	///
+	/// For debugging purposes, to display what the
+	/// `StageOneData` struct holds.
+	/// # Errors
+	///
+	/// Propagates the result from the `write!()` macro.
+	pub fn fmt_stage_one_data(
+		sod: &StageOneData,
+		f: &mut fmt::Formatter<'_>,
+	) -> fmt::Result
+	{
+		write!(
+			f,
+			"{}\nSTAGE 1\n{} {{\n{}\n  EXIT CODE: {}\n  SUCCESS: {}",
+			"DATA".red(),
+			"INITIALIZATION".yellow(),
+			sod.choices,
+			sod.get_exit_code(),
+			sod.is_success()
+		)
+	}
 
-    /// Translates the given boolean into a string
-    /// representation.
-    const fn tb(val: bool) -> &'static str
-    {
-        if val {
-            "yes"
-        } else {
-            "no"
-        }
-    }
+	/// Translates the given boolean into a string
+	/// representation.
+	const fn tb(val: bool) -> &'static str
+	{
+		if val {
+			"yes"
+		} else {
+			"no"
+		}
+	}
 }
 
 /// # Final Console Output
@@ -236,30 +236,30 @@ pub mod stage_one
 ///
 /// Propagates the result from the `write!()` macro.
 pub fn fmt_final_result(
-    result: &AppResult,
-    f: &mut fmt::Formatter<'_>,
+	result: &AppResult,
+	f: &mut fmt::Formatter<'_>,
 ) -> fmt::Result
 {
-    println!();
-    let label = "result".yellow().bold();
+	println!();
+	let label = "result".yellow().bold();
 
-    if result.is_success() {
-        write!(f, "{} has finished. There were no errors.", label)
-    } else if result.is_abort() {
-        write!(
-            f,
-            "{} has finished early. An unrecoverable situation was \
-             encountered. Exit code was {}",
-            label,
-            result.get_exit_code()
-        )
-    } else {
-        write!(
-            f,
-            "{} has finished, but there were minor errors. Final \
-             exit code was {}.",
-            label,
-            result.get_exit_code()
-        )
-    }
+	if result.is_success() {
+		write!(f, "{} has finished. There were no errors.", label)
+	} else if result.is_abort() {
+		write!(
+			f,
+			"{} has finished early. An unrecoverable situation was \
+			encountered. Exit code was {}",
+			label,
+			result.get_exit_code()
+		)
+	} else {
+		write!(
+			f,
+			"{} has finished, but there were minor errors. Final \
+			exit code was {}.",
+			label,
+			result.get_exit_code()
+		)
+	}
 }

@@ -6,11 +6,11 @@ root = true
 # Unix-Style Newlines & Newline Ending Every File
 # UTF-8 Charset & Default Indent Style and Length
 [*]
-end_of_line = lf
-insert_final_newline = true
 charset = utf-8
-indent_style = space
-indent_size = 2
+# indent_size = 2
+# end_of_line = lf
+# indent_style = space
+# insert_final_newline = true
 
 [Makefile]
 indent_style = tab
