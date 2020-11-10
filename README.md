@@ -41,11 +41,11 @@ This project is licensed under the [_GNU Lesser General Public License_](./LICEN
 
 [//]: # (Badge Links)
 
-[version]: https://img.shields.io/badge/version-v3.1.1-1A1D23?&style=for-the-badge
+[version]: https://img.shields.io/badge/version-v3.2.0-1A1D23?&style=for-the-badge
 [stability]: https://img.shields.io/badge/stability-stable-FBB444?&style=for-the-badge
 
-[lib::version]: https://img.shields.io/badge/library-v0.2.6-282D39?&style=for-the-badge
-[application::version]: https://img.shields.io/badge/application-v0.4.1-5E6A82?&style=for-the-badge
+[lib::version]: https://img.shields.io/badge/library-v0.3.0-282D39?&style=for-the-badge
+[application::version]: https://img.shields.io/badge/application-v0.4.2-5E6A82?&style=for-the-badge
 
 [//]: # (Other Links)
 

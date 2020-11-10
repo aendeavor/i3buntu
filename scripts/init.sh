@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /bin/bash
 
 : '
 # ? version       v0.4.1 RC1 BETA1 UNSTABLE
@@ -55,7 +55,7 @@ __check_integrity
 
 # -->                   -->                   --> START
 
-RELEASE="3.1.0-stable"
+RELEASE="3.2.0-stable"
 ARCHIVE="v${RELEASE}.tar.gz"
 GH="https://github.com/aendeavor/i3buntu/archive"
 

@@ -1,6 +1,6 @@
 [package]
 name = "library"
-version = "0.1.0"
+version = "0.3.0"
 authors = ["Georg Lauterbach <infrastructure@itbsd.com>"]
 edition = "2018"
 description = "Custom LINUX setup and bootstrapping LIB"

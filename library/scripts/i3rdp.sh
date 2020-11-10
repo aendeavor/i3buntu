@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#! /usr/bin/env bash
 
 # Downloads Picom, Dunst and i3-radius
 # via `git clone` and installs them.
@@ -21,36 +21,36 @@ GH='https://github.com'
 
 function _install_picom()
 {
-	cd /tmp && git clone "${GH}/yshui/picom.git"
-	cd picom
+  cd /tmp && git clone "${GH}/yshui/picom.git"
+  cd picom
 
-	git submodule update --init --recursive
-	meson --buildtype=release . build
-	ninja -C build
+  git submodule update --init --recursive
+  meson --buildtype=release . build
+  ninja -C build
 
-	sudo ninja -C build install
+  sudo ninja -C build install
 }
 
 function _install_dunst()
 {
-	cd /tmp && git clone "${GH}/dunst-project/dunst.git"
-	cd dunst
+  cd /tmp && git clone "${GH}/dunst-project/dunst.git"
+  cd dunst
 
-	make
-	sudo make install
+  make
+  sudo make install
 }
 
 function _install_i3-radius()
 {
-	cd /tmp && git clone "${GH}/terroo/i3-radius.git"
-	cd i3-radius
+  cd /tmp && git clone "${GH}/terroo/i3-radius.git"
+  cd i3-radius
 
-	./build.sh
+  ./build.sh
 }
 
 function _main()
 {
-	sudo apt-get -y remove dunst compton
+  sudo apt-get -y remove dunst compton
 	
   _install_i3-radius
   _install_dunst
