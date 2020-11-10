@@ -23,7 +23,7 @@ pub type StageResult<D: ExitCodeCompatible> = Result<D, D>;
 /// Resembles the general exit code for
 /// each subroutine. Used for error
 /// propagation.
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Debug)]
 pub struct ExitCode(pub u8);
 
 impl ExitCode
@@ -103,11 +103,7 @@ impl ExitCodeCompatible for StageOneData
     fn set_exit_code(&mut self, exit_code: u8)
     {
         self.exit_code = exit_code;
-        if exit_code == 0 {
-            self.is_success = true;
-        } else {
-            self.is_success = false;
-        }
+        self.is_success = exit_code == 0;
     }
 
     fn get_exit_code(&self) -> u8 { self.exit_code }
