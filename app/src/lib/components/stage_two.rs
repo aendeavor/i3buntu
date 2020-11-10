@@ -38,7 +38,11 @@ pub fn install_base() -> PhaseResult
 
     console::print_phase_description(cp, TPC2, "Installing Programs");
 
-    let path = controller::get_resource_path("library/resources/packages/programs.json", cp, TPC2)?;
+    let path = controller::get_resource_path(
+        "library/resources/packages/programs.json",
+        cp,
+        TPC2,
+    )?;
 
     let json = match fs::read_to_string(path) {
         Ok(json_str) => json_str,
@@ -69,14 +73,16 @@ pub fn install_choices(choices: &Choices) -> PhaseResult
     let cp = 2;
     let mut exit_code = 0;
 
-    console::print_phase_description(cp, TPC2, "Installing User-Choices");
+    console::print_phase_description(
+        cp,
+        TPC2,
+        "Installing User-Choices",
+    );
 
     for program in *choices {
         if let Err(ec) = apt_install(program) {
-            if ec != exit_code {
-                if exit_code != 0 {
-                    exit_code = 25;
-                }
+            if ec != exit_code && exit_code != 0 {
+                exit_code = 25;
             }
         }
     }
@@ -86,16 +92,17 @@ pub fn install_choices(choices: &Choices) -> PhaseResult
 
         let mut code_success = false;
 
-        if let Err(_) = Command::new("sudo")
+        if Command::new("sudo")
             .arg("./library/scripts/rdv.sh")
             .arg("--visual-studio-code")
             .output()
+            .is_err()
         {
-            console::pspd("  ✘\n".yellow());
+            console::pspd("  \u{2718}\n".yellow());
             exit_code = 27;
         } else {
             code_success = true;
-            console::pspd("  ✔\n".green());
+            console::pspd("  \u{2014}\n".green());
         }
 
         if code_success {
@@ -106,39 +113,41 @@ pub fn install_choices(choices: &Choices) -> PhaseResult
     if choices.dock {
         let mut local_ec: u8 = 0;
 
-        if let Err(_) = apt_install("docker.io") {
+        if apt_install("docker.io").is_err() {
             local_ec = 1;
-        }
+        };
 
         console::pspd("     :: Installing Docker Compose");
 
-        if let Err(_) = Command::new("sudo")
+        if Command::new("sudo")
             .arg("./library/scripts/rdv.sh")
             .arg("--docker-compose")
             .output()
+            .is_err()
         {
             local_ec = 1;
         }
 
-        if local_ec != 0 {
-            console::pspd("  ✘\n".yellow());
-            exit_code = 28
+        if local_ec == 0 {
+            console::pspd("  \u{2014}\n".green());
         } else {
-            console::pspd("  ✔\n".green());
+            console::pspd("  \u{2718}\n".yellow());
+            exit_code = 28
         }
     }
 
     if choices.rust {
         console::pspd("     :: Installing Rust");
 
-        if let Err(_) = Command::new("./library/scripts/rdv.sh")
+        if Command::new("./library/scripts/rdv.sh")
             .arg("--rust")
             .output()
+            .is_err()
         {
-            console::pspd("  ✘\n".yellow());
+            console::pspd("  \u{2718}\n".yellow());
             exit_code = 29
         } else {
-            console::pspd("  ✔\n".green());
+            console::pspd("  \u{2014}\n".green());
         }
     }
 
@@ -159,42 +168,43 @@ pub fn vsc_ext(error_code: &mut u8)
 
     console::pspd("     :: Installing VS Code extensions");
 
-    let path = match controller::get_resource_path(
-        "library/resources/packages/vsc_extensions.json",
-        cp,
-        TPC2,
-    ) {
-        Ok(resource_path) => resource_path,
-        Err(_) => {
-            console::pspd("  ✘\n".yellow());
-            return;
-        },
+    let path = if let Ok(resource_path) =
+        controller::get_resource_path(
+            "library/resources/packages/vsc_extensions.json",
+            cp,
+            TPC2,
+        ) {
+        resource_path
+    } else {
+        console::pspd("  \u{2718}\n".yellow());
+        return;
     };
 
-    let json = match fs::read_to_string(path) {
-        Ok(json_str) => json_str,
-        Err(_) => {
-            console::pspd("  ✘\n".yellow());
-            return;
-        },
+    let json = if let Ok(json_str) = fs::read_to_string(path) {
+        json_str
+    } else {
+        console::pspd("  \u{2718}\n".yellow());
+        return;
     };
 
-    let extension_tree: Value = match serde_json::from_str(&json) {
-        Ok(json_tree) => json_tree,
-        Err(_) => {
-            console::pspd("  ✘\n".yellow());
+    let extension_tree: Value =
+        if let Ok(json_tree) = serde_json::from_str(&json) {
+            json_tree
+        } else {
+            console::pspd("  \u{2718}\n".yellow());
             return;
-        },
-    };
+        };
 
-    if let Err(code) = recurse_json(&extension_tree, &vsc_extension_install) {
+    if let Err(code) =
+        recurse_json(&extension_tree, &vsc_extension_install)
+    {
         exit_code = code;
     }
 
     if exit_code == 0 {
-        console::pspd("  ✔\n".green());
+        console::pspd("  \u{2014}\n".green());
     } else {
-        console::pspd("  ✘\n".yellow());
+        console::pspd("  \u{2718}\n".yellow());
         *error_code = exit_code;
     }
 }

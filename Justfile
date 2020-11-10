@@ -36,6 +36,10 @@ release: nightly
   @ cp ./target/release/app i3buntu
   @ chmod +x i3buntu
 
+test:
+	cargo clippy --all-targets --all-features -- -D warnings
+	cargo test
+
 # -->                   -->                   --> MISC
 
 update_sha:

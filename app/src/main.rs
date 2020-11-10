@@ -1,3 +1,7 @@
+#![deny(clippy::all)]
+#![deny(clippy::nursery)]
+#![deny(clippy::pedantic)]
+#![allow(clippy::must_use_candidate)]
 #![feature(termination_trait_lib)]
 #![feature(in_band_lifetimes)]
 

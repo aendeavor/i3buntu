@@ -33,6 +33,7 @@ pub mod stage_one
 
     /// Separated from `ask()` due to compiler warnings
     /// originating in a macro.
+    #[allow(clippy::cognitive_complexity)]
     fn parse_input() -> bool
     {
         readln! {
@@ -45,8 +46,8 @@ pub mod stage_one
         }
     }
 
-    /// Called by lib::init to check whether the user agreed
-    /// to the choices he / she made.
+    /// Called by `lib::init` to check whether the user
+    /// agreed to the choices he / she made.
     pub fn choices_ok() -> bool
     {
         print!("\n  Are these choices correct? [Y/n] ");

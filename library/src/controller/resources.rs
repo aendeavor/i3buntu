@@ -14,8 +14,18 @@ use serde_json::{
 
 /// # Local resource path
 ///
-/// Provides
-pub fn get_resource_path(to_append: &str, cs: u8, sct: u8) -> Result<String, PhaseError>
+/// Provides the resource file path to
+/// the caller.
+///
+/// ## Errors
+///
+/// If the current directory cannot be obtained
+/// a critical error is issued.
+pub fn get_resource_path(
+    to_append: &str,
+    cs: u8,
+    sct: u8,
+) -> Result<String, PhaseError>
 {
     if let Ok(path) = std::env::current_dir() {
         if let Some(path) = path.to_str() {
@@ -35,7 +45,12 @@ pub fn get_resource_path(to_append: &str, cs: u8, sct: u8) -> Result<String, Pha
 /// # File copy with `rsync`
 ///
 /// Copies files by executing `rsync`.
-fn sync_files<S, T>(from: S, to: &T, sudo: bool, log: bool) -> Option<u8>
+fn sync_files<S, T>(
+    from: S,
+    to: &T,
+    sudo: bool,
+    log: bool,
+) -> Option<u8>
 where
     S: AsRef<OsStr>,
     T: AsRef<OsStr> + ?Sized,
@@ -50,14 +65,15 @@ where
         command.arg("rsync");
     };
 
-    return if let Err(_) = command.arg("-azr").arg(from).arg(to).output() {
+    return if command.arg("-azr").arg(from).arg(to).output().is_err()
+    {
         if log {
-            console::pspd("  ✘\n".yellow());
+            console::pspd("  \u{2718}\n".yellow());
         }
         Some(30)
     } else {
         if log {
-            console::pspd("  ✔\n".green());
+            console::pspd("  \u{2714}\n".green());
         }
         None
     };
@@ -66,6 +82,10 @@ where
 /// # Wrapping file synchronization
 ///
 /// Wraps `sync_files()` for easier access.
+///
+/// ## Errors
+///
+/// No errors are issued by this function.
 pub fn drive_sync<R, T>(
     description: R,
     from: &str,
@@ -82,9 +102,10 @@ where
     let mut base = String::from("library/resources/config/");
     base.push_str(from);
 
-    if let Ok(_) = Command::new("sudo")
+    if Command::new("sudo")
         .args(&["mkdir", "-p", "/backup"])
         .output()
+        .is_ok()
     {
         // current backup solution
         sync_files(to, "/backup/", true, false);
@@ -92,7 +113,12 @@ where
         *exit_code = 70;
     }
 
-    if let Some(ec) = sync_files(&super::get_resource_path(&base, 1, 3)?, to, sudo, true) {
+    if let Some(ec) = sync_files(
+        &super::get_resource_path(&base, 1, 3)?,
+        to,
+        sudo,
+        true,
+    ) {
         if *exit_code == 0 {
             *exit_code = ec;
         }
@@ -105,7 +131,15 @@ where
 ///
 /// Recursing through the given tree / enum of JSON
 /// values until every leaf has been used.
-pub fn recurse_json<T>(value: &serde_json::Value, subroutine: &T) -> Result<(), u8>
+///
+/// ## Errors
+///
+/// Errors are returned if the applied programs issues
+/// a non-zero exit code.
+pub fn recurse_json<T>(
+    value: &serde_json::Value,
+    subroutine: &T,
+) -> Result<(), u8>
 where
     T: Fn(&str) -> Result<(), u8>,
 {
@@ -127,7 +161,7 @@ where
             }
         },
         Value::String(program) => {
-            if let Err(code) = subroutine(&program) {
+            if let Err(code) = subroutine(program) {
                 exit_code = code;
             }
         },
@@ -144,6 +178,11 @@ where
 /// # APT
 ///
 /// Installs a program with APT.
+///
+/// ## Errors
+///
+/// If the installation via APT is not successful,
+/// an error is returned.
 pub fn apt_install(program: &str) -> Result<(), u8>
 {
     console::pspd("     :: Installing ".to_owned() + program);
@@ -160,20 +199,27 @@ pub fn apt_install(program: &str) -> Result<(), u8>
         .arg(program)
         .output()
     {
-        Ok(output) => match output.status.success() {
-            true => {
-                console::pspd("  ✔\n".green());
+        Ok(output) => {
+            if output.status.success() {
+                console::pspd("  \u{2714}\n".green());
                 Ok(())
-            },
-            false => {
-                console::pspd("  ✘\n".red());
+            } else {
+                console::pspd("  \u{2718}\n".red());
                 Err(20)
-            },
+            }
         },
         Err(_) => Err(21),
     }
 }
 
+/// # Install a VS Code Extension
+///
+/// Issues the code command to install an extension.
+///
+/// ## Errors
+///
+/// If the installation is unsuccessful, an error is
+/// returned.
 pub fn vsc_extension_install(extension: &str) -> Result<(), u8>
 {
     match Command::new("code")
@@ -181,9 +227,12 @@ pub fn vsc_extension_install(extension: &str) -> Result<(), u8>
         .arg(extension)
         .output()
     {
-        Ok(output) => match output.status.success() {
-            true => Ok(()),
-            false => Err(22),
+        Ok(output) => {
+            if output.status.success() {
+                Ok(())
+            } else {
+                Err(22)
+            }
         },
         Err(_) => Err(23),
     }

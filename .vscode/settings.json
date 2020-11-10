@@ -7,15 +7,27 @@
 		"Submodules",
 		"Traefik",
 		"URXVT",
+		"Xorg",
+		"Xresources",
 		"arandr",
+		"autoload",
+		"bools",
 		"buntu",
 		"clippy",
+		"cryptomator",
 		"eval",
+		"fira",
 		"lightdm",
+		"mkdir",
+		"nvim",
 		"openjdk",
+		"owncloud",
+		"postconf",
 		"pspd",
+		"readln",
 		"rsync",
 		"texlive",
-		"tlsv"
+		"tlsv",
+		"xrdb"
 	]
 }

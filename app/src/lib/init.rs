@@ -68,7 +68,9 @@ pub fn stage_one() -> StageResult<StageOneData>
 ///
 /// - installing base packages
 /// - installing user choices
-pub fn stage_two(stage_one_data: StageOneData) -> StageResult<ExitCode>
+pub fn stage_two(
+    stage_one_data: StageOneData,
+) -> StageResult<ExitCode>
 {
     use components::stage_two;
 
@@ -77,7 +79,9 @@ pub fn stage_two(stage_one_data: StageOneData) -> StageResult<ExitCode>
     let mut exit_code = ExitCode::new();
     drive_phase(stage_two::install_base, &mut exit_code)?;
 
-    if let Some(p_error) = stage_two::install_choices(&stage_one_data.choices) {
+    if let Some(p_error) =
+        stage_two::install_choices(&stage_one_data.choices)
+    {
         match p_error {
             PhaseError::SoftError(ec) => exit_code.set_exit_code(ec),
             PhaseError::HardError(ec) => {

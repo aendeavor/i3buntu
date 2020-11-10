@@ -13,7 +13,10 @@ use super::super::{
 ///
 /// Checks whether to abort on a given exit code
 /// or not. An abort exit code ranges from 100 to 199.
-pub fn check_abort<T: ExitCodeCompatible>(result: &mut AppResult, exit_code: T)
+pub fn check_abort<T: ExitCodeCompatible>(
+    result: &mut AppResult,
+    exit_code: T,
+)
 {
     result.set_failure(exit_code.get_exit_code());
 
@@ -28,6 +31,13 @@ pub fn check_abort<T: ExitCodeCompatible>(result: &mut AppResult, exit_code: T)
 /// Drives a phase and decides the outcome. This
 /// result is the propagated with the `?` Opera-
 /// tor.
+///
+/// ## Errors
+///
+/// If a stage resulted in an error, this error is
+/// propagated if it is a critical (hard) error, and
+/// logged if not (either being a soft error or no
+/// error at all).
 pub fn drive_phase<'a, F, D>(phase: F, data: &mut D) -> StageResult<D>
 where
     F: Fn() -> PhaseResult,
@@ -37,17 +47,17 @@ where
         return match phase_error {
             PhaseError::SoftError(ec) => {
                 data.set_exit_code(ec);
-                Ok(data.clone())
+                Ok(*data)
             },
             PhaseError::HardError(ec) => {
                 console::finalize_stage(ec);
                 data.set_exit_code(ec);
-                Err(data.clone())
+                Err(*data)
             },
         };
     }
 
-    Ok(data.clone())
+    Ok(*data)
 }
 
 /// # Decide Phase Outcome (DPO)
@@ -75,6 +85,11 @@ pub fn dpo(error_code: u8, cp: u8, tpc: u8) -> PhaseResult
 ///
 /// Checks the exit code and returns
 /// an `Ok()` or `Err()` value.
+///
+/// ## Errors
+///
+/// Evaluates and Propagates exit codes after
+/// logging the result.
 pub fn eval_success<T>(exit_code: T) -> StageResult<T>
 where
     T: ExitCodeCompatible,

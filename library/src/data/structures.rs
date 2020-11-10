@@ -28,16 +28,14 @@ pub struct ExitCode(pub u8);
 
 impl ExitCode
 {
-    pub fn new() -> Self { ExitCode(0) }
+    pub fn new() -> Self { Self::default() }
 
-    pub fn is_success(&self) -> bool
-    {
-        if self.0 == 0 {
-            true
-        } else {
-            false
-        }
-    }
+    pub const fn is_success(self) -> bool { self.0 == 0 }
+}
+
+impl std::default::Default for ExitCode
+{
+    fn default() -> Self { Self(0) }
 }
 
 impl ExitCodeCompatible for ExitCode
@@ -46,14 +44,7 @@ impl ExitCodeCompatible for ExitCode
 
     fn get_exit_code(&self) -> u8 { self.0 }
 
-    fn is_success(&self) -> bool
-    {
-        if self.0 == 0 {
-            true
-        } else {
-            false
-        }
-    }
+    fn is_success(&self) -> bool { self.0 == 0 }
 }
 
 /// # Phase Error
@@ -78,10 +69,10 @@ pub type PhaseResult = Option<PhaseError>;
 
 impl std::convert::From<PhaseError> for std::option::NoneError
 {
-    fn from(_: PhaseError) -> Self { std::option::NoneError }
+    fn from(_: PhaseError) -> Self { Self }
 }
 
-/// # StageOneData
+/// # `StageOneData`
 ///
 /// All information provided by the completion
 /// of stage one.
@@ -95,16 +86,16 @@ pub struct StageOneData
 
 impl StageOneData
 {
-    pub fn new(choices: Choices) -> Self
+    pub const fn new(choices: Choices) -> Self
     {
-        StageOneData {
+        Self {
             choices,
             exit_code: 0,
             is_success: true,
         }
     }
 
-    pub fn is_success(&self) -> bool { self.is_success }
+    pub const fn is_success(&self) -> bool { self.is_success }
 }
 
 impl ExitCodeCompatible for StageOneData
@@ -160,9 +151,13 @@ pub struct Choices
     next:     u8,
 }
 
+#[allow(
+    clippy::clippy::fn_params_excessive_bools,
+    clippy::clippy::too_many_arguments
+)]
 impl Choices
 {
-	pub fn new(
+    pub const fn new(
         tex: bool,
         java: bool,
         ct: bool,
@@ -173,7 +168,7 @@ impl Choices
         rust: bool,
     ) -> Self
     {
-        Choices {
+        Self {
             tex,
             java,
             ct,
@@ -197,6 +192,7 @@ impl fmt::Display for Choices
     }
 }
 
+#[allow(clippy::copy_iterator)]
 impl Iterator for Choices
 {
     type Item = &'static str;
@@ -258,12 +254,12 @@ pub struct PPAs
 
 impl PPAs
 {
-    pub fn critical(&self) -> &Vec<String> { &self.critical }
+    pub const fn critical(&self) -> &Vec<String> { &self.critical }
 
-    pub fn optional(&self) -> &Vec<String> { &self.optional }
+    pub const fn optional(&self) -> &Vec<String> { &self.optional }
 }
 
-/// # AppResult
+/// # `AppResult`
 ///
 /// Used for error propagation to top level `main()`
 /// and to decide whether the installation was a
@@ -288,26 +284,18 @@ pub struct AppResult
 
 impl AppResult
 {
-    pub fn new() -> Self
-    {
-        AppResult {
-            success:   true,
-            abort:     false,
-            exit_code: 0,
-            abort_msg: None,
-        }
-    }
+    pub fn new() -> Self { Self::default() }
 
-    pub fn is_success(&self) -> bool { self.success }
+    pub const fn is_success(&self) -> bool { self.success }
 
-    pub fn is_abort(&self) -> bool { self.abort }
+    pub const fn is_abort(&self) -> bool { self.abort }
 
     pub fn set_failure(&mut self, exit_code: u8)
     {
         if self.exit_code > 99 {
             panic!(
-                "Setting the error code twice isnot allowed when the first error codeindicated an \
-                 abort."
+                "Setting the error code twice is not allowed when \
+                 the first error code indicated an abort."
             )
         }
 
@@ -323,23 +311,49 @@ impl AppResult
         self.abort = true;
 
         match self.get_exit_code() {
-            111 => self.abort_msg = Some("S1P1 - Could not read from path to JSON string"),
-            112 => self.abort_msg = Some("S1P1 - Could not parse PPAs from JSON"),
-            113 => self.abort_msg = Some("S1P1 - Could not add a critical APT repository"),
-            114 => self.abort_msg = Some("S1P2 - Could not update APT signatures"),
-            121 => self.abort_msg = Some("S2P1 - Could not read from path to JSON string"),
-            122 => self.abort_msg = Some("S2P1 - Could not parse programs from JSON"),
+            111 => {
+                self.abort_msg = Some(
+                    "S1P1 - Could not read from path to JSON string",
+                )
+            },
+            112 => {
+                self.abort_msg =
+                    Some("S1P1 - Could not parse PPAs from JSON")
+            },
+            113 => {
+                self.abort_msg = Some(
+                    "S1P1 - Could not add a critical APT repository",
+                )
+            },
+            114 => {
+                self.abort_msg =
+                    Some("S1P2 - Could not update APT signatures")
+            },
+            121 => {
+                self.abort_msg = Some(
+                    "S2P1 - Could not read from path to JSON string",
+                )
+            },
+            122 => {
+                self.abort_msg =
+                    Some("S2P1 - Could not parse programs from JSON")
+            },
             _ => panic!(
-                "Exit Code for abort not implemented in lib::data::end::AppResult.set_abort. \
-                 Exit code was: {}",
+                "Exit Code for abort not implemented in \
+                 lib::data::end::AppResult.set_abort. Exit code \
+                 was: {}",
                 self.get_exit_code()
             ),
         }
     }
 
-    pub fn get_exit_code(&self) -> i32 { self.exit_code }
+    pub const fn get_exit_code(&self) -> i32 { self.exit_code }
 
-    fn set_exit_code(&mut self, exit_code: u8) { self.exit_code = exit_code as i32; }
+    #[allow(clippy::cast_lossless)]
+    fn set_exit_code(&mut self, exit_code: u8)
+    {
+        self.exit_code = exit_code as i32;
+    }
 
     /// Wrapper for log-function `show_abort()`
     /// Prints the abort information just before aborting
@@ -357,9 +371,25 @@ impl AppResult
     }
 }
 
+impl std::default::Default for AppResult
+{
+    fn default() -> Self
+    {
+        Self {
+            success:   true,
+            abort:     false,
+            exit_code: 0,
+            abort_msg: None,
+        }
+    }
+}
+
 impl Error for AppResult {}
 
 impl fmt::Display for AppResult
 {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result { console::fmt_final_result(self, f) }
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result
+    {
+        console::fmt_final_result(self, f)
+    }
 }

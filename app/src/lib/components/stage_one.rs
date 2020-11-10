@@ -13,7 +13,6 @@ use std::{
     fs,
     process::Command,
 };
-use serde_json;
 
 const PCT1: u8 = 2;
 
@@ -31,7 +30,11 @@ pub fn add_ppas() -> PhaseResult
     println!();
     console::print_phase_description(cp, PCT1, "Adding PPAs");
 
-    let path = controller::get_resource_path("library/resources/packages/ppas.json", cp, PCT1)?;
+    let path = controller::get_resource_path(
+        "library/resources/packages/ppas.json",
+        cp,
+        PCT1,
+    )?;
 
     let json = match fs::read_to_string(path) {
         Ok(json_str) => json_str,
@@ -44,11 +47,12 @@ pub fn add_ppas() -> PhaseResult
     };
 
     for ppa in json_ppas.critical() {
-        if let Err(_) = Command::new("sudo")
+        if Command::new("sudo")
             .arg("add-apt-repository")
             .arg("-y")
             .arg(ppa)
             .output()
+            .is_err()
         {
             return dpo(113, cp, PCT1);
         }
@@ -56,11 +60,12 @@ pub fn add_ppas() -> PhaseResult
 
     for ppa in json_ppas.optional() {
         let ppa: &str = ppa.as_str();
-        if let Err(_) = Command::new("sudo")
+        if Command::new("sudo")
             .arg("add-apt-repository")
             .arg("-y")
             .arg(ppa)
             .output()
+            .is_err()
         {
             exit_code = 10
         }
@@ -79,7 +84,11 @@ pub fn update_package_information() -> PhaseResult
 {
     let cp = 2;
 
-    console::print_phase_description(cp, PCT1, "Updating APT Signatures");
+    console::print_phase_description(
+        cp,
+        PCT1,
+        "Updating APT Signatures",
+    );
 
     match Command::new("sudo")
         .arg("apt-get")
