@@ -24,7 +24,11 @@ pub fn copy_configurations() -> PhaseResult
     let cp = 1;
     let mut exit_code = 0;
 
-    console::print_phase_description(cp, TPC3, "Copying Configuration Files");
+    console::print_phase_description(
+        cp,
+        TPC3,
+        "Copying Configuration Files",
+    );
 
     let home = get_home();
 
@@ -82,55 +86,56 @@ pub fn copy_configurations() -> PhaseResult
     let mut icon_theme = home.clone();
     icon_theme.push_str("/.local/share/icons.tar.xz");
 
-    if let Err(_) = Command::new("tar")
+    if Command::new("tar")
         .arg("-xf")
         .arg(color_theme)
         .arg("-C")
         .arg(theme_dir)
         .output()
+        .is_err()
     {
         exit_code = 30;
     };
 
-    if let Err(_) = Command::new("tar")
+    if Command::new("tar")
         .arg("-xf")
         .arg(icon_theme)
         .arg("-C")
         .arg(icon_dir)
         .output()
+        .is_err()
     {
         exit_code = 31;
     };
 
-    if exit_code != 0 {
-        console::pspd("  ✘\n".yellow());
+    if exit_code == 0 {
+        console::pspd("  \u{2014}\n".green());
     } else {
-        console::pspd("  ✔\n".green());
+        console::pspd("  \u{2718}\n".yellow());
     }
 
     exit_code = 0;
 
     console::pspd("     :: Acquiring Vim-Plug");
 
-    let mut vim_plug_dir = home.clone();
-    vim_plug_dir.push_str("/.local/share/nvim/site/autoload/plug.vim");
+    let mut vim_plug_dir = home;
+    vim_plug_dir
+        .push_str("/.local/share/nvim/site/autoload/plug.vim");
 
-    if let Err(_) = Command::new("curl")
-        .args(&[
-            "-fLo",
-            vim_plug_dir.as_str(),
-            "--create-dirs",
-            "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim",
-        ])
+    let url = "https://raw.githubusercontent.com/\
+		junegunn/vim-plug/master/plug.vim";
+    if Command::new("curl")
+        .args(&["-fLo", vim_plug_dir.as_str(), "--create-dirs", url])
         .output()
+        .is_err()
     {
         exit_code = 33;
     };
 
-    if exit_code != 0 {
-        console::pspd("  ✘\n".yellow());
+    if exit_code == 0 {
+        console::pspd("  \u{2014}\n".green());
     } else {
-        console::pspd("  ✔\n".green());
+        console::pspd("  \u{2718}\n".yellow());
     }
 
     dpo(exit_code, cp, TPC3)
@@ -161,22 +166,24 @@ pub fn install_fonts() -> PhaseResult
     let mut fira_mono = String::from(&home);
     fira_mono.push_str("/.local/share/fonts/FiraMono.tar.xz");
 
-    if let Err(_) = Command::new("tar")
+    if Command::new("tar")
         .arg("-xf")
         .arg(fira_code)
         .arg("-C")
         .arg(font_dir.clone())
         .output()
+        .is_err()
     {
         exit_code = 30;
     };
 
-    if let Err(_) = Command::new("tar")
+    if Command::new("tar")
         .arg("-xf")
         .arg(fira_mono)
         .arg("-C")
         .arg(font_dir)
         .output()
+        .is_err()
     {
         exit_code = 31;
     };

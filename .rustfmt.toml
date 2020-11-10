@@ -32,4 +32,5 @@ blank_lines_upper_bound      = 1
 comment_width                = 60
 enum_discrim_align_threshold = 35
 inline_attribute_width       = 60
+max_width                    = 70
 struct_field_align_threshold = 35
