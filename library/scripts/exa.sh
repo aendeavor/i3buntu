@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#! /usr/bin/env bash
 
 # Installs EXA with Cargo to replace ls.
 # 
@@ -7,8 +7,8 @@
 
 if [[ -z $(command -v cargo) ]]
 then
-	echo "Cargo not installed. Aborting."
-	exit 1
+  echo "Cargo not installed. Aborting."
+  exit 1
 fi
 
 cargo install exa || exit 2

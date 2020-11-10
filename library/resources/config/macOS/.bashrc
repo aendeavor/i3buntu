@@ -40,7 +40,7 @@ shopts() {
 
 misc() {
   stty -ixon
- 
+
   export VISUAL=nvim
   export EDITOR="$VISUAL"
 
@@ -89,7 +89,7 @@ neofetch_parameterized() {
     --disable term uptime packages resolution theme icons cpu gpu wm de\
     --gtk3 on\
     --bar_border on\
-	--underline_char \ \
+    --underline_char \ \
     --block_range 0 7\
     --block_width 4\
     --block_height 1\
@@ -99,15 +99,15 @@ neofetch_parameterized() {
 }
 
 path() {
-	PATH="$PATH:/Applications/Visual Studio \
-	Code.app/Contents/Resources/app/bin"
-	PATH="$PATH:/usr/local/Homebrew/bin"
-	PATH="$PATH:${HOME}/.cargo/bin"
+  PATH="$PATH:/Applications/Visual Studio \
+  Code.app/Contents/Resources/app/bin"
+  PATH="$PATH:/usr/local/Homebrew/bin"
+  PATH="$PATH:${HOME}/.cargo/bin"
 
-	PATH="$PATH:/usr/local/bin"
-	PATH="$PATH:/usr/sbin"
+  PATH="$PATH:/usr/local/bin"
+  PATH="$PATH:/usr/sbin"
 
-	export PATH
+  export PATH
 }
 
 main() {

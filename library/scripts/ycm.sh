@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#! /usr/bin/env bash
 
 # Compiles NeoVim's YouCompleteMe plugin and
 # copies `.ycm_extra_conf.py`.
