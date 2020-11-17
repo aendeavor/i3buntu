@@ -7,6 +7,8 @@
 #### v3.1.1 RC1 BETA1
 
 - small cleanup
+- streamlining of configuration files
+- added first unit test
 
 #### v3.1.0 RC1 BETA1
 

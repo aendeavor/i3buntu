@@ -5,7 +5,7 @@ authors = ["Georg Lauterbach <infrastructure@itbsd.com>"]
 edition = "2018"
 description = "Custom LINUX setup and bootstrapping LIB"
 license-file = "../LICENSE"
-keywords = [ "LINUX", "SETUP" ]
+keywords = [ "linux", "setup", "configuration" ]
 publish = false
 
 [dependencies]

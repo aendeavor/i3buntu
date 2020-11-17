@@ -1,10 +1,10 @@
-# https://editorconfig.org
+#################################################
+###  General  ###################################
+###  https://editorconfig.org  ##################
+#################################################
 
-# Top-Most EditorConfig File
 root = true
 
-# Unix-Style Newlines & Newline Ending Every File
-# UTF-8 Charset & Default Indent Style and Length
 [*]
 charset = utf-8
 # indent_size = 2
@@ -12,13 +12,29 @@ charset = utf-8
 # indent_style = space
 # insert_final_newline = true
 
+#################################################
+###  Make / Just  ###############################
+#################################################
+
 [Makefile]
 indent_style = tab
 indent_size = 4
 
+[Justfile]
+indent_style = tab
+indent_size = 4
+
+#################################################
+###  Rust  ######################################
+#################################################
+
 [*.rs]
 indent_style = tab
 indent_size = 4
+
+#################################################
+### Shell / Bash  ###############################
+#################################################
 
 [*.sh]
 shell_variant      = bash   # like -ln=posix

@@ -51,6 +51,7 @@ impl ExitCodeCompatible for ExitCode
 ///
 /// Resembles the kinds of error
 /// a phase can have.
+#[derive(Debug)]
 pub enum PhaseError
 {
 	/// A phase ended normally, but a recoverable
@@ -60,6 +61,34 @@ pub enum PhaseError
 	/// unrecoverable error.
 	HardError(u8),
 }
+
+impl PartialEq for PhaseError {
+    fn eq(&self, other: &Self) -> bool {
+        match self {
+			Self::SoftError(code) => {
+				match other {
+					Self::HardError(_) => {
+						false
+					},
+					Self::SoftError(other_code) => {
+						code == other_code
+					}
+				}
+			},
+			Self::HardError(code) => {
+				match other {
+					Self::HardError(other_code) => {
+						code == other_code
+					},
+					Self::SoftError(_) => {
+						false
+					}
+				}
+			}
+		}
+    }
+}
+impl Eq for PhaseError {}
 
 /// # Phase Result
 ///
@@ -291,7 +320,7 @@ impl AppResult
 		if self.exit_code > 99 {
 			panic!(
 				"Setting the error code twice is not allowed when \
-				the first error code indicated an abort."
+				 the first error code indicated an abort."
 			)
 		}
 
@@ -336,8 +365,8 @@ impl AppResult
 			},
 			_ => panic!(
 				"Exit Code for abort not implemented in \
-				lib::data::end::AppResult.set_abort. Exit code \
-				was: {}",
+				 lib::data::end::AppResult.set_abort. Exit code \
+				 was: {}",
 				self.get_exit_code()
 			),
 		}
