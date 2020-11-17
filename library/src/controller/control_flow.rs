@@ -66,7 +66,11 @@ where
 /// i.e. whether it is `PhaseResult::Success`
 /// `PhaseResult::SoftError(error_code)` or
 /// `PhaseResult::HardError(error_code)`.
-pub fn dpo(error_code: u8, cp: u8, tpc: u8) -> PhaseResult
+pub fn dpo(
+	error_code: u8,
+	current_phase: u8,
+	total_phase_count: u8,
+) -> PhaseResult
 {
 	let result = if error_code == 0 {
 		return None;
@@ -76,7 +80,11 @@ pub fn dpo(error_code: u8, cp: u8, tpc: u8) -> PhaseResult
 		PhaseError::SoftError(error_code)
 	};
 
-	console::finalize_phase(cp, tpc, Some(&result));
+	console::finalize_phase(
+		current_phase,
+		total_phase_count,
+		Some(&result),
+	);
 
 	Some(result)
 }
@@ -100,5 +108,26 @@ where
 	} else {
 		console::finalize_stage(exit_code.get_exit_code());
 		Err(exit_code)
+	}
+}
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+
+	#[test]
+	fn dpo_returns_correct_outcome()
+	{
+		let outcome = dpo(0, 1, 1);
+		assert!(outcome.is_none());
+
+		let outcome = dpo(1, 1, 1);
+		assert!(outcome.is_some());
+		assert_eq!(outcome.unwrap(), PhaseError::SoftError(1));
+
+
+		let outcome = dpo(101, 1, 1);
+		assert!(outcome.is_some());
+		assert_eq!(outcome.unwrap(), PhaseError::HardError(101));
 	}
 }

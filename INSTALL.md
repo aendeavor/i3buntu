@@ -25,6 +25,8 @@ When executing the application manually, do **not** start it in a root / superus
 
 ## Handcrafted Finish
 
+You can then use `lxappearance` to customize your color and icon theme.
+
 The monitor/display configuration is not done automatically as this wouldn't make sense. You can do it manually with `arandr` and `i3`'s config.
 
 As _Ubuntu 20.04 LTS_ only ships a stable package upstream, we will need to build some packages from source. All dependencies have already been installed. What is left to do is executing `i3rdp.sh` in the `library/scripts/` directory.
