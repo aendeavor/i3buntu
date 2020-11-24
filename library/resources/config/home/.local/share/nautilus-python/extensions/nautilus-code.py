@@ -3,7 +3,7 @@
 #
 # Fork of Nautilus Admin Extension
 #
-# author	aendeavor@Georg Lauterbach
+# author	Georg Lauterbach
 # version	0.1.0 stable
 
 from gi.repository import Nautilus, GObject

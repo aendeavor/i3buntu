@@ -9,7 +9,7 @@
  ! $HOME/.config/rofi/config
 
  version   0.3.11
- author    aendeavor@Georg Lauterbach
+ author    Georg Lauterbach
 
  Based on Rofi standard theme "dmenu"
 */

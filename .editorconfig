@@ -36,7 +36,10 @@ indent_size = 4
 ### Shell / Bash  ###############################
 #################################################
 
-[*.sh]
+[*.{sh, bash}]
+
+indent_style       = tab
+indent_size        = 4
 shell_variant      = bash   # like -ln=posix
 binary_next_line   = true   # like -bn
 switch_case_indent = true   # like -ci
