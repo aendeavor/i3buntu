@@ -1,6 +1,7 @@
 {
   "audio": [
     "gstreamer1.0-pulseaudio",
+    "pavucontrol",
     "pulseaudio",
     "pulseaudio-module-bluetooth",
     "pulseaudio-module-raop"
