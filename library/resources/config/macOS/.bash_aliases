@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /bin/bash
 #        ____  ___   _____ __  __     ___    __    _______   _____ ___________
 #       / __ )/   | / ___// / / /    /   |  / /   /  _/   | / ___// ____/ ___/
 #      / __  / /| | \__ \/ /_/ /    / /| | / /    / // /| | \__ \/ __/  \__ \ 
@@ -7,19 +7,22 @@
 #                           /_____/
 #
 # ! BASH_ALIASES - ADDITIONAL CONFIGURATION FILE FOR BASH
-# ! $HOME/.bash_aliases
+# ! ${HOME}/.bash_aliases
 #
-# Executed from $HOME/.bashrc
-# Patched for macOS and BASH5
-#
-# version   1.2.9+
-# author    aendeavor@Georg Lauterbach
+# version   1.3.0 [24 Nov 2020]
+# author    Georg Lauterbach
+# executed  from ${HOME}/.bashrc
+# patched   for macOS and Bash v5
 
 ###########################################################
 
 # check color support
-if [ -x /usr/bin/dircolors ]; then
-    test -r "${HOME}/.dircolors" && eval "$(dircolors -b "${HOME}/.dircolors")" || eval "$(dircolors -b)"
+if [[ -x /usr/bin/dircolors ]]
+then
+	if [[ -r "${HOME}/.dircolors" ]]
+		then dircolors -b "${HOME}/.dircolors"
+		else dircolors -b
+	fi
 fi
 
 # ? Aliases
@@ -31,15 +34,9 @@ alias datetime='date && cal'
 alias df='df -h'
 alias sd='blkid -o list'
 alias sizeof='du -sh'
-alias vmp='sudo vmplayer &>/dev/null &'
 
 alias v='nvim'
 alias sv='sudo nvim'
-
-alias d='docker'
-alias dc='docker-compose'
-alias dcu='docker-compose up'
-alias dcd='docker-compose down'
 
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -50,10 +47,9 @@ alias ......='cd ../../../../..'
 # ? Functions
 
 function sf () {
-    SEARCH=${1:?Enter a search-regex}
-    MAXDEPTH=${2:-1}
-    find . -maxdepth $MAXDEPTH -iregex "[a-z0-9_\.\/\ ]*${SEARCH}" -type f
-    ls -lha | grep $1
-    return
+	find . \
+		-maxdepth 2 \
+		-iregex "[a-z0-9_\.\/\ ]*${1:?Enter a search-regex}" \
+		-type f
 }
 export -f sf

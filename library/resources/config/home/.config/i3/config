@@ -8,8 +8,8 @@
 # ! CONFIG - CONFIGURATION FILE FOR i3wm (i3-gaps)
 # ! $HOME/.config/i3/config
 #
-# version	1.0.8
-# author	aendeavor@Georg Lauterbach
+# version	1.0.10 [24 Nov 2020]
+# author	Georg Lauterbach
 
 ###########################################################
 
@@ -109,7 +109,7 @@ bindsym $mod+Return exec alacritty -qq
 bindsym $mod+Shift+x exec i3lock -u -e -i ~/images/background.png -t
 
 # application manager
-bindsym $mod+space exec rofi -show drun -no-plugins
+bindsym $mod+space exec rofi -modi drun -show drun -no-plugins
 
 # VS Code
 bindsym $mod+c exec code

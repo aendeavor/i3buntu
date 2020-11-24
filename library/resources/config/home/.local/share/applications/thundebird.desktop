@@ -1,8 +1,12 @@
 [Desktop Entry]
-Encoding=UTF-8
-Version=1.0
+Version=1.1
 Type=Application
-NoDisplay=true
-Exec=/usr/local/bin/thunderbird %u
+
 Name=Thunderbird
 Comment=User Installed Thunderbird
+
+Path=/usr/local/bin
+Exec=thunderbird
+
+Terminal=false
+NoDisplay=false
