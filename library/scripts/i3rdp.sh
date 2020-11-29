@@ -51,7 +51,7 @@ function _install_i3-radius()
 function _main()
 {
   sudo apt-get -y remove dunst compton
-	
+  
   _install_i3-radius
   _install_dunst
   _install_picom

@@ -63,8 +63,8 @@ pub enum PhaseError
 }
 
 impl PartialEq for PhaseError {
-    fn eq(&self, other: &Self) -> bool {
-        match self {
+	fn eq(&self, other: &Self) -> bool {
+		match self {
 			Self::SoftError(code) => {
 				match other {
 					Self::HardError(_) => {
@@ -319,8 +319,7 @@ impl AppResult
 	{
 		if self.exit_code > 99 {
 			panic!(
-				"Setting the error code twice is not allowed when \
-				 the first error code indicated an abort."
+				"Setting the error code twice is not allowed when the first error code indicated an abort."
 			)
 		}
 

@@ -1,54 +1,34 @@
-# i3buntu
+<h1 align="center" >
+  <i>i3buntu</i>
+</h1>
 
-![version][version] ![stability][stability] ![lib][lib::version] ![bin][application::version]
+<p align="center">
+    <img src="https://img.shields.io/badge/version-v3.2.0-1A1D23?&style=for-the-badge">
+    <img src="https://img.shields.io/badge/stability-stable-FBB444?&style=for-the-badge">
+    <img src="https://img.shields.io/badge/library-v0.3.0-282D39?&style=for-the-badge">
+    <img src="https://img.shields.io/badge/application-v0.4.2-5E6A82?&style=for-the-badge">
+</p>
 
-1. [Introduction](#introduction)
-2. [Installation Instructions](./INSTALL.md)
-3. [About This Repository](#about-this-repository)
-4. [Licensing](#licensing)
+#
 
-## Introduction
+<h2 align="center" >
+  Introduction & Installation Instructions
+</h2>
 
-i3buntu  provides means to customize an [_Ubuntu_][ubuntu::main] installation by deploying the needed programs and sensible default settings.
+<p align="center">
+  <b><i>i3buntu</i></b>  provides means to customize an <a href="https://ubuntu.com/"><i>Ubuntu</i></a> installation by deploying needed programs and sensible default settings. We are enabling everyone to install <a href="https://github.com/Airblader/i3"><i>i3-gaps</i></a> and other basic software with a single, easy bootstrapping process.<br/><br/>
+  Everything you need to know about the <b>installation process</b> can be found in <a href="INSTALL.md"><code>INSTALL.md</code></a>.
+</p>
 
 ![Desktop Theme](library/docs/desktop_shell.png)
-
-### Installation Instructions
-
-Are found in [`INSTALL.md`](INSTALL.md).
-
 ![Notifications](library/docs/notifications.png)
-
-### About This Repository
-
-We are providing everyone with a single easy bootstrapping process for the installation of [_i3-gaps_][i3gaps::github] and other basic software.
-
 ![Collage 1](library/docs/collage_1.png)
+![NeoVim](library/docs/neovim.png)
 
-#### Submodules
+<h3 align="center" >
+  Licensing
+</h3>
 
-##### Application
-
-The application essentially is the binary which does the actual job at runtime. Like all other projects in this repository, it is written in [_Rust_][rust::main].
-
-##### Library
-
-The library provides all functions and methods as well as data structures our application uses. Moreover, all configuration files and software module descriptions are held here, as well as icons, logos and images.
-
-### Licensing
-
-This project is licensed under the [_GNU Lesser General Public License_](./LICENSE) version 3.
-
-[//]: # (Badge Links)
-
-[version]: https://img.shields.io/badge/version-v3.2.0-1A1D23?&style=for-the-badge
-[stability]: https://img.shields.io/badge/stability-stable-FBB444?&style=for-the-badge
-
-[lib::version]: https://img.shields.io/badge/library-v0.3.0-282D39?&style=for-the-badge
-[application::version]: https://img.shields.io/badge/application-v0.4.2-5E6A82?&style=for-the-badge
-
-[//]: # (Other Links)
-
-[ubuntu::main]: https://ubuntu.com/
-[i3gaps::github]: https://github.com/Airblader/i3
-[rust::main]: https://www.rust-lang.org/
+<p align="center">
+  This project is licensed under the <a href="./LICENSE"><i>GNU Lesser General Public License</i></a> version 3.
+</p>

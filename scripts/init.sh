@@ -22,10 +22,10 @@ function __log_uerror
   EXIT_CODE="${4}"
 
   printf "\n––– \e[1m\e[31mUNCHECKED ERROR\e[0m\n%s\n%s\n%s\n%s\n\n" \
-    "  – script    = ${SCRIPT:-'SCRIPT unknown'}" \
-    "  – function  = ${FUNC_NAME}" \
-    "  – line      = ${LINE}" \
-    "  – exit code = ${EXIT_CODE}"
+  "  – script    = ${SCRIPT:-'SCRIPT unknown'}" \
+  "  – function  = ${FUNC_NAME}" \
+  "  – line      = ${LINE}" \
+  "  – exit code = ${EXIT_CODE}"
 }
 
 # -->                   -->                   --> INTEGRITY CHECK
@@ -43,11 +43,11 @@ function __check_integrity
   SHA512SUM="$(sha512sum <<< "${SELF}" | "${GREP_CMD[@]}" | head -1)"
 
   if ! grep -q "${SHA1SUM}" <<< "${SHA_SUMS_FILE}" || \
-    ! grep -q "${SHA256SUM}" <<< "${SHA_SUMS_FILE}" || \
-    ! grep -q "${SHA512SUM}" <<< "${SHA_SUMS_FILE}"
+  ! grep -q "${SHA256SUM}" <<< "${SHA_SUMS_FILE}" || \
+  ! grep -q "${SHA512SUM}" <<< "${SHA_SUMS_FILE}"
   then
-    echo "Checksums are not matching. Aborting." >&2
-    exit 1
+  echo "Checksums are not matching. Aborting." >&2
+  exit 1
   fi
 }
 
@@ -62,11 +62,11 @@ GH="https://github.com/aendeavor/i3buntu/archive"
 if [[ -e ${ARCHIVE} ]] || [[ -d "i3buntu-${RELEASE}" ]]
 then
   printf '%s %s %s %s %s\n' \
-    'There is already a file named' \
-    "${ARCHIVE}" \
-    "or a directory called" \
-    "${RELEASE}" \
-    'in this directory. Aborting.'
+  'There is already a file named' \
+  "${ARCHIVE}" \
+  "or a directory called" \
+  "${RELEASE}" \
+  'in this directory. Aborting.'
   return 10
 fi
 
@@ -74,8 +74,8 @@ fi
 if ! wget "${GH}/${ARCHIVE}" &>/dev/null
 then
   printf '%s %s\n' \
-    'Could not download repository.' \
-    'Aborting.'
+  'Could not download repository.' \
+  'Aborting.'
   return 100
 fi
 
