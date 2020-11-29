@@ -7,9 +7,8 @@
     <img src="https://img.shields.io/badge/stability-stable-FBB444?&style=for-the-badge">
     <img src="https://img.shields.io/badge/library-v0.3.0-282D39?&style=for-the-badge">
     <img src="https://img.shields.io/badge/application-v0.4.2-5E6A82?&style=for-the-badge">
+    <br/>
 </p>
-
-#
 
 <h2 align="center" >
   Introduction & Installation Instructions
