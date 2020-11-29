@@ -19,8 +19,8 @@ function __log_uerror
   EXIT_CODE="${4}"
 
   printf "\n––– \e[1m\e[31mUNCHECKED ERROR\e[0m\n%s\n%s\n%s\n%s\n\n" \
-    "  – script    = ${SCRIPT:-'SCRIPT unknown'}" \
-    "  – function  = ${FUNC_NAME}" \
-    "  – line      = ${LINE}" \
-    "  – exit code = ${EXIT_CODE}"
+  "  – script    = ${SCRIPT:-'SCRIPT unknown'}" \
+  "  – function  = ${FUNC_NAME}" \
+  "  – line      = ${LINE}" \
+  "  – exit code = ${EXIT_CODE}"
 }

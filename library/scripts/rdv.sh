@@ -20,22 +20,22 @@ function _install_rust()
 {
   if curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
   then
-    if [[ -e "${HOME}/.cargo/env" ]]
-    then
-      # shellcheck source=/dev/null
-      source "${HOME}/.cargo/env"
+  if [[ -e "${HOME}/.cargo/env" ]]
+  then
+    # shellcheck source=/dev/null
+    source "${HOME}/.cargo/env"
 
-      mkdir -p "${HOME}/.local/share/bash-completion/completions"
-      rustup completions bash > "${HOME}/.local/share/bash-completion/completions/rustup"
+    mkdir -p "${HOME}/.local/share/bash-completion/completions"
+    rustup completions bash > "${HOME}/.local/share/bash-completion/completions/rustup"
 
-      local COMPONENTS=( rust-docs rust-analysis rust-src rustfmt rls clippy )
-      for COMPONENT in "${COMPONENTS[@]}"
-      do
-        rustup component add "${COMPONENT}" &>/dev/null
-      done
-    fi
+    local COMPONENTS=( rust-docs rust-analysis rust-src rustfmt rls clippy )
+    for COMPONENT in "${COMPONENTS[@]}"
+    do
+    rustup component add "${COMPONENT}" &>/dev/null
+    done
+  fi
   else
-    return 1
+  return 1
   fi
 }
 
@@ -43,13 +43,13 @@ function _install_compose()
 {
   local _compose_version="1.27.4"
   sudo curl \
-    -L "https://github.com/docker/compose/releases/download/${_compose_version}/docker-compose-$(uname -s)-$(uname -m)" \
-    -o /usr/local/bin/docker-compose
+  -L "https://github.com/docker/compose/releases/download/${_compose_version}/docker-compose-$(uname -s)-$(uname -m)" \
+  -o /usr/local/bin/docker-compose
   sudo chmod +x /usr/local/bin/docker-compose
 
   sudo curl \
-    -L "https://raw.githubusercontent.com/docker/compose/${_compose_version}/contrib/completion/bash/docker-compose" \
-    -o "/etc/bash_completion.d/docker-compose"
+  -L "https://raw.githubusercontent.com/docker/compose/${_compose_version}/contrib/completion/bash/docker-compose" \
+  -o "/etc/bash_completion.d/docker-compose"
 }
 
 function _install_vs_code()
@@ -68,10 +68,10 @@ function _install_vs_code()
 function main()
 {
   case $1 in
-    '--rust'               ) _install_rust ;;
-    '--docker-compose'     ) _install_compose ;;
-    '--visual-studio-code' ) _install_vs_code ;;
-    * ) return 1 ;;
+  '--rust'               ) _install_rust ;;
+  '--docker-compose'     ) _install_compose ;;
+  '--visual-studio-code' ) _install_vs_code ;;
+  * ) return 1 ;;
   esac
 }
 

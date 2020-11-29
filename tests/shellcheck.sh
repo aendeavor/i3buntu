@@ -33,10 +33,10 @@ __log_info \
 while read -r FILE
 do
   if ! (
-    cd "$(realpath "$(dirname "$(readlink -f "${FILE}")")")"
-    "${LINT[@]}" "$(basename -- "${FILE}")")
+  cd "$(realpath "$(dirname "$(readlink -f "${FILE}")")")"
+  "${LINT[@]}" "$(basename -- "${FILE}")")
   then
-    ERR=1
+  ERR=1
   fi
 done < <(find . -type f -iname "*.sh")
 

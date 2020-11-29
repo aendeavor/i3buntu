@@ -37,7 +37,7 @@ Thereafter, edit i3's config under `~/.config/i3/config` to use Picom and not Co
 
 #### Integrity
 
-The `init.sh` is checked with `SHA512`, `SHA256` and `SHA1` sums to verify integrity.
+`init.sh` is lightly checked with `SHA512`, `SHA256` and `SHA1` sums to check integrity.
 
 #### Other Scripts
 
