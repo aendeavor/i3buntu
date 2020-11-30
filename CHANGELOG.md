@@ -9,6 +9,7 @@
 - small cleanup
 - streamlining of configuration files
 - added first unit test
+- refined integrity check for `init.sh`
 
 #### v3.1.0 RC1 BETA1
 
