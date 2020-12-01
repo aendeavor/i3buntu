@@ -1,18 +1,18 @@
 #! /bin/bash
-#        ____  ___   _____ __  __     ___    __    _______   _____ ___________
-#       / __ )/   | / ___// / / /    /   |  / /   /  _/   | / ___// ____/ ___/
-#      / __  / /| | \__ \/ /_/ /    / /| | / /    / // /| | \__ \/ __/  \__ \ 
-#   _ / /_/ / ___ |___/ / __  /    / ___ |/ /____/ // ___ |___/ / /___ ___/ / 
-#  (_)_____/_/  |_/____/_/ /_/____/_/  |_/_____/___/_/  |_/____/_____//____/  
-#                           /_____/
-#
+
+#      ___    __    _______   _____ ___________
+#     /   |  / /   /  _/   | / ___// ____/ ___/
+#    / /| | / /    / // /| | \__ \/ __/  \__ \ 
+#   / ___ |/ /____/ // ___ |___/ / /___ ___/ / 
+#  /_/  |_/_____/___/_/  |_/____/_____//____/  
+
 # ! BASH_ALIASES - ADDITIONAL CONFIGURATION FILE FOR BASH
 # ! ${HOME}/.bash_aliases
-#
-# version   2.0.0 [24 Nov 2020]
+
+# version   2.0.1 [25 Nov 2020]
 # author    Georg Lauterbach
 # executed  by ${HOME}/.bashrc
-#
+
 #################################################
 
 # check color support
@@ -48,10 +48,7 @@ alias ......='cd ../../../../..'
 function sf
 {
 	local SEARCH=${1:?Enter a search-regex}
-	local MAXDEPTH=${2:-1}
-	local TYPE=${3:-f}
-
-	find . -maxdepth "${MAXDEPTH}" -iname "*${SEARCH}*" -type "${TYPE}"
+	find . -maxdepth "${2:-1}" -iname "*${SEARCH}*" -type "${3:-f}"
 }
 export -f sf
 

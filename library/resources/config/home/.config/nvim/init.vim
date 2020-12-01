@@ -19,6 +19,9 @@
 set undofile
 set encoding=utf-8
 
+" Python3 Executable
+let g:python3_host_prog = '/usr/bin/python3'
+
 " Copy & Waste
 if has('clipboard')
   if has('unnamedplus') " use + register for copy-paste

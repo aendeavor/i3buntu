@@ -26,7 +26,7 @@ sudo apt-get install -y neovim python3-dev
 Then, download the plugin-manager [_VimPlug_](https://github.com/junegunn/vim-plug) with
 
 ``` BASH
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+sh -c 'curl -fLo "${XDG_DATA_HOME:-${HOME}/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 ```
 
 Afterwards, copy [`init.vim`](./../resources/config/home/.config/nvim/init.vim) to `~/.config/nvim/`. Open NeoVim and use the command `:PlugInstall` to install the plugins. You can then use the script `nvim_ycm.sh` in the [`scripts`](../scripts) directory to compile [_YouCompleteMe_](https://github.com/ycm-core/YouCompleteMe).
@@ -42,7 +42,7 @@ sudo apt-get install docker.io
 Docker Compose can be installed with the `rd.sh` script in the [`../scripts/`](../scripts) directory by executing
 
 ``` BASH
-./rd.sh --docker-compose
+./rdv.sh --docker-compose
 ```
 
 ## Further packages
