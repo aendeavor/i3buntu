@@ -1,19 +1,20 @@
 #! /bin/bash
+
 #        ____  ___   _____ __  ______  ______
 #       / __ )/   | / ___// / / / __ \/ ____/
 #      / __  / /| | \__ \/ /_/ / /_/ / /     
 #   _ / /_/ / ___ |___/ / __  / _, _/ /___   
 #  (_)_____/_/  |_/____/_/ /_/_/ |_|\____/   
-#
-# ! BASHRC - CONFIGURATION FILE FOR BASH
+
+# ! CONFIGURATION FILE FOR BASH
 # ! ${HOME}/.bashrc
-# 
-# version   0.6.5 [24 Nov 2020]
+
+# version   0.6.6 [24 Nov 2020]
 # author    Georg Lauterbach
 # executed  by BASH for non-login shells
 # loads     ${HOME}/.bash_aliases
 # patched   for macOS and BASH5
-#
+
 ###########################################################
 
 # if not running interactively, don't do anything
@@ -102,7 +103,8 @@ function neofetch_parameterized
 {
 	neofetch\
 		--ascii\
-		--disable term uptime packages resolution theme icons cpu gpu wm de\
+		--disable term uptime packages \
+			resolution theme icons cpu gpu wm de\
 		--gtk3 on\
 		--bar_border on\
 		--underline_char \ \

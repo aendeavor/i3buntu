@@ -8,15 +8,16 @@ After installing and configuring _macOS_, we need to setup _Bash_ properly. As _
 
 ``` BASH
 # currently Bash v3
+NBV='5.0'
 cd ${HOME}/Downloads
-curl https://ftp.gnu.org/gnu/bash/bash-5.0.tar.gz -o bash-5.0.tar.gz
-tar xvzf bash-5.0.tar.gz
-cd bash-5.0
+curl "https://ftp.gnu.org/gnu/bash/bash-${NBV}.tar.gz" -o "bash-${NBV}.tar.gz"
+tar xvzf "bash-${NBV}.tar.gz"
+cd "bash-${NBV}"
 
 # check how many patches are currently available
 # if this does not work, download and patch
 # separately with `curl ... && patch -p0 -i patches/bash50-0XX`
-curl 'https://ftp.gnu.org/gnu/bash/bash-5.0-patches/bash50-[001-016]' | patch -p0
+curl "https://ftp.gnu.org/gnu/bash/bash-${NBV}-patches/bash50-[001-016]" | patch -p0
 
 ./configure
 make
@@ -33,7 +34,7 @@ sudo mv bash bash3
 sudo ln -s /usr/local/bin/bash /bin/bash
 ```
 
-After opening a new shell, we can check whether we now use _bash5_.
+After opening a new shell, we can check whether we now use _Bash v5_.
 
 ``` BASH
 /usr/local/bin/bash --version
@@ -58,12 +59,12 @@ With _[Homebrew](https://brew.sh/)_, we can install all other programs we need, 
 cd /usr/local/share/man && sudo chmod -R 775 *
 cd /usr/local/share/locale && sudo chmod -R 775 *
 
-for _c in neofetch python3 cmake neovim htop gpg pinentry-mac
+for PROG in neofetch python3 cmake neovim htop gpg pinentry-mac
 do
-  brew install $_c
+  brew install "${PROG}"
 done
 
-_bci=(
+BCI=(
     thunderbird
     firefox
     visual-studio-code
@@ -72,8 +73,9 @@ _bci=(
     owncloud
 )
 
-for _c in ${_bci[@]}; do
-  brew cask install $_candidate
+for PROG in ${BCI[@]}
+do
+  brew cask install "${PROG}"
 done
 
 brew tap homebrew/cask-fonts
@@ -85,8 +87,8 @@ Other programs we will not be installing with _Homebrew_ are _Rust_.
 ``` BASH
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 mkdir -p ${HOME}/.local/share/bash-completion/completions/
-rustup completions bash > ${HOME}/.local/share/bash-completion/completions/rustup
-rustup completions bash cargo > ${HOME}/.local/share/bash-completion/completions/cargo
+rustup completions bash > "${HOME}/.local/share/bash-completion/completions/rustup"
+rustup completions bash cargo > "${HOME}/.local/share/bash-completion/completions/cargo"
 ```
 
 ## Configuration
@@ -96,13 +98,13 @@ You can download a patched version of `.bashrc` and `.bash_aliases` into `$HOME`
 ``` BASH
 # BASH
 cd
-_guc="https://raw.githubusercontent.com/aendeavor/i3buntu/master/library/resources/config/macOS"
-curl "${_gcu}/.bashrc" > .bashrc
-curl "${_gcu}/.bash_aliases" > .bash_aliases
+GCU="https://raw.githubusercontent.com/aendeavor/i3buntu/master/library/resources/config/macOS"
+curl "${GCU}/.bashrc" > .bashrc
+curl "${GCU}/.bash_aliases" > .bash_aliases
 
 # Alacritty
-mkdir -p ${HOME}/.config/alacritty && cd ${HOME}/.config/alacritty
-curl "${_gcu}/alacritty.yml" > alacritty.yml
+mkdir -p "${HOME}/.config/alacritty" && cd "${HOME}/.config/alacritty"
+curl "${GCU}/alacritty.yml" > alacritty.yml
 curl https://raw.githubusercontent.com/alacritty/alacritty/master/extra/alacritty.info > alacritty.info
 curl https://raw.githubusercontent.com/alacritty/alacritty/master/extra/completions/alacritty.bash > alacritty.bash
 sudo tic -xe alacritty,alacritty-direct alacritty.info
@@ -112,23 +114,24 @@ mkdir -p "${HOME}/Library/Application Support/Code/User"
 cd "${HOME}/Library/Application Support/Code/User"
 curl https://raw.githubusercontent.com/aendeavor/i3buntu/master/resources/sys/vscode/settings.json > settings.json
 
-_extensions=(
+EXTENSIONS=(
   "2gua.rainbow-brackets"
   "aaron-bond.better-comments"
   "azemoh.one-monokai"
-  "bungcip.better-toml"
+  "be5invis.toml"
   "bierner.markdown-preview-github-styles"
   "DavidAnson.vscode-markdownlint"
   "editorconfig.editorconfig"
+  "esbenp.prettier-vscode"
   "karunamurti.tera"
   "James-Yu.latex-workshop"
   "mads-hartmann.bash-ide-vscode"
+  "ms-kubernetes-tools.vscode-kubernetes-tools"
   "ms-python.python"
   "ms-vscode-remote.remote-ssh"
   "ms-vscode-remote.remote-ssh-edit"
   "ms-vscode.cpptools"
-  "PKief.material-icon-theme"
-  "remisa.shellman"
+  "pkief.material-icon-theme"
   "redhat.vscode-xml"
   "redhat.vscode-yaml"
   "rust-lang.rust"
@@ -139,19 +142,19 @@ _extensions=(
   "timonwong.shellcheck"
   "vadimcn.vscode-lldb"
   "VisualStudioExptTeam.vscodeintellicode"
+  "xshrim.txt-syntax"
   "yzhang.markdown-all-in-one"
   "zhuangtongfa.Material-theme"
 )
 
-for _ext in "${_extensions[@]}"; do
-  &>>/dev/null code --install-extension ${_ext}
-  EC=$?
-  if (( $EC != 0 )); then
-    printf "%-40s | %-15s | %-15s" "${_ext}" "Not Installed" "${EC}"
+for EXT in "${EXTENSIONS[@]}"
+do
+  if code --install-extension "${EXT}" &>/dev/null
+  then
+    printf "%-40s | %-15s | %-15s\n" "${EXT}" "Installed" "${EC}"
   else
-    printf "%-40s | %-15s | %-15s" "${_ext}" "Installed" "${EC}"
+    printf "%-40s | %-15s | %-15s\n" "${EXT}" "Not Installed" "${EC}"
   fi
-  echo ''
 done
 
 # NeoVIM
