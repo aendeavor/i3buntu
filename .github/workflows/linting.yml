@@ -1,4 +1,4 @@
-name: ShellSheck and EditorConfig Linting
+name: ShellSheck & EditorConfig Linting
 
 on:
   push:
