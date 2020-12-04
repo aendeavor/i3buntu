@@ -10,25 +10,18 @@ env:
   TOOLCHAIN: nightly-2020-11-09
 
 jobs:
-  dependencies:
-    name: Install dependencies
+  test_rust_code:
+    name: Test the code
     runs-on: ubuntu-20.04
     steps:
       - name: Install rustup
         run: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
       - name: Install nightly Rust toolchain
         run: rustup toolchain install ${{ env.TOOLCHAIN }}
-      - name: Install needed components
-        run: rustup component add clippy rls rustfmt
-  
-  testing:
-    name: Checks the Rust code
-    runs-on: ubuntu-20.04
-    needs: dependencies
-    steps:
-      - uses: actions/checkout@v2
       - name: Set default Rust toolchain
         run: rustup override set ${{ env.TOOLCHAIN }}
+      - name: Install needed components
+        run: rustup component add clippy rls rustfmt
       - name: Run Clippy
         run: cargo clippy --all-targets --all-features -- -D warnings
       - name: Run formatting check
