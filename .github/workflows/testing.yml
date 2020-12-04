@@ -1,10 +1,6 @@
 name: Rust Code Tests
 
-on:
-  push:
-    branches:
-      - master
-  pull_request:
+on: [ push, pull_request ]
 
 env:
   TOOLCHAIN: nightly-2020-11-09

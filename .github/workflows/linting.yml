@@ -1,10 +1,6 @@
 name: ShellSheck & EditorConfig Linting
 
-on:
-  push:
-    branches:
-      - master
-  pull_request:
+on: [ push, pull_request ]
 
 defaults:
   run:
@@ -42,6 +38,6 @@ jobs:
 
           wget -qq --no-check-certificate "https://github.com/editorconfig-checker/editorconfig-checker/releases/download/${{ env.ECLINT_VERSION}}/ec-linux-amd64.tar.gz"
 
-          tar xf ec-linux-amd64.tar.gz && sudo mv bin/ec-linux-amd64 /usr/bin/eclint && sudo chmod +x /usr/bin/eclint
+          tar xf ec-linux-amd64.tar.gz && chmod +x bin/ec-linux-amd64 && sudo mv bin/ec-linux-amd64 /usr/bin/eclint
       - name: Start the linting script
         run: bash ./scripts/lints/eclint.sh

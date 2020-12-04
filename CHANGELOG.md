@@ -4,7 +4,7 @@
 
 ### v3.0
 
-#### v3.2.0 RC1 BETA1
+#### v3.2.0 RC1 PRODUCTION
 
 - added proper GitHub issue templates
 - removed pull request templates
@@ -14,6 +14,7 @@
 - adjusted code so `cargo fmt -- --check` succeeds
 - added EditorConfig ignore-blocks
 - added `__log_failure` library function
+- added dependency installer
 
 #### v3.1.1 RC1 BETA1
 

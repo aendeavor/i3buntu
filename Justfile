@@ -41,7 +41,10 @@ test: nightly
 # -->                   -->                   --> MISC
 
 update_sha:
-	@ scripts/update_sha_sums.sh
+	@ ./scripts/update_sha_sums.sh
+
+dependencies:
+	@ ./scripts/dependencies.sh
 
 # -->                   -->                   --> TESTS
 
