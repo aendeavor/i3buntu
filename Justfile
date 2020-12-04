@@ -7,8 +7,6 @@ CC             := 'cargo'
 
 DEFAULT: build
 
-builda: nightly build_library build_app
-
 build_library:
 	{{CC}} build -p library
 
@@ -21,7 +19,7 @@ build package='app':
 # -->                   -->                   --> CODE
 
 nightly:
-	@ rustup override set nightly
+	@ rustup override set nightly-2020-11-09
 
 alias fmt := format
 format:
@@ -30,14 +28,12 @@ format:
 clean:
 	-@ {{CC}} clean
 
-release: nightly
-	{{CC}} build --release -p library
-	{{CC}} build --release -p app
+release: nightly build_library build_app
 	@ cp ./target/release/app i3buntu
 	@ chmod +x i3buntu
 
 alias ci := test
-test:
+test: nightly
 	cargo clippy --all-targets --all-features -- -D warnings
 	cargo fmt -- --check
 	cargo test
