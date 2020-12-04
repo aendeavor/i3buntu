@@ -24,9 +24,18 @@ function __log_warning
 
 function __log_abort
 {
-  printf "\n––– \e[91m%s\e[0m\n%s\n%s\n\n" \
+  printf "\n––– \e[31m%s\e[0m\n%s\n%s\n\n" \
   "${SCRIPT:-'SCRIPT unknown'}" \
   "  – type    = ABORT" \
+  "  – message = ${*}"
+}
+
+
+function __log_failure
+{
+  printf "\n––– \e[91m%s\e[0m\n%s\n%s\n\n" \
+  "${SCRIPT:-'SCRIPT unknown'}" \
+  "  – type    = FAILURE" \
   "  – message = ${*}"
 }
 

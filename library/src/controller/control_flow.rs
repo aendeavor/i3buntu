@@ -112,7 +112,8 @@ where
 }
 
 #[cfg(test)]
-mod tests {
+mod tests
+{
 	use super::*;
 
 	#[test]
@@ -124,7 +125,6 @@ mod tests {
 		let outcome = dpo(1, 1, 1);
 		assert!(outcome.is_some());
 		assert_eq!(outcome.unwrap(), PhaseError::SoftError(1));
-
 
 		let outcome = dpo(101, 1, 1);
 		assert!(outcome.is_some());

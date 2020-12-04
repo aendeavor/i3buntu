@@ -36,8 +36,10 @@ release: nightly
 	@ cp ./target/release/app i3buntu
 	@ chmod +x i3buntu
 
+alias ci := test
 test:
 	cargo clippy --all-targets --all-features -- -D warnings
+	cargo fmt -- --check
 	cargo test
 
 # -->                   -->                   --> MISC
@@ -47,11 +49,10 @@ update_sha:
 
 # -->                   -->                   --> TESTS
 
-lint:
-	@ make lint
+lint: eclint shellcheck
 
 shellcheck:
-	@ make shellcheck
+	@ ./scripts/lints/shellcheck.sh
 
 eclint:
-	@ make eclint
+	@ ./scripts/lints/eclint.sh

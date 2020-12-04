@@ -62,31 +62,21 @@ pub enum PhaseError
 	HardError(u8),
 }
 
-impl PartialEq for PhaseError {
-	fn eq(&self, other: &Self) -> bool {
+impl PartialEq for PhaseError
+{
+	fn eq(&self, other: &Self) -> bool
+	{
 		match self {
-			Self::SoftError(code) => {
-				match other {
-					Self::HardError(_) => {
-						false
-					},
-					Self::SoftError(other_code) => {
-						code == other_code
-					}
-				}
+			Self::SoftError(code) => match other {
+				Self::HardError(_) => false,
+				Self::SoftError(other_code) => code == other_code,
 			},
-			Self::HardError(code) => {
-				match other {
-					Self::HardError(other_code) => {
-						code == other_code
-					},
-					Self::SoftError(_) => {
-						false
-					}
-				}
-			}
+			Self::HardError(code) => match other {
+				Self::HardError(other_code) => code == other_code,
+				Self::SoftError(_) => false,
+			},
 		}
-    }
+	}
 }
 impl Eq for PhaseError {}
 
@@ -318,9 +308,12 @@ impl AppResult
 	pub fn set_failure(&mut self, exit_code: u8)
 	{
 		if self.exit_code > 99 {
+			// editorconfig-checker-disable
 			panic!(
-				"Setting the error code twice is not allowed when the first error code indicated an abort."
+				"Setting the error code twice is not allowed when \
+				 the first error code indicated an abort."
 			)
+			// editorconfig-checker-enable
 		}
 
 		self.success = false;
@@ -363,9 +356,11 @@ impl AppResult
 					Some("S2P1 - Could not parse programs from JSON")
 			},
 			_ => panic!(
+				// editorconfig-checker-disable
 				"Exit Code for abort not implemented in \
 				 lib::data::end::AppResult.set_abort. Exit code \
 				 was: {}",
+				// editorconfig-checker-enable
 				self.get_exit_code()
 			),
 		}

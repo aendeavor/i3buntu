@@ -4,6 +4,17 @@
 
 ### v3.0
 
+#### v3.2.0 RC1 BETA1
+
+- added proper GitHub issue templates
+- removed pull request templates
+- added GitHub actions for linting and code testing
+- relocated linting scripts
+- removed linting targets from `Makefile`
+- adjusted code so `cargo fmt -- --check` succeeds
+- added EditorConfig ignore-blocks
+- added `__log_failure` library function
+
 #### v3.1.1 RC1 BETA1
 
 - small cleanup
@@ -37,7 +48,7 @@
 - added shellcheck test
 - streamlined shell scripts
 
-### v2.3.1 RC1 PRODUCTION
+### v2.3.0 RC1 PRODUCTION
 
 - corrected [`README.md`](./README.md)
 - corrected [`exa.sh`](./library/scripts/exa.sh)

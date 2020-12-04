@@ -1,14 +1,14 @@
 #! /bin/bash
 
 : '
-# ? version       v0.1.0 RC1 PRODUCTION STABLE
-# ? executed by   make
+# ? version       v0.1.2 RC1 PRODUCTION STABLE
+# ? executed by   just
 # ? task          checks scripts against shellcheck
 '
 
-# shellcheck source=../scripts/lib/errors.sh
+# shellcheck source=../lib/errors.sh
 . scripts/lib/errors.sh
-# shellcheck source=../scripts/lib/logs.sh
+# shellcheck source=../lib/logs.sh
 . scripts/lib/logs.sh
 
 export SCRIPT='SHELLCHECK'
@@ -44,6 +44,6 @@ if [[ ${ERR} -eq 0 ]]
 then
   __log_success 'no errors detected'
 else
-  __log_abort 'errors encountered'
+  __log_failure 'errors encountered'
   exit 1
 fi

@@ -1,0 +1,34 @@
+name: Rust Code Tests
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  dependencies:
+    name: Install Rust (Nightly 1.49.0)
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Install rustup
+        run: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+      - name: Install nightly Rust toolchain
+        run: rustup toolchain install nightly-2020-11-09
+      - name: Install needed components
+        run: rustup component add clippy rls rustfmt
+  
+  testing:
+    name: Checks the Rust code
+    runs-on: ubuntu-20.04
+    needs: dependencies
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set default Rust toolchain
+        run: rustup toolchain install nightly-2020-11-09
+      - name: Run Clippy
+        run: cargo clippy --all-targets --all-features -- -D warnings
+      - name: Run formatting check
+        run: cargo fmt -- --check
+      - name: Run all tests
+        run: cargo test

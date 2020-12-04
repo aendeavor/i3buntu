@@ -1,6 +1,7 @@
 {
 	"cSpell.words": [
 		"Alacritty",
+		"ECLINT",
 		"PPAs",
 		"Picom",
 		"Picom's",
@@ -13,8 +14,11 @@
 		"autoload",
 		"bools",
 		"buntu",
+		"canonicalised",
+		"chmod",
 		"clippy",
 		"cryptomator",
+		"editorconfig",
 		"eval",
 		"fira",
 		"junegunn",
@@ -25,11 +29,15 @@
 		"openjdk",
 		"owncloud",
 		"postconf",
+		"proto",
 		"pspd",
 		"readln",
 		"rsync",
+		"rustfmt",
+		"rustup",
 		"texlive",
 		"tlsv",
+		"toolchain",
 		"xrdb"
 	]
 }
