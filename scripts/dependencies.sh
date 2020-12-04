@@ -21,7 +21,7 @@ ECLINT_VERSION='2.2.0'
 SHELLCHECK_VERSION='0.7.0-2build2'
 
 sudo apt-get -qq --fix-missing update
-sudo apt-get -qq -y --no-install-recommends install shellcheck=${SHELLCHECK_VERSION} wget
+sudo apt-get -qq -y --no-install-recommends install shellcheck="${SHELLCHECK_VERSION}" wget
 
 cd /tmp
 wget -qq --no-check-certificate "https://github.com/editorconfig-checker/editorconfig-checker/releases/download/${ECLINT_VERSION}/ec-linux-amd64.tar.gz"
