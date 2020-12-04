@@ -64,7 +64,7 @@ pub fn print_phase_description(
 	msg: &str,
 )
 {
-	print!("  ({}/{}) {}\n", current_phase, total_phase_count, msg);
+	println!("  ({}/{}) {}", current_phase, total_phase_count, msg);
 	flush();
 }
 
@@ -94,13 +94,13 @@ pub fn finalize_phase(
 			PhaseError::HardError(ec) => ("\u{2718}".red(), *ec),
 		};
 
-		print!(
-			"  ({}/{}) {} \u{2014} Error {}\n",
+		println!(
+			"  ({}/{}) {} \u{2014} Error {}",
 			current_phase, total_phase_count, indicator, ec
 		);
 	} else {
-		print!(
-			"  ({}/{}) {}\n",
+		println!(
+			"  ({}/{}) {}",
 			current_phase,
 			total_phase_count,
 			"\u{2714}".green()

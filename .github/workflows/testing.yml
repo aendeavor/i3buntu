@@ -6,15 +6,18 @@ on:
       - master
   pull_request:
 
+env:
+  TOOLCHAIN: nightly-2020-11-09
+
 jobs:
   dependencies:
-    name: Install Rust (Nightly 1.49.0)
+    name: Install Rust (${{ env.TOOLCHAIN }})
     runs-on: ubuntu-20.04
     steps:
       - name: Install rustup
         run: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
       - name: Install nightly Rust toolchain
-        run: rustup toolchain install nightly-2020-11-09
+        run: rustup toolchain install ${{ env.TOOLCHAIN }}
       - name: Install needed components
         run: rustup component add clippy rls rustfmt
   
@@ -25,7 +28,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Set default Rust toolchain
-        run: rustup toolchain install nightly-2020-11-09
+        run: rustup override set ${{ env.TOOLCHAIN }}
       - name: Run Clippy
         run: cargo clippy --all-targets --all-features -- -D warnings
       - name: Run formatting check

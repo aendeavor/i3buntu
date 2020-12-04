@@ -22,8 +22,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install dependencies
         run: >
-          apt-get -qq --fix-missing update &&
-          apt-get -qq -y --no-install-recommends install
+          sudo apt-get -qq --fix-missing update &&
+          sudo apt-get -qq -y --no-install-recommends install
           shellcheck=${{ env.SHELLCHECK_VERSION }}
           &>/dev/null
       - name: Start the linting script
@@ -36,12 +36,12 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install dependencies
         run: >
-          apt-get -qq --fix-missing update &&
-          apt-get -qq -y --no-install-recommends install wget
+          sudo apt-get -qq --fix-missing update &&
+          sudo apt-get -qq -y --no-install-recommends install wget
           &>/dev/null
 
           wget -qq --no-check-certificate "https://github.com/editorconfig-checker/editorconfig-checker/releases/download/${{ env.ECLINT_VERSION}}/ec-linux-amd64.tar.gz"
 
-          tar xf ec-linux-amd64.tar.gz && mv bin/ec-linux-amd64 /usr/bin/eclint && chmod +x /usr/bin/eclint
+          tar xf ec-linux-amd64.tar.gz && sudo mv bin/ec-linux-amd64 /usr/bin/eclint && sudo chmod +x /usr/bin/eclint
       - name: Start the linting script
         run: bash ./scripts/lints/eclint.sh
