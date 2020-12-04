@@ -22,6 +22,7 @@ jobs:
         run: rustup override set ${{ env.TOOLCHAIN }}
       - name: Install needed components
         run: rustup component add clippy rls rustfmt
+      - uses: actions/checkout@v2
       - name: Run Clippy
         run: cargo clippy --all-targets --all-features -- -D warnings
       - name: Run formatting check
