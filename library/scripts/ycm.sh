@@ -1,19 +1,14 @@
 #! /usr/bin/env bash
 
-# Compiles NeoVim's YouCompleteMe plugin and
-# copies `.ycm_extra_conf.py`.
-# 
-# author   Georg Lauterbach
-# version  0.2.0 unstable
+: '
+# ? version       0.2.0 RC1 BETA1 UNSTABLE
+# ? executed      manually
+# ? task          compiles NeoVim-YouCompleteMe plugin and
+# ?               copies .ycm_extra_conf.py
+'
 
-set -euo pipefail
-trap '_log_err ${_} ${LINENO} ${?}' ERR
-
-function _log_err()
-{
-  echo -e "ERROR occured :: source ${1} ; line ${2} ; exit code ${3}"
-  unset SD COMPLETER RHOME RPATH
-}
+# shellcheck source=../../scripts/lib/errors.sh
+. ../../scripts/lib/errors.sh
 
 SD=$(cd "$(dirname "$(readlink -f "$0")")" && pwd)
 COMPLETER=(--rust-completer --clang-completer --clang-tidy)

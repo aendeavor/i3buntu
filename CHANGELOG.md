@@ -15,6 +15,7 @@
 - added EditorConfig ignore-blocks
 - added `__log_failure` library function
 - added dependency installer
+- rewrote library scripts to use `scripts/lib/*.sh`
 
 #### v3.1.1 RC1 BETA1
 

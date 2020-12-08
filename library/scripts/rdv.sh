@@ -1,20 +1,16 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
-# Installs Rust and Docker
-# Compose during packaging
-# (stage 3) when i3buntu is
-# processing user choices.
-#
-# author   Georg Lauterbach
-# version  0.1.0 stable
+: '
+# ? version       0.1.0 RC1 PRODUCTION STABLE
+# ? executed      manually
+# ? task          installs Rust and Docker Compose during packaging
+# ?               (stage 3) when i3buntu is processing user choices
+'
 
-set -uEo pipefail
-trap '_log_err ${_} ${LINENO} ${?}' ERR
+# shellcheck source=../../scripts/lib/errors.sh
+. ../../scripts/lib/errors.sh
 
-function _log_err()
-{
-  echo -e "ERROR occured :: source ${1} ; line ${2} ; exit code ${3}"
-}
+set +e
 
 function _install_rust()
 {
@@ -67,12 +63,12 @@ function _install_vs_code()
 
 function main()
 {
-  case $1 in
-  '--rust'               ) _install_rust ;;
-  '--docker-compose'     ) _install_compose ;;
-  '--visual-studio-code' ) _install_vs_code ;;
-  * ) return 1 ;;
+  case ${1} in
+    '--rust'               ) _install_rust    ;;
+    '--docker-compose'     ) _install_compose ;;
+    '--visual-studio-code' ) _install_vs_code ;;
+    * ) return 1                              ;;
   esac
 }
 
-main "$@" || exit ${?}
+main "${@}"

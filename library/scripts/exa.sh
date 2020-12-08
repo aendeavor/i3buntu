@@ -1,17 +1,23 @@
 #! /usr/bin/env bash
 
-# Installs EXA with Cargo to replace ls.
-# 
-# author   Georg Lauterbach
-# version  0.2.2 stable
+: '
+# ? version       0.2.2 RC1 PRODUCTION STABLE
+# ? executed      manually
+# ? task          installs EXA with Cargo to replace ls
+'
 
-if [[ -z $(command -v cargo) ]]
+# shellcheck source=../../scripts/lib/errors.sh
+. ../../scripts/lib/errors.sh
+# shellcheck source=../../scripts/lib/logs.sh
+. ../../scripts/lib/logs.sh
+
+if ! command -v cargo &>/dev/null
 then
-  echo "Cargo not installed. Aborting."
+  __log_abort 'Cargo is not installed or in PATH'
   exit 1
 fi
 
-cargo install exa || exit 2
+cargo install exa
 
 if [[ -e "${HOME}/.bash_aliases" ]]
 then
