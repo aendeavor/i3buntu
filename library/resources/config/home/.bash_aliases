@@ -9,7 +9,7 @@
 # ! BASH_ALIASES - ADDITIONAL CONFIGURATION FILE FOR BASH
 # ! ${HOME}/.bash_aliases
 
-# version   2.0.1 [25 Nov 2020]
+# version   2.0.2 [25 Nov 2020]
 # author    Georg Lauterbach
 # executed  by ${HOME}/.bashrc
 
@@ -23,8 +23,9 @@ then
 	eval "$(dircolors -b)"
 fi
 
-# ? ––––––––––––––––––––––––––––––––––––––––––––– Aliases
+# -->                   -->                   --> ALIASES
 
+alias bat='cat'
 alias ls='ls -lh --color=auto'
 alias lsa='ls -lhA --color=auto'
 alias less='less -R'
@@ -43,7 +44,13 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 
-# ? ––––––––––––––––––––––––––––––––––––––––––––– Functions
+# -->                   -->                   --> FUNCTIONS
+
+function cat
+{
+	batcat --theme="Monokai Extended Origin" --paging=never --italic-text=always "${@}"
+}
+export -f cat
 
 function sf
 {

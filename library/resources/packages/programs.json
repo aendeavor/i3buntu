@@ -73,6 +73,7 @@
   ],
   "shell": [
     "alacritty",
+    "bat",
     "htop",
     "neofetch",
     "neovim",
