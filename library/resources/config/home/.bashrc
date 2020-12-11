@@ -8,43 +8,21 @@
 # ! BASHRC - CONFIGURATION FILE FOR BASH
 # ! ${HOME}/.bashrc
 # 
-# version   0.8.0 [24 Nov 2020]
+# version   0.9.0 [11 Dec 2020]
 # author    Georg Lauterbach
 # executed  by BASH for non-login shells
 # loads     ${HOME}/.bash_aliases
 #
 ###########################################################
 
-# if not running interactively, don't do anything
-function check_on_interactive
-{
-	case $- in
-		*i*) ;;
-		*) exit;;
-	esac
-}
-
-function history_parameters
-{
-	HISTCONTROL=ignoreboth
-	HISTSIZE=10000
-	HISTFILESIZE=10000
-}
-
-function shopts
-{
-	shopt -s histappend
-	shopt -s checkwinsize
-	shopt -s globstar
-	shopt -s autocd
-}
-
-function misc
+function miscellaneous
 {
 	stty -ixon
 
 	export VISUAL=nvim
 	export EDITOR="$VISUAL"
+
+	shopt -s histappend checkwinsize globstar autocd
 
 	# more friendly less for non-text input files
 	local LP=/usr/bin/lesspipe
@@ -52,6 +30,11 @@ function misc
 
 	# colored GCC warnings and errors
 	export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+	# history parametes
+	export HISTCONTROL=ignoreboth
+	export HISTSIZE=10000
+	export HISTFILESIZE=10000
 
 	# setup bat as pager from man
 	export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
@@ -68,7 +51,7 @@ function prompt
 		debian_chroot=$(cat /etc/debian_chroot)
 	fi
 
-	if [[ -x /usr/bin/tput ]] && tput setaf 1 >&/dev/null
+	if [[ -x /usr/bin/tput ]] && tput setaf 1 &>/dev/null
 	then
 		PS1=' ${debian_chroot:+($debian_chroot)}'
 		# PS1+='\[\e[38;5;11m\][\u@\h]\[\e[0m\] : '
@@ -80,15 +63,6 @@ function prompt
 	else
 		PS1=' ${debian_chroot:+($debian_chroot)}'
 		PS1+='[\u@\h] : [ \w ] \$ '
-	fi
-}
-
-function aliases
-{
-	if [[ -f ${HOME}/.bash_aliases ]]
-	then
-		# shellcheck source=/dev/null
-		. "${HOME}/.bash_aliases"
 	fi
 }
 
@@ -108,20 +82,34 @@ function programmable_completion
 
 function neofetch_parameterized
 {
-	printf '\n'
-	neofetch --ascii_colors 215 --colors 215 255 255 215 250 255 --ascii --disable term uptime packages resolution theme icons cpu gpu memory --gtk3 on --ascii_bold on --ascii_distro Arch_small --color_blocks off --underline_char \  --separator \  --gap 3
+	neofetch \
+		--ascii --ascii_bold on --gap 3 \
+		--ascii_distro LinuxLite_small --color_blocks off \
+		--ascii_colors 215 --colors 215 255 255 215 250 255 \
+		--disable term uptime packages resolution theme icons cpu gpu memory \
+		--underline_char ' ' --separator ' ' \
+		--bold on --gtk3 on
 }
 
 function main
 {
-	check_on_interactive
-	history_parameters
-	shopts
-	misc
+	# if not running interactively, don't do anything
+	case ${-} in
+		*i* )      ;;
+		*   ) exit ;;
+	esac
+
+	miscellaneous
 	prompt
-	aliases
+
+	if [[ -f ${HOME}/.bash_aliases ]]
+	then
+		# shellcheck source=/dev/null
+		. "${HOME}/.bash_aliases"
+	fi
+
 	programmable_completion
 	neofetch_parameterized
 }
 
-main "$@"
+main "${@}"

@@ -9,7 +9,7 @@
 # ! BASH_ALIASES - ADDITIONAL CONFIGURATION FILE FOR BASH
 # ! ${HOME}/.bash_aliases
 
-# version   2.0.2 [25 Nov 2020]
+# version   2.0.2 [10 Dec 2020]
 # author    Georg Lauterbach
 # executed  by ${HOME}/.bashrc
 

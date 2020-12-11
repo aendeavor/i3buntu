@@ -9,7 +9,7 @@
 " ! INIT.VIM - CONFIGURATION FILE FOR NEOVIM
 " ! ~/.config/nvim/init.vim
 "
-" version   0.4.4
+" version   0.4.5 [11 Dec 2020]
 " author    Georg Lauterbach
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -61,13 +61,13 @@ vnoremap . :normal .<CR>
 
 " Plugins
 call plug#begin()
-Plug 'scrooloose/nerdtree' 		" File explorer
-Plug 'itchyny/lightline.vim' 	" Status line
-Plug 'ctrlpvim/ctrlp.vim'		" Full path fuzzy file-, buffer-, ... finder
-Plug 'Raimondi/delimitMate'		" Automatic closing of parenthesis, etc.
-Plug 'mhinz/vim-startify'		" Fancy start screen
+Plug 'scrooloose/nerdtree'      " File explorer
+Plug 'itchyny/lightline.vim'    " Status line
+Plug 'ctrlpvim/ctrlp.vim'       " Full path fuzzy file-, buffer-, ... finder
+Plug 'Raimondi/delimitMate'     " Automatic closing of parenthesis, etc.
+Plug 'mhinz/vim-startify'       " Fancy start screen
 
-Plug 'tpope/vim-markdown'		" Markdown language extension
+Plug 'tpope/vim-markdown'       " Markdown language extension
 Plug 'vim-syntastic/syntastic'	" Syntax check
 
 Plug 'majutsushi/tagbar'        " Tagbar creates an outline
