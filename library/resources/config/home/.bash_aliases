@@ -72,8 +72,11 @@ function update
 		function warn { echo -e "$(dt)\033[1;33mWARNING\033[0m\t${1}" ; }
 		function succ { echo -e "$(dt)\033[1;32mSUCCESS\033[0m\t${1}" ; }
 
-		local LOG=${1:?}
-		local ERR=0
+		local LOG ERR OPTIONS RUSTUP
+
+		ERR=0
+		LOG=${1:?}
+		: >"${LOG}"
 
 		local OPTIONS=(
 			--yes
@@ -82,7 +85,7 @@ function update
 			--allow-change-held-packages
 		)
 
-		: >"${LOG}"
+		RUSTUP="$(command -v rustup)"
 
 		warn 'New update started'
 		inf 'Checking for updates'
@@ -119,10 +122,10 @@ function update
 			fi
 		fi
 
-		if command -v rustup &>/dev/null
+		if [[ -n ${RUSTUP} ]]
 		then
 			inf 'Updating RUST via rustup'
-			if ! rustup update &>>"${LOG}"
+			if ! runuser -u "${USER}" -- "${RUSTUP}" update &>>"${LOG}"
 			then
 				err "Could not update Rust via rustup [${?}]"
 				ERR=1
@@ -137,7 +140,7 @@ function update
 		fi
 	}
 
-	sudo env PATH="$PATH" bash -c \
-		"$(declare -f __update); __update '${HOME}'/.update_log"
+	sudo env PATH="$PATH" USER="${USER}" bash -c \
+		"$(declare -f __update); __update '${HOME}/.update_log'"
 )
 export -f update

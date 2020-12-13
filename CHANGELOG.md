@@ -17,7 +17,7 @@
 - added dependency installer
 - rewrote library scripts to use `scripts/lib/*.sh`
 - integrated bat(cat)
-- adjusted `.bashrc`
+- adjusted `.bashrc` & `.bash_aliases`
 
 #### v3.1.1 RC1 BETA1
 
