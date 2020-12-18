@@ -8,7 +8,7 @@
 # ! BASHRC - CONFIGURATION FILE FOR BASH
 # ! ${HOME}/.bashrc
 # 
-# version   0.9.0 [11 Dec 2020]
+# version   0.9.1 [18 Dec 2020]
 # author    Georg Lauterbach
 # executed  by BASH for non-login shells
 # loads     ${HOME}/.bash_aliases
@@ -41,6 +41,11 @@ function miscellaneous
 	export MANROFFOPT="-c"
 	export PAGER='less -R'
 	export BAT_PAGER="less -R"
+
+	if [[ -e "${HOME}/.cargo/env" ]]
+	then
+		source "${HOME}/.cargo/env"
+	fi
 }
 
 function prompt
@@ -77,6 +82,11 @@ function programmable_completion
 		then
 			. /etc/bash_completion
 		fi
+	fi
+
+	if command -v thefuck &>/dev/null
+	then
+		eval "$(thefuck --alias)"
 	fi
 }
 

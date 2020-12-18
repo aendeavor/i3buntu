@@ -26,6 +26,7 @@ fi
 # -->                   -->                   --> ALIASES
 
 alias bat='cat'
+alias f='fuck'
 alias ls='ls -lh --color=auto'
 alias lsa='ls -lhA --color=auto'
 alias less='less -R'
