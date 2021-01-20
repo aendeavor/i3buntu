@@ -21,8 +21,3 @@ Set all the following policies to true. You can do this under `about:config`.
 `toolkit.legacyUserProfileCustomizations.stylesheets`
 `svg.context-properties.content.enabled`
 
-### Extensions
-
-#### Humble New Tab Page (HNTP)
-
-Copy [`custom.css`](./hntp/custom.css) into the field called Custom CSS under the Advanced tab when in HNTP settings. Moreover, copy [`import.css`](./hntp/import.css) into the field Import Settings under Import/Export. Then, disable Mobile Bookmarks, Recently Closed and Recent Bookmarks to your taste under the Settings tab. Thereafter, set the default starting page to HNTP in Firefox's settings. Open a new tab and select current page in the settings.
