@@ -1,10 +1,8 @@
 #! /bin/bash
 
-: '
-# ? version       v0.5.0 RC1 BETA2 UNSTABLE
-# ? executed by   curl | bash
-# ? task          starts installation
-'
+# version       v0.5.0-stable
+# executed by   curl | bash
+# task          starts installation
 
 # -->                   -->                   --> ERRORS
 

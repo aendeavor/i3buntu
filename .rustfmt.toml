@@ -5,6 +5,7 @@ unstable_features            = true
 edition                      = "2018"
 
 brace_style                  = "AlwaysNextLine"
+# control_brace_style          = "AlwaysNextLine"
 imports_layout               = "Vertical"
 indent_style                 = "Block"
 

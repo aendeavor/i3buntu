@@ -18,7 +18,7 @@ To get things started, get the [_Ubuntu 20.04 LTS_ Server ISO][iso] and install 
 sudo apt-get update && sudo apt-get -y upgrade
 
 # start the installation
-curl --tlsv1.2 -sSfL i3buntu.itbsd.com | bash
+curl --tlsv1.2 -sSfL https://i3buntu.itbsd.com | bash
 ```
 
 When executing the application manually, do **not** start it in a root / superuser context. Either use `./i3buntu` or `make install`.
@@ -37,7 +37,7 @@ Thereafter, edit i3's config under `~/.config/i3/config` to use Picom and not Co
 
 #### Integrity
 
-`init.sh` is lightly checked with `SHA512`, `SHA256` and `SHA1` sums to check integrity.
+`init.sh`'s integrity is lightly checked with hashes (`sha512`, etc.). This does not mean `curl | bash`-ing the script is completely safe, but a bare minimum is present.
 
 #### Other Scripts
 

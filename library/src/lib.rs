@@ -9,7 +9,7 @@ pub mod controller;
 mod data;
 pub mod log;
 
-const VERSION: &str = "v0.3.0-production rc1 stable";
+const VERSION: &str = "v0.3.0-stable";
 
 pub use data::structures;
 pub use data::traits;

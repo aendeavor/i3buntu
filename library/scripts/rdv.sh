@@ -1,11 +1,9 @@
 #! /usr/bin/env bash
 
-: '
-# ? version       0.1.0 RC1 PRODUCTION STABLE
-# ? executed      manually
-# ? task          installs Rust and Docker Compose during packaging
-# ?               (stage 3) when i3buntu is processing user choices
-'
+# version       0.1.0 RC1 PRODUCTION STABLE
+# executed      manually
+# task          installs Rust and Docker Compose during packaging
+#               (stage 3) when i3buntu is processing user choices
 
 # shellcheck source=../../scripts/lib/errors.sh
 . ../../scripts/lib/errors.sh

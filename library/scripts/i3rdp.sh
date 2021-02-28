@@ -1,13 +1,11 @@
 #! /usr/bin/env bash
 
-: '
-# ? version       0.2.0 RC1 BETA1 UNSTABLE
-# ? executed      manually
-# ? task          downloads Picom, Dunst and i3-radius
-# ?               via git clone and installs them
-# ? note          Dependencies should have already been
-# ?               installed by i3buntu
-'
+# version       0.2.0-unstable
+# executed      manually
+# task          downloads Picom, Dunst and i3-radius
+#               via git clone and installs them
+# note          Dependencies should have already been
+#               installed by i3buntu
 
 # shellcheck source=../../scripts/lib/errors.sh
 . ../../scripts/lib/errors.sh

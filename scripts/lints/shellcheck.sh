@@ -1,9 +1,9 @@
 #! /bin/bash
 
 : '
-# ? version       v0.1.2 RC1 PRODUCTION STABLE
-# ? executed by   just
-# ? task          checks scripts against shellcheck
+# ? version       v0.1.1-stable
+# ? executed by   make
+# ? task          linting scripts against ShellCheck
 '
 
 # shellcheck source=../lib/errors.sh
@@ -11,7 +11,10 @@
 # shellcheck source=../lib/logs.sh
 . scripts/lib/logs.sh
 
-export SCRIPT='SHELLCHECK'
+PATH="${CDIR}/tools:${PATH}"
+export PATH
+
+export SCRIPT='Shellcheck'
 LINT=(shellcheck -x -S style -Cauto -o all -e SC2154 -W 50)
 ERR=0
 

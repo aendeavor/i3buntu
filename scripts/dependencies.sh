@@ -1,10 +1,8 @@
 #! /bin/bash
 
-: '
-# ? version       v0.1.0 RC1 PRODUCTION STABLE
-# ? executed by   manually
-# ? task          installs linting dependencies
-'
+# version       v0.1.0-stable
+# executed by   manually
+# task          installs linting dependencies
 
 # shellcheck source=./lib/errors.sh
 . scripts/lib/errors.sh

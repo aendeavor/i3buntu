@@ -6,38 +6,15 @@ defaults:
   run:
     shell: bash
 
-env:
-  ECLINT_VERSION: 2.2.0
-  SHELLCHECK_VERSION: 0.7.0-2build2
-
 jobs:
-  shellcheck_linting:
-    name: Lint against ShellSheck
+  linting:
+    name: Lint against ShellSheck & ECLint
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
-        run: >
-          sudo apt-get -qq --fix-missing update &&
-          sudo apt-get -qq -y --no-install-recommends install
-          shellcheck=${{ env.SHELLCHECK_VERSION }}
-          &>/dev/null
-      - name: Start the linting script
-        run: bash ./scripts/lints/shellcheck.sh
-  
-  editorconfig_linting:
-    name: Lint against EditorConfig
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v2
-      - name: Install dependencies
-        run: >
-          sudo apt-get -qq --fix-missing update &&
-          sudo apt-get -qq -y --no-install-recommends install wget
-          &>/dev/null
-
-          wget -qq --no-check-certificate "https://github.com/editorconfig-checker/editorconfig-checker/releases/download/${{ env.ECLINT_VERSION}}/ec-linux-amd64.tar.gz"
-
-          tar xf ec-linux-amd64.tar.gz && chmod +x bin/ec-linux-amd64 && sudo mv bin/ec-linux-amd64 /usr/bin/eclint
-      - name: Start the linting script
-        run: bash ./scripts/lints/eclint.sh
+        run: make install-linters
+      - name: Start ShellCheck
+        run: make shellcheck
+      - name: Start EClint
+        run: make eclint

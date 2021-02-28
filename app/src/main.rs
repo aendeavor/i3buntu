@@ -2,6 +2,8 @@
 #![deny(clippy::nursery)]
 #![deny(clippy::pedantic)]
 #![allow(clippy::must_use_candidate)]
+#![allow(clippy::suspicious_else_formatting)]
+#![allow(clippy::too_many_lines)]
 #![feature(termination_trait_lib)]
 #![feature(in_band_lifetimes)]
 
@@ -12,7 +14,7 @@ mod lib;
 use library::controller::check_abort;
 use lib::init;
 
-const VERSION: &str = "v0.4.2-production rc5 stable";
+const VERSION: &str = "v0.4.2-stable";
 
 fn main()
 {

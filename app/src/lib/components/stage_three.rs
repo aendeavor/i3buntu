@@ -23,14 +23,13 @@ pub fn copy_configurations() -> PhaseResult
 {
 	let cp = 1;
 	let mut exit_code = 0;
+	let home = get_home();
 
 	console::print_phase_description(
 		cp,
 		TPC3,
 		"Copying Configuration Files",
 	);
-
-	let home = get_home();
 
 	drive_sync(
 		"     :: Syncing over ${HOME}",
@@ -115,7 +114,6 @@ pub fn copy_configurations() -> PhaseResult
 	}
 
 	exit_code = 0;
-
 	console::pspd("     :: Acquiring Vim-Plug");
 
 	let mut vim_plug_dir = home;
@@ -124,6 +122,7 @@ pub fn copy_configurations() -> PhaseResult
 
 	let url = "https://raw.githubusercontent.com/\
 		junegunn/vim-plug/master/plug.vim";
+
 	if Command::new("curl")
 		.args(&["-fLo", vim_plug_dir.as_str(), "--create-dirs", url])
 		.output()

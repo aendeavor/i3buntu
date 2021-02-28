@@ -86,38 +86,39 @@ All VS Code extensions can be installed on the command line with:
 
 ``` BASH
 EXTENSIONS=(
-  "2gua.rainbow-brackets"
-  "aaron-bond.better-comments"
-  "azemoh.one-monokai"
-  "bierner.markdown-preview-github-styles"
-  "DavidAnson.vscode-markdownlint"
-  "dustypomerleau.rust-syntax"
-  "editorconfig.editorconfig"
-  "esbenp.prettier-vscode"
-  "mads-hartmann.bash-ide-vscode"
-  "matklad.rust-analyzer"
-  "ms-kubernetes-tools.vscode-kubernetes-tools"
-  "ms-python.python"
-  "ms-vscode-remote.remote-ssh"
-  "ms-vscode-remote.remote-ssh-edit"
-  "ms-vscode.cpptools"
-  "PKief.material-icon-theme"
-  "redhat.vscode-xml"
-  "redhat.vscode-yaml"
-  "shd101wyy.markdown-preview-enhanced"
-  "streetsidesoftware.code-spell-checker"
-  "streetsidesoftware.code-spell-checker-german"
-  "timonwong.shellcheck"
-  "VisualStudioExptTeam.vscodeintellicode"
-  "yzhang.markdown-all-in-one"
-  "zhuangtongfa.Material-theme"
+  '2gua.rainbow-brackets'
+  'aaron-bond.better-comments'
+  'azemoh.one-monokai'
+  'be5invis.toml'
+  'bierner.markdown-preview-github-styles'
+  'DavidAnson.vscode-markdownlint'
+  'dustypomerleau.rust-syntax'
+  'EditorConfig.EditorConfig'
+  'esbenp.prettier-vscode'
+  'mads-hartmann.bash-ide-vscode'
+  'matklad.rust-analyzer'
+  'mikestead.dotenv'
+  'PKief.material-icon-theme'
+  'redhat.vscode-yaml'
+  'rust-lang.rust'
+  'sainnhe.gruvbox-material'
+  'serayuzgur.crates'
+  'shd101wyy.markdown-preview-enhanced'
+  'skellock.just'
+  'streetsidesoftware.code-spell-checker'
+  'timonwong.shellcheck'
+  'vadimcn.vscode-lldb'
+  'VisualStudioExptTeam.vscodeintellicode'
+  'xshrim.txt-syntax'
+  'yzhang.markdown-all-in-one'
 )
 
-for EXTENSION in ${EXTENSIONS[@]}
+for EXTENSION in "${EXTENSIONS[@]}"
 do
   code --install-extension "${EXTENSION}"
 done
 
+code --list-extensions
 ```
 
 #### NeoVim
@@ -125,17 +126,20 @@ done
 VimPlug should be enabled and contain the following plugins:
 
 ``` VIM
-Plug 'scrooloose/nerdtree'     " File explorer
-Plug 'itchyny/lightline.vim'   " Status line
-Plug 'ctrlpvim/ctrlp.vim'      " Full path finder
-Plug 'Raimondi/delimitMate'    " Automatic closing of parenthesis
-Plug 'tpope/vim-markdown'      " Markdown language extension
-Plug 'vim-syntastic/syntastic' " Syntax check
-Plug 'rust-lang/rust.vim'      " Rust language support
-Plug 'luochen1990/rainbow'     " Rainbow brackets
-Plug 'Valloric/YouCompleteMe'  " Autocompletion
-Plug 'morhetz/gruvbox'         " Themes
-Plug 'ryanoasis/vim-devicons'  " Icon theme
+Plug 'scrooloose/nerdtree'      " File explorer
+Plug 'itchyny/lightline.vim'    " Status line
+Plug 'ctrlpvim/ctrlp.vim'       " Full path fuzzy file-, buffer-, ... finder
+Plug 'Raimondi/delimitMate'     " Automatic closing of parenthesis, etc.
+Plug 'mhinz/vim-startify'       " Fancy start screen
+Plug 'tpope/vim-markdown'       " Markdown language extension
+Plug 'vim-syntastic/syntastic'  " Syntax check
+Plug 'rust-lang/rust.vim'       " Rust language support
+Plug 'majutsushi/tagbar'        " Tagbar creates an outline
+Plug 'luochen1990/rainbow'      " Rainbow brackets
+Plug 'Valloric/YouCompleteMe'   " Autocompletion
+" Themes
+Plug 'morhetz/gruvbox'
+Plug 'ryanoasis/vim-devicons'
 ```
 
 [visual_studio_code]: https://code.visualstudio.com/
@@ -170,33 +174,30 @@ When writing a script, the first part of scripts is uniform. The following snipp
 ``` BASH hl_lines="4 5 6"
 #! /bin/bash
 
-: '
-# ? version       v0.1.0 RC1 ALPHA1 UNSTABLE
-# ? executed by   just
-# ? task          handles init jobs
-'
+# version       v0.1.0-unstable
+# executed by   just
+# task          handles init jobs
 
 # shellcheck source=./lib/errors.sh
 . scripts/lib/errors.sh
 # shellcheck source=./lib/logs.sh
 . scripts/lib/logs.sh
 
-SCRIPT='INIT'
+SCRIPT='Initialization script'
 
 # -->                   -->                   --> START
-```
 
 #### If Else Statements
 
 ``` BASH
 # the default if-else-style using double-braces
 # remember you do not need "" when using [[ ]]
-if [[ <CONDITION> ]] && [[ -f $FILE ]]
+if [[ <CONDITION> ]] && [[ -f ${FILE} ]]
 then
   <CODE TO RUN>
 # when using a command, omit the braces
 # when comparing numbers, use -eq/-ne/-lt/-ge, not != or ==
-elif ! <COMMAND> || [[ $VAR -ne <NUMBER> ]]
+elif ! <COMMAND> || [[ ${VAR} -ne <NUMBER> ]]
 then
   <CODE TO TUN>
 fi

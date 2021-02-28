@@ -1,22 +1,27 @@
 {
-  "window.zoomLevel": 0,
   "telemetry.enableTelemetry": false,
 
   // Workbench
-  // "workbench.editor.limit.enabled": true,
-  // "workbench.editor.limit.perEditorGroup": true,
-  // "workbench.editor.limit.value": 3,
-  // "workbench.startupEditor": "newUntitledFile",
   "workbench.sideBar.location": "right",
-  "workbench.iconTheme": "material-icon-theme",
   "workbench.editor.enablePreview": true,
   "workbench.editor.showTabs": true,
-  "workbench.colorTheme": "Material Theme Ocean High Contrast",
+  "workbench.editor.wrapTabs": true,
+  "workbench.editor.decorations.badges": true,
+  "workbench.editor.decorations.colors": true,
+  "workbench.editor.enablePreviewFromQuickOpen": true,
+  
+  // Styling
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.colorTheme": "Gruvbox Material Dark",
+  "gruvboxMaterial.darkContrast": "hard",
+  "gruvboxMaterial.darkCursor": "blue",
+  "gruvboxMaterial.darkSelection": "blue",
 
-  // LaTeX (Xe-TeX)
+  // TeX
+  "latex-workshop.bibtex-fields.sort.enabled": true,
   "latex-workshop.message.update.show": false,
-  "latex-workshop.latex.build.clearLog.everyRecipeStep.enabled": false,
   "latex-workshop.view.pdf.viewer": "tab",
+  "latex-workshop.latex.build.clearLog.everyRecipeStep.enabled": false,
   "latex-workshop.latex.tools": [
     {
       "name": "xelatex",
@@ -29,12 +34,23 @@
         "%DOC%"
       ],
       "env": {}
-    }
+    },
+    {
+      "name": "biber",
+      "command": "biber",
+      "args": [
+          "%DOCFILE%"
+      ]
+  }
   ],
   "latex-workshop.latex.recipes": [
     {
       "name": "xelatex",
-      "tools": ["xelatex"]
+      "tools": [
+        "xelatex",
+        "biber",
+        "xelatex"
+      ]
     }
   ],
 
@@ -49,6 +65,8 @@
   "editor.cursorSurroundingLines": 25,
   "editor.tabCompletion": "on",
   "editor.insertSpaces": false,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "window.zoomLevel": -1,
 
   // Explorer
   "explorer.confirmDragAndDrop": false,
@@ -121,22 +139,12 @@
     "justfile": "just"
   },
 
-  "[c]": {
-    "editor.defaultFormatter": "ms-vscode.cpptools"
-  },
-
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
 
-  "[rust]": {
-    "editor.defaultFormatter": "matklad.rust-analyzer"
-  },
-  "rust-analyzer.cargo.allFeatures": true,
-
   // Python
-  "python.languageServer": "Pylance",
-  "python.dataScience.alwaysTrustNotebooks": true,
   "vsintellicode.features.python.deepLearning": "enabled",
+  "jupyter.alwaysTrustNotebooks": true,
+  "python.showStartPage": false
 }
-

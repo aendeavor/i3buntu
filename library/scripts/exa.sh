@@ -1,10 +1,8 @@
 #! /usr/bin/env bash
 
-: '
-# ? version       0.2.2 RC1 PRODUCTION STABLE
-# ? executed      manually
-# ? task          installs EXA with Cargo to replace ls
-'
+# version       0.2.2-stable
+# executed      manually
+# task          installs EXA with Cargo to replace ls
 
 # shellcheck source=../../scripts/lib/errors.sh
 . ../../scripts/lib/errors.sh

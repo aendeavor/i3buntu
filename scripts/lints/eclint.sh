@@ -1,18 +1,25 @@
 #! /bin/bash
 
-: '
-# ? version       v0.1.2 RC1 PRODUCTION STABLE
-# ? executed by   just
-# ? task          checks scripts against an editorconfig linter
-'
+# version       v0.1.1-stable
+# executed by   make
+# task          linting EditorConfig
 
 # shellcheck source=../lib/errors.sh
 . scripts/lib/errors.sh
 # shellcheck source=../lib/logs.sh
 . scripts/lib/logs.sh
 
-export SCRIPT='EDITORCONFIG LINTER'
-LINT=(eclint -exclude "(.*\.git.*|.*\.md$|.*target\/.*|\.lock$)")
+PATH="${CDIR}/tools:${PATH}"
+export PATH
+
+export SCRIPT='EditorConfig Linter'
+LINT=(
+  eclint
+  -config
+  scripts/tests/.ecrc.json
+  -exclude
+  "(\.git/.*|.*\.md|.*target/.*|\.lock|settings.json|LICENSE|tools/.*|i3buntu|\.tar\.xz)"
+)
 
 # -->                   -->                   --> START
 
@@ -22,14 +29,12 @@ then
   exit 1
 fi
 
-__log_info \
-  'type: editorconfig' \
-  '(linter version:' "$(${LINT[0]} --version))"
+__log_info "version: $(${LINT[0]} --version)"
 
 if "${LINT[@]}"
 then
   __log_success 'no errors detected'
 else
-  __log_failure 'errors encountered'
+  __log_abort 'errors encountered'
   exit 1
 fi

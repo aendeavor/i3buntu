@@ -4,6 +4,10 @@
 
 ### v3.0
 
+#### v3.2.1
+
+- small maintenance update
+
 #### v3.2.0 RC1 PRODUCTION
 
 - added proper GitHub issue templates

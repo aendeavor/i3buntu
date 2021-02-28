@@ -1,10 +1,8 @@
 #! /bin/bash
 
-: '
-# ? version       v0.3.0 RC1 PRODUCTION STABLE
-# ? executed by   just
-# ? task          updates SHA sums in .env
-'
+# version       v0.3.1-stable
+# executed by   just
+# task          updates SHA sums in .env
 
 # shellcheck source=./lib/errors.sh
 . scripts/lib/errors.sh
