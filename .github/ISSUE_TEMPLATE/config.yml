@@ -1,0 +1,7 @@
+# disables the possibility to choose blank issues
+blank_issues_enabled: false
+
+contact_links:
+  - name: Installation guide
+    url: https://github.com/aendeavor/i3buntu/blob/master/README.md#installation-instructions
+    about: Provides information about the installation process

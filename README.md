@@ -3,26 +3,33 @@
 </h1>
 
 <p align="center">
-    <img src="https://img.shields.io/badge/version-v3.2.0-1A1D23?&style=for-the-badge">
+    <img src="https://img.shields.io/badge/version-v4.0.0-1A1D23?&style=for-the-badge">
     <img src="https://img.shields.io/badge/stability-stable-FBB444?&style=for-the-badge">
-    <img src="https://img.shields.io/badge/library-v0.3.0-282D39?&style=for-the-badge">
-    <img src="https://img.shields.io/badge/application-v0.4.2-5E6A82?&style=for-the-badge">
     <br/>
 </p>
 
-<h2 align="center" >
-  Introduction & Installation Instructions
-</h2>
+<h3 align="center" >
+  Introduction
+</h3>
 
 <p align="center">
-  <b><i>i3buntu</i></b>  provides means to customize an <a href="https://ubuntu.com/"><i>Ubuntu</i></a> installation by deploying needed programs and sensible default settings. We are enabling everyone to install <a href="https://github.com/Airblader/i3"><i>i3-gaps</i></a> and other basic software with a single, easy bootstrapping process.<br/><br/>
-  Everything you need to know about the <b>installation process</b> can be found in <a href="INSTALL.md"><code>INSTALL.md</code></a>.
+  <b><i>i3buntu</i></b> provides means to customize an <a href="https://ubuntu.com/"><i>Ubuntu</i></a> installation by deploying needed programs and sensible default settings. With version 4, we build upon <a href="https://regolith-linux.org/">Regolith Linux</a>. Because of this, the setup has been simplified. Everything you need to know about the installation process can be found in <a href="INSTALL.md"><code>INSTALL.md</code></a>.
 </p>
 
-![Desktop Theme](library/docs/desktop_shell.png)
-![Notifications](library/docs/notifications.png)
-![Collage 1](library/docs/collage_1.png)
-![NeoVim](library/docs/neovim.png)
+![Desktop Theme](resources/docs/desktop.png)
+![Notifications](resources/docs/neovim.png)
+
+<h3 align="center">
+  Installation Instructions
+</h3>
+
+``` BASH
+# obligatory update
+sudo apt-get update && sudo apt-get -y upgrade
+
+# start the installation
+curl --tlsv1.2 -sSfL https://i3buntu.itbsd.com | bash
+```
 
 <h3 align="center" >
   Licensing

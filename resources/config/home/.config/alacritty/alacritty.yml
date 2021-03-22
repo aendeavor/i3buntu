@@ -1,0 +1,115 @@
+window:
+  dimensions:
+    columns: 125
+    lines: 33
+
+  padding:
+    x: 10
+    y: 10
+
+  dynamic_padding: true
+  decorations: none
+
+scrolling:
+  history: 2000
+  multiplier: 2
+
+font:
+  use_thin_strokes: true
+  size: 13.0
+
+  offset:
+    x: 0
+    y: 4
+
+  glyph_offset:
+    x: 0
+    y: 0
+
+
+# Colors (Gruvbox dark)
+# https://github.com/alacritty/alacritty/wiki/Color-schemes
+colors:
+  primary:
+    # hard contrast background - '#1d2021'
+    # soft contrast background - '#32302f'
+    background:        &gruvbox_dark_bg '#282828'
+    foreground:        '#fbf1c7'
+    bright_foreground: '#f9f5d7'
+    dim_foreground:    '#f2e5bc'
+  cursor:
+    text:   CellBackground
+    cursor: CellForeground
+  vi_mode_cursor:
+    text:   CellBackground
+    cursor: CellForeground
+  selection:
+    text:       CellBackground
+    background: CellForeground
+  bright:
+    black:   '#928374'
+    red:     '#fb4934'
+    green:   '#b8bb26'
+    yellow:  '#fabd2f'
+    blue:    '#83a598'
+    magenta: '#d3869b'
+    cyan:    '#8ec07c'
+    white:   '#ebdbb2'
+  normal:
+    black:   *gruvbox_dark_bg
+    red:     '#cc241d'
+    green:   '#98971a'
+    yellow:  '#d79921'
+    blue:    '#458588'
+    magenta: '#b16286'
+    cyan:    '#689d6a'
+    white:   '#a89984'
+  dim:
+    black:   '#32302f'
+    red:     '#9d0006'
+    green:   '#79740e'
+    yellow:  '#b57614'
+    blue:    '#076678'
+    magenta: '#8f3f71'
+    cyan:    '#427b58'
+    white:   '#928374'
+
+draw_bold_text_with_bright_colors: false
+custom_cursor_colors: true
+
+bell:
+  animation: EaseOutExpo
+  color: '0xffffff'
+  duration: 0 # disabled
+
+background_opacity: 1
+
+key_bindings:
+  - { key: V,        mods: Command,       action: Paste                        }
+  - { key: C,        mods: Command,       action: Copy                         }
+
+  - { key: Equals,   mods: Control,       action: IncreaseFontSize             }
+  - { key: Minus,    mods: Control,       action: DecreaseFontSize             }
+  
+  - { key: Back,                          chars: "\x7f"                        }
+  - { key: Back,     mods: Control,       chars: "\x1b\x7f"                    }
+
+  - { key: Insert,                        chars: "\x1b[2~"                     }
+  - { key: Delete,                        chars: "\x1b[3~"                     }
+
+mouse:
+  double_click: { threshold: 300 }
+  triple_click: { threshold: 300 }
+  hide_when_typing: true
+
+selection:
+  # true => selected text is copied to the primary clipboard
+  save_to_clipboard: true
+  semantic_escape_chars: ",│`|:\"' ()[]{}<>"
+
+mouse_bindings:
+  - { mouse: Middle, action: PasteSelection }
+
+# Live config reload (changes require restart)
+live_config_reload: true
+

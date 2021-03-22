@@ -1,0 +1,18 @@
+i3-wm.binding.browser: f
+i3-wm.binding.exit_app: q
+i3-wm.binding.files: n
+i3-wm.binding.float_toggle: Shift+space
+i3-wm.binding.launcher.cmd: Shift+f
+i3-wm.binding.notification_ui: Shift+n
+i3-wm.binding.refresh: Mod1+Shift+r
+i3-wm.binding.reload: Shift+r
+i3-wm.binding.settings: Shift+c
+i3-wm.binding.split_h: Shift+g
+
+i3-wm.gaps.inner.size: 5
+i3-wm.gaps.outer.size: 0
+i3-wm.gaps.focus_follows_mouse: yes
+
+i3-wm.floatingwindow.border.size: 0
+i3-wm.bar.position: top
+i3-wm.window.border.size: 0

@@ -1,6 +1,15 @@
 # Changelog
 
-## Major  Version 3
+## Major Version 4
+
+### v4.0
+
+#### v4.0.0
+
+- now using [Regolith Linux](https://regolith-linux.org/)
+- drastically reduced installation complexity
+
+## Major Version 3
 
 ### v3.0
 
@@ -8,7 +17,7 @@
 
 - small maintenance update
 
-#### v3.2.0 RC1 PRODUCTION
+#### v3.2.0
 
 - added proper GitHub issue templates
 - removed pull request templates
@@ -23,21 +32,21 @@
 - integrated bat(cat)
 - adjusted `.bashrc` & `.bash_aliases`
 
-#### v3.1.1 RC1 BETA1
+#### v3.1.1
 
 - small cleanup
 - streamlining of configuration files
 - added first unit test
 - refined integrity check for `init.sh`
 
-#### v3.1.0 RC1 BETA1
+#### v3.1.0
 
 - removed provider as _Traefik_ now handles redirection
 - minor adjustments in _Alacritty_'s configuration
 - updating _VS Code_ settings and extensions
 - added checksum integration and validation
 
-#### v3.0.0 RC1 ALPHA1
+#### v3.0.0
 
 - new initialization with **major** refactoring
 - new provider
@@ -48,7 +57,7 @@
 
 ### v2.3
 
-### v2.3.1 RC1 PRODUCTION
+### v2.3.1
 
 - markdown refinements
 - updated `.bashrc` to `v0.7.0` and `.bash_aliases` to `v1.3.0`
@@ -56,7 +65,7 @@
 - added shellcheck test
 - streamlined shell scripts
 
-### v2.3.0 RC1 PRODUCTION
+### v2.3.0
 
 - corrected [`README.md`](./README.md)
 - corrected [`exa.sh`](./library/scripts/exa.sh)

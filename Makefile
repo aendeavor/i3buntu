@@ -12,8 +12,8 @@ export CDIR = $(shell pwd)
 
 # -->                   -->                   --> INSTALLATION
 
-install: ./i3buntu
-	-@ ./i3buntu
+install: ./scripts/setup.sh
+	-@ ./scripts/setup.sh
 
 # -->                   -->                   --> LINTING
 
@@ -25,7 +25,7 @@ shellcheck:
 eclint:
 	@ ./scripts/lints/eclint.sh
 
-install-linters:
+linters:
 	@ mkdir -p tools
 	@ curl -ksSL \
 		"https://github.com/koalaman/shellcheck/releases/download/v$(SHELLCHECK_VERSION)/shellcheck-v$(SHELLCHECK_VERSION).linux.x86_64.tar.xz" | tar -Jx shellcheck-v$(SHELLCHECK_VERSION)/shellcheck -O > tools/shellcheck

@@ -1,0 +1,456 @@
+# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+# ? << Regolith :: i3 user configuration file
+# ––
+# ? >> Meta key Mappings
+# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+# Alt == Mod1
+set_from_resource $mod i3-wm.mod Mod4
+
+# Super == Mod4
+set_from_resource $alt i3-wm.alt Mod1
+
+# muse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+# ? << Meta key Mappings
+# ––
+# ? >> Workspaces
+# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+# Workspace Names
+
+set_from_resource $ws1  i3-wm.workspace.01.name "1"
+set_from_resource $ws2  i3-wm.workspace.02.name "2"
+set_from_resource $ws3  i3-wm.workspace.03.name "3"
+set_from_resource $ws4  i3-wm.workspace.04.name "4"
+set_from_resource $ws5  i3-wm.workspace.05.name "5"
+set_from_resource $ws6  i3-wm.workspace.06.name "6"
+set_from_resource $ws7  i3-wm.workspace.07.name "7"
+set_from_resource $ws8  i3-wm.workspace.08.name "8"
+set_from_resource $ws9  i3-wm.workspace.09.name "9"
+set_from_resource $ws10 i3-wm.workspace.10.name "10"
+set_from_resource $ws11 i3-wm.workspace.11.name "11"
+set_from_resource $ws12 i3-wm.workspace.12.name "12"
+set_from_resource $ws13 i3-wm.workspace.13.name "13"
+set_from_resource $ws14 i3-wm.workspace.14.name "14"
+set_from_resource $ws15 i3-wm.workspace.15.name "15"
+set_from_resource $ws16 i3-wm.workspace.16.name "16"
+set_from_resource $ws17 i3-wm.workspace.17.name "17"
+set_from_resource $ws18 i3-wm.workspace.18.name "18"
+set_from_resource $ws19 i3-wm.workspace.19.name "19"
+
+# Workspace Keys
+
+set_from_resource $ws1_key  i3-wm.workspace.01.key 1
+set_from_resource $ws2_key  i3-wm.workspace.02.key 2
+set_from_resource $ws3_key  i3-wm.workspace.03.key 3
+set_from_resource $ws4_key  i3-wm.workspace.04.key 4
+set_from_resource $ws5_key  i3-wm.workspace.05.key 5
+set_from_resource $ws6_key  i3-wm.workspace.06.key 6
+set_from_resource $ws7_key  i3-wm.workspace.07.key 7
+set_from_resource $ws8_key  i3-wm.workspace.08.key 8
+set_from_resource $ws9_key  i3-wm.workspace.09.key 9
+set_from_resource $ws10_key i3-wm.workspace.10.key 0
+
+# Workspace Program Bindings
+# These define where certain programs will be opened
+
+assign [class="Code"]              $ws2
+assign [class="Firefox"]           $ws3
+assign [class="GitKraken"]         $ws6
+assign [class="jetbrains-idea"]    $ws9
+assign [class="jetbrains-pycharm"] $ws9
+assign [class="jetbrains-clion"]   $ws9
+assign [class="java-lang-Thread"]  $ws9
+
+# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+# ? << Workspaces
+# ––
+# ? >> Launcher dialogues
+# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+# Terminal
+set_from_resource $i3-wm.binding.terminal i3-wm.binding.terminal Return
+bindsym $mod+$i3-wm.binding.terminal exec /usr/bin/x-terminal-emulator
+
+# Browser
+set_from_resource $i3-wm.binding.browser i3-wm.binding.browser Shift+Return
+bindsym $mod+$i3-wm.binding.browser exec gtk-launch $(xdg-settings get default-web-browser)
+
+# Application launcher
+set_from_resource $i3-wm.binding.launcher.app i3-wm.binding.launcher.app space
+set_from_resource $i3-wm.program.launcher.app i3-wm.program.launcher.app rofi -show drun -theme $rofiTheme
+bindsym $mod+$i3-wm.binding.launcher.app exec $i3-wm.program.launcher.app
+
+# Navigate window by name
+set_from_resource $i3-wm.binding.launcher.window i3-wm.binding.launcher.window Ctrl+space
+set_from_resource $i3-wm.program.launcher.window i3-wm.program.launcher.window rofi -show window -theme $rofiTheme
+bindsym $mod+$i3-wm.binding.launcher.window exec $i3-wm.program.launcher.window
+
+# File search
+set_from_resource $i3-wm.binding.file_search i3-wm.binding.file_search Mod1+space
+set_from_resource $i3-wm.program.file_search i3-wm.program.file_search rofi -show find -modi find:/usr/share/rofi/modi/finder.sh
+bindsym $mod+$i3-wm.binding.file_search exec $i3-wm.program.file_search
+
+# Look Selector
+set_from_resource $i3-wm.binding.look_selector i3-wm.binding.look_selector Mod1+l
+set_from_resource $i3-wm.program.look_selector i3-wm.program.look_selector rofi -show look -modi look:/usr/share/rofi/modi/look-selector.sh
+bindsym $mod+$i3-wm.binding.look_selector exec $i3-wm.program.look_selector
+
+# VS Code
+set_from_resource $i3-wm.binding.code i3-wm.binding.code c
+bindsym $mod+$i3-wm.binding.code exec code
+
+# GitKraken
+set_from_resource $i3-wm.binding.gitkraken i3-wm.binding.gitkraken g
+bindsym $mod+$i3-wm.binding.gitkraken exec gitkraken
+
+
+## File browser
+set_from_resource $i3-wm.binding.files i3-wm.binding.files Shift+n
+set_from_resource $i3-wm.program.files i3-wm.program.files /usr/bin/nautilus --new-window
+bindsym $mod+$i3-wm.binding.files exec $i3-wm.program.files
+
+## Notification viewer
+set_from_resource $i3-wm.binding.notification_ui i3-wm.binding.notification_ui n
+set_from_resource $i3-wm.program.notification_ui i3-wm.program.notification_ui /usr/bin/rofication-gui
+bindsym $mod+$i3-wm.binding.notification_ui exec $i3-wm.program.notification_ui
+
+# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+# ? << Launcher dialogues
+# ––
+# ? >> Window and workspace navigation
+# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+bindsym $mod+$ws1_key workspace number $ws1
+bindsym $mod+$ws2_key workspace number $ws2
+bindsym $mod+$ws3_key workspace number $ws3
+bindsym $mod+$ws4_key workspace number $ws4
+bindsym $mod+$ws5_key workspace number $ws5
+bindsym $mod+$ws6_key workspace number $ws6
+bindsym $mod+$ws7_key workspace number $ws7
+bindsym $mod+$ws8_key workspace number $ws8
+bindsym $mod+$ws9_key workspace number $ws9
+bindsym $mod+$ws10_key workspace number $ws10
+
+bindsym $mod+Ctrl+$ws1_key workspace number $ws11
+bindsym $mod+Ctrl+$ws2_key workspace number $ws12
+bindsym $mod+Ctrl+$ws3_key workspace number $ws13
+bindsym $mod+Ctrl+$ws4_key workspace number $ws14
+bindsym $mod+Ctrl+$ws5_key workspace number $ws15
+bindsym $mod+Ctrl+$ws6_key workspace number $ws16
+bindsym $mod+Ctrl+$ws7_key workspace number $ws17
+bindsym $mod+Ctrl+$ws8_key workspace number $ws18
+bindsym $mod+Ctrl+$ws9_key workspace number $ws19
+
+# Next workspace
+set_from_resource $i3-wm.binding.ws_next i3-wm.binding.ws_next Tab
+bindsym $mod+$i3-wm.binding.ws_next workspace next
+
+set_from_resource $i3-wm.binding.ws_next2 i3-wm.binding.ws_next2 Mod1+Right
+bindsym $mod+$i3-wm.binding.ws_next2 workspace next
+
+# Previous workspace
+set_from_resource $i3-wm.binding.ws_prev i3-wm.binding.ws_prev Shift+Tab
+bindsym $mod+$i3-wm.binding.ws_prev workspace prev
+
+set_from_resource $i3-wm.binding.ws_prev2 i3-wm.binding.ws_prev2 Mod1+Left
+bindsym $mod+$i3-wm.binding.ws_prev2 workspace prev
+
+# Next free workspace
+set_from_resource $i3-wm.binding.next_free i3-wm.binding.next_free grave
+bindsym $mod+$i3-wm.binding.next_free exec --no-startup-id /usr/bin/i3-next-workspace
+
+# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+# ? >> Window and workspace navigation
+# ––
+# ? >> Window and workspace configuration
+# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Window floating toggle
+set_from_resource $i3-wm.binding.float_toggle i3-wm.binding.float_toggle Shift+f
+bindsym $mod+Shift+$i3-wm.binding.float_toggle floating toggle
+
+# Tile/Float focus toggle
+set_from_resource $i3-wm.binding.focus_toggle i3-wm.binding.focus_toggle Shift+t
+bindsym $mod+$i3-wm.binding.focus_toggle focus mode_toggle
+
+# Window layout mode
+set_from_resource $i3-wm.binding.layout_mode i3-wm.binding.layout_mode t
+bindsym $mod+$i3-wm.binding.layout_mode layout toggle tabbed splith splitv
+
+# Move window to workspace 1 - 10
+bindsym $mod+Shift+$ws1_key move container to workspace number $ws1
+bindsym $mod+Shift+$ws2_key move container to workspace number $ws2
+bindsym $mod+Shift+$ws3_key move container to workspace number $ws3
+bindsym $mod+Shift+$ws4_key move container to workspace number $ws4
+bindsym $mod+Shift+$ws5_key move container to workspace number $ws5
+bindsym $mod+Shift+$ws6_key move container to workspace number $ws6
+bindsym $mod+Shift+$ws7_key move container to workspace number $ws7
+bindsym $mod+Shift+$ws8_key move container to workspace number $ws8
+bindsym $mod+Shift+$ws9_key move container to workspace number $ws9
+bindsym $mod+Shift+$ws10_key move container to workspace number $ws10
+
+# Move window to workspace 11 - 20
+bindsym $mod+Shift+Ctrl+$ws1_key move container to workspace number $ws11
+bindsym $mod+Shift+Ctrl+$ws2_key move container to workspace number $ws12
+bindsym $mod+Shift+Ctrl+$ws3_key move container to workspace number $ws13
+bindsym $mod+Shift+Ctrl+$ws4_key move container to workspace number $ws14
+bindsym $mod+Shift+Ctrl+$ws5_key move container to workspace number $ws15
+bindsym $mod+Shift+Ctrl+$ws6_key move container to workspace number $ws16
+bindsym $mod+Shift+Ctrl+$ws7_key move container to workspace number $ws17
+bindsym $mod+Shift+Ctrl+$ws8_key move container to workspace number $ws18
+bindsym $mod+Shift+Ctrl+$ws9_key move container to workspace number $ws19
+
+# Move window to next free workspace
+set_from_resource $i3-wm.binding.move_next_free i3-wm.binding.move_next_free Shift+grave
+bindsym $mod+$i3-wm.binding.move_next_free exec --no-startup-id /usr/bin/i3-next-workspace --move-window
+
+# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+# ? << Window and workspace configuration
+# ––
+# ? >> Session management
+# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+# Exit app
+set_from_resource $i3-wm.binding.exit_app i3-wm.binding.exit_app Shift+q
+bindsym $mod+$i3-wm.binding.exit_app [con_id="__focused__"] kill
+
+# Refresh session
+set_from_resource $i3-wm.binding.refresh i3-wm.binding.refresh Shift+r
+set_from_resource $i3-wm.program.refresh_ui i3-wm.program.refresh_ui /usr/bin/regolith-look refresh
+bindsym $mod+$i3-wm.binding.refresh exec --no-startup-id $i3-wm.program.refresh_ui
+
+# Restart i3
+set_from_resource $i3-wm.binding.restart i3-wm.binding.restart Ctrl+r
+bindsym $mod+$i3-wm.binding.restart restart
+
+# Logout
+set_from_resource $i3-wm.binding.logout i3-wm.binding.logout Shift+e
+set_from_resource $i3-wm.program.logout i3-wm.program.logout /usr/bin/gnome-session-quit --logout
+bindsym $mod+$i3-wm.binding.logout exec $i3-wm.program.logout
+
+# Lock screen
+set_from_resource $i3-wm.binding.lock i3-wm.binding.lock Escape
+set_from_resource $i3-wm.program.lock i3-wm.program.lock dbus-send --type=method_call --dest=org.gnome.ScreenSaver /org/gnome/ScreenSaver org.gnome.ScreenSaver.Lock
+bindsym $mod+$i3-wm.binding.lock exec $i3-wm.program.lock
+
+# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+# ? << Session management
+# ––
+# ? >> Window Resize and Gaps
+# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+set_from_resource $i3-wm.binding.inc_gaps i3-wm.binding.inc_gaps plus
+set_from_resource $i3-wm.binding.dec_gaps i3-wm.binding.dec_gaps minus
+
+set_from_resource $i3-wm.binding.inc_gaps_big i3-wm.binding.inc_gaps_big Shift+plus
+set_from_resource $i3-wm.binding.dec_gaps_big i3-wm.binding.dec_gaps_big Shift+minus
+
+# Enter resize mode
+mode "Resize Mode" {
+  # These bindings trigger as soon as you enter the resize mode
+
+  # ↑ ↓ ← →
+  bindsym Left resize shrink width 6 px or 6 ppt
+  bindsym Down resize grow height 6 px or 6 ppt
+  bindsym Up resize shrink height 6 px or 6 ppt
+  bindsym Right resize grow width 6 px or 6 ppt
+
+  bindsym Shift+Left resize shrink width 12 px or 12 ppt
+  bindsym Shift+Down resize grow height 12 px or 12 ppt
+  bindsym Shift+Up resize shrink height 12 px or 12 ppt
+  bindsym Shift+Right resize grow width 12 px or 12 ppt
+
+  # Window gaps // + -
+  bindsym $i3-wm.binding.dec_gaps gaps inner current minus 6
+  bindsym $i3-wm.binding.inc_gaps gaps inner current plus 6
+  bindsym $i3-wm.binding.dec_gaps_big gaps inner current minus 12
+  bindsym $i3-wm.binding.inc_gaps_big gaps inner current plus 12
+
+  # Exit resize mode
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "Resize Mode"
+
+# The "smart" setting hides borders on workspaces with only one window visible.
+set_from_resource $i3-wm.hide.edge.borders i3-wm.hide.edge.borders smart
+hide_edge_borders $i3-wm.hide.edge.borders
+
+# Disable titlebar
+set_from_resource $i3-wm.window.border.size i3-wm.window.border.size 1
+default_border pixel $i3-wm.window.border.size
+
+set_from_resource $i3-wm.floatingwindow.border.size i3-wm.floatingwindow.border.size 1
+default_floating_border pixel $i3-wm.floatingwindow.border.size
+
+# Specify the distance between windows in pixels. (i3-gaps)
+set_from_resource $i3-wm.gaps.inner.size i3-wm.gaps.inner.size 5
+gaps inner $i3-wm.gaps.inner.size
+
+set_from_resource $i3-wm.gaps.outer.size i3-wm.gaps.outer.size 0
+gaps outer $i3-wm.gaps.outer.size
+
+# Only enable gaps on a workspace when there is at least one container
+set_from_resource $i3-wm.gaps.smart i3-wm.gaps.smart on
+smart_gaps $i3-wm.gaps.smart
+
+smart_borders on
+
+# Enable popup during fullscreen
+set_from_resource $i3-wm.gaps.popup_during_fullscreen i3-wm.gaps.popup_during_fullscreen smart
+popup_during_fullscreen $i3-wm.gaps.popup_during_fullscreen
+
+# window focus follows your mouse movements as the mouse crosses window borders
+set_from_resource $i3-wm.gaps.focus_follows_mouse i3-wm.gaps.focus_follows_mouse no
+focus_follows_mouse $i3-wm.gaps.focus_follows_mouse
+
+# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+# ? << Gaps
+# ––
+# ? >> Colors and fonts
+# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+set_from_resource $rofiTheme rofi.theme /etc/regolith/styles/lascaille/rofi.rasi
+
+# Create variables from Xresource's for i3's look.
+set_from_resource $focused.color.border i3-wm.client.focused.color.border "#002b36"
+set_from_resource $focused.color.background i3-wm.client.focused.color.background "#586e75"
+set_from_resource $focused.color.text i3-wm.client.focused.color.text "#fdf6e3"
+set_from_resource $focused.color.indicator i3-wm.client.focused.color.indicator "#268bd2"
+set_from_resource $focused.color.child_border i3-wm.client.focused.color.child_border
+
+set_from_resource $focused_inactive.color.border i3-wm.client.focused_inactive.color.border "#002b36"
+set_from_resource $focused_inactive.color.background i3-wm.client.focused_inactive.color.background "#073642"
+set_from_resource $focused_inactive.color.text i3-wm.client.focused_inactive.color.text "#839496"
+set_from_resource $focused_inactive.color.indicator i3-wm.client.focused_inactive.color.indicator "#073642"
+set_from_resource $focused_inactive.color.child_border i3-wm.client.focused_inactive.color.child_border
+
+set_from_resource $unfocused.color.border i3-wm.client.unfocused.color.border "#002b36"
+set_from_resource $unfocused.color.background i3-wm.client.unfocused.color.background "#073642"
+set_from_resource $unfocused.color.text i3-wm.client.unfocused.color.text "#839496"
+set_from_resource $unfocused.color.indicator i3-wm.client.unfocused.color.indicator "#073642"
+set_from_resource $unfocused.color.child_border i3-wm.client.unfocused.color.child_border
+
+set_from_resource $urgent.color.border i3-wm.client.urgent.color.border "#002b36"
+set_from_resource $urgent.color.background i3-wm.client.urgent.color.background "#dc322f"
+set_from_resource $urgent.color.text i3-wm.client.urgent.color.text "#fdf6e3"
+set_from_resource $urgent.color.indicator i3-wm.client.urgent.color.indicator "#002b36"
+set_from_resource $urgent.color.child_border i3-wm.client.urgent.color.child_border
+
+# Window border color
+# class                 border                             background                         text                               indicator                          child_border
+client.focused          $focused.color.border              $focused.color.background          $focused.color.text                $focused.color.indicator           $focused.color.child_border
+client.focused_inactive $focused_inactive.color.border     $focused_inactive.color.background $focused_inactive.color.text       $focused_inactive.color.indicator  $focused_inactive.color.child_border
+client.unfocused        $unfocused.color.border            $unfocused.color.background        $unfocused.color.text              $unfocused.color.indicator         $unfocused.color.child_border
+client.urgent           $urgent.color.border               $urgent.color.background           $urgent.color.text                 $urgent.color.indicator            $urgent.color.child_border
+
+# Create variables from Xresources for i3bars's look.
+set_from_resource $i3-wm.bar.background.color i3-wm.bar.background.color "#002b36"
+set_from_resource $i3-wm.bar.statusline.color i3-wm.bar.statusline.color "#93a1a1"
+set_from_resource $i3-wm.bar.separator.color i3-wm.bar.separator.color "#268bd2"
+
+set_from_resource $i3-wm.bar.workspace.focused.border.color i3-wm.bar.workspace.focused.border.color "#073642"
+set_from_resource $i3-wm.bar.workspace.focused.background.color i3-wm.bar.workspace.focused.background.color "#073642"
+set_from_resource $i3-wm.bar.workspace.focused.text.color i3-wm.bar.workspace.focused.text.color "#eee8d5"
+
+set_from_resource $i3-wm.bar.workspace.active.border.color i3-wm.bar.workspace.active.border.color "#073642"
+set_from_resource $i3-wm.bar.workspace.active.background.color i3-wm.bar.workspace.active.background.color "#073642"
+set_from_resource $i3-wm.bar.workspace.active.text.color i3-wm.bar.workspace.active.text.color "#586e75"
+
+set_from_resource $i3-wm.bar.workspace.inactive.border.color i3-wm.bar.workspace.inactive.border.color "#002b36"
+set_from_resource $i3-wm.bar.workspace.inactive.background.color i3-wm.bar.workspace.inactive.background.color "#002b36"
+set_from_resource $i3-wm.bar.workspace.inactive.text.color i3-wm.bar.workspace.inactive.text.color "#586e75"
+
+set_from_resource $i3-wm.bar.workspace.urgent.border.color i3-wm.bar.workspace.urgent.border.color "#dc322f"
+set_from_resource $i3-wm.bar.workspace.urgent.background.color i3-wm.bar.workspace.urgent.background.color "#dc322f"
+set_from_resource $i3-wm.bar.workspace.urgent.text.color i3-wm.bar.workspace.urgent.text.color "#fdf6e3"
+
+# Sets i3 font for dialogs
+set_from_resource $i3-wm.font i3-wm.font pango:Source Code Pro Medium 13
+font $i3-wm.font
+
+# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+# ? << Colors and fonts
+# ––
+# ? >> Bar
+# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+set_from_resource $i3-wm.bar.position i3-wm.bar.position bottom
+set_from_resource $i3-wm.bar.font i3-wm.bar.font pango:Source Code Pro Medium 13, Material Design Icons 13
+set_from_resource $i3-wm.bar.separator i3-wm.bar.separator " "
+set_from_resource $i3-wm.bar.trayoutput i3-wm.bar.trayoutput primary
+set_from_resource $i3-wm.bar.stripworkspacenumbers i3-wm.bar.stripworkspacenumbers yes
+set_from_resource $i3-wm.bar.mode i3-wm.bar.mode dock
+
+set_from_resource $i3-wm.bar.status_command i3-wm.bar.status_command i3xrocks -u ~/.config/regolith/i3xrocks/conf.d -d /etc/regolith/i3xrocks/conf.d
+
+bar {
+  position $i3-wm.bar.position
+  mode $i3-wm.bar.mode
+  font $i3-wm.bar.font
+  separator_symbol $i3-wm.bar.separator
+  status_command $i3-wm.bar.status_command
+  tray_output $i3-wm.bar.trayoutput
+  strip_workspace_numbers $i3-wm.bar.stripworkspacenumbers
+
+  colors {
+    background $i3-wm.bar.background.color
+    statusline $i3-wm.bar.statusline.color
+    separator  $i3-wm.bar.separator.color
+
+#                        BORDER  BACKGROUND TEXT
+    focused_workspace  $i3-wm.bar.workspace.focused.border.color      $i3-wm.bar.workspace.focused.background.color   $i3-wm.bar.workspace.focused.text.color
+    active_workspace   $i3-wm.bar.workspace.active.border.color       $i3-wm.bar.workspace.active.background.color    $i3-wm.bar.workspace.active.text.color
+    inactive_workspace $i3-wm.bar.workspace.inactive.border.color     $i3-wm.bar.workspace.inactive.background.color  $i3-wm.bar.workspace.inactive.text.color
+    urgent_workspace   $i3-wm.bar.workspace.urgent.border.color       $i3-wm.bar.workspace.urgent.background.color    $i3-wm.bar.workspace.urgent.text.color
+  }
+}
+
+# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+# ? << Bar
+# ––
+# ? >> Externally launched programs
+# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+# Start the installed regolith-compositor
+set_from_resource $i3-wm.program.compositor i3-wm.program.compositor /usr/share/regolith-compositor/init
+exec_always --no-startup-id $i3-wm.program.compositor
+
+# Start Rofication for notifications
+set_from_resource $i3-wm.program.notifications i3-wm.program.notifications /usr/bin/rofication-daemon
+exec --no-startup-id $i3-wm.program.notifications
+
+# Hide the mouse pointer if unused for a duration
+set_from_resource $i3-wm.program.unclutter i3-wm.program.unclutter /usr/bin/unclutter -b
+exec --no-startup-id $i3-wm.program.unclutter
+
+# Load nm-applet to provide auth dialogs for network access
+set_from_resource $i3-wm.program.nm-applet i3-wm.program.nm-applet /usr/bin/nm-applet
+exec --no-startup-id $i3-wm.program.nm-applet
+
+# User programs from Xresources
+# To use, define an Xresource key i3-wm.program.[1-3] with the value of the program to launch.
+set_from_resource $i3-wm.program.1 i3-wm.program.1 :
+exec --no-startup-id $i3-wm.program.1
+
+set_from_resource $i3-wm.program.2 i3-wm.program.2 :
+exec --no-startup-id $i3-wm.program.2
+
+set_from_resource $i3-wm.program.3 i3-wm.program.3 :
+exec --no-startup-id $i3-wm.program.3
+
