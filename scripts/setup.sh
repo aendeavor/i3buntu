@@ -6,9 +6,9 @@
 
 [[ ! ${EUID} -eq 0 ]] && { echo "Please start this script with sudo." >&2 ; exit 1 ; }
 
-set -eEu -o pipefail
+set -Eu -o pipefail
 
-cd /tmp
+cd /tmp || exit 1
 
 # ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 # ? << Initial script configuration and directory setup
@@ -33,7 +33,9 @@ function add_ppas
     -qO- https://packages.microsoft.com/keys/microsoft.asc | \
     gpg --dearmor > packages.microsoft.gpg
   install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
-  sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+  echo \
+    "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" \
+    >/etc/apt/sources.list.d/vscode.list
 }
 
 function install_packages
@@ -75,41 +77,41 @@ function install_rust
 
   if cargo install exa && [[ -e "${HOME}/.bash_aliases" ]]
   then
-  sed -i \
-    "s|(alias ls=')ls -lh --color=auto'|\1exa -b -h -l -g --git --group-directories-first'|g" \
-    "${HOME}/.bash_aliases"
+    sed -i \
+      "s|(alias ls=')ls -lh --color=auto'|\1exa -b -h -l -g --git --group-directories-first'|g" \
+      "${HOME}/.bash_aliases"
 
-  sed -i \
-    "s|(alias lsa=')ls -lhA --color=auto'|\1ls -a'|g" \
-    "${HOME}/.bash_aliases"
+    sed -i \
+      "s|(alias lsa=')ls -lhA --color=auto'|\1ls -a'|g" \
+      "${HOME}/.bash_aliases"
   fi
 }
 
-function _install_compose
+function install_docker_compose
 {
   local COMPOSE_VERSION="1.28.5"
   sudo curl \
-  -L "https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" \
-  -o /usr/local/bin/docker-compose
+    -L "https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" \
+    -o /usr/local/bin/docker-compose
   sudo chmod +x /usr/local/bin/docker-compose
 
   sudo curl \
-  -L "https://raw.githubusercontent.com/docker/compose/${COMPOSE_VERSION}/contrib/completion/bash/docker-compose" \
-  -o "/etc/bash_completion.d/docker-compose"
+    -L "https://raw.githubusercontent.com/docker/compose/${COMPOSE_VERSION}/contrib/completion/bash/docker-compose" \
+    -o "/etc/bash_completion.d/docker-compose"
 }
 
 function purge_snapd
 {
-  snap remove lxd || :
-  snap remove core18 || :
-  snap remove snapd || :
+  snap remove lxd
+  snap remove core18
+  snap remove snapd
   apt-get -y purge snapd
   rm -rf "${HOME}/snapd"
 }
 
 function place_configuration_files
 {
-  cd "${HOME}"
+  cd "${HOME}" || return 1
   local COMMON='https://raw.githubusercontent.com/aendeavor/i3buntu/master/'
 
   curl -S -L -o .bashrc \
@@ -123,7 +125,7 @@ function place_configuration_files
 
 
   mkdir -p "${HOME}/.config/regolith"
-  cd "${HOME}/.config/regolith"
+  cd "${HOME}/.config/regolith" || return 1
   mkdir -p i3 'i3xrocks/conf.d' picom
 
   curl -S -L -o Xresources \
@@ -165,6 +167,7 @@ function __main
   regolith-look refresh
 
   # install_rust
+  # install_docker_compose
 }
 
 __main
