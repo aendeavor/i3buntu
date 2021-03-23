@@ -13,7 +13,7 @@
 </h3>
 
 <p align="center">
-  <b><i>i3buntu</i></b> provides means to customize an <a href="https://ubuntu.com/"><i>Ubuntu</i></a> installation by deploying needed programs and sensible default settings. With version 4, we build upon <a href="https://regolith-linux.org/">Regolith Linux</a>. Because of this, the setup has been simplified. Everything you need to know about the installation process can be found in <a href="INSTALL.md"><code>INSTALL.md</code></a>.
+  <b><i>i3buntu</i></b> provides means to customize an <a href="https://ubuntu.com/"><i>Ubuntu</i></a> installation by deploying needed programs and sensible default settings. With version 4, we build upon <a href="https://regolith-linux.org/">Regolith Linux</a>. Because of this, the setup has been simplified.
 </p>
 
 ![Desktop Theme](resources/docs/desktop.png)
@@ -24,11 +24,8 @@
 </h3>
 
 ``` BASH
-# obligatory update
-sudo apt-get update && sudo apt-get -y upgrade
-
-# start the installation
-curl --tlsv1.2 -sSfL https://i3buntu.itbsd.com | bash
+wget https://raw.githubusercontent.com/aendeavor/i3buntu/master/scripts/setup.sh
+sudo bash setup.sh
 ```
 
 <h3 align="center" >

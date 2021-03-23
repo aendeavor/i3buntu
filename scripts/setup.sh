@@ -4,20 +4,14 @@
 # executed by    curl | bash
 # task           installs i3buntu
 
+[[ ! ${EUID} -eq 0 ]] && { echo "Please start this script with sudo." >&2 ; exit 1 ; }
+
 set -eEu -o pipefail
 
 cd /tmp
-sudo su
 
 # ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 # ? << Initial script configuration and directory setup
-# ––
-# ? >> Setup of default and global values / variables
-# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-
-
-# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-# ? << Setup of default and global values / variables
 # ––
 # ? >> Declaration and definition of setup functions
 # ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -48,7 +42,7 @@ function install_packages
     alacritty \
     bat build-essential \
     cmake code cryptomator \
-    eog \
+    eog evince \
     firefox fonts-firacode \
     gcc gnupg2 \
     libglib2.0-dev-bin \
@@ -82,25 +76,25 @@ function install_rust
   if cargo install exa && [[ -e "${HOME}/.bash_aliases" ]]
   then
   sed -i \
-    "s|(alias ls=')ls -lh --color=auto'|\1exa -b -h -l -g --git'|g" \
+    "s|(alias ls=')ls -lh --color=auto'|\1exa -b -h -l -g --git --group-directories-first'|g" \
     "${HOME}/.bash_aliases"
 
   sed -i \
-    "s|(alias lsa=')ls -lhA --color=auto'|\1exa -b -h -l -g --git -a'|g" \
+    "s|(alias lsa=')ls -lhA --color=auto'|\1ls -a'|g" \
     "${HOME}/.bash_aliases"
   fi
 }
 
 function _install_compose
 {
-  local _compose_version="1.28.5"
+  local COMPOSE_VERSION="1.28.5"
   sudo curl \
-  -L "https://github.com/docker/compose/releases/download/${_compose_version}/docker-compose-$(uname -s)-$(uname -m)" \
+  -L "https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" \
   -o /usr/local/bin/docker-compose
   sudo chmod +x /usr/local/bin/docker-compose
 
   sudo curl \
-  -L "https://raw.githubusercontent.com/docker/compose/${_compose_version}/contrib/completion/bash/docker-compose" \
+  -L "https://raw.githubusercontent.com/docker/compose/${COMPOSE_VERSION}/contrib/completion/bash/docker-compose" \
   -o "/etc/bash_completion.d/docker-compose"
 }
 
@@ -116,37 +110,39 @@ function purge_snapd
 function place_configuration_files
 {
   cd "${HOME}"
+  local COMMON='https://raw.githubusercontent.com/aendeavor/i3buntu/master/'
 
   curl -S -L -o .bashrc \
-   https://raw.githubusercontent.com/aendeavor/i3buntu/master/scripts/lib/logs.sh
+    "${COMMON}resources/config/home/.bashrc"
   curl -S -L -o .bash_aliases \
-   https://raw.githubusercontent.com/aendeavor/i3buntu/master/scripts/lib/logs.sh
+    "${COMMON}resources/config/home/.bash_aliases"
 
   mkdir -p "${HOME}/.config/alacritty"
   curl -S -L -o .config/alacritty/alacritty.yml \
-   https://raw.githubusercontent.com/aendeavor/i3buntu/master/scripts/lib/logs.sh
+    "${COMMON}resources/config/home/.config/alacritty/alacritty.yml"
+
 
   mkdir -p "${HOME}/.config/regolith"
   cd "${HOME}/.config/regolith"
   mkdir -p i3 'i3xrocks/conf.d' picom
 
   curl -S -L -o Xresources \
-   https://raw.githubusercontent.com/aendeavor/i3buntu/master/scripts/lib/logs.sh
+    "${COMMON}resources/config/home/.config/regolith/Xresources"
 
   curl -S -L -o i3/config \
-   https://raw.githubusercontent.com/aendeavor/i3buntu/master/scripts/lib/logs.sh
+    "${COMMON}resources/config/home/.config/regolith/i3/config"
   
   curl -S -L -o picom/config \
-   https://raw.githubusercontent.com/aendeavor/i3buntu/master/scripts/lib/logs.sh
+    "${COMMON}resources/config/home/.config/regolith/picom/config"
 
   curl -S -L -o i3xrocks/conf.d/01_setup \
-   https://raw.githubusercontent.com/aendeavor/i3buntu/master/scripts/lib/logs.sh
+    "${COMMON}resources/config/home/.config/regolith/i3xrocks/conf.d/01_setup"
   curl -S -L -o Xi3xrocks/conf.d/70_battery \
-   https://raw.githubusercontent.com/aendeavor/i3buntu/master/scripts/lib/logs.sh
+    "${COMMON}resources/config/home/.config/regolith/i3xrocks/conf.d/70_battery"
   curl -S -L -o Xi3xrocks/conf.d/80_rofication \
-   https://raw.githubusercontent.com/aendeavor/i3buntu/master/scripts/lib/logs.sh
+    "${COMMON}resources/config/home/.config/regolith/i3xrocks/conf.d/80_rofication"
   curl -S -L -o Xi3xrocks/conf.d/90_time \
-   https://raw.githubusercontent.com/aendeavor/i3buntu/master/scripts/lib/logs.sh
+    "${COMMON}resources/config/home/.config/regolith/i3xrocks/conf.d/90_time"
 }
 
 # ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -155,14 +151,20 @@ function place_configuration_files
 # ? >> Execution of setup functions
 # ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
-purge_snapd
-add_ppas
-apt-get update
-apt-get -y dist-upgrade
-install_packages
-place_configuration_files
-regolith-look set gruvbox
-regolith-look refresh
+function __main
+{
+  purge_snapd
 
-install_rust
+  add_ppas
+  apt-get update && apt-get -y dist-upgrade
+  install_packages
 
+  place_configuration_files
+
+  regolith-look set gruvbox
+  regolith-look refresh
+
+  # install_rust
+}
+
+__main

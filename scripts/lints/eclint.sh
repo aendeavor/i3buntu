@@ -29,7 +29,7 @@ then
   exit 1
 fi
 
-__log_info "version: $(${LINT[0]} --version)"
+__log_info "version $(${LINT[0]} --version)"
 
 if "${LINT[@]}"
 then
