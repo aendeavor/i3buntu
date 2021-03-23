@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
-        run: make install-linters
+        run: make linters
       - name: Start ShellCheck
         run: make shellcheck
       - name: Start EClint
