@@ -74,6 +74,7 @@ shadow-opacity = 0.8;
 shadow-exclude = [
     "! name~=''",
     "name = 'Notification'",
+    "name = 'i3xrocks'",
     "name = 'Plank'",
     "name = 'Docky'",
     "name = 'Kupfer'",
@@ -108,7 +109,7 @@ frame-opacity = 1;
 inactive-opacity-override = false;
 
 # Dim inactive windows. (0.0 - 1.0)
-inactive-dim = 0.03;
+inactive-dim = 0.06;
 # Do not let dimness adjust based on window opacity.
 inactive-dim-fixed = true;
 # Blur background of transparent windows. Bad performance with X Render backend. GLX backend is preferred.
@@ -215,7 +216,7 @@ wintypes:
         # focus: Whether to always consider windows of this type focused.
         focus = true;
     };
-    dock = { shadow = true; }
+    dock = { shadow = false; }
     dnd = { shadow = false; }
     popup_menu = { 
         opacity = 1.0; 

@@ -59,6 +59,7 @@ set_from_resource $ws10_key i3-wm.workspace.10.key 0
 
 assign [class="Code"]              $ws2
 assign [class="Firefox"]           $ws3
+assign [class="Thunderbird"]       $ws4
 assign [class="GitKraken"]         $ws6
 assign [class="jetbrains-idea"]    $ws9
 assign [class="jetbrains-pycharm"] $ws9

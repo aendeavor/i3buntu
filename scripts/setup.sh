@@ -54,7 +54,7 @@ function install_packages
     p7zip-full python3-dev \
     regolith-desktop-standard regolith-look-gruvbox \
     thunderbird thunderbird-gnome-support \
-    xz-utils
+    xz-utils # texlive-full
 }
 
 function install_rust
