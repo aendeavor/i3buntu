@@ -43,7 +43,7 @@ function install_packages
   apt-get -y install \
     alacritty \
     bat build-essential \
-    cmake code cryptomator \
+    cmake code cryptomator cups \
     eog evince \
     firefox fonts-firacode \
     gcc gnupg2 \
@@ -77,12 +77,8 @@ function install_rust
 
   if cargo install exa && [[ -e "${HOME}/.bash_aliases" ]]
   then
-    sed -i \
+    sed -i -E \
       "s|(alias ls=')ls -lh --color=auto'|\1exa -b -h -l -g --git --group-directories-first'|g" \
-      "${HOME}/.bash_aliases"
-
-    sed -i \
-      "s|(alias lsa=')ls -lhA --color=auto'|\1ls -a'|g" \
       "${HOME}/.bash_aliases"
   fi
 }
@@ -102,9 +98,12 @@ function install_docker_compose
 
 function purge_snapd
 {
+  command -v snap &>/dev/null || return 
+
   snap remove lxd
   snap remove core18
   snap remove snapd
+  
   apt-get -y purge snapd
   rm -rf "${HOME}/snapd"
 }
@@ -112,7 +111,7 @@ function purge_snapd
 function place_configuration_files
 {
   cd "${HOME}" || return 1
-  local COMMON='https://raw.githubusercontent.com/aendeavor/i3buntu/master/'
+  local COMMON='https://raw.githubusercontent.com/aendeavor/i3buntu/development/'
 
   curl -S -L -o .bashrc \
     "${COMMON}resources/config/home/.bashrc"
@@ -139,11 +138,11 @@ function place_configuration_files
 
   curl -S -L -o i3xrocks/conf.d/01_setup \
     "${COMMON}resources/config/home/.config/regolith/i3xrocks/conf.d/01_setup"
-  curl -S -L -o Xi3xrocks/conf.d/70_battery \
+  curl -S -L -o i3xrocks/conf.d/70_battery \
     "${COMMON}resources/config/home/.config/regolith/i3xrocks/conf.d/70_battery"
-  curl -S -L -o Xi3xrocks/conf.d/80_rofication \
+  curl -S -L -o i3xrocks/conf.d/80_rofication \
     "${COMMON}resources/config/home/.config/regolith/i3xrocks/conf.d/80_rofication"
-  curl -S -L -o Xi3xrocks/conf.d/90_time \
+  curl -S -L -o i3xrocks/conf.d/90_time \
     "${COMMON}resources/config/home/.config/regolith/i3xrocks/conf.d/90_time"
 }
 

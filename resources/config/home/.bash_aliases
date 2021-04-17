@@ -19,7 +19,7 @@
 alias bat='cat'
 alias f='fuck'
 alias ls='ls -lh --color=auto'
-alias lsa='ls -lhA --color=auto'
+alias lsa='ls -a'
 alias less='less -R'
 alias grep='grep --color=auto'
 alias datetime='date && cal'

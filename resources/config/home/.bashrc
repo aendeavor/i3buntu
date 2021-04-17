@@ -125,11 +125,10 @@ function nf
 
 function __main
 {
-  # nf
-
   # if not running interactively, don't do anything
-  [[ ! ${-} == *i* ]] && return
+  [[ ${-} != *i* ]] && return
 
+  # nf
   __completion
   __prompt
   __miscellaneous

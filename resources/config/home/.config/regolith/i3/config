@@ -21,25 +21,25 @@ floating_modifier $mod
 
 # Workspace Names
 
-set_from_resource $ws1  i3-wm.workspace.01.name "1"
-set_from_resource $ws2  i3-wm.workspace.02.name "2"
-set_from_resource $ws3  i3-wm.workspace.03.name "3"
-set_from_resource $ws4  i3-wm.workspace.04.name "4"
-set_from_resource $ws5  i3-wm.workspace.05.name "5"
-set_from_resource $ws6  i3-wm.workspace.06.name "6"
-set_from_resource $ws7  i3-wm.workspace.07.name "7"
-set_from_resource $ws8  i3-wm.workspace.08.name "8"
-set_from_resource $ws9  i3-wm.workspace.09.name "9"
-set_from_resource $ws10 i3-wm.workspace.10.name "10"
-set_from_resource $ws11 i3-wm.workspace.11.name "11"
-set_from_resource $ws12 i3-wm.workspace.12.name "12"
-set_from_resource $ws13 i3-wm.workspace.13.name "13"
-set_from_resource $ws14 i3-wm.workspace.14.name "14"
-set_from_resource $ws15 i3-wm.workspace.15.name "15"
-set_from_resource $ws16 i3-wm.workspace.16.name "16"
-set_from_resource $ws17 i3-wm.workspace.17.name "17"
-set_from_resource $ws18 i3-wm.workspace.18.name "18"
-set_from_resource $ws19 i3-wm.workspace.19.name "19"
+set_from_resource $ws1  i3-wm.workspace.01.name 1
+set_from_resource $ws2  i3-wm.workspace.02.name 2
+set_from_resource $ws3  i3-wm.workspace.03.name 3
+set_from_resource $ws4  i3-wm.workspace.04.name 4
+set_from_resource $ws5  i3-wm.workspace.05.name 5
+set_from_resource $ws6  i3-wm.workspace.06.name 6
+set_from_resource $ws7  i3-wm.workspace.07.name 7
+set_from_resource $ws8  i3-wm.workspace.08.name 8
+set_from_resource $ws9  i3-wm.workspace.09.name 9
+set_from_resource $ws10 i3-wm.workspace.10.name 10
+set_from_resource $ws11 i3-wm.workspace.11.name 11
+set_from_resource $ws12 i3-wm.workspace.12.name 12
+set_from_resource $ws13 i3-wm.workspace.13.name 13
+set_from_resource $ws14 i3-wm.workspace.14.name 14
+set_from_resource $ws15 i3-wm.workspace.15.name 15
+set_from_resource $ws16 i3-wm.workspace.16.name 16
+set_from_resource $ws17 i3-wm.workspace.17.name 17
+set_from_resource $ws18 i3-wm.workspace.18.name 18
+set_from_resource $ws19 i3-wm.workspace.19.name 19
 
 # Workspace Keys
 
@@ -107,7 +107,6 @@ bindsym $mod+$i3-wm.binding.code exec code
 # GitKraken
 set_from_resource $i3-wm.binding.gitkraken i3-wm.binding.gitkraken g
 bindsym $mod+$i3-wm.binding.gitkraken exec gitkraken
-
 
 ## File browser
 set_from_resource $i3-wm.binding.files i3-wm.binding.files Shift+n
@@ -293,7 +292,7 @@ set_from_resource $i3-wm.hide.edge.borders i3-wm.hide.edge.borders smart
 hide_edge_borders $i3-wm.hide.edge.borders
 
 # Disable titlebar
-set_from_resource $i3-wm.window.border.size i3-wm.window.border.size 1
+set_from_resource $i3-wm.window.border.size i3-wm.window.border.size 3
 default_border pixel $i3-wm.window.border.size
 
 set_from_resource $i3-wm.floatingwindow.border.size i3-wm.floatingwindow.border.size 1
