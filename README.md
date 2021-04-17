@@ -25,7 +25,11 @@
 
 ``` BASH
 wget https://raw.githubusercontent.com/aendeavor/i3buntu/master/scripts/setup.sh
-sudo bash setup.sh
+sudo -E bash setup.sh
+reboot
+
+regolith-look set gruvbox
+regolith-look refresh
 ```
 
 <h3 align="center" >

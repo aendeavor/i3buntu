@@ -4,7 +4,7 @@
 # executed by    curl | bash
 # task           installs i3buntu
 
-[[ ! ${EUID} -eq 0 ]] && { echo "Please start this script with sudo." >&2 ; exit 1 ; }
+[[ ${EUID} -ne 0 ]] && { echo "Please start this script with sudo." >&2 ; exit 1 ; }
 
 set -Eu -o pipefail
 
@@ -85,7 +85,7 @@ function install_rust
 
 function install_docker_compose
 {
-  local COMPOSE_VERSION="1.28.5"
+  local COMPOSE_VERSION="1.28.6"
   sudo curl \
     -L "https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" \
     -o /usr/local/bin/docker-compose
@@ -111,7 +111,7 @@ function purge_snapd
 function place_configuration_files
 {
   cd "${HOME}" || return 1
-  local COMMON='https://raw.githubusercontent.com/aendeavor/i3buntu/development/'
+  local COMMON='https://raw.githubusercontent.com/aendeavor/i3buntu/master/'
 
   curl -S -L -o .bashrc \
     "${COMMON}resources/config/home/.bashrc"
@@ -121,7 +121,6 @@ function place_configuration_files
   mkdir -p "${HOME}/.config/alacritty"
   curl -S -L -o .config/alacritty/alacritty.yml \
     "${COMMON}resources/config/home/.config/alacritty/alacritty.yml"
-
 
   mkdir -p "${HOME}/.config/regolith"
   cd "${HOME}/.config/regolith" || return 1
@@ -144,6 +143,10 @@ function place_configuration_files
     "${COMMON}resources/config/home/.config/regolith/i3xrocks/conf.d/80_rofication"
   curl -S -L -o i3xrocks/conf.d/90_time \
     "${COMMON}resources/config/home/.config/regolith/i3xrocks/conf.d/90_time"
+  
+  chown "${USER}:${USER}" "${HOME}/.bash_aliases"
+  chown "${USER}:${USER}" "${HOME}/.bashrc"
+  chown -R "${USER}:${USER}" "${HOME}/.config"
 }
 
 # ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -159,14 +162,11 @@ function __main
   add_ppas
   apt-get update && apt-get -y dist-upgrade
   install_packages
-
   place_configuration_files
-
-  regolith-look set gruvbox
-  regolith-look refresh
 
   # install_rust
   # install_docker_compose
 }
 
 __main
+echo -e "\nPlease reboot for changes to take effect."
