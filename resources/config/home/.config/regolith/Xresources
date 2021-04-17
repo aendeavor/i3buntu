@@ -1,0 +1,44 @@
+i3-wm.binding.browser: f
+i3-wm.binding.exit_app: q
+i3-wm.binding.files: n
+i3-wm.binding.float_toggle: Shift+space
+i3-wm.binding.launcher.cmd: Shift+f
+i3-wm.binding.notification_ui: Shift+n
+i3-wm.binding.refresh: Mod1+Shift+r
+i3-wm.binding.reload: Shift+r
+i3-wm.binding.settings: Shift+c
+i3-wm.binding.split_h: Shift+g
+
+i3-wm.gaps.inner.size: 4
+i3-wm.gaps.outer.size: 3
+i3-wm.gaps.focus_follows_mouse: yes
+
+i3-wm.floatingwindow.border.size: 0
+i3-wm.bar.position: top
+
+#define iconfont 'Material Design Icons Regular 13'
+#define textfont 'Source Code Pro Medium 13'
+#define WORKSPACE(INDEX, ICON) INDEX:<span font_desc=textfont> INDEX </span><span font_desc=iconfont>ICON </span>
+
+i3-wm.workspace.01.name: WORKSPACE(1,)
+i3-wm.workspace.02.name: WORKSPACE(2,)
+i3-wm.workspace.03.name: WORKSPACE(3,)
+i3-wm.workspace.04.name: WORKSPACE(4,)
+i3-wm.workspace.05.name: WORKSPACE(5,)
+i3-wm.workspace.06.name: WORKSPACE(6,)
+i3-wm.workspace.07.name: WORKSPACE(7,)
+i3-wm.workspace.08.name: WORKSPACE(8,)
+i3-wm.workspace.09.name: WORKSPACE(9,)
+i3-wm.workspace.10.name: WORKSPACE(10,)
+i3-wm.workspace.11.name: WORKSPACE(11,)
+i3-wm.workspace.12.name: WORKSPACE(12,)
+i3-wm.workspace.13.name: WORKSPACE(13,)
+i3-wm.workspace.14.name: WORKSPACE(14,)
+i3-wm.workspace.15.name: WORKSPACE(15,)
+i3-wm.workspace.16.name: WORKSPACE(16,)
+i3-wm.workspace.17.name: WORKSPACE(17,)
+i3-wm.workspace.18.name: WORKSPACE(18,)
+i3-wm.workspace.19.name: WORKSPACE(19,)
+i3-wm.workspace.20.name: WORKSPACE(20,)
+
+

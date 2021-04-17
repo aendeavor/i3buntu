@@ -26,9 +26,8 @@ then
   exit 1
 fi
 
-__log_info \
-  'type: shellcheck' '(linter version:' \
-  "$(${LINT[0]} --version | grep -m 2 -o "[0-9.]*"))"
+__log_info 'version' \
+  "$(${LINT[0]} --version | grep -m 2 -o "[0-9.]*")"
 
 # an overengineered solution to allow shellcheck -x to
 # properly follow `source=<SOURCE FILE>` when sourcing
