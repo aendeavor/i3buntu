@@ -18,7 +18,7 @@ To get things started, get the [_Ubuntu 20.04 LTS_ Server ISO][iso] and install 
 sudo apt-get update && sudo apt-get -y upgrade
 
 # start the installation
-curl --tlsv1.2 -sSfL https://i3buntu.itbsd.com | bash
+curl --tlsv1.2 -sSfL https://bit.ly/3xkvvd0 | bash
 ```
 
 When executing the application manually, do **not** start it in a root / superuser context. Either use `./i3buntu` or `make install`.
